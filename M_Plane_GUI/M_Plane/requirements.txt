@@ -1,0 +1,13 @@
+fpdf==1.7.2
+fpdf2==2.5.5
+ifcfg==0.22
+lxml==4.8.0
+maskpass==0.3.6
+ncclient==0.6.12
+paramiko==2.11.0
+pytest==7.0.1
+PyVISA==1.11.3
+PyVISA-py==0.5.2
+requests==2.27.1
+tabulate==0.8.10
+xmltodict==0.13.0
