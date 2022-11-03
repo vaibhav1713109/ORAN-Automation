@@ -60,7 +60,7 @@ class M_CTC_id_001():
        
     
 
-########################### Create Random Vlan for VLAN Scanning ############################
+############################# Create Random Vlan for VLAN Scanning ############################
 def create_vlan(name,v_id):
         time.sleep(10)
         obj = ISC_DHCP_SERVER.test_DHCP_CONF()
