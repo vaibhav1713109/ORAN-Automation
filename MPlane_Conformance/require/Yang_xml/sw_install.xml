@@ -1,0 +1,4 @@
+<software-install xmlns="urn:o-ran:software-management:1.0">
+<slot-name>{slot_name}</slot-name>
+<file-names>{File_name}</file-names>
+</software-install>

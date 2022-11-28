@@ -1,0 +1,13 @@
+<software-download xmlns="urn:o-ran:software-management:1.0">
+<remote-file-path>fftp://vvdn@192.168.4.15:22/home/vvdn/Downloads/giru_RevALL_4.0.3.zip</remote-file-path>
+<password>
+<password>vvdntech</password>
+</password>
+<server>
+<keys>
+<algorithm>secp256r1</algorithm>
+<public-key>{public_key}</public-key>
+</keys>
+</server>
+</software-download>
+

@@ -1,0 +1,15 @@
+
+<file-download xmlns="urn:o-ran:file-management:1.0">     
+<local-logical-file-path>/home/root/</local-logical-file-path>
+<remote-file-path>{remote_file_path}</remote-file-path>
+  <password>
+    <password>{pas}</password>
+  </password>
+<server>
+  <keys>
+    <algorithm>rsa2048</algorithm>
+<public-key>{public_key}</public-key>
+  </keys>
+</server>
+</file-download>
+

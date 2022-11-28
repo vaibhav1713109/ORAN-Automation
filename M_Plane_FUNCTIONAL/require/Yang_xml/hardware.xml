@@ -1,0 +1,21 @@
+<hardware xmlns="urn:ietf:params:xml:ns:yang:ietf-hardware">
+ <component>
+   <name>ru-module</name>
+   <class xmlns:o-ran-hw="urn:o-ran:hardware:1.0">o-ran-hw:O-RAN-RADIO</class>
+   <o-ran-name xmlns="urn:o-ran:hardware:1.0">ru-module</o-ran-name>
+ </component>
+ <component>
+   <name>ru-port0</name>
+   <class xmlns:iana="urn:ietf:params:xml:ns:yang:iana-hardware">iana:port</class>
+   <parent>ru-module</parent>
+   <parent-rel-pos>0</parent-rel-pos>
+   <o-ran-name xmlns="urn:o-ran:hardware:1.0">ru-port0</o-ran-name>
+ </component>
+ <component>
+   <name>ru-port1</name>
+   <class xmlns:iana="urn:ietf:params:xml:ns:yang:iana-hardware">iana:port</class>
+   <parent>ru-module</parent>
+   <parent-rel-pos>1</parent-rel-pos>
+   <o-ran-name xmlns="urn:o-ran:hardware:1.0">ru-port1</o-ran-name>
+ </component>
+</hardware>
