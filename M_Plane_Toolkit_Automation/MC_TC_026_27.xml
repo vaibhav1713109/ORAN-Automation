@@ -1,0 +1,32 @@
+<query>
+	<edit-config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+                   action="Create Vlan">
+        <target>
+            <running/>
+        </target>
+        <default-operation>merge</default-operation>
+        <config>
+		{interface}    
+        </config>
+    </edit-config>
+	<edit-config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+                   action="Processing">
+        <target>
+            <running/>
+        </target>
+        <default-operation>merge</default-operation>
+        <config>
+         {processing}
+        </config>
+    </edit-config>
+	<edit-config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" action="U-Plane">
+		<target>
+			<running/>
+		</target>
+		<default-operation>merge</default-operation>
+		<config>
+		{uplane}
+		</config>
+	</edit-config>
+	<close-session/>
+</query>
