@@ -91,6 +91,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.run_18_23.clicked.connect(lambda: self.Loading_1(['/Module/module_7'],self.ui.consoleEdit_7,self.access_control))
         self.ui.run_26_27.clicked.connect(lambda: self.Loading_1(['/Module/module_8'],self.ui.consoleEdit_8,self.ru_configure))
         self.ui.run_all.clicked.connect(self.window.showMaximized)
+        
+
+        ##############################################################################
+        ## Restart DHCP server
+        ##############################################################################
+        self.ui.dhcp_restart.clicked.connect(lambda: self.dhcp_restarted(Flag = False))
+        self.ui.dhcp_restart_base.clicked.connect(lambda: self.dhcp_restarted(Flag = True))
 
         ##############################################################################
         ## if clicked on module new side window will open
@@ -118,6 +125,27 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.menu.clicked.connect(lambda: self.slideLeftMenu())
         self.showMaximized()
+    
+
+    def dhcp_restarted(self, Flag):
+        self.p = QtCore.QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
+        if Flag:
+            self.p.start("python", ['{}/require/{}.py'.format(dir_path,'DHCP_CONF_BASE')])
+            self.p.finished.connect(self.dhcp_process_finished)  # Clean up once complete.
+        else:
+            self.dhcp_process_finished()
+        return True
+
+    def dhcp_process_finished(self):
+        msg = QtWidgets.QMessageBox()
+        msg.resize(600,100)
+        os.system('sudo /etc/init.d/isc-dhcp-server restart')
+        st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
+        msg.setText('{}'.format(st))
+        msg.exec_()
+        msg.setText('Please reboot RU once..')
+        msg.exec_()
+        pass
 
     ########################################################################
     # Slide left menu function

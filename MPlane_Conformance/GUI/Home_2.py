@@ -1379,6 +1379,12 @@ QPlainTextEdit{
         self.report.setIcon(icon5)
         self.report.setObjectName("report")
         self.verticalLayout_3.addWidget(self.report)
+        self.dhcp_restart_base = QtWidgets.QPushButton(self.sideMenu_Frame)
+        self.dhcp_restart_base.setObjectName("dhcp_restart_base")
+        self.verticalLayout_3.addWidget(self.dhcp_restart_base)
+        self.dhcp_restart = QtWidgets.QPushButton(self.sideMenu_Frame)
+        self.dhcp_restart.setObjectName("dhcp_restart")
+        self.verticalLayout_3.addWidget(self.dhcp_restart)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_3.addItem(spacerItem)
         self.help = QtWidgets.QPushButton(self.sideMenu_Frame)
@@ -1528,6 +1534,8 @@ QPlainTextEdit{
         self.outputLabel_10.setText(_translate("MainWindow", "Output"))
         self.configuration.setText(_translate("MainWindow", "Configuration"))
         self.report.setText(_translate("MainWindow", "Report"))
+        self.dhcp_restart_base.setText(_translate("MainWindow", "DHCP Restart Base"))
+        self.dhcp_restart.setText(_translate("MainWindow", "DHCP Resrart"))
         self.help.setText(_translate("MainWindow", "Help"))
 
 
@@ -1540,3 +1548,4 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+
