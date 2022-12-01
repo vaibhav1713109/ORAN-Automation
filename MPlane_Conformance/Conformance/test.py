@@ -1,9 +1,16 @@
+import os, sys, xmltodict
+from lxml import etree
 from ncclient import manager
-from ncclient.xml_ import to_ele
-from  ncclient.transport.errors import TransportError, SSHUnknownHostError, AuthenticationError
+import paramiko
+from datetime import datetime
+from tabulate import tabulate
+from fpdf import FPDF
+from pathlib import Path
+from configparser import ConfigParser
 import time,socket
 import logging
-
+from ncclient.xml_ import to_ele, new_ele
+from binascii import hexlify
 logger = logging.getLogger('ncclient.manager')
 
 def call_home(*args, **kwds):
@@ -22,87 +29,35 @@ def call_home(*args, **kwds):
     srv_socket.close()
     return manager.connect_ssh(*args, **kwds)
 
-user = 'operator'
-ip_address = '192.168.4'
 
-for i in range(1):
+def session_login(host = '0.0.0.0',USER_N = '',PSWRD = ''):
     try:
-        session = call_home(host='', port=4334, hostkey_verify=False, username='operator', password='admin123',timeout=60)
-        print(session.session_id)
-        xml_data='''<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-    <capabilities>
-      <capability>urn:ietf:params:netconf:base:1.1</capability>
-    </capabilities>
-  </hello>
-'''
-        rpc_command = to_ele(xml_data)
-        d = session.rpc(rpc_command)
-        print(d)
-        session.close_session()
-        time.sleep(5)
-
-    except SSHUnknownHostError as e:
-        LISTEN = f'''> listen --ssh --login {user}\nWaiting 60s for an SSH Call Home connection on port 4334...'''
-        print(LISTEN)
-
-        SSH_AUTH = f'''The authenticity of the host '::ffff:{ip_address}' cannot be established.
-        ssh-rsa key fingerprint is 59:9e:90:48:f1:d7:6e:35:e8:d1:f6:1e:90:aa:a3:83:a0:6b:98:5a.
-        Are you sure you want to continue connecting (yes/no)? no
-        nc ERROR: Checking the host key failed.
-        cmd_listen: Receiving SSH Call Home on port 4334 as user "{user}" failed.'''
-        print(SSH_AUTH)
-        print('{}\n'.format('-'*100))
-    
-    except AuthenticationError as e:
-        print(e)
-        print('Authenhdskdsdsjk')
-        # socket.socket().close()
-        # time.sleep(10)
-        try:
-            session.close_session()
-        except Exception as e:
-            print(e)
-
+        session = call_home(host = '0.0.0.0', port=4334, hostkey_verify=False,username = USER_N, password = PSWRD,timeout = 5,allow_agent = False , look_for_keys = False)
+        hostname, call_home_port = session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
     except Exception as e:
-        # socket.socket().close()
-        print(e)
-        # time.sleep(10)
-        try:
-            session.close_session()
-        except Exception as e:
-            print(e)
-    finally:
-        pass
-        # time.sleep(10)
-# import paramiko
-# command = "cat {} | grep supervision;".format('/media/sd-mmcblk0p4/stli_bn40.log')
-# ssh = paramiko.SSHClient()
-# ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-# print('192.168.42.37', 22 ,'operator', 'admin123')
-# ssh.connect('192.168.42.37', 22 ,'operator', 'admin123')
-# stdin, stdout, stderr = ssh.exec_command(command)
-# lines = stdout.readlines()
-# for i in lines:
-#     print(i)
+        session = manager.connect(host = host, port=830, hostkey_verify=False,username = USER_N, password = PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
+    return session
 
 
 
-# from netconf_client.connect import CallhomeManager
-# from netconf_client.ncclient import Manager
-# import xml.dom.minidom
+xml_data = '''
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+     <capabilities>
+     </capabilities>
+     <session-id/>
+   </hello>
 
-# try:
-#     with CallhomeManager(port=4334) as mgr:
-#         print(dir(mgr))
-#         mss = mgr.accept_one_ssh( port=830, username='operator', password='admin123', timeout = 10)
-#         # for i in mss.server_capabilities:
-#         #     print(i)
-#         mss.session_id
-#         hello_msg = mss.server_hello
-#         s = xml.dom.minidom.parseString(hello_msg)
-#         xml_pretty_str = s.toprettyxml()
-#         print(xml_pretty_str)
-# except Exception as e:
-#     print(e)
-# finally:
-#     mss.close()
+'''
+try:
+    session = session_login(host = '192.168.49.42',USER_N = 'root',PSWRD = 'root')
+    print(dir(to_ele(xml_data)))
+    print((to_ele(xml_data).xpath))
+    rpc_reply = session.dispatch(to_ele(xml_data))
+    print(rpc_reply)
+except Exception as e:
+    print(e.tag)
+    print(e.type)
+    print(e.severity)
+    print(e.path)
+    print(e.message)
+

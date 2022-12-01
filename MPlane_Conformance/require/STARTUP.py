@@ -8,6 +8,7 @@ from pathlib import Path
 from configparser import ConfigParser
 import time,socket
 import logging
+from binascii import hexlify
 
 logger = logging.getLogger('ncclient.manager')
 
@@ -31,6 +32,8 @@ configur.read('{}/Conformance/inputs.ini'.format(parent))
 ###############################################################################
 from require.Vlan_Creation import *
 from require import Config
+
+
 
 
 class PDF(FPDF):
@@ -80,7 +83,10 @@ def call_home(*args, **kwds):
 def ping_status(ip_address):
     response = os.system("ping -c 5 " + ip_address)
     # self.ping = subprocess.getoutput(f'ping {ip_address} -c 5')
-    return response
+    if response == 0:
+        return True
+    else:
+        return False
 
 
 ###############################################################################
@@ -97,6 +103,13 @@ def sfp_Linked():
     return Check1
 
 
+
+def colonify(fp):
+    fp = fp.decode('UTF-8')
+    finga = fp[:2]
+    for idx in range(2, len(fp), 2):
+        finga += ":" + fp[idx:idx+2]
+    return finga
 
 ###############################################################################
 ## Collecting required infromation
@@ -172,22 +185,33 @@ def demo(session,host, port):
                     ma[name] = mac
             except:
                 pass
-
-
-        
-        # host = host
-        # port = 22
-        # user1 = configur.get('INFO','super_user')
-        # pswrd = configur.get('INFO','super_pass')
-
-        # command = "rm -rf {};".format(configur.get('INFO','syslog_path'))
-        # ssh = paramiko.SSHClient()
-        # ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        # ssh.connect(host, port, user1, pswrd)
-
-        # stdin, stdout, stderr = ssh.exec_command(command)
         return [u, s, ma, d]
+        # return [u, s, ma, d]
 
+###############################################################################
+## Sesssion Login
+###############################################################################
+def session_login(host = '0.0.0.0',USER_N = '',PSWRD = ''):
+    try:
+        session = call_home(host = '0.0.0.0', port=4334, hostkey_verify=False,username = USER_N, password = PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
+        hostname, call_home_port = session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
+        server_key_obj = session._session._transport.get_remote_server_key()
+        fingerprint = colonify(hexlify(server_key_obj.get_fingerprint()))
+        login_info = f'''> listen --ssh --login {USER_N}
+                Waiting 60s for an SSH Call Home connection on port 4334...
+                The authenticity of the host '::ffff:{hostname}' cannot be established.
+                ssh-rsa key fingerprint is {fingerprint}
+                Interactive SSH Authentication done.'''.strip()
+        
+    except Exception as e:
+        session = manager.connect(host = host, port=830, hostkey_verify=False,username = USER_N, password = PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
+        server_key_obj = session._session._transport.get_remote_server_key()
+        fingerprint = colonify(hexlify(server_key_obj.get_fingerprint()))
+        login_info = f'''> connect --ssh --host {host} --port 830 --login {USER_N}
+                ssh-rsa key fingerprint is {fingerprint}
+                Interactive SSH Authentication done. 
+                        '''
+    return session, login_info
 
 
 def delete_system_log(host):
@@ -323,18 +347,15 @@ def Test_desc(PDF,data):
 ## Status of Netopeer-cli
 ###############################################################################
 def STATUS(host,user,session_id,port):
-    STATUS = f'''> connect --ssh --host {host} --port 830 --login {user}
-                        Interactive SSH Authentication
-                        Type your password:
-                        Password: 
-                        > status
-                        Current NETCONF session:
-                        ID          : {session_id}
-                        Host        : {host}
-                        Port        : {port}
-                        Transport   : SSH
-                        Capabilities:
-                        '''
+    STATUS = f'''
+            > status
+            Current NETCONF session:
+            ID          : {session_id}
+            Host        : {host}
+            Port        : {port}
+            Transport   : SSH
+            Capabilities:
+            '''
     return STATUS
 
 
@@ -397,18 +418,22 @@ def Test_Step(PDF,data):
     PDF.set_font("Times",style = '',size = 9)
     PDF.set_text_color(0,0,0)
 
-fontfolder= Path('test/fonts')
+
 ###############################################################################
 ## Stylesheet for dhcp server
 ###############################################################################
 def DHCP_Status(PDF,data):
+    data = data.split('writable')
     print(data)
     abs_path = os.path.join('{}/dejavu-fonts-ttf-2.37/ttf/'.format(parent),'DejaVuSans.ttf')
     PDF.add_font('DejaVu', '', abs_path, uni=True)
     PDF.set_font("DejaVu",'', size=9)
     STORE_DATA("\t DHCP Status",Format=True,PDF = PDF)
-    datas = data[1:350]+data[365:]
-    #print(data[354:357])
+    if len(data) == 2:
+        datas = data[1][2:350]+data[1][362:]
+    else:
+        datas = data[0][2:350]+data[0][362:]
+    print(datas)
     PDF.write(5,datas)
     PDF.set_font("Times",style = '',size = 9)
 
@@ -460,3 +485,4 @@ def render_table_data(PDF,TABLE_DATA):  # repeat data rows
 
 if __name__ == "__main__":
     delete_system_log('192.168.149.37')
+

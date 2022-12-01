@@ -17,7 +17,7 @@ from ncclient.operations.errors import TimeoutExpiredError
 from tabulate import tabulate
 from scapy.all import *
 from configparser import ConfigParser
-from Notification import *
+from binascii import hexlify
 
 
 
@@ -39,13 +39,13 @@ configur.read('{}/inputs.ini'.format(dir_name))
 ###############################################################################
 ## Related Imports
 ###############################################################################
+from Conformance.Notification import *
 from require import STARTUP, Config
 from require.ISC_DHCP_SERVER import *
 from require.DHCP_CONF_VLAN import *
 from require.Vlan_Creation import *
 
-#print(parent)
-#print(dir_name)
+
 ###############################################################################
 ## Initiate PDF
 ###############################################################################
@@ -228,9 +228,11 @@ class M_CTC_id_001(test_DHCP_CONF):
                 ###############################################################################
                 ## Perform call home to get ip_details
                 ###############################################################################
-                self.session = STARTUP.call_home(host = '0.0.0.0', port=4334, hostkey_verify=False,username = self.USER_N, password = self.PSWRD, timeout = 60,allow_agent = False , look_for_keys = False)
-                li = self.session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
-                
+                self.session = STARTUP.call_home(host = '0.0.0.0', port=4334, hostkey_verify=False,username = self.USER_N, password = self.PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
+                self.ip_address, self.call_home_port = self.session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
+                server_key_obj = self.session._session._transport.get_remote_server_key()
+                self.fingerprint = STARTUP.colonify(hexlify(server_key_obj.get_fingerprint()))
+
                 if self.session:
                     RU_Details = STARTUP.demo(session = self.session,host= self.ip_address, port= 830)
                     
@@ -270,18 +272,18 @@ class M_CTC_id_001(test_DHCP_CONF):
                     STARTUP.STORE_DATA('{}'.format(Test_Step1),Format='TEST_STEP',PDF = pdf)
                     LISTEN = f'''> listen --ssh --login {self.USER_N }\nWaiting 60s for an SSH Call Home connection on port 4334...'''
                     STARTUP.STORE_DATA(LISTEN,Format=False,PDF = pdf)
-                    str_out = f'''The authenticity of the host '::ffff:{li[0]}' cannot be established.
-                            ssh-rsa key fingerprint is ******************************.
+                    str_out = f'''The authenticity of the host '::ffff:{self.ip_address}' cannot be established.
+                            ssh-rsa key fingerprint is {self.fingerprint}.
                             Are you sure you want to continue connecting (yes/no)? yes'''.strip()
                     STARTUP.STORE_DATA(str_out,Format=False,PDF = pdf)
-                    STARTUP.STORE_DATA(f'''\n{self.USER_N }@::ffff:{li[0]} password: \n''',Format=False,PDF = pdf)
+                    STARTUP.STORE_DATA(f'''\n{self.USER_N }@::ffff:{self.ip_address} password: \n''',Format=False,PDF = pdf)
 
                     ###############################################################################
                     ## Test Procedure 2
                     ###############################################################################
                     Test_Step2 = "\tTER NETCONF Client and O-RU NETCONF Server exchange capabilities through the NETCONF <hello> messages"
                     STARTUP.STORE_DATA('{}'.format(Test_Step2),Format='TEST_STEP',PDF = pdf)
-                    STARTUP.STORE_DATA(f'''> status\nCurrent NETCONF self.session:\nID\t: {self.session.session_id}\nHost\t: :ffff:{li[0]}\nPort\t: {li[1]}\nTransport\t: SSH\nCapabilities:''',Format=False,PDF = pdf)
+                    STARTUP.STORE_DATA(f'''> status\nCurrent NETCONF self.session:\nID\t: {self.session.session_id}\nHost\t: :ffff:{self.ip_address}\nPort\t: {self.call_home_port}\nTransport\t: SSH\nCapabilities:''',Format=False,PDF = pdf)
                     for server_capability in self.session.server_capabilities:
                         STARTUP.STORE_DATA(server_capability,Format=False,PDF = pdf)
                     time.sleep(10)
@@ -370,10 +372,7 @@ def test_M_ctc_id_001():
         notification("Test Completed For M_CTC_ID_001 and Logs saved !")   
     
 
-#    ###############################################################################
-#    ## For Capturing the logs
-#    ###############################################################################
-#    STARTUP.CREATE_LOGS('M_CTC_ID_001',PDF=pdf)
 if __name__ == "__main__":
     test_M_ctc_id_001()
     pass
+

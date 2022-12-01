@@ -1,7 +1,7 @@
 import json, httplib2
 
 def notification(msg):
-    url = 'https://chat.googleapis.com/v1/spaces/AAAAAiy67no/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=BnGBew21jgD3aBWgaHToDmHlMHZgEGzc26PBR8MMRm8%3D'
+    url = 'https://chat.googleapis.com/v1/spaces/AAAA4XkxAB4/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=c8TU0zdl2uPLU4-HXMqYxsQAsrKdbHTZIgbeZk_SjxQ%3D'
 
     message = {'text' : msg}
 

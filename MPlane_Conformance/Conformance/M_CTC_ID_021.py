@@ -18,7 +18,6 @@ from ncclient.operations.errors import TimeoutExpiredError
 from ncclient.transport.errors import SessionCloseError
 from ncclient.xml_ import to_ele
 from configparser import ConfigParser
-from Notification import *
 
 ###############################################################################
 ## Directory Path
@@ -37,6 +36,7 @@ configur.read('{}/inputs.ini'.format(dir_name))
 ###############################################################################
 ## Related Imports
 ###############################################################################
+from Conformance.Notification import *
 from require import STARTUP, Config
 from require.Vlan_Creation import *
 
@@ -120,6 +120,7 @@ class M_CTC_ID_021(vlan_Creation):
             '\t\t********** Connect to the NETCONF Server ***********', Format='TEST_STEP', PDF=pdf)
         Test_Step1 = 'STEP 1 TER NETCONF client establishes a connection using a user account with fm-pm privileges.'
         STARTUP.STORE_DATA('\n\n\t\t********** Connect to the NETCONF Server ***********\n\n',Format='TEST_STEP',PDF = pdf)
+        STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
         STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,830)
         STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
 
@@ -221,9 +222,7 @@ class M_CTC_ID_021(vlan_Creation):
             ###############################################################################
             ## Perform call home to get ip_details
             ###############################################################################
-            self.session = STARTUP.call_home(host = '0.0.0.0', port=4334, hostkey_verify=False,username = self.USER_N, password = self.PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
-            self.hostname, self.call_home_port = self.session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
-            
+            self.session, self.login_info = STARTUP.session_login(host = self.hostname,USER_N = self.USER_N,PSWRD = self.PSWRD) 
             if self.session:
                 self.RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
 

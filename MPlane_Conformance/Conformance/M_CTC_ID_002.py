@@ -17,7 +17,7 @@ from  ncclient.transport.errors import TransportError, SSHUnknownHostError
 from tabulate import tabulate
 from scapy.all import *
 from configparser import ConfigParser
-from Notification import *
+
 
 ###############################################################################
 ## Directory Path
@@ -36,6 +36,7 @@ configur.read('{}/inputs.ini'.format(dir_name))
 ###############################################################################
 ## Related Imports
 ###############################################################################
+from Conformance.Notification import *
 from require import STARTUP
 from Conformance.M_CTC_ID_001 import *
 
@@ -71,7 +72,8 @@ class M_CTC_id_002(M_CTC_id_001):
     def software_detail(self):
         
         new_session = manager.connect(host = self.ip_address, port=830, hostkey_verify=False,username = self.USER_N, password = self.PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
-
+        server_key_obj = new_session._session._transport.get_remote_server_key()
+        self.fingerprint = STARTUP.colonify(hexlify(server_key_obj.get_fingerprint()))
         sw_inv = '''<filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
             <software-inventory xmlns="urn:o-ran:software-management:1.0">
             </software-inventory>
@@ -116,7 +118,7 @@ class M_CTC_id_002(M_CTC_id_001):
             STARTUP.STORE_DATA(LISTEN,Format=False,PDF = pdf)
 
             SSH_AUTH = f'''The authenticity of the host '::ffff:{self.ip_address}' cannot be established.
-            ssh-rsa key fingerprint is 59:9e:90:48:f1:d7:6e:35:e8:d1:f6:1e:90:aa:a3:83:a0:6b:98:5a.
+            ssh-rsa key fingerprint is {self.fingerprint}.
             Are you sure you want to continue connecting (yes/no)? no
             nc ERROR: Checking the host key failed.
             cmd_listen: Receiving SSH Call Home on port 4334 as user "{self.USER_N}" failed.'''
@@ -289,3 +291,4 @@ if __name__ == "__main__":
     test_M_ctc_id_002()
     pass
         
+

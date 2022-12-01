@@ -19,7 +19,6 @@ from ncclient.operations.errors import TimeoutExpiredError
 from ncclient.transport.errors import SessionCloseError
 from configparser import ConfigParser
 from scapy.all import *
-from Notification import *
 
 ###############################################################################
 ## Directory Path
@@ -40,6 +39,7 @@ configur.read('{}/inputs.ini'.format(dir_name))
 ###############################################################################
 from require import STARTUP, Config
 from require.Vlan_Creation import *
+from Conformance.Notification import *
 
 
 ###############################################################################
@@ -77,6 +77,7 @@ class M_CTC_ID_010(vlan_Creation):
     ###############################################################################
     def test_procedure(self):
         STARTUP.STORE_DATA('\n\n\t\t********** Connect to the NETCONF Server ***********\n\n',Format='TEST_STEP',PDF = pdf)
+        STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
         STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,830)
         STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
 
@@ -146,13 +147,13 @@ class M_CTC_ID_010(vlan_Creation):
             ###############################################################################
             ## Perform call home to get ip_details
             ###############################################################################
-            self.session = STARTUP.call_home(host = '0.0.0.0', port=4334, hostkey_verify=False,username = self.USER_N, password = self.PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
-            li = self.session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port'] +
+            self.session, self.login_info = STARTUP.session_login(host = self.hostname,USER_N = self.USER_N,PSWRD = self.PSWRD)
+            # self.hostname, self.call_home_port = self.session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port'] +
             
             if self.session:
-                RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
+                self.RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
 
-                for key, val in RU_Details[1].items():
+                for key, val in self.RU_Details[1].items():
                     if val[0] == 'true' and val[1] == 'true':
 
                         ###############################################################################
@@ -266,3 +267,4 @@ def test_m_ctc_id_010():
 
 if __name__ == "__main__":
     test_m_ctc_id_010()
+

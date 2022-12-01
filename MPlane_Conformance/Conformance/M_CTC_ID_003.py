@@ -17,7 +17,6 @@ from  ncclient.transport.errors import TransportError, SSHUnknownHostError
 from tabulate import tabulate
 from scapy.all import *
 from configparser import ConfigParser
-from Notification import *
 
 
 ###############################################################################
@@ -37,6 +36,7 @@ configur.read('{}/inputs.ini'.format(dir_name))
 ###############################################################################
 ## Related Imports
 ###############################################################################
+from Conformance.Notification import *
 from require import STARTUP
 from Conformance.M_CTC_ID_001 import *
 
@@ -73,7 +73,8 @@ class M_CTC_id_003(M_CTC_id_001):
     def software_detail(self):
         
         new_session = manager.connect(host = self.ip_address, port=830, hostkey_verify=False,username = self.USER_N, password = self.PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
-
+        server_key_obj = new_session._session._transport.get_remote_server_key()
+        fingerprint = STARTUP.colonify(hexlify(server_key_obj.get_fingerprint()))
         sw_inv = '''<filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
             <software-inventory xmlns="urn:o-ran:software-management:1.0">
             </software-inventory>
@@ -302,7 +303,4 @@ def test_M_ctc_id_003():
 if __name__ == "__main__":
     test_M_ctc_id_003()
     pass
-        
 
-
-        

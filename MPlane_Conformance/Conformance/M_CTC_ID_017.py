@@ -37,6 +37,7 @@ configur.read('{}/inputs.ini'.format(dir_name))
 ###############################################################################
 ## Related Imports
 ###############################################################################
+from Conformance.Notification import *
 from require.Vlan_Creation import *
 from require import STARTUP, Config
 
@@ -57,7 +58,6 @@ class M_CTC_ID_017(vlan_Creation):
         self.rmt = ''
         self.du_pswrd = ''
         self.RU_Details = ''
-        self.hostname1 = ''
 
     ###############################################################################
     ## Test Procedure
@@ -65,6 +65,7 @@ class M_CTC_ID_017(vlan_Creation):
     def test_procedure(self):
         STARTUP.STORE_DATA('\n\n\t\t********** Connect to the NETCONF Server ***********\n\n',Format='TEST_STEP',PDF = pdf)
         STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,830)
+        STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
         STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
 
 
@@ -134,17 +135,16 @@ class M_CTC_ID_017(vlan_Creation):
     ###############################################################################
     ## Get_Filter_after_Reboot_the_RU
     ###############################################################################
-    def get_config_detail(self):
+    def get_iconfig_detail(self):
+        self.linked_detected()
+        sniff(iface = self.interface, stop_filter = self.check_tcp_ip, timeout = 100)
         ###############################################################################
         ## Perform Call Home to get IP after RU comes up
         ###############################################################################
-        t = time.time() +60
+        t = time.time() +20
         while time.time() < t:
             try:
-                self.session2 = STARTUP.call_home(host='', port=4334, hostkey_verify=False, username=self.USER_N, password=self.PSWRD, allow_agent=False, look_for_keys=False, timeout=60)
-                # ['ip_address', 'TCP_Port']
-                self.hostname1, self.call_home_port = self.session2._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
-
+                self.session2, self.login_info = STARTUP.session_login(host = self.hostname,USER_N = self.USER_N,PSWRD = self.PSWRD)
 
                 if self.session2:
                     ###############################################################################
@@ -220,9 +220,8 @@ class M_CTC_ID_017(vlan_Creation):
             ###############################################################################
             ## Perform call home to get ip_details
             ###############################################################################
-            self.session = STARTUP.call_home(host = '0.0.0.0', port=4334, hostkey_verify=False,username = self.USER_N, password = self.PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
-            self.hostname, self.call_home_port = self.session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
-            
+            self.session, self.login_info = STARTUP.session_login(host = self.hostname,USER_N = self.USER_N,PSWRD = self.PSWRD)
+
             if self.session:
                 self.RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
                 for key, val in self.RU_Details[1].items():
@@ -316,9 +315,9 @@ def test_m_ctc_id_017():
         return False
     if Check1 == True:
         logs1 = tc017_obj.system_logs(tc017_obj.hostname)
-        time.sleep(100)
+        time.sleep(40)
         Check2 = tc017_obj.get_config_detail()
-        logs2 = tc017_obj.system_logs(tc017_obj.hostname1)
+        logs2 = tc017_obj.system_logs(tc017_obj.hostname)
         STARTUP.STORE_DATA('\t\t\t\t############ SYSTEM LOGS ##############',Format=True,PDF=pdf)
         for i in logs1:
             STARTUP.STORE_DATA("{}".format(i),Format=False,PDF=pdf)

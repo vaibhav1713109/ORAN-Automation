@@ -17,6 +17,7 @@ from paramiko.ssh_exception import NoValidConnectionsError
 from ncclient.operations.errors import TimeoutExpiredError
 from ncclient.transport.errors import SessionCloseError
 from ncclient.xml_ import to_ele
+from binascii import hexlify
 from configparser import ConfigParser
 
 ###############################################################################
@@ -36,6 +37,7 @@ configur.read('{}/inputs.ini'.format(dir_name))
 ###############################################################################
 ## Related Imports
 ###############################################################################
+from Conformance.Notification import *
 from require.Vlan_Creation import *
 from require import STARTUP, Config
 from require.Genrate_User_Pass import *
@@ -70,6 +72,7 @@ class M_CTC_ID_023(vlan_Creation):
             '\t\t********** Connect to the NETCONF Server ***********', Format='TEST_STEP', PDF=pdf)
         Test_Step1 = "Step 1 and 2: The TER NETCONF Client establishes connection and creates an account for new user using o-ran-user9 mgmt.yang"
         STARTUP.STORE_DATA('{}'.format(Test_Step1),Format='TEST_STEP', PDF=pdf)
+        STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
         STATUS = STARTUP.STATUS(self.hostname, self.USER_N, self.session.session_id, 830)
         STARTUP.STORE_DATA(STATUS, Format=False, PDF=pdf)
 
@@ -227,6 +230,8 @@ class M_CTC_ID_023(vlan_Creation):
             STARTUP.STORE_DATA('{}'.format(Test_Step3),Format='TEST_STEP', PDF=pdf)
             new_session = STARTUP.call_home(host = '', port=4334, hostkey_verify=False,username = self.new_user, password = self.new_pswrd, timeout = 60, allow_agent = False , look_for_keys = False)
             hostname, port = new_session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
+            server_key_obj = new_session._session._transport.get_remote_server_key()
+            fingerprint = STARTUP.colonify(hexlify(server_key_obj.get_fingerprint()))
             LISTEN = f'''> listen --ssh --login {self.new_user}
             Waiting 60s for an SSH Call Home connection on port 4334...'''
             STARTUP.STORE_DATA(LISTEN,Format=False, PDF=pdf)
@@ -234,8 +239,8 @@ class M_CTC_ID_023(vlan_Creation):
             if new_session:
                 query = 'yes'
                 Authenticity =f'''The authenticity of the host '::ffff:{hostname}' cannot be established.
-                ssh-rsa key fingerprint is 59:9e:90:48:f1:d7:6e:35:e8:d1:f6:1e:90:aa:a3:83:a0:6b:98:5a.
-                Are you sure you want to continue connecting (yes/no)? yes'''
+                ssh-rsa key fingerprint is {fingerprint}.
+                '''
                 STARTUP.STORE_DATA(Authenticity,Format=False, PDF=pdf)
                 if query == 'yes':
                     STARTUP.STORE_DATA(f'''\n{self.new_user}@::ffff:{hostname} password: \n''',Format=False, PDF=pdf)
@@ -294,9 +299,8 @@ class M_CTC_ID_023(vlan_Creation):
             ###############################################################################
             ## Perform call home to get ip_details
             ###############################################################################
-            self.session = STARTUP.call_home(host = '0.0.0.0', port=4334, hostkey_verify=False,username = self.USER_N, password = self.PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
-            self.hostname, self.call_home_port = self.session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
-            
+            self.session, self.login_info = STARTUP.session_login(host = self.hostname,USER_N = self.USER_N,PSWRD = self.PSWRD)
+
             if self.session:
                 self.RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
                 for key, val in self.RU_Details[1].items():
