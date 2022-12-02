@@ -152,49 +152,38 @@ class MainWindow(QtWidgets.QMainWindow):
     def dhcp_restarted(self, Flag):
         self.msg = QtWidgets.QMessageBox()
         self.msg.resize(1133,100)
-        self.p = QtCore.QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
         self.Flag = Flag
         if Flag:
-            self.p.readyReadStandardOutput.connect(self.dhcp_handle_stdout)
-            self.p.readyReadStandardError.connect(self.dhcp_handle_stderr)
-            self.p.start("python", ['{}/require/{}.py'.format(dir_path,'DHCP_CONF_BASE')])
-            # self.p.stateChanged.connect(self.handle_state)
-            self.p.finished.connect(self.dhcp_process_finished)  # Clean up once complete.
+            self.result = os.popen("python {}/require/{}.py".format(dir_path,'DHCP_CONF_BASE')).read()
+            print(self.result)
+            self.dhcp_handle_stdout()
+            self.dhcp_process_finished()
         else:
             self.dhcp_process_finished()
         return True
 
     def dhcp_process_finished(self):
-        # if self.link_detect:
+        if self.link_detect:
             if not self.Flag:
                 os.system('sudo /etc/init.d/isc-dhcp-server restart')
-                st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
-                self.msg.setText('{}'.format(st))
-                self.msg.exec_()
-            self.msg.setText('Please reboot RU once..')
+        else:
+            st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
+            self.msg.setText('{}'.format(st))
             self.msg.exec_()
-        # else:
-        #     self.msg.setText('SFP Link not deteted!!!')
-        #     self.msg.exec_()
-        # pass
 
-    def dhcp_handle_stderr(self):
-        data = self.p.readAllStandardError()
-        stderr = bytes(data).decode("utf8")
-        self.msg.setText(stderr)
-        # self.msg.exec_()
 
     def dhcp_handle_stdout(self):
-        data = self.p.readAllStandardOutput()
-        stdout = bytes(data).decode("utf8")
-        self.msg.setText(stdout)
-        # self.msg.exec_()
-        print(stdout)
+        print('Base Conf are done.')
+        self.msg.setText(self.result)
+        self.msg.exec_()
+        # print(self.result)
         self.link_detect = True
-        if 'SFP is not Connected' in stdout:
+        if 'SFP is not Connected' in self.result:
             self.link_detect = False
             return False
         else:
+            self.msg.setText('Please reboot RU once..')
+            self.msg.exec_()
             return True
 
 

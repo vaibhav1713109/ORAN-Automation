@@ -140,7 +140,7 @@ class M_CTC_id_001(test_DHCP_CONF):
             return False
         wrpcap('{}/dhcp.pcap'.format(parent), pkts2)
         time.sleep(2)
-        os.system('mergecap -w {0}/LOGS/M_CTC_ID_001.pcap {0}/vlan_tag.pcap {0}/dhcp.pcap'.format(parent))
+        os.system('mergecap -w {0}/LOGS/{1}/M_CTC_ID_001.pcap {0}/vlan_tag.pcap {0}/dhcp.pcap'.format(parent.configur.get('INFO','ru_name_rev')))
         os.system('rm {0}/vlan_tag.pcap {0}/dhcp.pcap'.format(dir_name))
         # wrpcap('{}\M_CTC_ID_001.pcap'.format(parent),pkts)
         return True
