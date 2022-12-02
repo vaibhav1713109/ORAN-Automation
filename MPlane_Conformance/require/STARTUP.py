@@ -205,7 +205,7 @@ def session_login(host = '0.0.0.0',USER_N = '',PSWRD = ''):
                 Interactive SSH Authentication done.'''.strip()
         
     except Exception as e:
-	warn('Call Home is not initiated!!!!!! So it will try with connect command!!!!')
+        warn('Call Home is not initiated!!!!!! So it will try with connect command!!!!')
         session = manager.connect(host = host, port=830, hostkey_verify=False,username = USER_N, password = PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
         server_key_obj = session._session._transport.get_remote_server_key()
         fingerprint = colonify(hexlify(server_key_obj.get_fingerprint()))
@@ -314,7 +314,7 @@ def STORE_DATA(*datas,Format,PDF):
 def CREATE_LOGS(File_name,PDF):
     pdf = PDF_CAP()
     LOG_NAME = GET_LOGS_NAME(File_name)
-    file1 = f"{parent}/LOGS/{LOG_NAME}.pdf"
+    file1 = f"{parent}/LOGS/{configur.get('INFO','ru_name_rev')}/{LOG_NAME}.pdf"
     PDF.output(file1)
 
 

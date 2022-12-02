@@ -12,6 +12,7 @@ import sys, time
 import os
 from PyQt5 import QtWidgets, QtCore, QtGui
 import ipaddress, subprocess
+from configparser import ConfigParser
 
 
 ########################################################################
@@ -26,7 +27,11 @@ from GUI.run_all import Ui_Run_ALL
 from require.Write_Data import WriteData
 ########################################################################
 
-
+###############################################################################
+## For reading data from .ini file
+###############################################################################
+configur = ConfigParser()
+configur.read('{}/Conformance/inputs.ini'.format(dir_path))
 ########################################################################
 ## MAIN WINDOW CLASS
 ########################################################################
@@ -41,7 +46,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.window.setWindowFlag(QtCore.Qt.WindowMinMaxButtonsHint, False)
         self.testCaseUI.setupUi(self.window)
         self.clicked_module = ''
-
+        self.directory = dir_path+"/LOGS/{}".format(configur.get('INFO','ru_name_rev'))
+        try:
+            os.mkdir(self.directory)
+        except OSError as error: 
+            print(error) 
         ##############################################################################
         ## Check boxes module wise
         ##############################################################################
@@ -99,6 +108,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.dhcp_restart_base.clicked.connect(lambda: self.dhcp_restarted(Flag = True))
 
         ##############################################################################
+        ## Restart DHCP server
+        ##############################################################################
+        
+        self.ui.report.clicked.connect(lambda : self.show_report())
+        
+        
+
+        ##############################################################################
         ## if clicked on module new side window will open
         ##############################################################################
         ## Module 1
@@ -126,11 +143,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.showMaximized()
 
 
+    def show_report(self):
+        msg = QtWidgets.QMessageBox()
+        msg.resize(600,100)
+        msg.setText('Logs are saved at {}.'.format(self.directory))
+        msg.exec_()
+
     def dhcp_restarted(self, Flag):
         self.msg = QtWidgets.QMessageBox()
         self.msg.resize(1133,100)
         self.p = QtCore.QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
-        print(Flag)
         self.Flag = Flag
         if Flag:
             self.p.readyReadStandardOutput.connect(self.dhcp_handle_stdout)
@@ -633,6 +655,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.message("Process finished.")
         self.stopAni()
         self.p = None
+        msg = QtWidgets.QMessageBox()
+        msg.resize(400,100)
+        msg.setText('Logs are saved at {}.'.format(self.directory))
+        msg.exec_()
 
     def Loading(self,checkboxes,console,submitbtn):
         self.main_win = QWidget()
