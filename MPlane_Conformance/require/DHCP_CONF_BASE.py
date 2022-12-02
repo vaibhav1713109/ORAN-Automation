@@ -1,4 +1,3 @@
-from pytest import ExitCode
 import subprocess
 import random, ifcfg, os, time
 import ISC_DHCP_SERVER as ISC_DHCP_SERVER
@@ -95,7 +94,6 @@ class test_DHCP_CONF():
         d = os.system('sudo /etc/init.d/isc-dhcp-server restart')
         st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
     
-
 def test_call():
     obj = test_DHCP_CONF()
 
