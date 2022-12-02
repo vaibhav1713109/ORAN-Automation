@@ -147,7 +147,7 @@ class M_CTC_ID_014(vlan_Creation):
         ## Test Procedure 2 : Capture_The_Notifications
         ###############################################################################
         pdf.add_page()
-        Test_Step2 = '\t\tStep 2 :  O-RU NETCONF Server sends <notification><download-event> with status COMPLETED to TER NETCONF Client'
+        Test_Step2 = '\t\tStep 2 :  O-RU NETCONF Server sends AUTHENTICATION_ERROR  <notification>'
         STARTUP.STORE_DATA('{}'.format(Test_Step2),Format='TEST_STEP',PDF=pdf)
 
         while True:

@@ -206,7 +206,7 @@ class M_CTC_ID_SW_D_I_A(vlan_Creation):
         ###############################################################################
         ## Test Procedure 4 and 5 : Capture_The_Notifications
         ###############################################################################
-        Test_Step4 = '\t\tStep 4 and 5 :  O-RU NETCONF Server sends <notification><install-event> with status COMPLETED to TER NETCONF Client'
+        Test_Step4 = '\t\tStep 4 and 5 :  O-RU NETCONF Server sends <notification><install-event> with status APPLICATION_ERROR to TER NETCONF Client'
         STARTUP.STORE_DATA('{}'.format(Test_Step4), Format='TEST_STEP',PDF=pdf)
         while True:
             n = self.session.take_notification(timeout=60)
@@ -232,7 +232,7 @@ class M_CTC_ID_SW_D_I_A(vlan_Creation):
         ## POST_GET_FILTER
         ###############################################################################            
         pdf.add_page()
-        STARTUP.STORE_DATA('\t\t POST GET AFTER INSTALL SW', Format='TEST_STEP',PDF=pdf)
+        STARTUP.STORE_DATA('\t\t POST GET FILTER', Format='TEST_STEP',PDF=pdf)
         STARTUP.STORE_DATA('\n> get --filter-xpath /o-ran-software-management:software-inventory', Format=True,PDF=pdf)
         sw_inv = '''<filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
         <software-inventory xmlns="urn:o-ran:software-management:1.0">
