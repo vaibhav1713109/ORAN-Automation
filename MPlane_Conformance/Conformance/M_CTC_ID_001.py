@@ -85,7 +85,7 @@ class M_CTC_id_001(test_DHCP_CONF):
     ## Check SFP Link is detected
     #######################################################################
     def linked_detected(self):
-        t = time.time() + 10
+        t = time.time() + 100
         while time.time() < t:
             Interfaces = list(ifcfg.interfaces().keys())
             for interface in Interfaces:

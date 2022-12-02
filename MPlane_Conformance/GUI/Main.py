@@ -11,7 +11,7 @@ from PyQt5.QtGui import QIcon,QFont
 import sys, time
 import os
 from PyQt5 import QtWidgets, QtCore, QtGui
-import ipaddress
+import ipaddress, subprocess
 
 
 ########################################################################
@@ -91,8 +91,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.run_18_23.clicked.connect(lambda: self.Loading_1(['/Module/module_7'],self.ui.consoleEdit_7,self.access_control))
         self.ui.run_26_27.clicked.connect(lambda: self.Loading_1(['/Module/module_8'],self.ui.consoleEdit_8,self.ru_configure))
         self.ui.run_all.clicked.connect(self.window.showMaximized)
-        
-
+            
         ##############################################################################
         ## Restart DHCP server
         ##############################################################################
@@ -125,27 +124,57 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.menu.clicked.connect(lambda: self.slideLeftMenu())
         self.showMaximized()
-    
+
 
     def dhcp_restarted(self, Flag):
+        self.msg = QtWidgets.QMessageBox()
+        self.msg.resize(1133,100)
         self.p = QtCore.QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
+        print(Flag)
+        self.Flag = Flag
         if Flag:
+            self.p.readyReadStandardOutput.connect(self.dhcp_handle_stdout)
+            self.p.readyReadStandardError.connect(self.dhcp_handle_stderr)
             self.p.start("python", ['{}/require/{}.py'.format(dir_path,'DHCP_CONF_BASE')])
+            # self.p.stateChanged.connect(self.handle_state)
             self.p.finished.connect(self.dhcp_process_finished)  # Clean up once complete.
         else:
             self.dhcp_process_finished()
         return True
 
     def dhcp_process_finished(self):
-        msg = QtWidgets.QMessageBox()
-        msg.resize(600,100)
-        os.system('sudo /etc/init.d/isc-dhcp-server restart')
-        st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
-        msg.setText('{}'.format(st))
-        msg.exec_()
-        msg.setText('Please reboot RU once..')
-        msg.exec_()
-        pass
+        # if self.link_detect:
+            if not self.Flag:
+                os.system('sudo /etc/init.d/isc-dhcp-server restart')
+                st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
+                self.msg.setText('{}'.format(st))
+                self.msg.exec_()
+            self.msg.setText('Please reboot RU once..')
+            self.msg.exec_()
+        # else:
+        #     self.msg.setText('SFP Link not deteted!!!')
+        #     self.msg.exec_()
+        # pass
+
+    def dhcp_handle_stderr(self):
+        data = self.p.readAllStandardError()
+        stderr = bytes(data).decode("utf8")
+        self.msg.setText(stderr)
+        # self.msg.exec_()
+
+    def dhcp_handle_stdout(self):
+        data = self.p.readAllStandardOutput()
+        stdout = bytes(data).decode("utf8")
+        self.msg.setText(stdout)
+        # self.msg.exec_()
+        print(stdout)
+        self.link_detect = True
+        if 'SFP is not Connected' in stdout:
+            self.link_detect = False
+            return False
+        else:
+            return True
+
 
     ########################################################################
     # Slide left menu function

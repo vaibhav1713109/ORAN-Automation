@@ -18,6 +18,7 @@ from paramiko.ssh_exception import NoValidConnectionsError
 from ncclient.operations.errors import TimeoutExpiredError
 from ncclient.transport.errors import SessionCloseError
 from configparser import ConfigParser
+from ncclient.xml_ import to_ele
 
 ###############################################################################
 ## Directory Path
@@ -91,14 +92,6 @@ class M_CTC_ID_007(vlan_Creation):
 
 
     ###############################################################################
-    ## Check Ping and DHCP Status
-    ###############################################################################
-    def ping_status(self, ip_address):
-        response = os.system("ping -c 5 " + ip_address)
-        # self.ping = subprocess.getoutput(f'ping {ip_address} -c 5')
-        return response
-
-    ###############################################################################
     ## Test Procedure
     ###############################################################################
     def test_procedure(self):
@@ -128,32 +121,37 @@ class M_CTC_ID_007(vlan_Creation):
         dict_data = xmltodict.parse(str(cap))
         if dict_data['nc:rpc-reply']['nc:ok'] == None:
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
-            
+        
+
+
+        ###############################################################################
+        ## Genrate Notification and alarm
+        ###############################################################################        
+        STARTUP.STORE_DATA('{}'.format(Test_Step1), Format='TEST_STEP', PDF=pdf)
+        xml_data2 = open("{}/require/Yang_xml/sw_install.xml".format(parent)).read()
+        if '1' in self.slot_name:
+            self.slot_name = self.slot_name[:-1]+'2'
+        else:
+            self.slot_name = self.slot_name[:-1]+'1'
+        xml_data2 = xml_data2.format(slot_name=self.slot_name,File_name = '')
+        STARTUP.STORE_DATA('******* Replace with below xml ********', Format=True, PDF=pdf)
+        STARTUP.STORE_DATA(xml_data2, Format='XML', PDF=pdf)
+        d3 = self.session.dispatch(to_ele(xml_data2))
+
         ###############################################################################
         ## Check_Notification
         ###############################################################################
         STARTUP.STORE_DATA('{}'.format('################## Check_Notification ##################'),Format=True, PDF=pdf)
         while True:
-            n = self.session.take_notification(timeout = 60)
+            n = self.session.take_notification(timeout=30)
             if n == None:
                 break
             notify=n.notification_xml
             dict_n = xmltodict.parse(str(notify))
-            try:
-                notf = dict_n['notification']['alarm-notif']
-                if notf:
-                    s = xml.dom.minidom.parseString(notify)
-                    xml_pretty_str = s.toprettyxml()
-                    STARTUP.STORE_DATA(xml_pretty_str,Format='XML', PDF=pdf)
-                    STARTUP.STORE_DATA('{}\n'.format('-'*100),Format=False, PDF=pdf)
-                    calnexSet(f"app/mse/master/Master{self.P_NEO_PORT}/stop")
-                    calnexSet(f"app/generation/synce/esmc/Port{self.P_NEO_PORT}/stop")
-                    break
-            except:
-                s = xml.dom.minidom.parseString(notify)
-                xml_pretty_str = s.toprettyxml()
-                STARTUP.STORE_DATA(xml_pretty_str,Format='XML', PDF=pdf)
-                STARTUP.STORE_DATA('{}\n'.format('-'*100),Format=False, PDF=pdf)
+            s = xml.dom.minidom.parseString(notify)
+            xml_pretty_str = s.toprettyxml()
+            STARTUP.STORE_DATA(xml_pretty_str,Format='XML', PDF=pdf)
+            STARTUP.STORE_DATA('{}\n'.format('-'*100),Format=False, PDF=pdf)
         return True 
     
     ###############################################################################
@@ -171,15 +169,14 @@ class M_CTC_ID_007(vlan_Creation):
         self.PSWRD = configur.get('INFO','sudo_pass')
         self.P_NEO_IP = configur.get('INFO','paragon_ip')
         self.P_NEO_PORT = configur.get('INFO','ptpsynceport')
-        Check2 = STARTUP.ping_status(self.P_NEO_IP)
-        print(Check1 , Check2)
-        if (Check1 == False or Check1 == None) and Check2 != 0 :
-            return Check1 and Check2
+        # Check2 = STARTUP.ping_status(self.P_NEO_IP)
+        if (Check1 == False or Check1 == None):
+            return False
 
         pkt = sniff(iface = self.interface, stop_filter = self.check_tcp_ip,timeout = 100)
         
-        sys.path.append(f'//{self.P_NEO_IP}/calnex100g/RemoteControl/')
-        calnexInit(f"{self.P_NEO_IP}")
+        # sys.path.append(f'//{self.P_NEO_IP}/calnex100g/RemoteControl/')
+        # calnexInit(f"{self.P_NEO_IP}")
 
         try:
             STARTUP.delete_system_log(host= self.hostname)
@@ -195,12 +192,13 @@ class M_CTC_ID_007(vlan_Creation):
                 ###############################################################################
                 ## Start PTP & SYNCE
                 ###############################################################################
-                calnexSet(f"app/mse/master/Master{self.P_NEO_PORT}/start")
-                calnexSet(f"app/generation/synce/esmc/Port{self.P_NEO_PORT}/start")
+                # calnexSet(f"app/mse/master/Master{self.P_NEO_PORT}/start")
+                # calnexSet(f"app/generation/synce/esmc/Port{self.P_NEO_PORT}/start")
 
                 
                 for key, val in RU_Details[1].items():
                     if val[0] == 'true' and val[1] == 'true':
+                        self.slot_name = key
                         ###############################################################################
                         ## Test Description
                         ###############################################################################
@@ -261,7 +259,7 @@ def test_m_ctc_id_007():
     Check = tc007_obj.test_Main()
     if Check == False:
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
-        STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= pdf)
+        STARTUP.STORE_DATA('SFP link not detected/Paragon Ip not Pinging...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'Subscription to Notifications' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
         return False
     ###############################################################################
