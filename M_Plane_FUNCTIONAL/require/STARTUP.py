@@ -7,6 +7,8 @@ from fpdf import FPDF
 from configparser import ConfigParser
 import time,socket
 import logging
+from warnings import warn
+from binascii import hexlify
 
 logger = logging.getLogger('ncclient.manager')
 
@@ -23,7 +25,7 @@ sys.path.append(parent)
 ## For reading data from .ini file
 ########################################################################
 configur = ConfigParser()
-configur.read('{}/Software_Management/inputs.ini'.format(parent))
+configur.read('{}/configuration_mgmt/inputs.ini'.format(parent))
 
 ###############################################################################
 ## Related Imports
@@ -101,7 +103,7 @@ def sfp_Linked():
 ###############################################################################
 ## Collecting required infromation
 ###############################################################################
-def demo(session,host, port):
+def demo(session):
     
         # Fetching all the users
         u_name = '''
@@ -188,6 +190,38 @@ def demo(session,host, port):
         # stdin, stdout, stderr = ssh.exec_command(command)
         return [u, s, ma, d]
 
+def colonify(fp):
+    fp = fp.decode('UTF-8')
+    finga = fp[:2]
+    for idx in range(2, len(fp), 2):
+        finga += ":" + fp[idx:idx+2]
+    return finga
+
+###############################################################################
+## Sesssion Login
+###############################################################################
+def session_login(host = '0.0.0.0',USER_N = '',PSWRD = ''):
+    try:
+        session = call_home(host = '0.0.0.0', port=4334, hostkey_verify=False,username = USER_N, password = PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
+        hostname, call_home_port = session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
+        server_key_obj = session._session._transport.get_remote_server_key()
+        fingerprint = colonify(hexlify(server_key_obj.get_fingerprint()))
+        login_info = f'''> listen --ssh --login {USER_N}
+                Waiting 60s for an SSH Call Home connection on port 4334...
+                The authenticity of the host '::ffff:{hostname}' cannot be established.
+                ssh-rsa key fingerprint is {fingerprint}
+                Interactive SSH Authentication done.'''.strip()
+        
+    except Exception as e:
+        warn('Call Home is not initiated!!!!!! So it will try with connect command!!!!')
+        session = manager.connect(host = host, port=830, hostkey_verify=False,username = USER_N, password = PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
+        server_key_obj = session._session._transport.get_remote_server_key()
+        fingerprint = colonify(hexlify(server_key_obj.get_fingerprint()))
+        login_info = f'''> connect --ssh --host {host} --port 830 --login {USER_N}
+                ssh-rsa key fingerprint is {fingerprint}
+                Interactive SSH Authentication done. 
+                        '''
+    return session, login_info
 
 
 def delete_system_log(host):
@@ -195,7 +229,9 @@ def delete_system_log(host):
         host = host
         port = 22
         username = configur.get('INFO','super_user')
+        print(username)
         password = configur.get('INFO','super_pass')
+        print(password)
         command = "rm -rf {};".format(configur.get('INFO','syslog_path'))
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())

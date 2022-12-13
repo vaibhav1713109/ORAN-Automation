@@ -1,8 +1,8 @@
 <users xmlns="urn:o-ran:user-mgmt:1.0">
  <user>                                                     
-   <name>STLI</name>
+   <name>OPERATOR</name>
    <account-type>PASSWORD</account-type>                                       
-   <password>stli12345</password>                            
+   <password>admin123</password>                            
    <enabled>true</enabled>                                  
  </user>
 </users>

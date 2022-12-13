@@ -79,7 +79,7 @@ class M_CTC_ID_020(vlan_Creation):
     ###############################################################################
     def test_procedure(self):
         ###############################################################################
-        ## Test Procedure 1 : Connect to netopeer server with NMS user
+        ## Test Procedure 1 : Connect to netopeer server 
         ###############################################################################
         STARTUP.STORE_DATA(
             '\t\t********** Connect to the NETCONF Server ***********', Format='TEST_STEP', PDF=pdf)
@@ -111,7 +111,7 @@ class M_CTC_ID_020(vlan_Creation):
         ## Test Procedure 2 : Configure new user\password.
         ###############################################################################
         pdf.add_page()
-        Test_Step2 = '''1. Using the "edit-config" cli use the o-ran-usermgmt.yang Module format.
+        Test_Step2 = '''Test Procedure : 1. Using the "edit-config" cli use the o-ran-usermgmt.yang Module format.
 2. Create a username having a string exceeding above 32 characters. 
 3. The first character must be a lowercase letter. The remaining characters can be a lowercase letter or a number
 4. Create a password with string exceeding above 128 characters. 
@@ -127,17 +127,21 @@ class M_CTC_ID_020(vlan_Creation):
                 </config>'''
         STARTUP.STORE_DATA('> edit-config  --target running --config --defop merge', Format=True, PDF=pdf)
         STARTUP.STORE_DATA('******* Replace with below xml ********', Format=True, PDF=pdf)
-        
-        print('*'*100)
-        print(xml_data)
-        print('-'*100)
 
+
+        STARTUP.STORE_DATA(xml_data, Format='XML',PDF=pdf)
+        # d = self.session.dispatch(to_ele(xml_data))
+        
+        # print('*'*100)
+        # print(xml_data)
+        # print('-'*100)
 
         try:
             # d = self.session.edit_config(
             #     target="running", config=snip, default_operation='merge')
             d = self.session.edit_config(target='running',config=u1)    
-            dict_data = xmltodict.parse(str(d))    
+            dict_data = xmltodict.parse(str(d))   
+            print(dict_data) 
             # d = m.edit_config(target='running',config=u1)
             print('-'*100)
             print(d)
@@ -206,7 +210,7 @@ class M_CTC_ID_020(vlan_Creation):
             self.hostname, self.call_home_port = self.session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
             
             if self.session:
-                self.RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
+                self.RU_Details = STARTUP.demo(session = self.session)
 
                 for key, val in self.RU_Details[1].items():
                     if val[0] == 'true' and val[1] == 'true':
@@ -217,7 +221,7 @@ class M_CTC_ID_020(vlan_Creation):
                         CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL(filename, SW_R=val[2])
                         STARTUP.STORE_DATA(CONFIDENTIAL, Format='CONF', PDF=pdf)
                         STARTUP.STORE_DATA(Test_Desc, Format='DESC', PDF=pdf)
-                        pdf.add_page()
+                        
 
                 
                 pdf.add_page()

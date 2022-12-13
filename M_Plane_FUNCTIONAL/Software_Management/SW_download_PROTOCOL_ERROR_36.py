@@ -13,12 +13,13 @@ from ncclient.xml_ import to_ele
 from configparser import ConfigParser
 from scapy.all import *
 
+
 ###############################################################################
 ## Directory Path
 ###############################################################################
 dir_name = os.path.dirname(os.path.abspath(__file__))
 parent = os.path.dirname(dir_name)
-# print(parent)
+print(dir_name)
 sys.path.append(parent)
 
 ########################################################################
@@ -198,7 +199,7 @@ class M_CTC_ID_SW_F_E(vlan_Creation):
             self.hostname, self.call_home_port = self.session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
             
             if self.session:
-                self.RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
+                self.RU_Details = STARTUP.demo(session = self.session)
 
                 for key, val in self.RU_Details[1].items():
                     if val[0] == 'true' and val[1] == 'true':
