@@ -147,7 +147,7 @@ class M_CTC_ID_014(vlan_Creation):
         ## Test Procedure 2 : Capture_The_Notifications
         ###############################################################################
         pdf.add_page()
-        Test_Step2 = '\t\tStep 2 :  O-RU NETCONF Server sends <notification><download-event> with status COMPLETED to TER NETCONF Client'
+        Test_Step2 = '\t\tStep 2 :  O-RU NETCONF Server sends AUTHENTICATION_ERROR  <notification>'
         STARTUP.STORE_DATA('{}'.format(Test_Step2),Format='TEST_STEP',PDF=pdf)
 
         while True:
@@ -180,7 +180,7 @@ class M_CTC_ID_014(vlan_Creation):
         ###############################################################################
         ## Read User Name and password from Config.INI of Config.py
         ###############################################################################
-        self.rmt = configur.get('INFO','sw_path')
+        self.rmt = configur.get('INFO','rmt_path')
         self.du_pswrd = configur.get('INFO','invalid_du_password')
         self.USER_N = configur.get('INFO','sudo_user')
         self.PSWRD = configur.get('INFO','sudo_pass')
@@ -197,7 +197,7 @@ class M_CTC_ID_014(vlan_Creation):
             self.hostname, self.call_home_port = self.session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
             
             if self.session:
-                self.RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
+                self.RU_Details = STARTUP.demo(session = self.session)
 
                 for key, val in self.RU_Details[1].items():
                     if val[0] == 'true' and val[1] == 'true':
@@ -313,6 +313,7 @@ if __name__ == "__main__":
         filename = sys.argv[1]
         obj = test_m_ctc_id_014()
     except Exception as e:
+        print(e)
         print('Usage: python netconf_session.py <Test_Case_ID>')
 
 

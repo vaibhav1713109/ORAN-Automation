@@ -228,7 +228,7 @@ class M_CTC_ID_SW_F_E(vlan_Creation):
         ## POST_GET_FILTER
         ###############################################################################            
         pdf.add_page()
-        STARTUP.STORE_DATA('\t\t POST GET AFTER INSTALL SW', Format='TEST_STEP',PDF=pdf)
+        STARTUP.STORE_DATA('\t\t POST GET FILTER', Format='TEST_STEP',PDF=pdf)
         STARTUP.STORE_DATA('\n> get --filter-xpath /o-ran-software-management:software-inventory', Format=True,PDF=pdf)
         sw_inv = '''<filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
         <software-inventory xmlns="urn:o-ran:software-management:1.0">
@@ -278,7 +278,7 @@ class M_CTC_ID_SW_F_E(vlan_Creation):
             self.hostname, self.call_home_port = self.session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
             
             if self.session:
-                self.RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
+                self.RU_Details = STARTUP.demo(session = self.session)
 
                 for key, val in self.RU_Details[1].items():
                     if val[0] == 'true' and val[1] == 'true':

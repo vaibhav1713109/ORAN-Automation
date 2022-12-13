@@ -194,7 +194,7 @@ class M_CTC_ID_SW_dwn_f_n_f(vlan_Creation):
             self.hostname, self.call_home_port = self.session._session._transport.sock.getpeername()   #['ip_address', 'TCP_Port']
             
             if self.session:
-                self.RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
+                self.RU_Details = STARTUP.demo(session = self.session)
 
                 for key, val in self.RU_Details[1].items():
                     if val[0] == 'true' and val[1] == 'true':
