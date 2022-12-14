@@ -162,6 +162,10 @@ class in_use(vlan_Creation):
                     STARTUP.STORE_DATA('******* RPC Reply ********',Format=True,PDF=pdf_log)
                     STARTUP.STORE_DATA('{}'.format(rpc_reply), Format='XML',PDF=pdf_log)
                     return True
+<<<<<<< HEAD
+=======
+                    break
+>>>>>>> v0.0.1
 
 
             
@@ -216,7 +220,11 @@ class in_use(vlan_Creation):
             STARTUP.STORE_DATA(Exp_Result,Format='DESC',PDF= pdf_log)
             STARTUP.STORE_DATA('\t\t{}'.format('****************** Actual Result ******************'),Format=True,PDF= pdf_log)
 
+<<<<<<< HEAD
             if result != True:
+=======
+            if result == True:
+>>>>>>> v0.0.1
                 if type(result) == list:
                     STARTUP.STORE_DATA(f"ERROR",Format=True,PDF= pdf_log)
                     STARTUP.STORE_DATA(f"{'error-type' : <20}{':' : ^10}{result[0]: ^10}",Format=False,PDF=pdf_log)
@@ -224,6 +232,10 @@ class in_use(vlan_Creation):
                     STARTUP.STORE_DATA(f"{'error-severity' : <20}{':' : ^10}{result[2]: ^10}",Format=False,PDF=pdf_log)
                     STARTUP.STORE_DATA(f"{'error-path' : <20}{':' : ^10}{result[3]: ^10}",Format=False,PDF=pdf_log)
                     STARTUP.STORE_DATA(f"{'Description' : <20}{':' : ^10}{result[4]: ^10}",Format=False,PDF=pdf_log)
+<<<<<<< HEAD
+=======
+                    return result[5]
+>>>>>>> v0.0.1
                 else:
                     STARTUP.STORE_DATA(f"{'Error_Tag_Mismatch' : <15}{'=' : ^20}{result : ^20}",Format=False,PDF=pdf_log)
                 STARTUP.ACT_RES(f"{'Error_Tag[in-use]' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf_log,COL=(255,0,0))

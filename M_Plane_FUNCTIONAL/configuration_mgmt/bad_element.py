@@ -126,6 +126,7 @@ class bad_element(vlan_Creation):
             ###############################################################################
             ## Test step for genrating the bad_element
             ###############################################################################                
+<<<<<<< HEAD
             xml_data = """<retrieve-file-list xmlns="urn:o-ran:file-management:1.0">
             <logical-path>/home/root/</logical-path>
             <file-name-filter>O-RAN-WG4.MP.0-v04.00.pdf</file-name-filter>
@@ -143,6 +144,23 @@ class bad_element(vlan_Creation):
                 STARTUP.STORE_DATA('******* RPC Reply ********',Format=True,PDF=pdf_log)
                 STARTUP.STORE_DATA('{}'.format(rpc_reply), Format='XML',PDF=pdf_log)
                 return True
+=======
+            xml_data = open("xml/bad_element.xml").read()
+            u1 =f'''
+                    <config>
+                    {xml_data}
+                    </config>'''
+
+
+            STARTUP.STORE_DATA('\t\t******* Configure Inteface yang********',Format='TEST_STEP',PDF=pdf_log)
+            STARTUP.STORE_DATA('> edit-config --target running --config --defop merge',Format=True,PDF=pdf_log)
+            STARTUP.STORE_DATA('\t\t*******  Replace with XMl ********',Format=True,PDF=pdf_log)
+            STARTUP.STORE_DATA(xml_data,Format='XML',PDF=pdf_log)
+            rpc_reply = self.session.edit_config(target='running',config=u1)
+            STARTUP.STORE_DATA('{}'.format(rpc_reply),Format='XML',PDF=pdf_log)
+            dict_data = xmltodict.parse(str(rpc_reply))
+            return 'Configuration are pushed...'
+>>>>>>> v0.0.1
 
 
         ###############################################################################
@@ -150,7 +168,11 @@ class bad_element(vlan_Creation):
         ###############################################################################                
         except RPCError as e:
             #print(e.message[0:15])
+<<<<<<< HEAD
             if 'bad-element' in e.message:
+=======
+            if 'Missing element' in e.message:
+>>>>>>> v0.0.1
                 STARTUP.STORE_DATA("###########  Rpc Reply ####################",Format=True,PDF=pdf_log)
                 STARTUP.STORE_DATA('\nERROR',Format=False,PDF=pdf_log)
                 STARTUP.STORE_DATA(f"\t{'type' : <20}{':' : ^10}{e.type: ^10}\n",Format=False,PDF=pdf_log)

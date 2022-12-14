@@ -66,7 +66,11 @@ class invalid_value(vlan_Creation):
             self.session = STARTUP.call_home(host = '', port=4334, timeout = 60, hostkey_verify=False,username = self.USER_N, password = self.PSWRD ,allow_agent = False , look_for_keys = False)
             li = self.session._session._transport.sock.getpeername()
             sid = self.session.session_id
+<<<<<<< HEAD
             self.hostname = li[0]
+=======
+            self.host = li[0]
+>>>>>>> v0.0.1
             pass
 
         except socket.timeout as e:
@@ -103,7 +107,11 @@ class invalid_value(vlan_Creation):
             ## Connect to the Netconf-Server
             ###############################################################################
             STARTUP.STORE_DATA('********** Connect to the NETCONF Server ***********',Format='TEST_STEP',PDF=pdf_log)
+<<<<<<< HEAD
             STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,self.port)
+=======
+            STATUS = STARTUP.STATUS(self.host,self.USER_N,self.session.session_id,self.port)
+>>>>>>> v0.0.1
             STARTUP.STORE_DATA(STATUS,Format=False,PDF=pdf_log)
 
             for i in self.session.server_capabilities:
@@ -206,7 +214,11 @@ class invalid_value(vlan_Creation):
             return e
 
 
+<<<<<<< HEAD
     def test_main(self):
+=======
+    def test_main(self,filename,Test_Case_ID):
+>>>>>>> v0.0.1
         try:
             del self.slots['swRecoverySlot']
             
@@ -214,7 +226,11 @@ class invalid_value(vlan_Creation):
                 if val[0] == 'true' and val[1] == 'true':
                     ############################### Test Description #############################
                     Test_Desc = '''Test Description : Test to verify whether from the NETCONF Error List with tag invalid-value'''
+<<<<<<< HEAD
                     CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL(filename,SW_R = val[2]) 
+=======
+                    CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL(Test_Case_ID,SW_R = val[2]) 
+>>>>>>> v0.0.1
                     STARTUP.STORE_DATA(CONFIDENTIAL,Format='CONF',PDF= pdf_log)
                     STARTUP.STORE_DATA(Test_Desc,Format='DESC',PDF= pdf_log)
                     pdf_log.add_page()
@@ -226,7 +242,11 @@ class invalid_value(vlan_Creation):
             time.sleep(5)
             result = self.session_login()
 
+<<<<<<< HEAD
             STARTUP.GET_SYSTEM_LOGS(self.hostname,self.USER_N,self.PSWRD,pdf_log)
+=======
+            STARTUP.GET_SYSTEM_LOGS(self.host,self.USER_N,self.PSWRD,pdf_log)
+>>>>>>> v0.0.1
                          
             Exp_Result = '''Expected Result : The request specifies an unacceptable value for one or more parameters.
                 error-tag:      invalid-value
@@ -277,7 +297,11 @@ class invalid_value(vlan_Creation):
 
         ############################### MAKE PDF File ####################################################
         finally:
+<<<<<<< HEAD
             STARTUP.CREATE_LOGS('M_FTC_ID_{}'.format(filename),PDF=pdf_log)
+=======
+            STARTUP.CREATE_LOGS('{}'.format(filename),PDF=pdf_log)
+>>>>>>> v0.0.1
             try:
                 self.session.close_session()
             except Exception as e:
@@ -289,8 +313,13 @@ class invalid_value(vlan_Creation):
 if __name__ == '__main__':
     try:
         obj = invalid_value()
+<<<<<<< HEAD
         filename = sys.argv[1]
         Result = obj.test_main()
+=======
+        filename = sys.argv[0].split('.')
+        Result = obj.test_main(filename[0],sys.argv[1])
+>>>>>>> v0.0.1
     except Exception as e:
         STARTUP.STORE_DATA('{}'.format(e), Format = True,PDF=pdf_log)
         exc_type, exc_obj, exc_tb = sys.exc_info()

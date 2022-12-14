@@ -66,7 +66,11 @@ class data_missing(vlan_Creation):
             self.session = STARTUP.call_home(host = '', port=4334, timeout = 60, hostkey_verify=False,username = self.USER_N, password = self.PSWRD ,allow_agent = False , look_for_keys = False)
             li = self.session._session._transport.sock.getpeername()
             sid = self.session.session_id
+<<<<<<< HEAD
             self.hostname = li[0]
+=======
+            self.host = li[0]
+>>>>>>> v0.0.1
             data = STARTUP.demo(self.session)
             self.users, self.slots, self.macs = data[0], data[1], data[2]
             pass
@@ -83,7 +87,11 @@ class data_missing(vlan_Creation):
             ## Connect to the Netconf-Server
             ###############################################################################
             STARTUP.STORE_DATA('********** Connect to the NETCONF Server ***********',Format='TEST_STEP',PDF=pdf_log)
+<<<<<<< HEAD
             STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,self.port)
+=======
+            STATUS = STARTUP.STATUS(self.host,self.USER_N,self.session.session_id,self.port)
+>>>>>>> v0.0.1
             STARTUP.STORE_DATA(STATUS,Format=False,PDF=pdf_log)
 
             for i in self.session.server_capabilities:
@@ -122,6 +130,7 @@ class data_missing(vlan_Creation):
             #         STARTUP.STORE_DATA(xml_pretty_str,Format='XML',PDF=pdf_log)
             #         break
 
+<<<<<<< HEAD
             
             ###############################################################################
             ## Test step for genrating the data missing
@@ -153,6 +162,29 @@ class data_missing(vlan_Creation):
             rpc_reply = self.session.edit_config(target='running',config=u1, default_operation = 'none')
             STARTUP.STORE_DATA('{}'.format(rpc_reply),Format='XML',PDF=pdf_log)
             dict_data = xmltodict.parse(str(rpc_reply))
+=======
+
+            ###############################################################################
+            ## Test step for genrating the unknown attribute
+            ###############################################################################                
+            
+
+
+            # xml_data = open("xml/M_FTC_ID_056.xml").read()
+            # u1 =f'''
+            #         <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+            #         {xml_data}
+            #         </config>'''
+
+
+            # STARTUP.STORE_DATA('\t\t******* Create NEW USER ********',Format='TEST_STEP',PDF=pdf_log)
+            # STARTUP.STORE_DATA('> edit-config --target running --config --defop merge',Format=True,PDF=pdf_log)
+            # STARTUP.STORE_DATA('\t\t*******  Replace with XMl ********',Format=True,PDF=pdf_log)
+            # STARTUP.STORE_DATA(xml_data,Format='XML',PDF=pdf_log)
+            # d = self.session.edit_config(target='running',config=u1)
+            # STARTUP.STORE_DATA('{}'.format(d),Format='XML',PDF=pdf_log)
+            # dict_data = xmltodict.parse(str(d))
+>>>>>>> v0.0.1
             return 'Configuration are pushed...'
 
 
@@ -180,7 +212,11 @@ class data_missing(vlan_Creation):
             return e
 
 
+<<<<<<< HEAD
     def test_main(self):
+=======
+    def test_main(self,filename,Test_Case_ID):
+>>>>>>> v0.0.1
         try:
             del self.slots['swRecoverySlot']
             
@@ -188,7 +224,11 @@ class data_missing(vlan_Creation):
                 if val[0] == 'true' and val[1] == 'true':
                     ############################### Test Description #############################
                     Test_Desc = '''Test Description : Test to verify whether from the NETCONF Error List with tag data-missing'''
+<<<<<<< HEAD
                     CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL(filename,SW_R = val[2]) 
+=======
+                    CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL(Test_Case_ID,SW_R = val[2]) 
+>>>>>>> v0.0.1
                     STARTUP.STORE_DATA(CONFIDENTIAL,Format='CONF',PDF= pdf_log)
                     STARTUP.STORE_DATA(Test_Desc,Format='DESC',PDF= pdf_log)
                     pdf_log.add_page()
@@ -200,7 +240,11 @@ class data_missing(vlan_Creation):
             time.sleep(5)
             result = self.session_login()
 
+<<<<<<< HEAD
             STARTUP.GET_SYSTEM_LOGS(self.hostname,self.USER_N,self.PSWRD,pdf_log)
+=======
+            STARTUP.GET_SYSTEM_LOGS(self.host,self.USER_N,self.PSWRD,pdf_log)
+>>>>>>> v0.0.1
                          
             Exp_Result = '''Expected Result : The request or response have an expected attribute missing.same of the element that is supposed to contain the missing attribute error-tag: bad-attribute error-type: rpc, protocol, application error-severity: error error-info:<bad-attribute> : name of the attribute
                 '''
@@ -246,7 +290,11 @@ class data_missing(vlan_Creation):
 
         ############################### MAKE PDF File ####################################################
         finally:
+<<<<<<< HEAD
             STARTUP.CREATE_LOGS('M_FTC_ID_{}'.format(filename),PDF=pdf_log)
+=======
+            STARTUP.CREATE_LOGS('{}'.format(filename),PDF=pdf_log)
+>>>>>>> v0.0.1
             try:
                 self.session.close_session()
             except Exception as e:
@@ -258,8 +306,13 @@ class data_missing(vlan_Creation):
 if __name__ == '__main__':
     try:
         obj = data_missing()
+<<<<<<< HEAD
         filename = sys.argv[1]
         Result = obj.test_main()
+=======
+        filename = sys.argv[0].split('.')
+        Result = obj.test_main(filename[0],sys.argv[1])
+>>>>>>> v0.0.1
     except Exception as e:
         STARTUP.STORE_DATA('{}'.format(e), Format = True,PDF=pdf_log)
         exc_type, exc_obj, exc_tb = sys.exc_info()

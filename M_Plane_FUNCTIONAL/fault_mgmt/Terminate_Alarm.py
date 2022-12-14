@@ -64,6 +64,7 @@ class terminate_alarm(vlan_Creation):
             self.session = manager.call_home(host = '', port=4334, hostkey_verify=False,username = self.USER_N, password = self.PSWRD ,allow_agent = False , look_for_keys = False)
             li = self.session._session._transport.sock.getpeername()
             sid = self.session.session_id
+<<<<<<< HEAD
             self.hostname = li[0]
             data = STARTUP.demo(self.session)
             self.users, self.slots, self.macs = data[0], data[1], data[2]
@@ -84,12 +85,20 @@ class terminate_alarm(vlan_Creation):
                 print(e)  
 
         except Exception as e:  
+=======
+            self.host = li[0]
+            data = STARTUP.demo(self.session)
+            self.users, self.slots, self.macs = data[0], data[1], data[2]
+            pass
+        except Exception as e:
+>>>>>>> v0.0.1
             STARTUP.STORE_DATA('{}'.format(e), Format = True,PDF=pdf_log)
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format = False,PDF=pdf_log)
             return '{}'.format(e)
 
+<<<<<<< HEAD
         finally:
             try:
                 data = STARTUP.demo(self.session)
@@ -97,13 +106,19 @@ class terminate_alarm(vlan_Creation):
             except Exception as e:
                 print(e)
 
+=======
+>>>>>>> v0.0.1
     def session_login(self):
         try:
             ###############################################################################
             ## Test Step 1 Connect to the Netconf-Server
             ###############################################################################
             STARTUP.STORE_DATA('********** Connect to the NETCONF Server ***********',Format='TEST_STEP',PDF=pdf_log)
+<<<<<<< HEAD
             STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,self.port)
+=======
+            STATUS = STARTUP.STATUS(self.host,self.USER_N,self.session.session_id,self.port)
+>>>>>>> v0.0.1
             STARTUP.STORE_DATA(STATUS,Format=False,PDF=pdf_log)
 
             for i in self.session.server_capabilities:
@@ -119,6 +134,7 @@ class terminate_alarm(vlan_Creation):
             dict_data = xmltodict.parse(str(cap))
             if dict_data['nc:rpc-reply']['nc:ok']== None:
                 STARTUP.STORE_DATA('\nOk\n',Format=False,PDF=pdf_log)
+<<<<<<< HEAD
             
 
             ###############################################################################
@@ -132,10 +148,15 @@ class terminate_alarm(vlan_Creation):
                 x = xml.dom.minidom.parseString(notify)
                 xml_pretty_str = x.toprettyxml()
                 STARTUP.STORE_DATA(xml_pretty_str, Format='XML',PDF=pdf_log)
+=======
+
+
+>>>>>>> v0.0.1
 
             ###############################################################################
             ## Test step 2 Trigger the rpc the NETCONF client shall send a <close-session> operation from the subscription’s session
             ###############################################################################                
+<<<<<<< HEAD
             STARTUP.STORE_DATA('\t\t ******* TER NETCONF Client triggers Close Session RPC *******',Format='TEST_STEP',PDF=pdf_log)
             STARTUP.STORE_DATA('> user-rpc\n',Format=True,PDF=pdf_log)
             STARTUP.STORE_DATA('******* Replace with xml ********',Format=True,PDF=pdf_log)
@@ -145,6 +166,17 @@ class terminate_alarm(vlan_Creation):
             dict_data = xmltodict.parse(str(cap))
             if dict_data['nc:rpc-reply']['nc:ok']== None:
                 STARTUP.STORE_DATA('\nOk\n',Format=False,PDF=pdf_log)
+=======
+            """STARTUP.STORE_DATA('\t\t ******* TER NETCONF Client triggers Close Session RPC *******',Format='TEST_STEP',PDF=pdf)
+            STARTUP.STORE_DATA('> user-rpc\n',Format=True,PDF=pdf)
+            STARTUP.STORE_DATA('******* Replace with xml ********',Format=True,PDF=pdf)
+            xml_data = "<close-session xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"></close-session>"
+            STARTUP.STORE_DATA(xml_data,Format='XML',PDF=pdf)
+            STARTUP.STORE_DATA('RPC Reply',Format=True,PDF=pdf)
+            dict_data = xmltodict.parse(str(cap))
+            if dict_data['nc:rpc-reply']['nc:ok']== None:
+                STARTUP.STORE_DATA('\nOk\n',Format=False,PDF=pdf)"""
+>>>>>>> v0.0.1
             
             
 
@@ -190,7 +222,11 @@ class terminate_alarm(vlan_Creation):
             time.sleep(5)
             result = self.session_login()
 
+<<<<<<< HEAD
             STARTUP.GET_SYSTEM_LOGS(self.hostname,self.USER_N,self.PSWRD,pdf_log)
+=======
+            STARTUP.GET_SYSTEM_LOGS(self.host,self.USER_N,self.PSWRD,pdf_log,number=500)
+>>>>>>> v0.0.1
                          
             Exp_Result = '''Expected Result : The request or response have an expected attribute missing.same of the element that is supposed to contain the missing attribute error-tag: bad-attribute error-type: rpc, protocol, application error-severity: error error-info:<bad-attribute> : name of the attribute
                 '''

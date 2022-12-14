@@ -1,0 +1,2983 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1133</width>
+    <height>518</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>O-RAN Test Automation Suit</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QWidget" name="HomeScreen" native="true">
+      <property name="styleSheet">
+       <string notr="true">*{
+	background: transparent;
+	color: rgb(211, 215, 207);
+	border: 1px solid}
+#HomeScreen{
+	background-color: #0C0B0B;
+}
+
+
+QPushButton{
+	background-color: #293340;
+	border-radius: 5px;
+	padding: 2px 5px
+}
+
+QCheckBox{
+	border: none;
+	spacing : 5px;
+}
+QCheckBox::indicator
+{
+	width: 15px;
+	height: 15px
+}
+QCheckBox:hover
+{
+	color:#B31031;
+}
+
+/* when indicator is unchecked */
+QCheckBox::indicator:unchecked
+{
+	image: url(:/icons/icons/square.svg);
+}
+/* when indicator is checked */
+QCheckBox::indicator:checked
+{
+	image: url(:/icons/icons/check-square.svg);
+}
+QPushButton:hover{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:0.512438 rgba(20, 113, 60, 255), stop:1 rgba(0, 0, 0, 255));
+}
+#centerScreen_frame, #Center_Frame, #TestCaseFrame,
+#executionFrame,#stackedWidget{
+	border:none;}</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="topMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <property name="bottomMargin">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="centerScreen_frame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_36">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QFrame" name="window_name">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border:none;</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <property name="spacing">
+              <number>6</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>25</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <property name="text">
+                <string>M Plane Conformance Test Cases</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="menu">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="resource.qrc">
+                 <normaloff>:/icons/icons/align-left.svg</normaloff>:/icons/icons/align-left.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="Center_Frame">
+            <property name="styleSheet">
+             <string notr="true">#Center_Frame{
+	border: 1px solid;}</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QFrame" name="TestCaseFrame">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_35">
+                <item>
+                 <widget class="QPushButton" name="module">
+                  <property name="text">
+                   <string>Transport and HandShake</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="module_1">
+                  <property name="text">
+                   <string>Subscription to Notifications</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="module_2">
+                  <property name="text">
+                   <string>M-Plane connection supervision</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="module_3">
+                  <property name="text">
+                   <string>Retrieval of O-RU's information elements</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="module_4">
+                  <property name="text">
+                   <string>Fault Management</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="module_5">
+                  <property name="text">
+                   <string>O-RU Software Update</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="module_6">
+                  <property name="text">
+                   <string>Access Control</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="module_7">
+                  <property name="text">
+                   <string>O-RU Configurability</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="module_8">
+                  <property name="text">
+                   <string>ALD Communications </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="module_9">
+                  <property name="text">
+                   <string>Log Management</string>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignHCenter">
+                 <widget class="QPushButton" name="run_all">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: qradialgradient(spread:pad, cx:0.504739, cy:0.506, radius:1.97128, fx:0.5, fy:0.5, stop:0.18408 rgba(1, 47, 8, 255), stop:1 rgba(236, 233, 255, 255));</string>
+                  </property>
+                  <property name="text">
+                   <string>RUN ALL</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="resource.qrc">
+                    <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QFrame" name="executionFrame">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">#executionFrame{
+	image: url(:/icons/icons/radio.svg);
+}
+QFrame{
+	background-color: #16191d;
+	border:none;
+}
+QLineEdit{background-color: rgba(0,0,0,0);
+	border:none;
+	border-bottom:2px solid rgba(46,82,101,200);
+	color: rgb(214, 214, 214);
+	padding-bottom:7px;
+}
+QLabel{
+	border:1px solid;
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(25, 32, 40, 255), stop:0.507463 rgba(2, 15, 8, 255), stop:1 rgba(25, 32, 40, 255));
+}
+QTextEdit{
+	border:1px solid;
+}</string>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_2">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QStackedWidget" name="stackedWidget">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="currentIndex">
+                   <number>9</number>
+                  </property>
+                  <widget class="QWidget" name="Module1">
+                   <layout class="QHBoxLayout" name="horizontalLayout_15">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QFrame" name="subMod1">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_4">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QFrame" name="InputFrame">
+                         <property name="styleSheet">
+                          <string notr="true"/>
+                         </property>
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_37">
+                          <property name="leftMargin">
+                           <number>6</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>6</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>6</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>6</number>
+                          </property>
+                          <item>
+                           <widget class="QLabel" name="InputLabel">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Test Cases and User Input</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_11">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_14">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QLineEdit" name="input1">
+                               <property name="placeholderText">
+                                <string>Sudo Username</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="input">
+                               <property name="placeholderText">
+                                <string>Sudo Password</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_1">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_13">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QCheckBox" name="TC_001">
+                               <property name="enabled">
+                                <bool>true</bool>
+                               </property>
+                               <property name="font">
+                                <font>
+                                 <kerning>true</kerning>
+                                </font>
+                               </property>
+                               <property name="autoFillBackground">
+                                <bool>false</bool>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true"/>
+                               </property>
+                               <property name="text">
+                                <string>M_CTC_ID_001</string>
+                               </property>
+                               <property name="checkable">
+                                <bool>true</bool>
+                               </property>
+                               <property name="checked">
+                                <bool>false</bool>
+                               </property>
+                               <property name="autoRepeat">
+                                <bool>false</bool>
+                               </property>
+                               <property name="autoExclusive">
+                                <bool>false</bool>
+                               </property>
+                               <property name="tristate">
+                                <bool>false</bool>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_002">
+                               <property name="text">
+                                <string>M_CTC_ID_002</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_003">
+                               <property name="text">
+                                <string>M_CTC_ID_003</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignHCenter">
+                           <widget class="QFrame" name="buttons">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_4">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QPushButton" name="run_123">
+                               <property name="text">
+                                <string>RUN ALL</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play-circle.svg</normaloff>:/icons/icons/play-circle.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="runButton">
+                               <property name="text">
+                                <string>RUN</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="submitBtn">
+                               <property name="text">
+                                <string>Submit</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/zap.svg</normaloff>:/icons/icons/zap.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="OutputFrame">
+                         <property name="styleSheet">
+                          <string notr="true"/>
+                         </property>
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_6">
+                          <property name="leftMargin">
+                           <number>6</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>6</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>6</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>6</number>
+                          </property>
+                          <item>
+                           <widget class="QLabel" name="outputLabel">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Output</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QTextEdit" name="consoleEdit"/>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="Module2">
+                   <layout class="QVBoxLayout" name="verticalLayout_14">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QFrame" name="subMod2">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_16">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QFrame" name="InputFrame_2">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_5">
+                          <item>
+                           <widget class="QLabel" name="InputLabel_2">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Test Cases and User Input</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_2">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_16">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QLineEdit" name="username_2">
+                               <property name="placeholderText">
+                                <string>Sudo Username</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="password_2">
+                               <property name="placeholderText">
+                                <string>Sudo Password</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="ptpSyncE">
+                               <property name="placeholderText">
+                                <string>PTP &amp; SyncE Port</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="paragon_ip">
+                               <property name="placeholderText">
+                                <string>Paragon Neo IP</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignHCenter">
+                           <widget class="QFrame" name="buttons_2">
+                            <property name="styleSheet">
+                             <string notr="true">#Buttons{
+border:none;
+}</string>
+                            </property>
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_6">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QPushButton" name="runButton_2">
+                               <property name="text">
+                                <string>M_CTC_ID_007</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="submitBtn_2">
+                               <property name="text">
+                                <string>Submit</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/zap.svg</normaloff>:/icons/icons/zap.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="OutputFrame_2">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_15">
+                          <item alignment="Qt::AlignTop">
+                           <widget class="QLabel" name="outputLabel_2">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Output</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QTextEdit" name="consoleEdit_2"/>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="Module3">
+                   <layout class="QVBoxLayout" name="verticalLayout_8">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QFrame" name="subMod3">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_10">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QFrame" name="InputFrame_3">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_7">
+                          <item>
+                           <widget class="QLabel" name="InputLabel_3">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Test Cases and User Input</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_3">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_17">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QLineEdit" name="username">
+                               <property name="placeholderText">
+                                <string>Sudo Username</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="password">
+                               <property name="placeholderText">
+                                <string>Sudo Password</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_31">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_18">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QCheckBox" name="TC_008">
+                               <property name="styleSheet">
+                                <string notr="true"/>
+                               </property>
+                               <property name="text">
+                                <string>M_CTC_ID_008</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_009">
+                               <property name="text">
+                                <string>M_CTC_ID_009</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignHCenter">
+                           <widget class="QFrame" name="buttons_3">
+                            <property name="styleSheet">
+                             <string notr="true">#buttons{
+	border:none;
+}</string>
+                            </property>
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_5">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QPushButton" name="run_89">
+                               <property name="text">
+                                <string>RUN ALL</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play-circle.svg</normaloff>:/icons/icons/play-circle.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="runButton_3">
+                               <property name="text">
+                                <string>RUN</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="submitBtn_3">
+                               <property name="text">
+                                <string>Submit</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/zap.svg</normaloff>:/icons/icons/zap.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="OutputFrame_3">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_9">
+                          <item alignment="Qt::AlignTop">
+                           <widget class="QLabel" name="outputLabel_3">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Output</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QTextEdit" name="consoleEdit_3"/>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="Module4">
+                   <property name="styleSheet">
+                    <string notr="true"/>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_11">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QFrame" name="subMod4">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_13">
+                       <property name="spacing">
+                        <number>6</number>
+                       </property>
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QFrame" name="InputFrame_4">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_38">
+                          <item>
+                           <widget class="QLabel" name="InputLabel_4">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Test Cases and User Input</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_4">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_19">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QLineEdit" name="username_4">
+                               <property name="placeholderText">
+                                <string>Sudo Username</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="password_4">
+                               <property name="placeholderText">
+                                <string>Sudo Password</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_41">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_20">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QCheckBox" name="TC_010">
+                               <property name="styleSheet">
+                                <string notr="true"/>
+                               </property>
+                               <property name="text">
+                                <string>M_CTC_ID_010</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_011">
+                               <property name="text">
+                                <string>M_CTC_ID_011</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignHCenter">
+                           <widget class="QFrame" name="buttons_4">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_7">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QPushButton" name="run_10_11">
+                               <property name="text">
+                                <string>RUN ALL</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play-circle.svg</normaloff>:/icons/icons/play-circle.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="runButton_4">
+                               <property name="text">
+                                <string>RUN</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="submitBtn_4">
+                               <property name="text">
+                                <string>Submit</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/zap.svg</normaloff>:/icons/icons/zap.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="OutputFrame_4">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_12">
+                          <item alignment="Qt::AlignTop">
+                           <widget class="QLabel" name="outputLabel_4">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Output</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QTextEdit" name="consoleEdit_4"/>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="Module5">
+                   <layout class="QVBoxLayout" name="verticalLayout_17">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QFrame" name="subMod5">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_19">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QFrame" name="InputFrame_5">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_39">
+                          <item>
+                           <widget class="QLabel" name="InputLabel_5">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Test Cases and User Input</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_5">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_21">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QLineEdit" name="username_5">
+                               <property name="placeholderText">
+                                <string>Sudo Username</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="p_neoIP">
+                               <property name="placeholderText">
+                                <string>Paragon Neo IP</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="ptpPort">
+                               <property name="placeholderText">
+                                <string>PTP &amp; SyncE Port</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="password_5">
+                               <property name="placeholderText">
+                                <string>Sudo Password</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_51">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_22">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QCheckBox" name="TC_012">
+                               <property name="styleSheet">
+                                <string notr="true"/>
+                               </property>
+                               <property name="text">
+                                <string>M_CTC_ID_012</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_013">
+                               <property name="text">
+                                <string>M_CTC_ID_013</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignHCenter">
+                           <widget class="QFrame" name="buttons_5">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_8">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QPushButton" name="run_12_13">
+                               <property name="text">
+                                <string>RUN ALL</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play-circle.svg</normaloff>:/icons/icons/play-circle.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="runButton_5">
+                               <property name="text">
+                                <string>RUN</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="submitBtn_5">
+                               <property name="text">
+                                <string>Submit</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/zap.svg</normaloff>:/icons/icons/zap.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="OutputFrame_5">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_18">
+                          <item alignment="Qt::AlignTop">
+                           <widget class="QLabel" name="outputLabel_5">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Output</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QTextEdit" name="consoleEdit_5"/>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="Module6">
+                   <layout class="QVBoxLayout" name="verticalLayout_20">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QFrame" name="subMod6">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_24">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QFrame" name="InputFrame_6">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_40">
+                          <property name="leftMargin">
+                           <number>9</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>9</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>9</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>9</number>
+                          </property>
+                          <item>
+                           <widget class="QLabel" name="InputLabel_6">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Test Cases and User Input</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_6">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_23">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QLineEdit" name="password_6">
+                               <property name="placeholderText">
+                                <string>Sudo Username</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="username_6">
+                               <property name="placeholderText">
+                                <string>Sudo Password</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="du_pswrd">
+                               <property name="placeholderText">
+                                <string>DU Password</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="sw_file">
+                               <property name="placeholderText">
+                                <string>Software File Path</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="currupt_file">
+                               <property name="frame">
+                                <bool>true</bool>
+                               </property>
+                               <property name="alignment">
+                                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                               </property>
+                               <property name="placeholderText">
+                                <string>Currupt File Path</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_61">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_24">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QCheckBox" name="TC_014">
+                               <property name="styleSheet">
+                                <string notr="true"/>
+                               </property>
+                               <property name="text">
+                                <string>M_CTC_ID_014</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_015">
+                               <property name="text">
+                                <string>M_CTC_ID_015</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_016">
+                               <property name="text">
+                                <string>M_CTC_ID_016</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_017">
+                               <property name="text">
+                                <string>M_CTC_ID_017</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignHCenter">
+                           <widget class="QFrame" name="buttons_6">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_9">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QPushButton" name="run_14_17">
+                               <property name="text">
+                                <string>RUN ALL</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play-circle.svg</normaloff>:/icons/icons/play-circle.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="runButton_6">
+                               <property name="text">
+                                <string>RUN</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="submitBtn_6">
+                               <property name="text">
+                                <string>Submit</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/zap.svg</normaloff>:/icons/icons/zap.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="OutputFrame_6">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_23">
+                          <item alignment="Qt::AlignTop">
+                           <widget class="QLabel" name="outputLabel_6">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Output</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QTextEdit" name="consoleEdit_6"/>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="Module7">
+                   <layout class="QVBoxLayout" name="verticalLayout_22">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QFrame" name="subMod7">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_26">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QFrame" name="InputFrame_7">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QGridLayout" name="gridLayout_9">
+                          <item row="10" column="0" colspan="3" alignment="Qt::AlignHCenter">
+                           <widget class="QFrame" name="buttons_7">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_10">
+                             <property name="spacing">
+                              <number>6</number>
+                             </property>
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QPushButton" name="run_18_23">
+                               <property name="text">
+                                <string>RUN ALL</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play-circle.svg</normaloff>:/icons/icons/play-circle.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="runButton_7">
+                               <property name="text">
+                                <string>RUN</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="submitBtn_7">
+                               <property name="text">
+                                <string>Submit</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/zap.svg</normaloff>:/icons/icons/zap.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item row="0" column="0" colspan="3">
+                           <widget class="QLabel" name="InputLabel_7">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Test Cases and User Input</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="0" colspan="3">
+                           <widget class="QFrame" name="frame_7">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_25">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QLineEdit" name="sudouser">
+                               <property name="placeholderText">
+                                <string>Sudo Username</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="sudopswrd">
+                               <property name="placeholderText">
+                                <string>Sudo Password</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="nmsuser">
+                               <property name="text">
+                                <string/>
+                               </property>
+                               <property name="placeholderText">
+                                <string>NMS Username</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="nmspswrd">
+                               <property name="placeholderText">
+                                <string>NMS Password</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="fmpmuser">
+                               <property name="placeholderText">
+                                <string>fm-pm username</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="fmpmpswrd">
+                               <property name="placeholderText">
+                                <string>fm-pm password</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item row="2" column="0">
+                           <widget class="QFrame" name="frame_71">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_26">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QCheckBox" name="TC_018">
+                               <property name="styleSheet">
+                                <string notr="true"/>
+                               </property>
+                               <property name="text">
+                                <string>M_CTC_ID_018</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_019">
+                               <property name="text">
+                                <string>M_CTC_ID_019</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_020">
+                               <property name="text">
+                                <string>M_CTC_ID_020</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_021">
+                               <property name="text">
+                                <string>M_CTC_ID_021</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_022">
+                               <property name="text">
+                                <string>M_CTC_ID_022</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_023">
+                               <property name="text">
+                                <string>M_CTC_ID_023</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="OutputFrame_7">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_25">
+                          <item alignment="Qt::AlignTop">
+                           <widget class="QLabel" name="outputLabel_7">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Output</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QTextEdit" name="consoleEdit_7"/>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="Module8">
+                   <layout class="QVBoxLayout" name="verticalLayout_21">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QFrame" name="subMod8">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_28">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QFrame" name="InputFrame_8">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_41">
+                          <item>
+                           <widget class="QLabel" name="InputLabel_8">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Test Cases and User Input</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_8">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QGridLayout" name="gridLayout">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item row="0" column="4">
+                              <widget class="QLineEdit" name="input8_3">
+                               <property name="placeholderText">
+                                <string>Bandwidth[MHz]</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="3">
+                              <widget class="QLineEdit" name="fronhaulInterface">
+                               <property name="alignment">
+                                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                               </property>
+                               <property name="placeholderText">
+                                <string>RU Fronthoul Interface Name</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="0">
+                              <widget class="QLineEdit" name="sudouser_8">
+                               <property name="placeholderText">
+                                <string>Sudo Username</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="0" column="1">
+                              <widget class="QLineEdit" name="sudopswrd_8">
+                               <property name="placeholderText">
+                                <string>Sudo Password</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="1" column="3">
+                              <widget class="QLineEdit" name="input8_4">
+                               <property name="placeholderText">
+                                <string>Center_Frequency[GHz]</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="1" column="0">
+                              <widget class="QLineEdit" name="input8_1">
+                               <property name="placeholderText">
+                                <string>TX_Arfcn</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="1" column="1">
+                              <widget class="QLineEdit" name="input8_2">
+                               <property name="placeholderText">
+                                <string>RX_Arfcn</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="1" column="4">
+                              <widget class="QLineEdit" name="input8_5">
+                               <property name="placeholderText">
+                                <string>Duplex_Scheme[FDD/TDD]</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QFrame" name="frame_81">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_28">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QCheckBox" name="TC_026">
+                               <property name="styleSheet">
+                                <string notr="true"/>
+                               </property>
+                               <property name="text">
+                                <string>M_CTC_ID_026</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QCheckBox" name="TC_027">
+                               <property name="text">
+                                <string>M_CTC_ID_027</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item alignment="Qt::AlignHCenter">
+                           <widget class="QFrame" name="buttons_8">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_11">
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QPushButton" name="run_26_27">
+                               <property name="text">
+                                <string>RUN ALL</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play-circle.svg</normaloff>:/icons/icons/play-circle.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="runButton_8">
+                               <property name="text">
+                                <string>RUN</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="submitBtn_8">
+                               <property name="text">
+                                <string>Submit</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/zap.svg</normaloff>:/icons/icons/zap.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="OutputFrame_8">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_27">
+                          <item alignment="Qt::AlignTop">
+                           <widget class="QLabel" name="outputLabel_8">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Output</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QTextEdit" name="consoleEdit_8"/>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="Module9">
+                   <layout class="QVBoxLayout" name="verticalLayout_32">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QFrame" name="subMod9">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_34">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QFrame" name="InputFrame_9">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QGridLayout" name="gridLayout_12">
+                          <item row="0" column="0" colspan="7">
+                           <widget class="QLabel" name="InputLabel_9">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Test Cases and User Input</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="6">
+                           <widget class="QLineEdit" name="fmpmpswrd_9">
+                            <property name="placeholderText">
+                             <string>fm-pm password</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="10" column="0" colspan="7" alignment="Qt::AlignHCenter">
+                           <widget class="QFrame" name="buttons_9">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_12">
+                             <property name="spacing">
+                              <number>6</number>
+                             </property>
+                             <property name="leftMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="topMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="rightMargin">
+                              <number>0</number>
+                             </property>
+                             <property name="bottomMargin">
+                              <number>0</number>
+                             </property>
+                             <item>
+                              <widget class="QCheckBox" name="S_all_9">
+                               <property name="text">
+                                <string>Select All</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="runButton_9">
+                               <property name="text">
+                                <string>RUN</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QPushButton" name="submitBtn_9">
+                               <property name="text">
+                                <string>Submit</string>
+                               </property>
+                               <property name="icon">
+                                <iconset resource="resource.qrc">
+                                 <normaloff>:/icons/icons/zap.svg</normaloff>:/icons/icons/zap.svg</iconset>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item row="1" column="5">
+                           <widget class="QLineEdit" name="fmpmuser_9">
+                            <property name="placeholderText">
+                             <string>fm-pm username</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="0">
+                           <widget class="QLineEdit" name="sudouser_9">
+                            <property name="placeholderText">
+                             <string>Sudo Username</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="4">
+                           <widget class="QLineEdit" name="nmspswrd_9">
+                            <property name="placeholderText">
+                             <string>NMS Password</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="3">
+                           <widget class="QLineEdit" name="nmsuser_9">
+                            <property name="text">
+                             <string/>
+                            </property>
+                            <property name="placeholderText">
+                             <string>NMS Username</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="2">
+                           <widget class="QLineEdit" name="sudopswrd_9">
+                            <property name="placeholderText">
+                             <string>Sudo Password</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="0">
+                           <widget class="QCheckBox" name="TC_28">
+                            <property name="styleSheet">
+                             <string notr="true"/>
+                            </property>
+                            <property name="text">
+                             <string>M_CTC_ID_028</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="2">
+                           <widget class="QCheckBox" name="TC_29">
+                            <property name="text">
+                             <string>M_CTC_ID_029</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="3">
+                           <widget class="QCheckBox" name="TC_30">
+                            <property name="text">
+                             <string>M_CTC_ID_030</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="4">
+                           <widget class="QCheckBox" name="TC_31">
+                            <property name="text">
+                             <string>M_CTC_ID_031</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="5">
+                           <widget class="QCheckBox" name="TC_32">
+                            <property name="text">
+                             <string>M_CTC_ID_032</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="6">
+                           <widget class="QCheckBox" name="TC_33">
+                            <property name="text">
+                             <string>M_CTC_ID_033</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="OutputFrame_9">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_33">
+                          <item alignment="Qt::AlignTop">
+                           <widget class="QLabel" name="outputLabel_9">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Output</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QTextEdit" name="consoleEdit_9"/>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="Module10">
+                   <layout class="QVBoxLayout" name="verticalLayout_29">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QFrame" name="subMod10">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="verticalLayout_31">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QFrame" name="InputFrame_10">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QGridLayout" name="gridLayout_11">
+                          <item row="2" column="0" alignment="Qt::AlignRight">
+                           <widget class="QPushButton" name="runBtn">
+                            <property name="text">
+                             <string>M_CTC_ID_034</string>
+                            </property>
+                            <property name="icon">
+                             <iconset resource="resource.qrc">
+                              <normaloff>:/icons/icons/play.svg</normaloff>:/icons/icons/play.svg</iconset>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="2" column="1" alignment="Qt::AlignLeft">
+                           <widget class="QPushButton" name="submitBtn_10">
+                            <property name="text">
+                             <string>Submit</string>
+                            </property>
+                            <property name="icon">
+                             <iconset resource="resource.qrc">
+                              <normaloff>:/icons/icons/zap.svg</normaloff>:/icons/icons/zap.svg</iconset>
+                            </property>
+                           </widget>
+                          </item>
+                          <item row="1" column="0" colspan="2">
+                           <widget class="QFrame" name="frame_10">
+                            <property name="frameShape">
+                             <enum>QFrame::StyledPanel</enum>
+                            </property>
+                            <property name="frameShadow">
+                             <enum>QFrame::Raised</enum>
+                            </property>
+                            <layout class="QHBoxLayout" name="horizontalLayout_27">
+                             <item>
+                              <widget class="QLineEdit" name="username_10">
+                               <property name="placeholderText">
+                                <string>Sudo Username</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item>
+                              <widget class="QLineEdit" name="password_10">
+                               <property name="placeholderText">
+                                <string>Sudo Password</string>
+                               </property>
+                              </widget>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item row="0" column="0" colspan="2">
+                           <widget class="QLabel" name="InputLabel_10">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Test Cases and User Input</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="OutputFrame_10">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="verticalLayout_30">
+                          <item alignment="Qt::AlignTop">
+                           <widget class="QLabel" name="outputLabel_10">
+                            <property name="font">
+                             <font>
+                              <pointsize>15</pointsize>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>Output</string>
+                            </property>
+                            <property name="alignment">
+                             <set>Qt::AlignCenter</set>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QTextEdit" name="consoleEdit_10"/>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="sideMenu_Frame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>0</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="sizeIncrement">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="configuration">
+            <property name="text">
+             <string>Configuration</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resource.qrc">
+              <normaloff>:/icons/icons/database.svg</normaloff>:/icons/icons/database.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="report">
+            <property name="text">
+             <string>Report</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resource.qrc">
+              <normaloff>:/icons/icons/download-cloud.svg</normaloff>:/icons/icons/download-cloud.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="help">
+            <property name="text">
+             <string>Help</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resource.qrc">
+              <normaloff>:/icons/icons/help-circle.svg</normaloff>:/icons/icons/help-circle.svg</iconset>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

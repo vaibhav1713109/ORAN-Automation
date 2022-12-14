@@ -66,7 +66,11 @@ class missing_element(vlan_Creation):
             self.session = STARTUP.call_home(host = '', port=4334, hostkey_verify=False,username = self.USER_N, password = self.PSWRD ,allow_agent = False , look_for_keys = False, timeout = 60)
             li = self.session._session._transport.sock.getpeername()
             sid = self.session.session_id
+<<<<<<< HEAD
             self.hostname = li[0]
+=======
+            self.host = li[0]
+>>>>>>> v0.0.1
             data = STARTUP.demo(self.session)
             self.users, self.slots, self.macs = data[0], data[1], data[2]
             pass
@@ -83,7 +87,11 @@ class missing_element(vlan_Creation):
             ## Connect to the Netconf-Server
             ###############################################################################
             STARTUP.STORE_DATA('********** Connect to the NETCONF Server ***********',Format='TEST_STEP',PDF=pdf_log)
+<<<<<<< HEAD
             STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,self.port)
+=======
+            STATUS = STARTUP.STATUS(self.host,self.USER_N,self.session.session_id,self.port)
+>>>>>>> v0.0.1
             STARTUP.STORE_DATA(STATUS,Format=False,PDF=pdf_log)
 
             for i in self.session.server_capabilities:

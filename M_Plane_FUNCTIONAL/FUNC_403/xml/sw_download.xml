@@ -1,0 +1,12 @@
+<software-download xmlns="urn:o-ran:software-management:1.0">
+<remote-file-path>{rmt_path}</remote-file-path>
+<password>
+<password>{password}</password>
+</password>
+<server>
+<keys>
+<algorithm>secp256r1</algorithm>
+<public-key>{public_key}</public-key>
+</keys>
+</server>
+</software-download>
