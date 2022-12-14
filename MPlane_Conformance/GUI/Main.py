@@ -31,7 +31,10 @@ from require.Write_Data import WriteData
 ## For reading data from .ini file
 ###############################################################################
 configur = ConfigParser()
-configur.read('{}/Conformance/inputs.ini'.format(dir_path))
+try:
+    configur.read('{}/Conformance/inputs.ini'.format(dir_path))
+except Exception as e:
+    print(e)
 ########################################################################
 ## MAIN WINDOW CLASS
 ########################################################################
@@ -159,10 +162,8 @@ class MainWindow(QtWidgets.QMainWindow):
         return True
 
     def dhcp_process_finished(self):
-        if self.link_detect:
             if not self.Flag:
                 os.system('sudo /etc/init.d/isc-dhcp-server restart')
-        else:
             st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
             self.msg.setText('{}'.format(st))
             self.msg.exec_()

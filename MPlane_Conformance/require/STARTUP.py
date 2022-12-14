@@ -426,7 +426,7 @@ def Test_Step(PDF,data):
 ###############################################################################
 def DHCP_Status(PDF,data):
     data = data.split('writable')
-    print(data)
+    #print(data)
     abs_path = os.path.join('{}/dejavu-fonts-ttf-2.37/ttf/'.format(parent),'DejaVuSans.ttf')
     PDF.add_font('DejaVu', '', abs_path, uni=True)
     PDF.set_font("DejaVu",'', size=9)
