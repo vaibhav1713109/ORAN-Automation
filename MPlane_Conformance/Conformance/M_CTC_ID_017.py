@@ -135,7 +135,7 @@ class M_CTC_ID_017(vlan_Creation):
     ###############################################################################
     ## Get_Filter_after_Reboot_the_RU
     ###############################################################################
-    def get_iconfig_detail(self):
+    def get_config_detail(self):
         self.linked_detected()
         sniff(iface = self.interface, stop_filter = self.check_tcp_ip, timeout = 100)
         ###############################################################################

@@ -126,7 +126,7 @@ class M_CTC_ID_013(vlan_Creation):
         ###############################################################################
         self.USER_N = configur.get('INFO','sudo_user')
         self.PSWRD = configur.get('INFO','sudo_pass')
-        if Check1 == True or Check1 == None:
+        if Check1 == False or Check1 == None:
             return Check1
         
         sniff(iface = self.interface, stop_filter = self.check_tcp_ip, timeout = 100)

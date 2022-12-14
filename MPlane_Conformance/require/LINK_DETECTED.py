@@ -1,4 +1,4 @@
-import subprocess, ifcfg
+import subprocess, ifcfg, time
 
 
 class Link_Detect():
@@ -20,15 +20,19 @@ class Link_Detect():
 
     ############################################  Test whether link is detected. ############################################
     def test_linked_detected(self):
-        Interfaces = list(self.interfaces_name.keys())
-        # print(Interface)
-        for i in Interfaces:
-            # print(self.test_ethtool_linked(i))
-            if '.' not in i:
-                if self.test_ethtool_linked(i):
-                    self.INTERFACE_NAME = self.test_ethtool_linked(i)
-                    # print(linked_interface)
+        t = time.time() + 5
+        while time.time() < t:
+            Interfaces = list(self.interfaces_name.keys())
+            # print(Interface)
+            for i in Interfaces:
+                # print(self.test_ethtool_linked(i))
+                if '.' not in i:
+                    if self.test_ethtool_linked(i):
+                        self.INTERFACE_NAME = self.test_ethtool_linked(i)
+                        # print(linked_interface)
+        
         return self.INTERFACE_NAME,self.interfaces_name
+        
 
 
 

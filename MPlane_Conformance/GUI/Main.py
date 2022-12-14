@@ -11,7 +11,8 @@ from PyQt5.QtGui import QIcon,QFont
 import sys, time
 import os
 from PyQt5 import QtWidgets, QtCore, QtGui
-import ipaddress
+import ipaddress, subprocess
+from configparser import ConfigParser
 
 
 ########################################################################
@@ -26,7 +27,11 @@ from GUI.run_all import Ui_Run_ALL
 from require.Write_Data import WriteData
 ########################################################################
 
-
+###############################################################################
+## For reading data from .ini file
+###############################################################################
+configur = ConfigParser()
+configur.read('{}/Conformance/inputs.ini'.format(dir_path))
 ########################################################################
 ## MAIN WINDOW CLASS
 ########################################################################
@@ -41,7 +46,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.window.setWindowFlag(QtCore.Qt.WindowMinMaxButtonsHint, False)
         self.testCaseUI.setupUi(self.window)
         self.clicked_module = ''
-
+        self.directory = dir_path+"/LOGS/{}".format(configur.get('INFO','ru_name_rev'))
+        try:
+            os.mkdir(self.directory)
+        except OSError as error: 
+            print(error) 
         ##############################################################################
         ## Check boxes module wise
         ##############################################################################
@@ -91,13 +100,20 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.run_18_23.clicked.connect(lambda: self.Loading_1(['/Module/module_7'],self.ui.consoleEdit_7,self.access_control))
         self.ui.run_26_27.clicked.connect(lambda: self.Loading_1(['/Module/module_8'],self.ui.consoleEdit_8,self.ru_configure))
         self.ui.run_all.clicked.connect(self.window.showMaximized)
-        
-
+            
         ##############################################################################
         ## Restart DHCP server
         ##############################################################################
         self.ui.dhcp_restart.clicked.connect(lambda: self.dhcp_restarted(Flag = False))
         self.ui.dhcp_restart_base.clicked.connect(lambda: self.dhcp_restarted(Flag = True))
+
+        ##############################################################################
+        ## Restart DHCP server
+        ##############################################################################
+        
+        self.ui.report.clicked.connect(lambda : self.show_report())
+        
+        
 
         ##############################################################################
         ## if clicked on module new side window will open
@@ -125,27 +141,51 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.menu.clicked.connect(lambda: self.slideLeftMenu())
         self.showMaximized()
-    
+
+
+    def show_report(self):
+        msg = QtWidgets.QMessageBox()
+        msg.resize(600,100)
+        msg.setText('Logs are saved at {}.'.format(self.directory))
+        msg.exec_()
 
     def dhcp_restarted(self, Flag):
-        self.p = QtCore.QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
+        self.msg = QtWidgets.QMessageBox()
+        self.msg.resize(1133,100)
+        self.Flag = Flag
         if Flag:
-            self.p.start("python", ['{}/require/{}.py'.format(dir_path,'DHCP_CONF_BASE')])
-            self.p.finished.connect(self.dhcp_process_finished)  # Clean up once complete.
+            self.result = os.popen("python {}/require/{}.py".format(dir_path,'DHCP_CONF_BASE')).read()
+            print(self.result)
+            self.dhcp_handle_stdout()
+            self.dhcp_process_finished()
         else:
             self.dhcp_process_finished()
         return True
 
     def dhcp_process_finished(self):
-        msg = QtWidgets.QMessageBox()
-        msg.resize(600,100)
-        os.system('sudo /etc/init.d/isc-dhcp-server restart')
-        st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
-        msg.setText('{}'.format(st))
-        msg.exec_()
-        msg.setText('Please reboot RU once..')
-        msg.exec_()
-        pass
+        if self.link_detect:
+            if not self.Flag:
+                os.system('sudo /etc/init.d/isc-dhcp-server restart')
+        else:
+            st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
+            self.msg.setText('{}'.format(st))
+            self.msg.exec_()
+
+
+    def dhcp_handle_stdout(self):
+        print('Base Conf are done.')
+        self.msg.setText(self.result)
+        self.msg.exec_()
+        # print(self.result)
+        self.link_detect = True
+        if 'SFP is not Connected' in self.result:
+            self.link_detect = False
+            return False
+        else:
+            self.msg.setText('Please reboot RU once..')
+            self.msg.exec_()
+            return True
+
 
     ########################################################################
     # Slide left menu function
@@ -604,6 +644,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.message("Process finished.")
         self.stopAni()
         self.p = None
+        msg = QtWidgets.QMessageBox()
+        msg.resize(400,100)
+        msg.setText('Logs are saved at {}.'.format(self.directory))
+        msg.exec_()
 
     def Loading(self,checkboxes,console,submitbtn):
         self.main_win = QWidget()

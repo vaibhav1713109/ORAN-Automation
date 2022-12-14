@@ -191,7 +191,7 @@ class M_CTC_ID_012(vlan_Creation):
         self.P_NEO_PORT = configur.get('INFO','ptpsynceport')
         Check2 = STARTUP.ping_status(self.P_NEO_IP)
         # print(type(Check1 and Check2))
-        if (Check1 == False or Check1 == None) and Check2 != True:
+        if ((Check1 == False or Check1 == None) and Check2) == False:
             return Check1 and Check2
             
         sniff(iface = self.interface, stop_filter = self.check_tcp_ip, timeout = 100)

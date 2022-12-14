@@ -1,4 +1,3 @@
-from pytest import ExitCode
 import subprocess
 import random, ifcfg, os, time
 import ISC_DHCP_SERVER as ISC_DHCP_SERVER
@@ -23,6 +22,9 @@ class test_DHCP_CONF():
             if self.INTERFACE_NAME:                                  # Call the linkdetected func
                 print('Link Detected')
                 break
+            else:
+                print('Link not Detected')
+                return False
         # print(self.interfaces_name)
         self.STATIC_IP = self.interfaces_name[self.INTERFACE_NAME]['inet'].split('.')            # Store ip data in list (e.g. 192.168.4.25 >> ['192','168','4','20'])
         # print(self.STATIC_IP)
@@ -92,7 +94,6 @@ class test_DHCP_CONF():
         d = os.system('sudo /etc/init.d/isc-dhcp-server restart')
         st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
     
-
 def test_call():
     obj = test_DHCP_CONF()
 

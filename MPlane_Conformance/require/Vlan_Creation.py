@@ -146,7 +146,7 @@ class vlan_Creation():
     #######################################################################
     def linked_detected(self):
         # t = time.time() + 100
-        t = time.time() + 10
+        t = time.time() + 60
         while time.time() < t:
             Interfaces = list(ifcfg.interfaces().keys())
             for interface in Interfaces:
