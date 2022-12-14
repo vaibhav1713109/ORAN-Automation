@@ -37,7 +37,7 @@ configur.read('{}/Conformance/inputs.ini'.format(dir_path))
 ########################################################################
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self,dir_name):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -46,11 +46,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.window.setWindowFlag(QtCore.Qt.WindowMinMaxButtonsHint, False)
         self.testCaseUI.setupUi(self.window)
         self.clicked_module = ''
-        self.directory = dir_path+"/LOGS/{}".format(configur.get('INFO','ru_name_rev'))
-        try:
-            os.mkdir(self.directory)
-        except OSError as error: 
-            print(error) 
+        self.directory = dir_name
         ##############################################################################
         ## Check boxes module wise
         ##############################################################################
