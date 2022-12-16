@@ -1,5 +1,5 @@
 ###############################################################################
-##@ FILE NAME:      Software downgrade time taken
+##@ FILE NAME:      Software Downgrade time taken
 ##@ TEST SCOPE:     M PLANE O-RAN Functional
 ##@ Version:        V_1.0.0
 ##@ Support:        @Ramiyer, @VaibhavDhiman, @PriyaSharma
@@ -60,7 +60,8 @@ class software_downgrade(vlan_Creation):
             self.port = 830
             self.USER_N = configur.get('INFO', 'sudo_user')
             self.PSWRD = configur.get('INFO', 'sudo_pass')
-            self.du_password = Config.details['DU_PASS']
+            self.rmt = configur.get('INFO','rmt_path_downgrade')
+            self.du_password = configur.get('INFO','du_pass')
             self.session = manager.connect(host = self.hostname, port=830, hostkey_verify=False,username = self.USER_N, password = self.PSWRD ,allow_agent = False , look_for_keys = False)
             data = STARTUP.demo(self.session)
             self.users, self.slots, self.macs = data[0], data[1], data[2]
@@ -163,6 +164,14 @@ class software_downgrade(vlan_Creation):
             if dict_data['nc:rpc-reply']['nc:ok']== None:
                 STARTUP.STORE_DATA('\nOk\n',Format=False,PDF=pdf_log)
 
+
+            ###############################################################################
+            ## Fetch Public Key of Linux PC
+            ###############################################################################
+            pub_k = subprocess.getoutput('cat /etc/ssh/ssh_host_rsa_key.pub')
+            pk = pub_k.split()
+            pub_key = pk[1]
+
             ###############################################################################
             ## Initial Get Filter
             ###############################################################################
@@ -176,125 +185,255 @@ class software_downgrade(vlan_Creation):
             </filter>'''
             slot_names = self.session.get(sw_inv).data_xml
 
-            # ###############################################################################
-            # ## Checking The status, active and running value
-            # ###############################################################################
-            # s = xml.dom.minidom.parseString(slot_names)
-            # xml_pretty_str = s.toprettyxml()
-            # slot_n = xmltodict.parse(str(slot_names))
-            # SLOTS = slot_n['data']['software-inventory']['software-slot']
-            # SLOT_INFO = {}
-            # for SLOT in SLOTS:
-            #     if SLOT['status'] == 'INVALID':
-            #         STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf_log)
-            #         return f'SW slot status is Invalid for {SLOT["name"]}...'
-            #     if (SLOT['name'] != 'swRecoverySlot'):
-            #         SLOT_INFO[SLOT['name']] = [SLOT['active'], SLOT['running']]
+            ###############################################################################
+            ## Checking The status, active and running value
+            ###############################################################################
+            s = xml.dom.minidom.parseString(slot_names)
+            xml_pretty_str = s.toprettyxml()
+            slot_n = xmltodict.parse(str(slot_names))
+            slots_info = slot_n['data']['software-inventory']['software-slot']
+            for i in slots_info:
+                if i['status'] == 'INVALID':
+                    STARTUP.STORE_DATA(xml_pretty_str, Format='XML',PDF=pdf_log)
+                    return 'SW slot status is Invalid...'
+                if (i['active'] == 'false' and i['running'] == 'false') or (i['active'] == 'true' and i['running'] == 'true'):
+                    pass
+                else:
+                    return 'Slots Active and Running Status are diffrent...'
 
-            #     if (SLOT['active'] == 'true' and SLOT['running'] == 'true') or (SLOT['active'] == 'false' and SLOT['running'] == 'false'):
-            #         if (SLOT['active'] == 'false' and SLOT['running'] == 'false') and (SLOT['name'] != 'swRecoverySlot'):
-            #             slot_name = SLOT['name']
-            #             del SLOT_INFO[SLOT['name']]
-            #         pass
-            #     else:
-            #         return f'Slots Active and Running Status are diffrent for {SLOT["name"]}...'
-
-            # DEACTIVE_SLOT = list(SLOT_INFO.keys())
-            # STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf_log)
+            STARTUP.STORE_DATA(xml_pretty_str, Format='XML',PDF=pdf_log)
+        
 
 
+            ###############################################################################
+            ## Configure SW Download RPC in RU
+            ###############################################################################
+            xml_data = open("{}/require/Yang_xml/sw_download.xml".format(parent)).read()
+            xml_data = xml_data.format(
+                rmt_path=self.rmt, password=self.du_pswrd, public_key=pub_key)
 
-            # ###############################################################################
-            # ## Test Procedure 1 : Configure SW Activate RPC in RU
-            # ###############################################################################
-            # Test_Step1 = '\t\tStep 1 : TER NETCONF Client triggers <rpc><software-activate> Slot must have attributes active = FALSE, running = FALSE.'
-            # STARTUP.STORE_DATA('{}'.format(Test_Step1), Format='TEST_STEP', PDF=pdf_log)
-            # xml_data2 = f"""<software-activate xmlns="urn:o-ran:software-management:1.0">
-            #             <slot-name>{slot_name}</slot-name>
-            #             </software-activate>"""
+            ###############################################################################
+            ## Test Procedure 1
+            ###############################################################################
+            Test_Step1 = '\t\tStep 1 : TER NETCONF Client triggers <rpc><software-download>'
+            STARTUP.STORE_DATA('{}'.format(Test_Step1), Format='TEST_STEP',PDF=pdf_log)
+            STARTUP.STORE_DATA('\n> user-rpc\n', Format=True,PDF=pdf_log)
 
-            # STARTUP.STORE_DATA('\n> user-rpc\n', Format=True, PDF=pdf_log)
-            # STARTUP.STORE_DATA('******* Replace with below xml ********', Format=True, PDF=pdf_log)
-            # STARTUP.STORE_DATA(xml_data2, Format='XML', PDF=pdf_log)
-            # d3 = self.session.dispatch(to_ele(xml_data2))
 
-            # ###############################################################################
-            # ## Test Procedure 2 : O-RU NETCONF Server responds with <software-activate>
-            # ###############################################################################
-            # Test_Step2 = '\t\tStep 2 : O-RU NETCONF Server responds with <rpc-reply><software-activate><status>. The parameter "status" is set to STARTED.'
-            # STARTUP.STORE_DATA('{}'.format(Test_Step2),Format='TEST_STEP', PDF=pdf_log)
-            # STARTUP.STORE_DATA('{}'.format(d3), Format='XML', PDF=pdf_log)
+            STARTUP.STORE_DATA('\t\t******* Replace with below xml ********', Format=True,PDF=pdf_log)
+            STARTUP.STORE_DATA(xml_data, Format='XML',PDF=pdf_log)
+            rpc_command = to_ele(xml_data)
+            d = self.session.rpc(rpc_command)
 
-            # ###############################################################################
-            # ## Capture_The_Notifications
-            # ###############################################################################
-            # while True:
-            #     n = self.session.take_notification(timeout=60)
-            #     if n == None:
-            #         break
-            #     notify = n.notification_xml
-            #     dict_n = xmltodict.parse(str(notify))
-            #     try:
-            #         notf = dict_n['notification']['activation-event']
-            #         if notf:
-            #             Test_Step3 = '\t\tStep 3 : O-RU NETCONF Server sends <notification><activation-event> with a status COMPLETED.'
-            #             STARTUP.STORE_DATA('{}'.format(
-            #                 Test_Step3), Format='TEST_STEP', PDF=pdf_log)
-            #             x = xml.dom.minidom.parseString(notify)
-            #             xml_pretty_str = x.toprettyxml()
-            #             STARTUP.STORE_DATA(
-            #                 xml_pretty_str, Format='XML', PDF=pdf_log)
-            #             status = dict_n['notification']['activation-event']['status']
-            #             if status != 'COMPLETED':
-            #                 return status
-            #             break
-            #     except:
-            #         pass
+            STARTUP.STORE_DATA('******* RPC Reply ********',Format=True,PDF=pdf_log)
+            STARTUP.STORE_DATA('{}'.format(d), Format='XML',PDF=pdf_log)
 
-            # ###############################################################################
-            # ## POST_GET_FILTER
-            # ###############################################################################
-            # time.sleep(5)
-            # pdf_log.add_page()
-            # STARTUP.STORE_DATA(
-            #     '\n> get --filter-xpath /o-ran-software-management:software-inventory', Format=True, PDF=pdf_log)
-            # sw_inv = '''<filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-            #             <software-inventory xmlns="urn:o-ran:software-management:1.0">
-            #             </software-inventory>
-            #             </filter>'''
-            # slot_names1 = self.session.get(sw_inv).data_xml
-            # s = xml.dom.minidom.parseString(slot_names1)
-            # xml_pretty_str = s.toprettyxml()
-            # self.slots.pop(slot_name)
-            # slot_n1 = xmltodict.parse(str(slot_names1))
-            # SLOTS1 = slot_n1['data']['software-inventory']['software-slot']
-            # for slot in SLOTS1:
-            #     if slot['status'] == 'INVALID':
-            #         STARTUP.STORE_DATA(
-            #             xml_pretty_str, Format='XML', PDF=pdf_log)
-            #         return f'SW slot status is Invid for {slot["name"]}...'
-            #     if slot['name'] == slot_name:
-            #         if (slot['active'] == 'true') and slot['running'] == 'false':
-            #             pass
-            #         else:
-            #             STARTUP.STORE_DATA(
-            #                 xml_pretty_str, Format='XML', PDF=pdf_log)
-            #             return f"SW Inventory didn't update for {slot_name}..."
 
-            #     if slot['name'] == DEACTIVE_SLOT[0]:
-            #         if (slot['active'] != 'false') and slot['running'] != 'true':
-            #             STARTUP.STORE_DATA(
-            #                 xml_pretty_str, Format='XML', PDF=pdf_log)
-            #             return f"SW Inventory didn't update for {slot['name'] }..."
-            # STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf_log)
+                    
+            ###############################################################################
+            ## Test Procedure 2 : Capture_The_Notifications
+            ###############################################################################
+            pdf_log.add_page()
+            Test_Step2 = '\t\tStep 2 :  O-RU NETCONF Server sends <notification><download-event> with status COMPLETED to TER NETCONF Client'
+            STARTUP.STORE_DATA('{}'.format(Test_Step2),Format='TEST_STEP',PDF=pdf_log)
+
+            while True:
+                n = self.session.take_notification(timeout = 60)
+                if n == None:
+                    break
+                notify = n.notification_xml
+                dict_n = xmltodict.parse(str(notify))
+                try:
+                    notf = dict_n['notification']['download-event']
+                    if notf:
+                        x = xml.dom.minidom.parseString(notify)
+                        xml_pretty_str = x.toprettyxml()
+                        STARTUP.STORE_DATA(xml_pretty_str, Format='XML',PDF=pdf_log)
+                        status = dict_n['notification']['download-event']['status']
+                        if status != 'COMPLETED':
+                            return status
+                        break
+                except:
+                    pass
+
+            
+            ###############################################################################
+            ## Test Procedure 2 : Configure_SW_Install_RPC
+            ###############################################################################
+            Test_Step3 = '\t\tStep 3 : TER NETCONF Client triggers <rpc><software-install> Slot must have attributes active = FALSE, running = FALSE.'
+            STARTUP.STORE_DATA(
+                '{}'.format(Test_Step3), Format='TEST_STEP',PDF=pdf_log)
+            STARTUP.STORE_DATA(f"{'SR_NO' : <20}{'Slot_Name' : <20}{'|' : ^10}{'Active': ^10}{'Running': ^10}", Format=True,PDF=pdf_log)
+            k = 1
+            for key, val in self.RU_Details[1].items():
+                STARTUP.STORE_DATA (f"{k : <20}{key : <20}{'=' : ^10}{val[0]: ^10}{val[1]: ^10}\n", Format=False,PDF=pdf_log)
+                k += 1
+                    
+                    
+            ###############################################################################
+            ## Install_at_the_slot_Which_Have_False_Status
+            ###############################################################################
+            for key, val in self.RU_Details[1].items():
+                if val[0] == 'false' and val[1] == 'false':
+                    xml_data2 = open("{}/require/Yang_xml/sw_install.xml".format(parent)).read()
+                    # file_path = self.rmt
+                    # li = file_path.split(':22/')
+                    # xml_data2 = xml_data2.format(slot_name=key,File_name = '/{}'.format(li[1]))
+                    xml_data2 = xml_data2.format(slot_name=key)
+                    STARTUP.STORE_DATA('\n> user-rpc\n',Format=True,PDF=pdf_log)
+                    STARTUP.STORE_DATA('******* Replace with below xml ********', Format=True,PDF=pdf_log)
+                    STARTUP.STORE_DATA(xml_data2, Format='XML',PDF=pdf_log)
+                    d1 = self.session.dispatch(to_ele(xml_data2))
+                    STARTUP.STORE_DATA('******* RPC Reply ********', Format=True,PDF=pdf_log)
+                    STARTUP.STORE_DATA('{}'.format(d1), Format='XML',PDF=pdf_log)
+
+
+            ###############################################################################
+            ## Test Procedure 4 and 5 : Capture_The_Notifications
+            ###############################################################################
+            Test_Step4 = '\t\tStep 4 and 5 :  O-RU NETCONF Server sends <notification><install-event> with status COMPLETED to TER NETCONF Client'
+            STARTUP.STORE_DATA('{}'.format(Test_Step4), Format='TEST_STEP',PDF=pdf_log)
+            while True:
+                n = self.session.take_notification(timeout=60)
+                if n == None:
+                    break
+                notify = n.notification_xml
+                dict_n = xmltodict.parse(str(notify))
+                try:
+                    notf = dict_n['notification']['install-event']
+                    if notf:
+                        x = xml.dom.minidom.parseString(notify)
+                        xml_pretty_str = x.toprettyxml()
+                        STARTUP.STORE_DATA(xml_pretty_str, Format='XML',PDF=pdf_log)
+                        status = dict_n['notification']['install-event']['status']
+                        if status != 'COMPLETED':
+                            return status
+                        break
+                except:
+                    pass
+
+
+            ###############################################################################
+            ## Checking The status, active and running value
+            ###############################################################################
+            s = xml.dom.minidom.parseString(slot_names)
+            xml_pretty_str = s.toprettyxml()
+            slot_n = xmltodict.parse(str(slot_names))
+            SLOTS = slot_n['data']['software-inventory']['software-slot']
+            SLOT_INFO = {}
+            for SLOT in SLOTS:
+                if SLOT['status'] == 'INVALID':
+                    STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf_log)
+                    return f'SW slot status is Invalid for {SLOT["name"]}...'
+                if (SLOT['name'] != 'swRecoverySlot'):
+                    SLOT_INFO[SLOT['name']] = [SLOT['active'], SLOT['running']]
+
+                if (SLOT['active'] == 'true' and SLOT['running'] == 'true') or (SLOT['active'] == 'false' and SLOT['running'] == 'false'):
+                    if (SLOT['active'] == 'false' and SLOT['running'] == 'false') and (SLOT['name'] != 'swRecoverySlot'):
+                        slot_name = SLOT['name']
+                        del SLOT_INFO[SLOT['name']]
+                    pass
+                else:
+                    return f'Slots Active and Running Status are diffrent for {SLOT["name"]}...'
+
+            DEACTIVE_SLOT = list(SLOT_INFO.keys())
+            STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf_log)
+
+            
 
 
 
             ###############################################################################
-            ## Test Procedure 3 : Configure_Reset_RPC_in_RU
+            ## Test Procedure 6 : Configure SW Activate RPC in RU
             ###############################################################################
-            Test_Step1 = '\t\tStep 3 : TER NETCONF Client sends <rpc><reset></rpc> to the O-RU NETCONF Server..'
-            STARTUP.STORE_DATA('{}'.format(Test_Step1),Format='TEST_STEP', PDF=pdf_log)
+            Test_Step6 = '\t\tStep 6 : TER NETCONF Client triggers <rpc><software-activate> Slot must have attributes active = FALSE, running = FALSE.'
+            STARTUP.STORE_DATA('{}'.format(Test_Step6), Format='TEST_STEP', PDF=pdf_log)
+            xml_data2 = f"""<software-activate xmlns="urn:o-ran:software-management:1.0">
+                        <slot-name>{slot_name}</slot-name>
+                        </software-activate>"""
+
+            STARTUP.STORE_DATA('\n> user-rpc\n', Format=True, PDF=pdf_log)
+            STARTUP.STORE_DATA('******* Replace with below xml ********', Format=True, PDF=pdf_log)
+            STARTUP.STORE_DATA(xml_data2, Format='XML', PDF=pdf_log)
+            d3 = self.session.dispatch(to_ele(xml_data2))
+
+            ###############################################################################
+            ## Test Procedure 7 : O-RU NETCONF Server responds with <software-activate>
+            ###############################################################################
+            Test_Step7 = '\t\tStep 7 : O-RU NETCONF Server responds with <rpc-reply><software-activate><status>. The parameter "status" is set to STARTED.'
+            STARTUP.STORE_DATA('{}'.format(Test_Step7),Format='TEST_STEP', PDF=pdf_log)
+            STARTUP.STORE_DATA('{}'.format(d3), Format='XML', PDF=pdf_log)
+
+            ###############################################################################
+            ## Capture_The_Notifications
+            ###############################################################################
+            while True:
+                n = self.session.take_notification(timeout=60)
+                if n == None:
+                    break
+                notify = n.notification_xml
+                dict_n = xmltodict.parse(str(notify))
+                try:
+                    notf = dict_n['notification']['activation-event']
+                    if notf:
+                        Test_Step3 = '\t\tStep 3 : O-RU NETCONF Server sends <notification><activation-event> with a status COMPLETED.'
+                        STARTUP.STORE_DATA('{}'.format(
+                            Test_Step3), Format='TEST_STEP', PDF=pdf_log)
+                        x = xml.dom.minidom.parseString(notify)
+                        xml_pretty_str = x.toprettyxml()
+                        STARTUP.STORE_DATA(
+                            xml_pretty_str, Format='XML', PDF=pdf_log)
+                        status = dict_n['notification']['activation-event']['status']
+                        if status != 'COMPLETED':
+                            return status
+                        break
+                except:
+                    pass
+
+            ###############################################################################
+            ## POST_GET_FILTER
+            ###############################################################################
+            time.sleep(5)
+            pdf_log.add_page()
+            STARTUP.STORE_DATA(
+                '\n> get --filter-xpath /o-ran-software-management:software-inventory', Format=True, PDF=pdf_log)
+            sw_inv = '''<filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+                        <software-inventory xmlns="urn:o-ran:software-management:1.0">
+                        </software-inventory>
+                        </filter>'''
+            slot_names1 = self.session.get(sw_inv).data_xml
+            s = xml.dom.minidom.parseString(slot_names1)
+            xml_pretty_str = s.toprettyxml()
+            self.slots.pop(slot_name)
+            slot_n1 = xmltodict.parse(str(slot_names1))
+            SLOTS1 = slot_n1['data']['software-inventory']['software-slot']
+            for slot in SLOTS1:
+                if slot['status'] == 'INVALID':
+                    STARTUP.STORE_DATA(
+                        xml_pretty_str, Format='XML', PDF=pdf_log)
+                    return f'SW slot status is Invid for {slot["name"]}...'
+                if slot['name'] == slot_name:
+                    if (slot['active'] == 'true') and slot['running'] == 'false':
+                        pass
+                    else:
+                        STARTUP.STORE_DATA(
+                            xml_pretty_str, Format='XML', PDF=pdf_log)
+                        return f"SW Inventory didn't update for {slot_name}..."
+
+                if slot['name'] == DEACTIVE_SLOT[0]:
+                    if (slot['active'] != 'false') and slot['running'] != 'true':
+                        STARTUP.STORE_DATA(
+                            xml_pretty_str, Format='XML', PDF=pdf_log)
+                        return f"SW Inventory didn't update for {slot['name'] }..."
+            STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf_log)
+
+
+
+            ###############################################################################
+            ## Test Procedure 8 : Configure_Reset_RPC_in_RU
+            ###############################################################################
+            Test_Step8 = '\t\tStep 8 : TER NETCONF Client sends <rpc><reset></rpc> to the O-RU NETCONF Server..'
+            STARTUP.STORE_DATA('{}'.format(Test_Step8),Format='TEST_STEP', PDF=pdf_log)
             STARTUP.STORE_DATA('\n> user-rpc\n',Format=True, PDF=pdf_log)
             STARTUP.STORE_DATA('******* Replace with below xml ********',Format=True, PDF=pdf_log)
             xml_data3 = '''<reset xmlns="urn:o-ran:operations:1.0"></reset>'''
@@ -370,8 +509,9 @@ class software_downgrade(vlan_Creation):
             for key, val in self.slots.items():
                 if val[0] == 'true' and val[1] == 'true':
                     ############################### Test Description #############################
-                    Test_Desc = '''Test Description : 1. Downgrade the software using NETCONF software-activate rpc is used to activate the software.
-'''
+                    Test_Desc = '''Test Description : 1. Using the get rpc filtered over the software-slot retrieve the software informations about the existing software in the O-RU
+2. Install the newly validated software to the specified target software-slot in the device using NETCONF software-install rpc.
+3. Activate the software using NETCONF software-activate rpc is used to activate the software.'''
                     CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL(filename,SW_R = val[2]) 
                     STARTUP.STORE_DATA(CONFIDENTIAL,Format='CONF',PDF= pdf_log)
                     STARTUP.STORE_DATA(Test_Desc,Format='DESC',PDF= pdf_log)
@@ -390,7 +530,9 @@ class software_downgrade(vlan_Creation):
             if result != True:
                 STARTUP.STORE_DATA('\t\t\t\t############ SYSTEM LOGS ##############',Format=True,PDF=pdf_log)
                 STARTUP.STORE_DATA("{}".format(i),Format=False,PDF=pdf_log)
-                Exp_Result = '''Expected Result : 1.verify system is up with downgraded image and check the time taken.
+                Exp_Result = '''Expected Result : 1. Verify the software slot inventory information and eligible for the firmware upgradation.
+2. Verify the software is downloaded in the device succcessfully. 
+3. Validate the time taken from the system reboot with the new software image till O-RU comes up.
     '''
                 STARTUP.STORE_DATA(Exp_Result,Format='DESC',PDF= pdf_log)
                 STARTUP.STORE_DATA('\t\t{}'.format('****************** Actual Result ******************'),Format=True,PDF= pdf_log)
@@ -403,7 +545,7 @@ class software_downgrade(vlan_Creation):
                     STARTUP.STORE_DATA(f"{'Description' : <20}{':' : ^10}{result[4]: ^10}",Format=False,PDF=pdf_log)
                 else:
                     STARTUP.STORE_DATA(f"{'Fail-Reason' : <15}{'=' : ^20}{result : ^20}",Format=False,PDF=pdf_log)
-                STARTUP.ACT_RES(f"{'Software downgrade time taken' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf_log,COL=(255,0,0))
+                STARTUP.ACT_RES(f"{'Software Downgrade time taken' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf_log,COL=(255,0,0))
                 return result
                 
             else:
@@ -416,14 +558,16 @@ class software_downgrade(vlan_Creation):
                 for i in log2:
                     STARTUP.STORE_DATA("{}".format(i),Format=False,PDF=pdf_log)
 
-                Exp_Result = '''Expected Result : 1.verify system is up with downgraded image and check the time taken.
+                Exp_Result = '''Expected Result : 1. Verify the software slot inventory information and eligible for the firmware upgradation.
+2. Verify the software is downloaded in the device succcessfully. 
+3. Validate the time taken from the system reboot with the new software image till O-RU comes up.  
     '''
                 STARTUP.STORE_DATA(Exp_Result,Format='DESC',PDF= pdf_log)
                 STARTUP.STORE_DATA('\t\t{}'.format('****************** Actual Result ******************'),Format=True,PDF= pdf_log)
                 
 
                 if check == True:
-                    STARTUP.ACT_RES(f"{'Software downgrade time taken' : <50}{'=' : ^20}{'PASS' : ^20}",PDF= pdf_log,COL=(105, 224, 113))
+                    STARTUP.ACT_RES(f"{'Software Downgrade time taken' : <50}{'=' : ^20}{'PASS' : ^20}",PDF= pdf_log,COL=(105, 224, 113))
                     return True  
                 
                 else:

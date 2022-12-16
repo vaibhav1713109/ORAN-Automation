@@ -364,5 +364,3 @@ if __name__ == '__main__':
         STARTUP.STORE_DATA(
             f"Error occured in line number {exc_tb.tb_lineno}", Format = False,PDF=pdf_log)
         print('Usage: python retrival_RU_state.py <Test_Case_ID>')
-    
-    

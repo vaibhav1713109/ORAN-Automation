@@ -1,5 +1,5 @@
 ###############################################################################
-##@ FILE NAME:      
+##@ FILE NAME:      performance activation
 ##@ TEST SCOPE:     M PLANE O-RAN Functional
 ##@ Version:        V_1.0.0
 ##@ Support:        @Ramiyer, @VaibhavDhiman, @PriyaSharma
