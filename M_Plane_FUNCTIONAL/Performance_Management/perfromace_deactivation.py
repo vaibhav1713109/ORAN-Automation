@@ -1,5 +1,5 @@
 ###############################################################################
-##@ FILE NAME:      Performance Measurement deactivation using the single NETCONF client for all mesurement groups
+##@ FILE NAME:      Performance Measurement Deactivation using the single NETCONF client for all mesurement groups
 ##@ TEST SCOPE:     M PLANE O-RAN Functional
 ##@ Version:        V_1.0.0
 ##@ Support:        @Ramiyer, @VaibhavDhiman, @PriyaSharma
@@ -38,6 +38,7 @@ configur.read('{}/inputs.ini'.format(dir_name))
 ###############################################################################
 from require import STARTUP, Config
 from require.Vlan_Creation import *
+from .performance_activation import *
 
 
 
@@ -46,27 +47,12 @@ from require.Vlan_Creation import *
 ###############################################################################
 pdf_log = STARTUP.PDF_CAP()
 
-class performance_deactivation():
+class performance_Deactivation(performance_activation):
 
     def __init__(self) -> None:
-        try:
-            self.port = 830
-            self.USER_N = configur.get('INFO', 'sudo_user')
-            self.PSWRD = configur.get('INFO', 'sudo_pass')
-            self.du_password = Config.details['DU_PASS']
-            self.session = manager.call_home(host = '', port=4334, hostkey_verify=False,username = self.USER_N, password = self.PSWRD ,allow_agent = False , look_for_keys = False)
-            li = self.session._session._transport.sock.getpeername()
-            sid = self.session.session_id
-            self.host = li[0]
-            data = STARTUP.demo(self.session)
-            self.users, self.slots, self.macs = data[0], data[1], data[2]
-            pass
-        except Exception as e:
-            STARTUP.STORE_DATA('{}'.format(e), Format = True,PDF=pdf_log)
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            STARTUP.STORE_DATA(
-                f"Error occured in line number {exc_tb.tb_lineno}", Format = False,PDF=pdf_log)
-            return '{}'.format(e)
+        super().__init__()
+        
+
 
     def session_login(self):
         try:
@@ -80,6 +66,7 @@ class performance_deactivation():
             for i in self.session.server_capabilities:
                 STARTUP.STORE_DATA('{}'.format(i),Format=False,PDF=pdf_log)
 
+            self.config_interface_processing_iplane()
 
             # ###############################################################################
             # ## Create Subscription
@@ -90,20 +77,71 @@ class performance_deactivation():
             # dict_data = xmltodict.parse(str(cap))
             # if dict_data['nc:rpc-reply']['nc:ok']== None:
             #     STARTUP.STORE_DATA('\nOk\n',Format=False,PDF=pdf_log)
+            
 
+            ###############################################################################
+            ## Pre Get Filter
+            ############################################################################### 
+            STARTUP.STORE_DATA('################# Pre get filter #################',Format=True,PDF=pdf_log)
+            STARTUP.STORE_DATA('>get --filter-xpath /o-ran-performance-management:performance-measurement-objects',Format=True,PDF=pdf_log)
+                
+            get_filter ='''
+                <filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+                <performance-measurement-objects xmlns="urn:o-ran:performance-management:1.0">
+                </performance-measurement-objects>
+                </filter>
+                '''
+            Cap = self.session.get(get_filter).data_xml
+            x = xml.dom.minidom.parseString(Cap)
+            xml_pretty_str = x.toprettyxml()
+            STARTUP.STORE_DATA(xml_pretty_str,Format='XML',PDF=pdf_log)
+
+            ###############################################################################
+            ## Fetch Public Key of Linux PC
+            ###############################################################################
+            pub_k = subprocess.getoutput('cat /etc/ssh/ssh_host_rsa_key.pub')
+            pk = pub_k.split()
+            pub_key = pk[1]
+
+            ###############################################################################
+            ## Test step 1 configure performance Deactivation
+            ###############################################################################  
+            xml_data = open("{}/Performance_Management/xml/deactivate_performance.xml".format(parent)).read()
+            measurement_interval = 10
+            xml_data = xml_data.format(
+                rmt_path=self.rmt, password=self.du_password, public_key=pub_key, measurement_interval = measurement_interval)              
+            STARTUP.STORE_DATA('\t\t ******* TER NETCONF Client triggers Performance Deactivation RPC *******',Format='TEST_STEP',PDF=pdf_log)
+            STARTUP.STORE_DATA('> edit-config  --target running --config --defop replace',Format=True, PDF=pdf_log)
+            STARTUP.STORE_DATA('******* Replace with below xml ********',Format=True, PDF=pdf_log)
+            STARTUP.STORE_DATA(xml_data,Format='XML',PDF=pdf_log)
+
+            snippet = f"""
+                        <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+                        {xml_data}
+                        </config>"""
+
+            data1 = self.session.edit_config(target="running", config=snippet, default_operation = 'replace')
+            STARTUP.STORE_DATA('RPC Reply',Format=True,PDF=pdf_log)
+            STARTUP.STORE_DATA(data1,Format=False,PDF=pdf_log)
 
 
             ###############################################################################
-            ## Test step 1 configure performance activation
-            ###############################################################################                
-            """STARTUP.STORE_DATA('\t\t ******* TER NETCONF Client triggers Close Session RPC *******',Format='TEST_STEP',PDF=pdf)
-            STARTUP.STORE_DATA('> user-rpc\n',Format=True,PDF=pdf)
-            STARTUP.STORE_DATA('******* Replace with xml ********',Format=True,PDF=pdf)
-            STARTUP.STORE_DATA(xml_data,Format='XML',PDF=pdf)
-            STARTUP.STORE_DATA('RPC Reply',Format=True,PDF=pdf)
-            dict_data = xmltodict.parse(str(cap))
-            if dict_data['nc:rpc-reply']['nc:ok']== None:
-                STARTUP.STORE_DATA('\nOk\n',Format=False,PDF=pdf)"""
+            ## Post Get Filter
+            ############################################################################### 
+            STARTUP.STORE_DATA('################# Post get filter #################',Format=True,PDF=pdf_log)
+            STARTUP.STORE_DATA('>get --filter-xpath /o-ran-performance-management:performance-measurement-objects',Format=True,PDF=pdf_log)
+                
+            get_filter ='''
+                <filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+                <performance-measurement-objects xmlns="urn:o-ran:performance-management:1.0">
+                </performance-measurement-objects>
+                </filter>
+                '''
+            Cap = self.session.get(get_filter).data_xml
+            x = xml.dom.minidom.parseString(Cap)
+            xml_pretty_str = x.toprettyxml()
+            STARTUP.STORE_DATA(xml_pretty_str,Format='XML',PDF=pdf_log)
+            return True
             
             
 
@@ -112,12 +150,13 @@ class performance_deactivation():
         ###############################################################################                
         except RPCError as e:
             STARTUP.STORE_DATA("###########  Rpc Reply ####################",Format=True,PDF=pdf_log)
-            STARTUP.STORE_DATA('ERROR',Format=False,PDF=pdf_log)
+            STARTUP.STORE_DATA('ERROR\n',Format=False,PDF=pdf_log)
             STARTUP.STORE_DATA(f"\t{'type' : <20}{':' : ^10}{e.type: ^10}\n",Format=False,PDF=pdf_log)
             STARTUP.STORE_DATA(f"\t{'tag' : <20}{':' : ^10}{e.tag: ^10}\n",Format=False,PDF=pdf_log)
             STARTUP.STORE_DATA(f"\t{'severity' : <20}{':' : ^10}{e.severity: ^10}\n",Format=False,PDF=pdf_log)
+            STARTUP.STORE_DATA(f"\t{'path' : <20}{':' : ^10}{e.path: ^10}\n",Format=False,PDF=pdf_log)
             STARTUP.STORE_DATA(f"\t{'message' : <20}{':' : ^10}{e.message: ^10}\n",Format=False,PDF=pdf_log)
-            return [e.type, e.tag, e.severity, e,e.message]
+            return [e.type, e.tag, e.severity, e.path, e.message]
            
 
 
@@ -128,7 +167,16 @@ class performance_deactivation():
             for key, val in self.slots.items():
                 if val[0] == 'true' and val[1] == 'true':
                     ############################### Test Description #############################
-                    Test_Desc = '''Test Description : Test to verify whether from the NETCONF Error List with tag Performance Measurement deactivation using the single NETCONF client for all mesurement groups'''
+                    Test_Desc = '''Test Description : 1. Open the NETCONF client.
+2. Edit the XML file for transceiver stats measurement group with below details:
+            2.a measurement-interval (Min | Max value )
+            2.b measurement-object (ALL)
+            2.c active:FALSE 
+            2.d start-time and end-time
+            2.e  object-unit
+            2.f report-info
+3. Save the XML file on local PC.
+4 Deactivate the performance measurement via NETCONF client  using rpc <edit-config> to O-RU from O-RU controller.'''
                     CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL(filename,SW_R = val[2]) 
                     STARTUP.STORE_DATA(CONFIDENTIAL,Format='CONF',PDF= pdf_log)
                     STARTUP.STORE_DATA(Test_Desc,Format='DESC',PDF= pdf_log)
@@ -143,7 +191,9 @@ class performance_deactivation():
 
             STARTUP.GET_SYSTEM_LOGS(self.host,self.USER_N,self.PSWRD,pdf_log,number=500)
                          
-            Exp_Result = '''Expected Result : The request or response have an expected attribute missing.same of the element that is supposed to contain the missing attribute error-tag: bad-attribute error-type: rpc, protocol, application error-severity: error error-info:<bad-attribute> : name of the attribute
+            Exp_Result = '''Expected Result : 1. Verify the NETCONF client is opened successfully.
+2. Verify the modified  parameters are saved in the XML file. 
+3. Verify the O-RU successfully deactivated the configured measurement groups via XML file 
                 '''
             STARTUP.STORE_DATA(Exp_Result,Format='DESC',PDF= pdf_log)
             STARTUP.STORE_DATA('\t\t{}'.format('****************** Actual Result ******************'),Format=True,PDF= pdf_log)
@@ -154,15 +204,16 @@ class performance_deactivation():
                     STARTUP.STORE_DATA(f"{'error-type' : <20}{':' : ^10}{result[0]: ^10}",Format=False,PDF=pdf_log)
                     STARTUP.STORE_DATA(f"{'error-tag' : <20}{':' : ^10}{result[1]: ^10}",Format=False,PDF=pdf_log)
                     STARTUP.STORE_DATA(f"{'error-severity' : <20}{':' : ^10}{result[2]: ^10}",Format=False,PDF=pdf_log)
+                    STARTUP.STORE_DATA(f"{'error-path' : <20}{':' : ^10}{result[3]: ^10}",Format=False,PDF=pdf_log)
                     STARTUP.STORE_DATA(f"{'Description' : <20}{':' : ^10}{result[4]: ^10}",Format=False,PDF=pdf_log)
-                    return result[5]
+                    return result
                 else:
                     STARTUP.STORE_DATA(f"{'Error_Tag_Mismatch' : <15}{'=' : ^20}{result : ^20}",Format=False,PDF=pdf_log)
-                STARTUP.ACT_RES(f"{'Performance Measurement deactivation using the single NETCONF client for all mesurement groups' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf_log,COL=(255,0,0))
+                STARTUP.ACT_RES(f"{'Performance Measurement Deactivation using the single NETCONF client for all mesurement groups' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf_log,COL=(255,0,0))
                 return result
                 
             else:
-                STARTUP.ACT_RES(f"{'Performance Measurement deactivation using the single NETCONF client for all mesurement groups' : <50}{'=' : ^20}{'PASS' : ^20}",PDF= pdf_log,COL=(105, 224, 113))
+                STARTUP.ACT_RES(f"{'Performance Measurement Deactivation using the single NETCONF client for all mesurement groups' : <50}{'=' : ^20}{'PASS' : ^20}",PDF= pdf_log,COL=(105, 224, 113))
                 return True    
 
         ############################### Known Exceptions ####################################################
@@ -198,7 +249,7 @@ class performance_deactivation():
     
 if __name__ == '__main__':
     try:
-        obj = performance_deactivation()
+        obj = performance_Deactivation()
         filename = sys.argv[1]
         Result = obj.test_main()
     except Exception as e:
@@ -206,6 +257,6 @@ if __name__ == '__main__':
         exc_type, exc_obj, exc_tb = sys.exc_info()
         STARTUP.STORE_DATA(
             f"Error occured in line number {exc_tb.tb_lineno}", Format = False,PDF=pdf_log)
-        print('Usage: python performance_deactivation.py <Test_Case_ID>')
+        print('Usage: python performance_deactivation.py <Test_Case_ID> <Fronthaul Interface Eg. eth0/eth1> <element name eg. element0/element1> <bandwidths Eg. 10> <remote_path eg. sftp://vvdn@192.168.4.15:22/home/vvdn>')
     
     

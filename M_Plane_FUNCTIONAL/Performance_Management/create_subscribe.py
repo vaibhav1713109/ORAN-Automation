@@ -1,5 +1,5 @@
 ###############################################################################
-##@ FILE NAME:      Using NETCONF process the NETCONF client stop subcribe the streaming of measurement result stats
+##@ FILE NAME:      Using NETCONF process the NETCONF client subcribe the streaming of measurement result stats
 ##@ TEST SCOPE:     M PLANE O-RAN Functional
 ##@ Version:        V_1.0.0
 ##@ Support:        @Ramiyer, @VaibhavDhiman, @PriyaSharma
@@ -38,6 +38,7 @@ configur.read('{}/inputs.ini'.format(dir_name))
 ###############################################################################
 from require import STARTUP, Config
 from require.Vlan_Creation import *
+from .performance_activation import *
 
 
 
@@ -46,95 +47,39 @@ from require.Vlan_Creation import *
 ###############################################################################
 pdf_log = STARTUP.PDF_CAP()
 
-class stop_subscribe():
+class create_subscribe(performance_activation):
 
     def __init__(self) -> None:
-        try:
-            self.port = 830
-            self.USER_N = configur.get('INFO', 'sudo_user')
-            self.PSWRD = configur.get('INFO', 'sudo_pass')
-            self.du_password = configur.get('INFO', 'du_pass')
-            self.rx_measurement_interval = self.transceiver_measurement_interval = self.notification_measurement_interval = self.file_measurement_interval = 10
-            self.session = STARTUP.connect(host='', port=4334, hostkey_verify=False, username=self.USER_N,
-                                           password=self.PSWRD, allow_agent=False, look_for_keys=False, timeout=60)
-            li = self.session._session._transport.sock.getpeername()
-            sid = self.session.session_id
-            self.hostname = li[0]
-            pass
-
-        except socket.timeout as e:
-            warnings.warn('Call Home is not initiated.')
-            try:
-                self.session = manager.connect(
-                    host=self.hostname, port=830, hostkey_verify=False, username=self.USER_N, password=self.PSWRD, timeout=60)
-            except Exception as e:
-                print(e)
-
-        except OSError as e:
-            warnings.warn('Call Home is not initiated.')
-            try:
-                self.session = manager.connect(
-                    host=self.hostname, port=830, hostkey_verify=False, username=self.USER_N, password=self.PSWRD, timeout=60)
-            except Exception as e:
-                print(e)
-
-        except Exception as e:
-            STARTUP.STORE_DATA('{}'.format(e), Format=True, PDF=pdf_log)
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            STARTUP.STORE_DATA(
-                f"Error occured in line number {exc_tb.tb_lineno}", Format=False, PDF=pdf_log)
-            return '{}'.format(e)
-
-        finally:
-            try:
-                data = STARTUP.demo(self.session)
-                self.users, self.slots, self.macs = data[0], data[1], data[2]
-                self.du_mac = ifcfg.interfaces()[self.interface]['ether']
-                self.ru_mac = self.macs[self.FH_interface]
-            except Exception as e:
-                print(e)
+        super().__init__()
+        self.rx_measurement_interval, self.transceiver_measurement_interval, self.notification_measurement_interval, self.file_measurement_interval = 120, 60, 240, 120
+        
 
 
     def session_login(self):
         try:
             ###############################################################################
-            ## Connect to the Netconf-Server
+            ## Capture The notification in loop
             ###############################################################################
-            STARTUP.STORE_DATA('********** Connect to the NETCONF Server ***********',Format='TEST_STEP',PDF=pdf_log)
-            STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,self.port)
-            STARTUP.STORE_DATA(STATUS,Format=False,PDF=pdf_log)
-
-            for i in self.session.server_capabilities:
-                STARTUP.STORE_DATA('{}'.format(i),Format=False,PDF=pdf_log)
-
-
-            ###############################################################################
-            ## Create Subscription
-            ###############################################################################                
-            cap = self.session.create_subscription()
-            STARTUP.STORE_DATA('********** Create Subscription ***********',Format=True,PDF=pdf_log)
-            STARTUP.STORE_DATA('>subscribe',Format=True,PDF=pdf_log)
-            dict_data = xmltodict.parse(str(cap))
-            if dict_data['nc:rpc-reply']['nc:ok']== None:
-                STARTUP.STORE_DATA('\nOk\n',Format=False,PDF=pdf_log)
-
-
-
-            
-
-            ###############################################################################
-            ## Test step 2 Configure close-session RPC
-            ###############################################################################  
-            xml_data = '<close-session xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"></close-session>'              
-            STARTUP.STORE_DATA('\t\t ******* TER NETCONF Client triggers Close Session RPC *******',Format='TEST_STEP',PDF=pdf_log)
-            STARTUP.STORE_DATA('> user-rpc\n',Format=True,PDF=pdf_log)
-            STARTUP.STORE_DATA('******* Replace with xml ********',Format=True,PDF=pdf_log)
-            STARTUP.STORE_DATA(xml_data,Format='XML',PDF=pdf_log)
-            STARTUP.STORE_DATA('RPC Reply',Format=True,PDF=pdf_log)
-            dict_data = xmltodict.parse(str(cap))
-            if dict_data['nc:rpc-reply']['nc:ok']== None:
-                STARTUP.STORE_DATA('\nOk\n',Format=False,PDF=pdf_log)
+            self.session_login_activate()
+            pdf_log.add_page()
+            Test_Step2 = '\t\tO-RU NETCONF Server sends <notification><download-event> with status COMPLETED to TER NETCONF Client'
+            STARTUP.STORE_DATA('{}'.format(Test_Step2),Format='TEST_STEP',PDF=pdf_log)
+            t = time.time() + self.rx_measurement_interval + self.transceiver_measurement_interval + self.notification_measurement_interval + self.file_measurement_interval
+            while t> time.time():
+                n = self.session.take_notification(timeout = t)
+                if n == None:
+                    break
+                notify = n.notification_xml
+                dict_n = xmltodict.parse(str(notify))
+                try:
+                    notf = dict_n['notification']['netconf-config-change']
+                except:
+                    x = xml.dom.minidom.parseString(notify)
+                    xml_pretty_str = x.toprettyxml()
+                    STARTUP.STORE_DATA(xml_pretty_str, Format='XML',PDF=pdf_log)
+                    pass
             return True
+            
             
 
         ###############################################################################
@@ -160,9 +105,9 @@ class stop_subscribe():
                 if val[0] == 'true' and val[1] == 'true':
                     ############################### Test Description #############################
                     Test_Desc = '''Test Description : 1. Open the NETCONF client.
-2. Trigger the rpc to terminate the streaming using rpc <close-session> for measurement result stats.  
+2. Trigger the rpc to stream the <create-subscription> for the measument results stats. 
 3. Wait for the rpc reply message from O-RU. 
-'''
+4. Observe the notification loop for counters in the O-RU controller received from the O-RU. '''
                     CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL(filename,SW_R = val[2]) 
                     STARTUP.STORE_DATA(CONFIDENTIAL,Format='CONF',PDF= pdf_log)
                     STARTUP.STORE_DATA(Test_Desc,Format='DESC',PDF= pdf_log)
@@ -175,11 +120,12 @@ class stop_subscribe():
             time.sleep(5)
             result = self.session_login()
 
-            STARTUP.GET_SYSTEM_LOGS(self.hostname,self.USER_N,self.PSWRD,pdf_log,number=500)
+            STARTUP.GET_SYSTEM_LOGS(self.host,self.USER_N,self.PSWRD,pdf_log,number=500)
                          
             Exp_Result = '''Expected Result : 1. Verify the NETCONF client is opened successfully.
-2. Verify the rpc <close-session> successfully on O-RU. 
-3. Verify the O-RU controller receive the rpc reply message with notification as terminated. 
+2. Verify the rpc <create-subscription> successfully on O-RU. 
+3. Verify the O-RU controller receive the rpc reply message with success. 
+4. Verify the counter notification from O-RU with relevant parameters.
                 '''
             STARTUP.STORE_DATA(Exp_Result,Format='DESC',PDF= pdf_log)
             STARTUP.STORE_DATA('\t\t{}'.format('****************** Actual Result ******************'),Format=True,PDF= pdf_log)
@@ -195,11 +141,11 @@ class stop_subscribe():
                     return result
                 else:
                     STARTUP.STORE_DATA(f"{'Error_Tag_Mismatch' : <15}{'=' : ^20}{result : ^20}",Format=False,PDF=pdf_log)
-                STARTUP.ACT_RES(f"{'Using NETCONF process the NETCONF client stop subcribe the streaming of measurement result stats' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf_log,COL=(255,0,0))
+                STARTUP.ACT_RES(f"{'Using NETCONF process the NETCONF client subcribe the streaming of measurement result stats' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf_log,COL=(255,0,0))
                 return result
                 
             else:
-                STARTUP.ACT_RES(f"{'Using NETCONF process the NETCONF client stop subcribe the streaming of measurement result stats' : <50}{'=' : ^20}{'PASS' : ^20}",PDF= pdf_log,COL=(105, 224, 113))
+                STARTUP.ACT_RES(f"{'Using NETCONF process the NETCONF client subcribe the streaming of measurement result stats' : <50}{'=' : ^20}{'PASS' : ^20}",PDF= pdf_log,COL=(105, 224, 113))
                 return True    
 
         ############################### Known Exceptions ####################################################
@@ -235,7 +181,7 @@ class stop_subscribe():
     
 if __name__ == '__main__':
     try:
-        obj = stop_subscribe()
+        obj = create_subscribe()
         filename = sys.argv[1]
         Result = obj.test_main()
     except Exception as e:
@@ -243,6 +189,6 @@ if __name__ == '__main__':
         exc_type, exc_obj, exc_tb = sys.exc_info()
         STARTUP.STORE_DATA(
             f"Error occured in line number {exc_tb.tb_lineno}", Format = False,PDF=pdf_log)
-        print('Usage: python stop_subscribe.py <Test_Case_ID>')
+        print('Usage: python create_subscribe.py <Test_Case_ID> <Fronthaul Interface Eg. eth0/eth1> <element name eg. element0/element1> <bandwidths Eg. 10> <remote_path eg. sftp://vvdn@192.168.4.15:22/home/vvdn>')
     
     

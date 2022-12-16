@@ -1,5 +1,5 @@
 ###############################################################################
-##@ FILE NAME:      Using NETCONF process the NETCONF client stop subcribe the streaming of measurement result stats
+##@ FILE NAME:      Using the NETCONF client transfer the generated counter files from O-RAN/PM/ folder  in O-RU
 ##@ TEST SCOPE:     M PLANE O-RAN Functional
 ##@ Version:        V_1.0.0
 ##@ Support:        @Ramiyer, @VaibhavDhiman, @PriyaSharma
@@ -9,7 +9,7 @@
 ## Package Imports 
 ###############################################################################
 
-import sys, os, time, xmltodict, xml.dom.minidom, lxml.etree, ifcfg
+import sys, os, time, xmltodict, xml.dom.minidom, paramiko
 from ncclient import manager
 from ncclient.operations.rpc import RPC, RPCError
 from ncclient.transport import errors
@@ -38,6 +38,7 @@ configur.read('{}/inputs.ini'.format(dir_name))
 ###############################################################################
 from require import STARTUP, Config
 from require.Vlan_Creation import *
+from .performance_activation import *
 
 
 
@@ -46,95 +47,40 @@ from require.Vlan_Creation import *
 ###############################################################################
 pdf_log = STARTUP.PDF_CAP()
 
-class stop_subscribe():
+class create_subscribe(performance_activation):
 
     def __init__(self) -> None:
-        try:
-            self.port = 830
-            self.USER_N = configur.get('INFO', 'sudo_user')
-            self.PSWRD = configur.get('INFO', 'sudo_pass')
-            self.du_password = configur.get('INFO', 'du_pass')
-            self.rx_measurement_interval = self.transceiver_measurement_interval = self.notification_measurement_interval = self.file_measurement_interval = 10
-            self.session = STARTUP.connect(host='', port=4334, hostkey_verify=False, username=self.USER_N,
-                                           password=self.PSWRD, allow_agent=False, look_for_keys=False, timeout=60)
-            li = self.session._session._transport.sock.getpeername()
-            sid = self.session.session_id
-            self.hostname = li[0]
-            pass
-
-        except socket.timeout as e:
-            warnings.warn('Call Home is not initiated.')
-            try:
-                self.session = manager.connect(
-                    host=self.hostname, port=830, hostkey_verify=False, username=self.USER_N, password=self.PSWRD, timeout=60)
-            except Exception as e:
-                print(e)
-
-        except OSError as e:
-            warnings.warn('Call Home is not initiated.')
-            try:
-                self.session = manager.connect(
-                    host=self.hostname, port=830, hostkey_verify=False, username=self.USER_N, password=self.PSWRD, timeout=60)
-            except Exception as e:
-                print(e)
-
-        except Exception as e:
-            STARTUP.STORE_DATA('{}'.format(e), Format=True, PDF=pdf_log)
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            STARTUP.STORE_DATA(
-                f"Error occured in line number {exc_tb.tb_lineno}", Format=False, PDF=pdf_log)
-            return '{}'.format(e)
-
-        finally:
-            try:
-                data = STARTUP.demo(self.session)
-                self.users, self.slots, self.macs = data[0], data[1], data[2]
-                self.du_mac = ifcfg.interfaces()[self.interface]['ether']
-                self.ru_mac = self.macs[self.FH_interface]
-            except Exception as e:
-                print(e)
+        super().__init__()
+        self.rx_measurement_interval, self.transceiver_measurement_interval, self.notification_measurement_interval, self.file_measurement_interval = 120, 60, 240, 120
+        
 
 
     def session_login(self):
         try:
             ###############################################################################
-            ## Connect to the Netconf-Server
+            ## Capture The notification in loop
             ###############################################################################
-            STARTUP.STORE_DATA('********** Connect to the NETCONF Server ***********',Format='TEST_STEP',PDF=pdf_log)
-            STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,self.port)
-            STARTUP.STORE_DATA(STATUS,Format=False,PDF=pdf_log)
-
-            for i in self.session.server_capabilities:
-                STARTUP.STORE_DATA('{}'.format(i),Format=False,PDF=pdf_log)
-
-
-            ###############################################################################
-            ## Create Subscription
-            ###############################################################################                
-            cap = self.session.create_subscription()
-            STARTUP.STORE_DATA('********** Create Subscription ***********',Format=True,PDF=pdf_log)
-            STARTUP.STORE_DATA('>subscribe',Format=True,PDF=pdf_log)
-            dict_data = xmltodict.parse(str(cap))
-            if dict_data['nc:rpc-reply']['nc:ok']== None:
-                STARTUP.STORE_DATA('\nOk\n',Format=False,PDF=pdf_log)
-
-
-
-            
-
-            ###############################################################################
-            ## Test step 2 Configure close-session RPC
-            ###############################################################################  
-            xml_data = '<close-session xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"></close-session>'              
-            STARTUP.STORE_DATA('\t\t ******* TER NETCONF Client triggers Close Session RPC *******',Format='TEST_STEP',PDF=pdf_log)
-            STARTUP.STORE_DATA('> user-rpc\n',Format=True,PDF=pdf_log)
-            STARTUP.STORE_DATA('******* Replace with xml ********',Format=True,PDF=pdf_log)
-            STARTUP.STORE_DATA(xml_data,Format='XML',PDF=pdf_log)
-            STARTUP.STORE_DATA('RPC Reply',Format=True,PDF=pdf_log)
-            dict_data = xmltodict.parse(str(cap))
-            if dict_data['nc:rpc-reply']['nc:ok']== None:
-                STARTUP.STORE_DATA('\nOk\n',Format=False,PDF=pdf_log)
+            self.session_login_activate()
+            pdf_log.add_page()
+            Test_Step2 = '\t\tO-RU NETCONF Server sends <notification><download-event> with status COMPLETED to TER NETCONF Client'
+            STARTUP.STORE_DATA('{}'.format(Test_Step2),Format='TEST_STEP',PDF=pdf_log)
+            # t = time.time() + self.rx_measurement_interval + self.transceiver_measurement_interval + self.notification_measurement_interval + self.file_measurement_interval
+            t = time.time() + 240
+            while t> time.time():
+                n = self.session.take_notification(timeout = t)
+                if n == None:
+                    break
+                notify = n.notification_xml
+                dict_n = xmltodict.parse(str(notify))
+                try:
+                    notf = dict_n['notification']['netconf-config-change']
+                except:
+                    x = xml.dom.minidom.parseString(notify)
+                    xml_pretty_str = x.toprettyxml()
+                    STARTUP.STORE_DATA(xml_pretty_str, Format='XML',PDF=pdf_log)
+                    pass
             return True
+            
             
 
         ###############################################################################
@@ -150,6 +96,26 @@ class stop_subscribe():
             STARTUP.STORE_DATA(f"\t{'message' : <20}{':' : ^10}{e.message: ^10}\n",Format=False,PDF=pdf_log)
             return [e.type, e.tag, e.severity, e.path, e.message]
            
+    def verify_csv_file(self):
+        try:
+            host = self.hostname
+            port = 22
+            username = configur.get('INFO','super_user')
+            print(username)
+            password = configur.get('INFO','super_pass')
+            print(password)
+            command = "ls /media/sd-mmcblk0p4/O-RAN/PM/"
+            ssh = paramiko.SSHClient()
+            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            ssh.connect(host, port, username, password)
+
+            stdin, stdout, stderr = ssh.exec_command(command)
+            lines = stdout.readlines()
+
+        except Exception as e:
+            print(e)
+            print('Can\'t connect to RU..')
+        pass
 
 
     def test_main(self):
@@ -160,9 +126,13 @@ class stop_subscribe():
                 if val[0] == 'true' and val[1] == 'true':
                     ############################### Test Description #############################
                     Test_Desc = '''Test Description : 1. Open the NETCONF client.
-2. Trigger the rpc to terminate the streaming using rpc <close-session> for measurement result stats.  
-3. Wait for the rpc reply message from O-RU. 
-'''
+2. Send the rpc <edit-config> with below parameters
+2.a SFTP-upload as TRUE, 
+2.b file-upload-interval 
+2.c remote-SFTP-upload-path
+2.d SFTP credentials 
+3. Wait for the rpc reply message for successful configurations.
+4. Open the uploaded counter files on SFTP server. '''
                     CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL(filename,SW_R = val[2]) 
                     STARTUP.STORE_DATA(CONFIDENTIAL,Format='CONF',PDF= pdf_log)
                     STARTUP.STORE_DATA(Test_Desc,Format='DESC',PDF= pdf_log)
@@ -175,11 +145,16 @@ class stop_subscribe():
             time.sleep(5)
             result = self.session_login()
 
-            STARTUP.GET_SYSTEM_LOGS(self.hostname,self.USER_N,self.PSWRD,pdf_log,number=500)
+            STARTUP.GET_SYSTEM_LOGS(self.host,self.USER_N,self.PSWRD,pdf_log,number=500)
                          
             Exp_Result = '''Expected Result : 1. Verify the NETCONF client is opened successfully.
-2. Verify the rpc <close-session> successfully on O-RU. 
-3. Verify the O-RU controller receive the rpc reply message with notification as terminated. 
+2. Verify the <edit-config> is configures succesfully with any error messages.
+3. Verify the files are uploaded in the SFTP server file path.  
+4. Verify the .csv file name of the performance management as below format: 
+Eg: C201805181300+0900_201805181330+0900_ABC0123456.csv.
+5. Verify the measurement results in each lines are below format. 
+Eg:1, RX_ON_TIME, 2018-05-18T13:00:00+09:00, 2018-05-18T13:30:00+09:00, 0, 123, AAAA, 1, 123, BBBB, 2, 123, CCCC, 3, 123,
+DDDD
                 '''
             STARTUP.STORE_DATA(Exp_Result,Format='DESC',PDF= pdf_log)
             STARTUP.STORE_DATA('\t\t{}'.format('****************** Actual Result ******************'),Format=True,PDF= pdf_log)
@@ -195,11 +170,11 @@ class stop_subscribe():
                     return result
                 else:
                     STARTUP.STORE_DATA(f"{'Error_Tag_Mismatch' : <15}{'=' : ^20}{result : ^20}",Format=False,PDF=pdf_log)
-                STARTUP.ACT_RES(f"{'Using NETCONF process the NETCONF client stop subcribe the streaming of measurement result stats' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf_log,COL=(255,0,0))
+                STARTUP.ACT_RES(f"{'Using the NETCONF client transfer the generated counter files from O-RAN/PM/ folder  in O-RU' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf_log,COL=(255,0,0))
                 return result
                 
             else:
-                STARTUP.ACT_RES(f"{'Using NETCONF process the NETCONF client stop subcribe the streaming of measurement result stats' : <50}{'=' : ^20}{'PASS' : ^20}",PDF= pdf_log,COL=(105, 224, 113))
+                STARTUP.ACT_RES(f"{'Using the NETCONF client transfer the generated counter files from O-RAN/PM/ folder  in O-RU' : <50}{'=' : ^20}{'PASS' : ^20}",PDF= pdf_log,COL=(105, 224, 113))
                 return True    
 
         ############################### Known Exceptions ####################################################
@@ -235,7 +210,7 @@ class stop_subscribe():
     
 if __name__ == '__main__':
     try:
-        obj = stop_subscribe()
+        obj = create_subscribe()
         filename = sys.argv[1]
         Result = obj.test_main()
     except Exception as e:
@@ -243,6 +218,6 @@ if __name__ == '__main__':
         exc_type, exc_obj, exc_tb = sys.exc_info()
         STARTUP.STORE_DATA(
             f"Error occured in line number {exc_tb.tb_lineno}", Format = False,PDF=pdf_log)
-        print('Usage: python stop_subscribe.py <Test_Case_ID>')
+        print('Usage: python create_subscribe.py <Test_Case_ID> <Fronthaul Interface Eg. eth0/eth1> <element name eg. element0/element1> <bandwidths Eg. 10> <remote_path eg. sftp://vvdn@192.168.4.15:22/home/vvdn>')
     
     
