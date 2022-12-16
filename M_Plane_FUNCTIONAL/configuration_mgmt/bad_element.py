@@ -126,6 +126,25 @@ class bad_element(vlan_Creation):
             ###############################################################################
             ## Test step for genrating the bad_element
             ###############################################################################                
+<<<<<<< HEAD
+            xml_data = """<retrieve-file-list xmlns="urn:o-ran:file-management:1.0">
+            <logical-path>/home/root/</logical-path>
+            <file-name-filter>O-RAN-WG4.MP.0-v04.00.pdf</file-name-filter>
+            </retrieve-file-list>"""
+
+            STARTUP.STORE_DATA('\n> user-rpc\n', Format=True,PDF=pdf_log)
+
+
+            STARTUP.STORE_DATA('\t\t******* Replace with below xml ********', Format=True,PDF=pdf_log)
+            STARTUP.STORE_DATA(xml_data, Format='XML',PDF=pdf_log)
+            
+            rpc_command = to_ele(xml_data)
+            rpc_reply = self.session.rpc(rpc_command)
+            if 'bad-element' in str(rpc_reply):
+                STARTUP.STORE_DATA('******* RPC Reply ********',Format=True,PDF=pdf_log)
+                STARTUP.STORE_DATA('{}'.format(rpc_reply), Format='XML',PDF=pdf_log)
+                return True
+=======
             xml_data = open("xml/bad_element.xml").read()
             u1 =f'''
                     <config>
@@ -141,6 +160,7 @@ class bad_element(vlan_Creation):
             STARTUP.STORE_DATA('{}'.format(rpc_reply),Format='XML',PDF=pdf_log)
             dict_data = xmltodict.parse(str(rpc_reply))
             return 'Configuration are pushed...'
+>>>>>>> v0.0.1
 
 
         ###############################################################################
@@ -148,7 +168,11 @@ class bad_element(vlan_Creation):
         ###############################################################################                
         except RPCError as e:
             #print(e.message[0:15])
+<<<<<<< HEAD
+            if 'bad-element' in e.message:
+=======
             if 'Missing element' in e.message:
+>>>>>>> v0.0.1
                 STARTUP.STORE_DATA("###########  Rpc Reply ####################",Format=True,PDF=pdf_log)
                 STARTUP.STORE_DATA('\nERROR',Format=False,PDF=pdf_log)
                 STARTUP.STORE_DATA(f"\t{'type' : <20}{':' : ^10}{e.type: ^10}\n",Format=False,PDF=pdf_log)

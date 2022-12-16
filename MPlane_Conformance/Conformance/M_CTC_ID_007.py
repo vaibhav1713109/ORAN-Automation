@@ -72,24 +72,6 @@ class M_CTC_ID_007(vlan_Creation):
             Check1 = False
         return Check1
 
-    # Check DHCP status----
-    def check_vlan_tag(self,pkt):
-        summary = pkt.summary()
-        try:
-            if 'TCP' in summary:
-                # pkt.show()
-                if  pkt['TCP'].flags == 'RA':
-                    print('Got ip to the VLAN...')
-                    print('VLAN IP is : {}'.format(pkt['IP'].dst))
-                    self.ip_address = pkt['IP'].dst
-                    print(self.ip_address)
-                    time.sleep(5)
-                    return True
-        except Exception as e:
-            # print(e)
-            return False
-        pass
-
 
     ###############################################################################
     ## Test Procedure
@@ -167,8 +149,8 @@ class M_CTC_ID_007(vlan_Creation):
         ###############################################################################
         self.USER_N = configur.get('INFO','sudo_user')
         self.PSWRD = configur.get('INFO','sudo_pass')
-        self.P_NEO_IP = configur.get('INFO','paragon_ip')
-        self.P_NEO_PORT = configur.get('INFO','ptpsynceport')
+        #self.P_NEO_IP = configur.get('INFO','paragon_ip')
+        #self.P_NEO_PORT = configur.get('INFO','ptpsynceport')
         # Check2 = STARTUP.ping_status(self.P_NEO_IP)
         if (Check1 == False or Check1 == None):
             return False

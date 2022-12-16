@@ -105,8 +105,13 @@ class M_CTC_ID_013(vlan_Creation):
         STARTUP.STORE_DATA("\n> get --filter-xpath /o-ran-fm:active-alarm-list/active-alarms\n",Format=True,PDF=pdf)
         s = xml.dom.minidom.parseString(alrm)
         xml_pretty_str = s.toprettyxml()
-        alrm_name = dict_alarm['data']['active-alarm-list']['active-alarms']['fault-text']
-        if alrm_name == 'No external sync source':
+        alrm_name = dict_alarm['data']['active-alarm-list']['active-alarms']
+        list_alrm = []
+        for i in alrm_name:
+            if "fault-id" in i.keys() and "fault-text" in i.keys():
+                list_alrm.append(i["fault-id"])
+                list_alrm.append(i["fault-text"])
+        if 'No external sync source' in list_alrm:
             STARTUP.STORE_DATA(xml_pretty_str,Format='XML',PDF=pdf)
         else:
             return '{}'.format(xml_pretty_str)
@@ -251,3 +256,4 @@ def test_m_ctc_id_013():
 if __name__ == "__main__":
     test_m_ctc_id_013()
     pass
+

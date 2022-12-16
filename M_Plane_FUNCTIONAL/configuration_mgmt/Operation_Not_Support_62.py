@@ -192,7 +192,11 @@ class Operation_not_Support():
 
 
 
+<<<<<<< HEAD
+    def OPR_not_Support(self):
+=======
     def OPR_not_Support(self,Test_Case_ID):
+>>>>>>> v0.0.1
 
         try:
                 
@@ -201,7 +205,11 @@ class Operation_not_Support():
                 if val[0] == 'true' and val[1] == 'true':
                     ############################### Test Description #############################
                     Test_Desc = '''Test Description : Test to verify whether from the NETCONF Error List with tag operation-not-supported.'''
+<<<<<<< HEAD
+                    CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL(filename,SW_R = val[2]) 
+=======
                     CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL(Test_Case_ID,SW_R = val[2]) 
+>>>>>>> v0.0.1
                     STARTUP.STORE_DATA(CONFIDENTIAL,Format='CONF',PDF= pdf_log)
                     STARTUP.STORE_DATA(Test_Desc,Format='DESC',PDF= pdf_log)
                     pdf_log.add_page()
@@ -332,7 +340,11 @@ Description:    Request could not be completed because the requested
 
         ############################### MAKE PDF File ####################################################
         finally:
+<<<<<<< HEAD
+            STARTUP.CREATE_LOGS("M_FTC_ID_{}".format(self.filename),PDF=pdf_log)
+=======
             STARTUP.CREATE_LOGS(self.filename,PDF=pdf_log)
+>>>>>>> v0.0.1
 
                 
                 
@@ -341,8 +353,13 @@ if __name__ == '__main__':
     try:
         # filename = sys.argv[1]
         # obj = Operation_not_Support()
+<<<<<<< HEAD
+        filename = sys.argv[1]
+        obj = Operation_not_Support()
+=======
         filename = sys.argv[0].split('.')
         obj = Operation_not_Support(filename[0],sys.argv[1],sys.argv[2])
+>>>>>>> v0.0.1
         Result = obj.OPR_not_Support(sys.argv[3])
     except Exception as e:
         STARTUP.STORE_DATA('{}'.format(e), Format = True,PDF=pdf_log)

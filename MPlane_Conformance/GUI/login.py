@@ -13,6 +13,7 @@ from Main import MainWindow as Main_Main
 from popup import Ui_popup
 from PyQt5 import QtWidgets, uic
 import os, sys
+from configparser import ConfigParser
 ########################################################################
 # IMPORT GUI FILE
 ########################################################################
@@ -21,6 +22,15 @@ dir_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # print(dir_path)
 sys.path.append(dir_path)
 from require.Write_Data import WriteData
+###############################################################################
+## For reading data from .ini file
+###############################################################################
+configur = ConfigParser()
+try:
+    configur.read('{}/Conformance/inputs.ini'.format(dir_path))
+except Exception as e:
+    print(e)
+
 ########################################################################
 
 class Ui(QtWidgets.QMainWindow):
@@ -46,10 +56,15 @@ class Ui(QtWidgets.QMainWindow):
         data = {'super_user' : self.username.text().strip(), 'super_pass' : self.password.text().strip(),
                 'syslog_path' : self.syslog.text().strip(), 'ru_name_rev' : self.ru_name.text().strip()}
         self.window = QtWidgets.QMainWindow()
+        self.directory = dir_path+"/LOGS/{}".format(self.ru_name.text().strip())
+        try:
+            os.mkdir(self.directory)
+        except OSError as error:
+            print(error)
         # self.ui(self.window)
         if len(uss.strip()) != 0:
             if len(pss.strip()) != 0:
-                self.ui = Main_Main()
+                self.ui = Main_Main(self.directory)
                 
                 # self.window.show()
                 window.hide()

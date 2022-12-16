@@ -4,7 +4,10 @@ import configparser
 # Writing Data
 def WriteData(dic,filename):
     config = configparser.ConfigParser()
-    config.read(filename)
+    try:
+        config.read(filename)
+    except Exception as e:
+        print(e)
 
     try:
         config.add_section("INFO")

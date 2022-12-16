@@ -31,13 +31,16 @@ from require.Write_Data import WriteData
 ## For reading data from .ini file
 ###############################################################################
 configur = ConfigParser()
-configur.read('{}/Conformance/inputs.ini'.format(dir_path))
+try:
+    configur.read('{}/Conformance/inputs.ini'.format(dir_path))
+except Exception as e:
+    print(e)
 ########################################################################
 ## MAIN WINDOW CLASS
 ########################################################################
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self,dir_name):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -46,11 +49,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.window.setWindowFlag(QtCore.Qt.WindowMinMaxButtonsHint, False)
         self.testCaseUI.setupUi(self.window)
         self.clicked_module = ''
-        self.directory = dir_path+"/LOGS/{}".format(configur.get('INFO','ru_name_rev'))
-        try:
-            os.mkdir(self.directory)
-        except OSError as error: 
-            print(error) 
+        self.directory = dir_name
         ##############################################################################
         ## Check boxes module wise
         ##############################################################################
@@ -163,10 +162,8 @@ class MainWindow(QtWidgets.QMainWindow):
         return True
 
     def dhcp_process_finished(self):
-        if self.link_detect:
             if not self.Flag:
                 os.system('sudo /etc/init.d/isc-dhcp-server restart')
-        else:
             st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
             self.msg.setText('{}'.format(st))
             self.msg.exec_()

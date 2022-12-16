@@ -72,7 +72,11 @@ class bandwidth_switch(vlan_Creation):
             self.session = STARTUP.call_home(host = '', port=4334, hostkey_verify=False,username = self.USER_N, password = self.PSWRD ,allow_agent = False , look_for_keys = False, timeout = 60)
             li = self.session._session._transport.sock.getpeername()
             sid = self.session.session_id
+<<<<<<< HEAD
+            self.hostname = li[0]
+=======
             self.host = li[0]
+>>>>>>> v0.0.1
             pass
         
         except socket.timeout as e:
@@ -219,7 +223,11 @@ class bandwidth_switch(vlan_Creation):
                 STARTUP.STORE_DATA(xml_pretty_str,Format='XML',PDF=pdf_log)
 
 
+<<<<<<< HEAD
+            return True
+=======
                 return True
+>>>>>>> v0.0.1
 
 
         ###############################################################################
@@ -324,6 +332,10 @@ if __name__ == '__main__':
         filename = sys.argv[1]
         Result = obj.test_main()
     except Exception as e:
+<<<<<<< HEAD
+        print(e)
+=======
+>>>>>>> v0.0.1
         STARTUP.STORE_DATA('{}'.format(e), Format = True,PDF=pdf_log)
         exc_type, exc_obj, exc_tb = sys.exc_info()
         STARTUP.STORE_DATA(

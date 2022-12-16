@@ -239,7 +239,7 @@ def test_M_ctc_id_002():
     Check = tc001_obj.test_call_home()
     if Check == False:
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
-        STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= pdf)
+        STARTUP.STORE_DATA('SFP link not detected/DHCP IP not pinging...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
         notification("Test Case is FAIL")
         return False
