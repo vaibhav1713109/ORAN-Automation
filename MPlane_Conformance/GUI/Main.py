@@ -167,6 +167,9 @@ class MainWindow(QtWidgets.QMainWindow):
             st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
             self.msg.setText('{}'.format(st))
             self.msg.exec_()
+            time.sleep(2)
+            self.msg.setText('Please reboot RU once..')
+            self.msg.exec_()
 
 
     def dhcp_handle_stdout(self):
@@ -179,8 +182,6 @@ class MainWindow(QtWidgets.QMainWindow):
             self.link_detect = False
             return False
         else:
-            self.msg.setText('Please reboot RU once..')
-            self.msg.exec_()
             return True
 
 
