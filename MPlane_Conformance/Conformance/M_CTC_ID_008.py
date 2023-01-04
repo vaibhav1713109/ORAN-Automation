@@ -56,8 +56,8 @@ class M_CTC_ID_008(vlan_Creation):
         self.USER_N = ''
         self.PSWRD = ''
         self.session = ''
-        self.s_n_i = randint(10,20)
-        self.g_t = randint(10,15)
+        self.s_n_i = randint(10,15)
+        self.g_t = randint(10,12)
             
     ###############################################################################
     ## SFP Link Detection
@@ -140,7 +140,7 @@ class M_CTC_ID_008(vlan_Creation):
         Test_Step2 = '\t\t O-RU NETCONF Server sends a reply to the TER NETCONF Client <rpc-reply><next-update-at>date-time</next-update-at></rpc-reply>'
         STARTUP.STORE_DATA('{}'.format(Test_Step2),Format='TEST_STEP', PDF=pdf)
         STARTUP.STORE_DATA('{}'.format(d),Format='XML', PDF=pdf)
-        t = int(self.s_n_i) + ((int(self.g_t))//2)
+        t = int(self.s_n_i) + ((int(self.g_t))/3)
 
         ###############################################################################
         ## Iterating 30 Times

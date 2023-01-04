@@ -121,7 +121,7 @@ class M_CTC_id_002(M_CTC_id_001):
             ssh-rsa key fingerprint is {self.fingerprint}.
             Are you sure you want to continue connecting (yes/no)? no
             nc ERROR: Checking the host key failed.
-            cmd_listen: Receiving SSH Call Home on port 4334 as user "{self.USER_N}" failed.'''
+            cmd_listen: Receiving SSH Call Home on port 4334 as user "{user}" failed.'''
             STARTUP.STORE_DATA(SSH_AUTH,Format=False,PDF = pdf)
             STARTUP.STORE_DATA('{}\n'.format('-'*100),Format=False,PDF=pdf)
             return True

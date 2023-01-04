@@ -114,6 +114,7 @@ class M_CTC_ID_013(vlan_Creation):
         if 'No external sync source' in list_alrm:
             STARTUP.STORE_DATA(xml_pretty_str,Format='XML',PDF=pdf)
         else:
+            STARTUP.STORE_DATA(xml_pretty_str,Format='XML',PDF=pdf)
             return '{}'.format(xml_pretty_str)
         return True
 

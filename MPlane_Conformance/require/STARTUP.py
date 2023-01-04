@@ -217,50 +217,54 @@ def session_login(host = '0.0.0.0',USER_N = '',PSWRD = ''):
 
 
 def delete_system_log(host):
-    # try:
-        host = host
-        port = 22
-        username = configur.get('INFO','super_user')
-        password = configur.get('INFO','super_pass')
-        command = "rm -rf {};".format(configur.get('INFO','syslog_path'))
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(host, port, username, password)
+    for _ in range(5):
+        try:
+            host = host
+            port = 22
+            username = configur.get('INFO','super_user')
+            password = configur.get('INFO','super_pass')
+            command = "rm -rf {};".format(configur.get('INFO','syslog_path'))
+            ssh = paramiko.SSHClient()
+            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            ssh.connect(host, port, username, password)
 
-        stdin, stdout, stderr = ssh.exec_command(command)
-        lines = stdout.readlines()
-        print(lines)
-    # except Exception as e:
-    #     print(e)
-    #     print('Can\'t connect to the RU..')
-    #     pass
-
+            stdin, stdout, stderr = ssh.exec_command(command)
+            lines = stdout.readlines()
+            return True
+        except Exception as e:
+            print(e)
+            pass
+    else:
+        print('Can\'t connect to the RU.., Logs are not captured.')
 
 ###############################################################################
 ## Collecting the system logs
 ###############################################################################
 def GET_SYSTEM_LOGS(host,user, pswrd,PDF):
-    try:
-        host = host
-        port = 22
-        username = user
-        password = pswrd
-        PDF.add_page()
-        STORE_DATA('\t\t\t\t############ SYSTEM LOGS ##############',Format=True,PDF=PDF)
-        command = "cat {};".format(configur.get('INFO','syslog_path'))
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(host, port, username, password)
+    for _ in range(5):
+        try:
+            host = host
+            port = 22
+            username = user
+            password = pswrd
+            PDF.add_page()
+            STORE_DATA('\t\t\t\t############ SYSTEM LOGS ##############',Format=True,PDF=PDF)
+            command = "cat {};".format(configur.get('INFO','syslog_path'))
+            ssh = paramiko.SSHClient()
+            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            ssh.connect(host, port, username, password)
 
-        stdin, stdout, stderr = ssh.exec_command(command)
-        lines = stdout.readlines()
-        for i in lines:
-            STORE_DATA("{}".format(i),Format=False,PDF=PDF)
-        PDF.add_page()
-    except Exception as e:
-        print(e)
-        print('Can\'t connect to the RU..')
-        pass
+            stdin, stdout, stderr = ssh.exec_command(command)
+            lines = stdout.readlines()
+            for i in lines:
+                STORE_DATA("{}".format(i),Format=False,PDF=PDF)
+            PDF.add_page()
+            return True
+        except Exception as e:
+            print(e)
+            pass
+    else:
+        print('Can\'t connect to the RU.., Logs are not captured.')
 
 
 ###############################################################################
