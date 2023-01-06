@@ -1,6 +1,10 @@
 # ORAN-Automation
 The repository is been build for  M &amp; S Plane optimisation in the Fronthual Interface
 
+https://user-images.githubusercontent.com/69416241/210977478-f5ddd2da-b262-4356-9a59-a3a614052e3f.mp4
+
+
+
 ## Used Libraries: 
 - Python >=3.7
 - ncclient >=0.6.12
