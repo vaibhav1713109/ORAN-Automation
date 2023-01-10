@@ -18,7 +18,7 @@ logger = logging.getLogger('ncclient.manager')
 ###############################################################################
 dir_name = os.path.dirname(os.path.abspath(__file__))
 parent = os.path.dirname(dir_name)
-# print(parent)
+print(parent)
 # print(dir_name)
 sys.path.append(parent)
 

@@ -73,9 +73,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.submitBtn_7.clicked.connect(self.access_control)
         self.ui.submitBtn_8.clicked.connect(self.ru_configure)
         # self.ui.submitBtn_10.clicked.connect(self.log_mgmt)
-        self.testCaseUI.submitBtn.clicked.connect(lambda : self.get_all_data_and_run(self.testCaseUI.consoleEdit))
-        self.testCaseUI.runBtn.clicked.connect(lambda : self.Loading_2('Test_Suit',self.testCaseUI.consoleEdit))
-
+        self.testCaseUI.submitBtn.clicked.connect(lambda : self.Loading_2('MP_Test_Suit',self.testCaseUI.consoleEdit))
 
         ##############################################################################
         ## if clicked on run button on each module widget
@@ -146,15 +144,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def show_report(self):
         msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle('PopUp')
         msg.resize(600,100)
-        msg.setWindowTitle('PopUp')
         msg.setText('Logs are saved at {}.'.format(self.directory))
         msg.exec_()
 
     def dhcp_restarted(self, Flag):
         self.msg = QtWidgets.QMessageBox()
-        self.msg.setWindowTitle('PopUp')
         self.msg.resize(1133,100)
         self.Flag = Flag
         if Flag:
@@ -173,9 +168,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.msg.setText('{}'.format(st))
             self.msg.exec_()
             time.sleep(2)
-            if 'running' in st:
-                self.msg.setText('Please reboot RU once..')
-                self.msg.exec_()
+            self.msg.setText('Please reboot RU once..')
+            self.msg.exec_()
 
 
     def dhcp_handle_stdout(self):
@@ -267,36 +261,24 @@ class MainWindow(QtWidgets.QMainWindow):
         self.main_win.showMaximized()
         self.timer= QTimer(self.main_win)
         # self.timer.singleShot(1000,self.stopAni)
-        if self.get_all_data_and_run(console):
-            self.timer.singleShot(100,lambda: self.Run_All(test_cases,console))
-        else:
-            return False
+        self.timer.singleShot(100,lambda: self.get_all_data_and_run(test_cases,console))
+
 
     def Run_All(self,filename, console):
         self.console = console
         self.console.clear()
         self.message("Executing process")
         self.p = QtCore.QProcess()  # Keep a reference to the QProcess (e.g. on self) while it's running.
-        if self.p:
-            self.console.appendPlainText('+'*100)
-            self.p.start("python", ['{}/require/{}.py'.format(dir_path,filename)])
-            self.p.readyReadStandardOutput.connect(self.handle_stdout)
-            self.p.readyReadStandardError.connect(self.handle_stderr)
-            self.p.stateChanged.connect(self.handle_state)
-            self.p.finished.connect(self.process_finished)  # Clean up once complete.
+        self.console.appendPlainText('+'*100)
+        self.p.start("python", ['{}/require/{}.py'.format(dir_path,filename)])
+        self.p.readyReadStandardOutput.connect(self.handle_stdout)
+        self.p.readyReadStandardError.connect(self.handle_stderr)
+        self.p.stateChanged.connect(self.handle_state)
+        self.p.finished.connect(self.process_finished)  # Clean up once complete.
         return True
 
-    def checked_mul(self):
-        self.data = ''
-        for check in self.testCaseUI.checkboxes:
-            if check.isChecked():
-                self.data+= ' '+ check.text()[-2:]
-            else:
-                pass
-
-    def get_all_data_and_run(self, console):
+    def get_all_data_and_run(self, filename, console):
         msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle('PopUp')
         msg.resize(400,100)
         print(self.ui.username_2.text())
         print(self.ui.password_2.text())
@@ -305,14 +287,12 @@ class MainWindow(QtWidgets.QMainWindow):
         data = {'SUDO_USER' : self.testCaseUI.input_01.text(), 'SUDO_PASS' : self.testCaseUI.input_02.text(),
             'NMS_USER' : self.testCaseUI.input_03.text(), 'NMS_PASS' : self.testCaseUI.input_04.text(),
             'FMPM_USER' : self.testCaseUI.input_05.text(), 'FMPM_PASS' : self.testCaseUI.input_06.text(), 
-            'paragon_ip' : self.testCaseUI.input_07.text(),'ptpSyncEport' : self.testCaseUI.input_08.currentText(),
-            'FH_Interface' : self.testCaseUI.input_09.text(),'bandwidth' : self.testCaseUI.input_10.currentText(),
+            'paragon_ip' : self.testCaseUI.input_07.text(),'ptpSyncEport' : self.testCaseUI.input_08.text(),
+            'FH_Interface' : self.testCaseUI.input_09.text(),'bandwidth' : self.testCaseUI.input_10.text(),
             'tx_arfcn' : self.testCaseUI.input_11.text(),'rx_arfcn' : self.testCaseUI.input_12.text(),
             'tx_center_frequency' : self.testCaseUI.input_13.text(),'rx_center_frequency' : self.testCaseUI.input_14.text(),
-            'duplex_scheme' : self.testCaseUI.input_16.currentText(),'scs_value' : self.testCaseUI.input_19.currentText(),
-            'DU_PASS' : self.testCaseUI.input_15.text(), 'SW_PATH' : self.testCaseUI.input_17.text(), 'Currupt_Path' : self.testCaseUI.input_18.text()}
-        self.checked_mul()
-        data['Selected_Test_Case'] = str(self.data)
+            'duplex_scheme' : self.testCaseUI.input_16.text(),'DU_PASS' : self.testCaseUI.input_15.text(), 
+            'SW_PATH' : self.testCaseUI.input_17.text(), 'Currupt_Path' : self.testCaseUI.input_18.text()}
         for key, val in data.items():
             if val == '':
                 msg.setText('Please Enter a valid value of {}'.format(key))
@@ -320,20 +300,15 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.stopAni()
                 return False
         else:
-            if len(self.data) == 0:
-                msg.setText('Please select the test case...')
-                msg.exec_()
-                self.stopAni()
-                return False
-            else:
-                msg.setText('Success')
-                msg.exec_()
+            msg.setText('Success')
+            msg.exec_()
         WriteData(data,'{}/Conformance/inputs.ini'.format(dir_path))
         console.clear()
         for key,val in data.items():
             console.appendPlainText('{} : {}'.format(key,val)) 
         msg.setText('Data appended successfully...')
         msg.exec_()
+        self.Run_All(filename,console)
         return True
 
     ########################################################################
@@ -341,7 +316,6 @@ class MainWindow(QtWidgets.QMainWindow):
     ########################################################################
     def transport_handshake(self):
         msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle('PopUp')
         msg.resize(400,100)
         print(self.ui.input.text())
         print(self.ui.input1.text())
@@ -368,7 +342,6 @@ class MainWindow(QtWidgets.QMainWindow):
         
     def subscription(self):
         msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle('PopUp')
         msg.resize(400,100)
         print(self.ui.username_2.text())
         print(self.ui.password_2.text())
@@ -394,7 +367,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def supervision(self):
         msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle('PopUp')
         msg.resize(400,100)
         print(self.ui.username.text())
         print(self.ui.password.text())
@@ -418,7 +390,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def ru_info(self):
         msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle('PopUp')
         msg.resize(400,100)
         print(self.ui.username_4.text())
         print(self.ui.password_4.text())
@@ -442,7 +413,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def fault_mgmt(self):
         msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle('PopUp')
         msg.resize(400,100)
         print(self.ui.username_5.text())
         print(self.ui.password_5.text())
@@ -469,7 +439,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def sw_mgmt(self):
         msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle('PopUp')
         msg.resize(400,100)
         print(self.ui.username_6.text())
         print(self.ui.password_6.text())
@@ -497,7 +466,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def access_control(self):
         msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle('PopUp')
         msg.resize(400,100)
         print(self.ui.sudouser.text())
         print(self.ui.sudopswrd.text())
@@ -527,16 +495,15 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def ru_configure(self):
         msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle('PopUp')
         msg.resize(400,100)
         # print(self.ui.sudouser_8.text())
         # print(self.ui.sudopswrd_8.text())
-        print(self.ui.input8_3.currentText())
+        # print(self.ui.fronhaulInterface.text())
         data = {'SUDO_USER' : self.ui.sudouser_8.text(), 'SUDO_PASS' : self.ui.sudopswrd_8.text(),
-                'FH_Interface' : self.ui.fronhaulInterface.text(),'bandwidth' : self.ui.input8_3.currentText(),
+                'FH_Interface' : self.ui.fronhaulInterface.text(),'bandwidth' : self.ui.input8_3.text(),
                 'tx_arfcn' : self.ui.input8_1.text(),'rx_arfcn' : self.ui.input8_2.text(),
                 'tx_center_frequency' : self.ui.input8_4.text(),'rx_center_frequency' : self.ui.input8_5.text(),
-                'duplex_scheme' : self.ui.input8_6.currentText(),'scs_value' : self.ui.comboBox_1.currentText()}
+                'duplex_scheme' : self.ui.input8_6.text()}
         for key, val in data.items():
             if val == '':
                 msg.setText('Please Enter a valid value of {}'.format(key))
@@ -557,7 +524,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def log_mgmt(self):
         msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle('PopUp')
         msg.resize(400,100)
         print(self.ui.username_10.text())
         print(self.ui.password_10.text())
@@ -677,7 +643,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stopAni()
         self.p = None
         msg = QtWidgets.QMessageBox()
-        msg.setWindowTitle('PopUp')
         msg.resize(400,100)
         msg.setText('Logs are saved at {}.'.format(self.directory))
         msg.exec_()
