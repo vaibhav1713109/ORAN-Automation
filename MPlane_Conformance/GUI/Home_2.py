@@ -38,34 +38,27 @@ QPushButton{
 	border-radius:5px;
 	padding: 2px 5px;
 }"""
-# "\n"
-# "QPushButton{\n"
-# "    background-color: #293340;\n"
-# "    border-radius: 5px;\n"
-# "    padding: 2px 5px\n"
-# "}\n"
-"\n"
-"QCheckBox{\n"
+"QRadioButton{\n"
 "    border: none;\n"
 "    spacing : 5px;\n"
 "}\n"
-"QCheckBox::indicator\n"
+"QRadioButton::indicator\n"
 "{\n"
 "    width: 15px;\n"
 "    height: 15px\n"
 "}\n"
-"QCheckBox:hover\n"
+"QRadioButton:hover\n"
 "{\n"
 "    color:#B31031;\n"
 "}\n"
 "\n"
 "/* when indicator is unchecked */\n"
-"QCheckBox::indicator:unchecked\n"
+"QRadioButton::indicator:unchecked\n"
 "{\n"
 "    image: url(:/icons/icons/square.svg);\n"
 "}\n"
 "/* when indicator is checked */\n"
-"QCheckBox::indicator:checked\n"
+"QRadioButton::indicator:checked\n"
 "{\n"
 "    image: url(:/icons/icons/check-square.svg);\n"
 "}\n"
@@ -217,13 +210,13 @@ QFrame{
 	background-color: white;
 	border:none;
 }
-QLineEdit{background-color: rgba(0,0,0,0);
+QLineEdit, QComboBox{background-color: rgba(0,0,0,0);
 	border:none;
 	border-bottom:2px solid rgba(46,82,101,200);
-	color: black;
+	color: blue;
 	padding-bottom:7px;
 }
-QLineEdit[text=\"\"]{
+QLineEdit[text=\"\"], QComboBox[text=\"\"]{
         color:blue;
 }
 QLabel{
@@ -326,24 +319,16 @@ QPlainTextEdit{
         self.horizontalLayout_13 = QtWidgets.QHBoxLayout(self.frame_1)
         self.horizontalLayout_13.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_13.setObjectName("horizontalLayout_13")
-        self.TC_001 = QtWidgets.QCheckBox(self.frame_1)
-        self.TC_001.setEnabled(True)
+        self.TC_001 = QtWidgets.QRadioButton(self.frame_1)
         font = QtGui.QFont()
         font.setKerning(True)
         self.TC_001.setFont(font)
-        self.TC_001.setAutoFillBackground(False)
-        self.TC_001.setStyleSheet("")
-        self.TC_001.setCheckable(True)
-        self.TC_001.setChecked(False)
-        self.TC_001.setAutoRepeat(False)
-        self.TC_001.setAutoExclusive(False)
-        self.TC_001.setTristate(False)
         self.TC_001.setObjectName("TC_001")
         self.horizontalLayout_13.addWidget(self.TC_001)
-        self.TC_002 = QtWidgets.QCheckBox(self.frame_1)
+        self.TC_002 = QtWidgets.QRadioButton(self.frame_1)
         self.TC_002.setObjectName("TC_002")
         self.horizontalLayout_13.addWidget(self.TC_002)
-        self.TC_003 = QtWidgets.QCheckBox(self.frame_1)
+        self.TC_003 = QtWidgets.QRadioButton(self.frame_1)
         self.TC_003.setObjectName("TC_003")
         self.horizontalLayout_13.addWidget(self.TC_003)
         self.verticalLayout_37.addWidget(self.frame_1)
@@ -532,11 +517,11 @@ QPlainTextEdit{
         self.horizontalLayout_18 = QtWidgets.QHBoxLayout(self.frame_31)
         self.horizontalLayout_18.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_18.setObjectName("horizontalLayout_18")
-        self.TC_008 = QtWidgets.QCheckBox(self.frame_31)
+        self.TC_008 = QtWidgets.QRadioButton(self.frame_31)
         self.TC_008.setStyleSheet("")
         self.TC_008.setObjectName("TC_008")
         self.horizontalLayout_18.addWidget(self.TC_008)
-        self.TC_009 = QtWidgets.QCheckBox(self.frame_31)
+        self.TC_009 = QtWidgets.QRadioButton(self.frame_31)
         self.TC_009.setObjectName("TC_009")
         self.horizontalLayout_18.addWidget(self.TC_009)
         self.verticalLayout_7.addWidget(self.frame_31)
@@ -639,11 +624,11 @@ QPlainTextEdit{
         self.InputLabel4_1.setObjectName("InputLabel4_1")
         self.InputLabel4_1.setText("TEST CASES")
         self.verticalLayout_38.addWidget(self.InputLabel4_1)
-        self.TC_010 = QtWidgets.QCheckBox(self.frame_41)
+        self.TC_010 = QtWidgets.QRadioButton(self.frame_41)
         self.TC_010.setStyleSheet("")
         self.TC_010.setObjectName("TC_010")
         self.horizontalLayout_20.addWidget(self.TC_010)
-        self.TC_011 = QtWidgets.QCheckBox(self.frame_41)
+        self.TC_011 = QtWidgets.QRadioButton(self.frame_41)
         self.TC_011.setObjectName("TC_011")
         self.horizontalLayout_20.addWidget(self.TC_011)
         self.verticalLayout_38.addWidget(self.frame_41)
@@ -747,11 +732,11 @@ QPlainTextEdit{
         self.InputLabel5_1.setObjectName("InputLabel5_1")
         self.InputLabel5_1.setText("TEST CASES")
         self.verticalLayout_39.addWidget(self.InputLabel5_1)
-        self.TC_012 = QtWidgets.QCheckBox(self.frame_51)
+        self.TC_012 = QtWidgets.QRadioButton(self.frame_51)
         self.TC_012.setStyleSheet("")
         self.TC_012.setObjectName("TC_012")
         self.horizontalLayout_22.addWidget(self.TC_012)
-        self.TC_013 = QtWidgets.QCheckBox(self.frame_51)
+        self.TC_013 = QtWidgets.QRadioButton(self.frame_51)
         self.TC_013.setObjectName("TC_013")
         self.horizontalLayout_22.addWidget(self.TC_013)
         self.verticalLayout_39.addWidget(self.frame_51)
@@ -861,17 +846,17 @@ QPlainTextEdit{
         self.InputLabel6_1.setObjectName("InputLabel6_1")
         self.InputLabel6_1.setText("TEST CASES")
         self.verticalLayout_40.addWidget(self.InputLabel6_1)
-        self.TC_014 = QtWidgets.QCheckBox(self.frame_61)
+        self.TC_014 = QtWidgets.QRadioButton(self.frame_61)
         self.TC_014.setStyleSheet("")
         self.TC_014.setObjectName("TC_014")
         self.horizontalLayout_24.addWidget(self.TC_014)
-        self.TC_015 = QtWidgets.QCheckBox(self.frame_61)
+        self.TC_015 = QtWidgets.QRadioButton(self.frame_61)
         self.TC_015.setObjectName("TC_015")
         self.horizontalLayout_24.addWidget(self.TC_015)
-        self.TC_016 = QtWidgets.QCheckBox(self.frame_61)
+        self.TC_016 = QtWidgets.QRadioButton(self.frame_61)
         self.TC_016.setObjectName("TC_016")
         self.horizontalLayout_24.addWidget(self.TC_016)
-        self.TC_017 = QtWidgets.QCheckBox(self.frame_61)
+        self.TC_017 = QtWidgets.QRadioButton(self.frame_61)
         self.TC_017.setObjectName("TC_017")
         self.horizontalLayout_24.addWidget(self.TC_017)
         self.verticalLayout_40.addWidget(self.frame_61)
@@ -990,23 +975,23 @@ QPlainTextEdit{
         self.InputLabel7_1.setObjectName("InputLabel7_1")
         self.InputLabel7_1.setText("TEST CASES")
         self.verticalLayout_42.addWidget(self.InputLabel7_1)
-        self.TC_018 = QtWidgets.QCheckBox(self.frame_71)
+        self.TC_018 = QtWidgets.QRadioButton(self.frame_71)
         self.TC_018.setStyleSheet("")
         self.TC_018.setObjectName("TC_018")
         self.horizontalLayout_26.addWidget(self.TC_018)
-        self.TC_019 = QtWidgets.QCheckBox(self.frame_71)
+        self.TC_019 = QtWidgets.QRadioButton(self.frame_71)
         self.TC_019.setObjectName("TC_019")
         self.horizontalLayout_26.addWidget(self.TC_019)
-        self.TC_020 = QtWidgets.QCheckBox(self.frame_71)
+        self.TC_020 = QtWidgets.QRadioButton(self.frame_71)
         self.TC_020.setObjectName("TC_020")
         self.horizontalLayout_26.addWidget(self.TC_020)
-        self.TC_021 = QtWidgets.QCheckBox(self.frame_71)
+        self.TC_021 = QtWidgets.QRadioButton(self.frame_71)
         self.TC_021.setObjectName("TC_021")
         self.horizontalLayout_26.addWidget(self.TC_021)
-        self.TC_022 = QtWidgets.QCheckBox(self.frame_71)
+        self.TC_022 = QtWidgets.QRadioButton(self.frame_71)
         self.TC_022.setObjectName("TC_022")
         self.horizontalLayout_26.addWidget(self.TC_022)
-        self.TC_023 = QtWidgets.QCheckBox(self.frame_71)
+        self.TC_023 = QtWidgets.QRadioButton(self.frame_71)
         self.TC_023.setObjectName("TC_023")
         self.horizontalLayout_26.addWidget(self.TC_023)
         self.verticalLayout_42.addWidget(self.frame_71)
@@ -1085,24 +1070,30 @@ QPlainTextEdit{
         self.fronhaulInterface.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.fronhaulInterface.setObjectName("fronhaulInterface")
         self.gridLayout.addWidget(self.fronhaulInterface, 0, 2, 1, 1)
-        self.input8_3 = QtWidgets.QLineEdit(self.frame_8)
-        self.input8_3.setObjectName("input8_3")
-        self.gridLayout.addWidget(self.input8_3, 0, 3, 1, 1)
         self.input8_1 = QtWidgets.QLineEdit(self.frame_8)
         self.input8_1.setObjectName("input8_1")
         self.gridLayout.addWidget(self.input8_1, 0, 4, 1, 1)
         self.input8_2 = QtWidgets.QLineEdit(self.frame_8)
         self.input8_2.setObjectName("input8_2")
         self.gridLayout.addWidget(self.input8_2, 1, 0, 1, 1)
+        self.input8_3 = QtWidgets.QComboBox(self.frame_8)
+        bandwidths = ['Bandwidths..','10','20','30','40','80','100']
+        self.input8_3.addItems(bandwidths)
+        self.gridLayout.addWidget(self.input8_3, 0, 3, 1, 1)
         self.input8_4 = QtWidgets.QLineEdit(self.frame_8)
         self.input8_4.setObjectName("input8_4")
         self.gridLayout.addWidget(self.input8_4, 1, 1, 1, 1)
         self.input8_5 = QtWidgets.QLineEdit(self.frame_8)
         self.input8_5.setObjectName("input8_5")
         self.gridLayout.addWidget(self.input8_5, 1, 2, 1, 1)
-        self.input8_6 = QtWidgets.QLineEdit(self.frame_8)
-        self.input8_6.setObjectName("input8_6")
+        self.input8_6 = QtWidgets.QComboBox(self.frame_8)
+        duplex_list = ['Duplex Type..','TDD','FDD']
+        self.input8_6.addItems(duplex_list)
         self.gridLayout.addWidget(self.input8_6, 1, 3, 1, 1)
+        self.comboBox_1 = QtWidgets.QComboBox(self.frame_8)
+        scs_list = ['SCS Value..','15KHz', '30KHz', '60KHz', '120KHz', '240KHz']
+        self.comboBox_1.addItems(scs_list)
+        self.gridLayout.addWidget(self.comboBox_1, 1, 4, 1, 1)
         self.verticalLayout_41.addWidget(self.frame_8)
         self.frame_81 = QtWidgets.QFrame(self.InputFrame_8)
         self.frame_81.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -1119,11 +1110,11 @@ QPlainTextEdit{
         self.InputLabel8_1.setObjectName("InputLabel8_1")
         self.InputLabel8_1.setText("TEST CASES")
         self.verticalLayout_41.addWidget(self.InputLabel8_1)
-        self.TC_026 = QtWidgets.QCheckBox(self.frame_81)
+        self.TC_026 = QtWidgets.QRadioButton(self.frame_81)
         self.TC_026.setStyleSheet("")
         self.TC_026.setObjectName("TC_026")
         self.horizontalLayout_28.addWidget(self.TC_026)
-        self.TC_027 = QtWidgets.QCheckBox(self.frame_81)
+        self.TC_027 = QtWidgets.QRadioButton(self.frame_81)
         self.TC_027.setObjectName("TC_027")
         self.horizontalLayout_28.addWidget(self.TC_027)
         self.verticalLayout_41.addWidget(self.frame_81)
@@ -1203,7 +1194,7 @@ QPlainTextEdit{
         self.horizontalLayout_12.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_12.setSpacing(6)
         self.horizontalLayout_12.setObjectName("horizontalLayout_12")
-        self.S_all_9 = QtWidgets.QCheckBox(self.buttons_9)
+        self.S_all_9 = QtWidgets.QRadioButton(self.buttons_9)
         self.S_all_9.setObjectName("S_all_9")
         self.horizontalLayout_12.addWidget(self.S_all_9)
         self.runButton_9 = QtWidgets.QPushButton(self.buttons_9)
@@ -1239,23 +1230,23 @@ QPlainTextEdit{
         self.InputLabel9_1.setObjectName("InputLabel9_1")
         self.InputLabel9_1.setText("TEST CASES")
         self.gridLayout_12.addWidget(self.InputLabel9_1, 2, 0, 1, 7)
-        self.TC_28 = QtWidgets.QCheckBox(self.InputFrame_9)
+        self.TC_28 = QtWidgets.QRadioButton(self.InputFrame_9)
         self.TC_28.setStyleSheet("")
         self.TC_28.setObjectName("TC_28")
         self.gridLayout_12.addWidget(self.TC_28, 3, 0, 1, 1)
-        self.TC_29 = QtWidgets.QCheckBox(self.InputFrame_9)
+        self.TC_29 = QtWidgets.QRadioButton(self.InputFrame_9)
         self.TC_29.setObjectName("TC_29")
         self.gridLayout_12.addWidget(self.TC_29, 3, 2, 1, 1)
-        self.TC_30 = QtWidgets.QCheckBox(self.InputFrame_9)
+        self.TC_30 = QtWidgets.QRadioButton(self.InputFrame_9)
         self.TC_30.setObjectName("TC_30")
         self.gridLayout_12.addWidget(self.TC_30, 3, 3, 1, 1)
-        self.TC_31 = QtWidgets.QCheckBox(self.InputFrame_9)
+        self.TC_31 = QtWidgets.QRadioButton(self.InputFrame_9)
         self.TC_31.setObjectName("TC_31")
         self.gridLayout_12.addWidget(self.TC_31, 3, 4, 1, 1)
-        self.TC_32 = QtWidgets.QCheckBox(self.InputFrame_9)
+        self.TC_32 = QtWidgets.QRadioButton(self.InputFrame_9)
         self.TC_32.setObjectName("TC_32")
         self.gridLayout_12.addWidget(self.TC_32, 3, 5, 1, 1)
-        self.TC_33 = QtWidgets.QCheckBox(self.InputFrame_9)
+        self.TC_33 = QtWidgets.QRadioButton(self.InputFrame_9)
         self.TC_33.setObjectName("TC_33")
         self.gridLayout_12.addWidget(self.TC_33, 3, 6, 1, 1)
         self.verticalLayout_34.addWidget(self.InputFrame_9)
@@ -1499,10 +1490,10 @@ QPlainTextEdit{
         self.sudopswrd_8.setPlaceholderText(_translate("MainWindow", "Sudo Password"))
         self.input8_1.setPlaceholderText(_translate("MainWindow", "TX_Arfcn"))
         self.input8_2.setPlaceholderText(_translate("MainWindow", "RX_Arfcn"))
-        self.input8_3.setPlaceholderText(_translate("MainWindow", "Bandwidth[MHz]"))
+        # self.input8_3.setPlaceholderText(_translate("MainWindow", "Bandwidth[MHz]"))
         self.input8_4.setPlaceholderText(_translate("MainWindow", "TX Center_Frequency[GHz]"))
         self.input8_5.setPlaceholderText(_translate("MainWindow", "RX Center_Frequency[GHz]"))
-        self.input8_6.setPlaceholderText(_translate("MainWindow", "Duplex_Scheme[FDD/TDD]"))
+        # self.input8_6.setPlaceholderText(_translate("MainWindow", "Duplex_Scheme[FDD/TDD]"))
         self.TC_026.setText(_translate("MainWindow", "M_CTC_ID_026"))
         self.TC_027.setText(_translate("MainWindow", "M_CTC_ID_027"))
         self.run_26_27.setText(_translate("MainWindow", "RUN ALL"))
