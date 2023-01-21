@@ -57,7 +57,7 @@ class M_CTC_ID_015(vlan_Creation):
         self.PSWRD = ''
         self.session = ''
         self.rmt = ''
-        self.du_pswrd = ''
+        self.sftp_pswrd = ''
         self.RU_Details = ''
 
     ###############################################################################
@@ -132,7 +132,7 @@ class M_CTC_ID_015(vlan_Creation):
         ###############################################################################
         xml_data = open("{}/require/Yang_xml/sw_download.xml".format(parent)).read()
         xml_data = xml_data.format(
-            rmt_path=self.rmt, password=self.du_pswrd, public_key=pub_key)
+            rmt_path=self.rmt, password=self.sftp_pswrd, public_key=pub_key)
 
         ###############################################################################
         ## Test Procedure 1
@@ -275,7 +275,8 @@ class M_CTC_ID_015(vlan_Creation):
         ## Read User Name and password from Config.INI of Config.py
         ###############################################################################
         self.sw_path = configur.get('INFO','currupt_path')
-        self.du_pswrd = configur.get('INFO','du_pass')
+        self.sftp_pswrd = configur.get('INFO','sftp_pass')
+        self.sftp_user = configur.get('INFO','sftp_user')
         self.USER_N = configur.get('INFO','sudo_user')
         self.PSWRD = configur.get('INFO','sudo_pass')
         if Check1 == False or Check1 == None:
@@ -293,8 +294,7 @@ class M_CTC_ID_015(vlan_Creation):
 
             if self.session:
                 self.RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
-                du_username = os.popen('whoami').read().split('\n')
-                self.rmt = 'sftp://{0}@{1}:22{2}'.format(du_username[0],self.du_hostname,self.sw_path)
+                self.rmt = 'sftp://{0}@{1}:22{2}'.format(self.sftp_user,self.du_hostname,self.sw_path)
                 for key, val in self.RU_Details[1].items():
                     if val[1] == 'true':
                         ###############################################################################

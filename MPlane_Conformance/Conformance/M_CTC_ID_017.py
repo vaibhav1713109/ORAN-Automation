@@ -55,8 +55,6 @@ class M_CTC_ID_017(vlan_Creation):
         self.USER_N = ''
         self.PSWRD = ''
         self.session, self.session2 = '', ''
-        self.rmt = ''
-        self.du_pswrd = ''
         self.RU_Details = ''
 
     ###############################################################################

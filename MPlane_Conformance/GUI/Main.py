@@ -40,7 +40,7 @@ except Exception as e:
 ########################################################################
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self,dir_name):
+    def __init__(self,dir_name='None'):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -94,6 +94,7 @@ class MainWindow(QtWidgets.QMainWindow):
         ##############################################################################
         ## if clicked on run all button on each module widget
         ##############################################################################
+        self.ui.run_123.clicked.connect(lambda: self.Loading_1(['/Module/module_1'],self.ui.consoleEdit_3,self.supervision))
         self.ui.run_89.clicked.connect(lambda: self.Loading_1(['/Module/module_3'],self.ui.consoleEdit_3,self.supervision))
         self.ui.run_10_11.clicked.connect(lambda: self.Loading_1(['/Module/module_4'],self.ui.consoleEdit_4,self.ru_info))
         self.ui.run_12_13.clicked.connect(lambda: self.Loading_1(['/Module/module_5'],self.ui.consoleEdit_5,self.fault_mgmt))
@@ -310,7 +311,7 @@ class MainWindow(QtWidgets.QMainWindow):
             'tx_arfcn' : self.testCaseUI.input_11.text(),'rx_arfcn' : self.testCaseUI.input_12.text(),
             'tx_center_frequency' : self.testCaseUI.input_13.text(),'rx_center_frequency' : self.testCaseUI.input_14.text(),
             'duplex_scheme' : self.testCaseUI.input_16.currentText(),'scs_value' : self.testCaseUI.input_19.currentText(),
-            'DU_PASS' : self.testCaseUI.input_15.text(), 'SW_PATH' : self.testCaseUI.input_17.text(), 'Currupt_Path' : self.testCaseUI.input_18.text()}
+            'sftp_PASS' : self.testCaseUI.input_15.text(), 'sftp_user' : self.testCaseUI.input_20.text(), 'SW_PATH' : self.testCaseUI.input_17.text(), 'Currupt_Path' : self.testCaseUI.input_18.text()}
         self.checked_mul()
         data['Selected_Test_Case'] = str(self.data)
         for key, val in data.items():
@@ -481,11 +482,11 @@ class MainWindow(QtWidgets.QMainWindow):
         msg.resize(400,100)
         print(self.ui.username_6.text())
         print(self.ui.password_6.text())
-        print(self.ui.du_pswrd.text())
+        print(self.ui.sftp_pswrd.text())
         print(self.ui.sw_file.text())
         print(self.ui.currupt_file.text())
         data = {'SUDO_USER' : self.ui.username_6.text(), 'SUDO_PASS' : self.ui.password_6.text(),
-                'DU_PASS' : self.ui.du_pswrd.text(), 'SW_PATH' : self.ui.sw_file.text(),
+                'sftp_PASS' : self.ui.sftp_pswrd.text(), 'SW_PATH' : self.ui.sw_file.text(),
                 'Currupt_Path' : self.ui.currupt_file.text()}
         for key, val in data.items():
             if val == '':

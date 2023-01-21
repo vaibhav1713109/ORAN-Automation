@@ -205,7 +205,7 @@ class M_CTC_id_001(test_DHCP_CONF):
     ## Performing Call home
     ###############################################################################
     def Call_Home(self):
-        notification("Starting Test Case M_CTC_ID_001 !!! ")
+        notification("Test Case M_CTC_ID_001 is under process...")
         Check1 = self.linked_detected()
         obj1 = ISC_DHCP_SERVER.test_DHCP_CONF()
         obj1.test_read('lo',random.randint(0,1))
@@ -277,6 +277,7 @@ class M_CTC_id_001(test_DHCP_CONF):
                             Are you sure you want to continue connecting (yes/no)? yes'''.strip()
                     STARTUP.STORE_DATA(str_out,Format=False,PDF = pdf)
                     STARTUP.STORE_DATA(f'''\n{self.USER_N }@::ffff:{self.ip_address} password: \n''',Format=False,PDF = pdf)
+                    notification('Netconf Session Established!!')
 
                     ###############################################################################
                     ## Test Procedure 2
@@ -327,6 +328,8 @@ def test_M_ctc_id_001():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected/DHCP IP not pinged...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'Transport and Handshake in IPv4 Environment (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
+        notification('FAIL_REASON :SFP link not detected/DHCP IP not pinging...')
+        notification(f"{'Transport and Handshake in IPv4 Environment (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
 
     ###############################################################################
@@ -339,7 +342,7 @@ def test_M_ctc_id_001():
     try:
         if Check == True:
             STARTUP.ACT_RES(f"{'Transport and Handshake in IPv4 Environment (positive case)' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=(105, 224, 113))
-            notification("Test Case is PASS")
+            notification(f"{'Transport and Handshake in IPv4 Environment (positive case)' : <50}{'=' : ^20}{'PASS' : ^20}")
             return True
 
         elif type(Check) == list:
@@ -348,13 +351,15 @@ def test_M_ctc_id_001():
             STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Transport and Handshake in IPv4 Environment (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
             notification("Error Info : {}".format(Error_Info))
+            notification(f"{'Transport and Handshake in IPv4 Environment (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
         else:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
             STARTUP.STORE_DATA('{}'.format(Check),Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Transport and Handshake in IPv4 Environment (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            notification("Test Case is FAIL")
+            notification('FAIL_REASON : {}'.format(Check))
+            notification(f"{'Transport and Handshake in IPv4 Environment (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
             
     except Exception as e:
@@ -362,6 +367,8 @@ def test_M_ctc_id_001():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
+            notification('FAIL_REASON : {}'.format(e))
+            notification(f"{'Transport and Handshake in IPv4 Environment (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False  
 
     ###############################################################################
@@ -369,13 +376,13 @@ def test_M_ctc_id_001():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_001',PDF=pdf)
-        notification("Test Completed For M_CTC_ID_001 and Logs saved !")   
+        notification("Successfully completed Test Case M_CTC_ID_001. Logs captured !!")
     
 
 if __name__ == "__main__":
     start_time = time.time()
     test_M_ctc_id_001()
     end_time = time.time()
-    print('Execution Time is : {}'.format(end_time-start_time))
+    print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
 
