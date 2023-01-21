@@ -373,6 +373,9 @@ def test_M_ctc_id_001():
     
 
 if __name__ == "__main__":
+    start_time = time.time()
     test_M_ctc_id_001()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(end_time-start_time))
     pass
 

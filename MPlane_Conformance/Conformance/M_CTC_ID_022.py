@@ -77,8 +77,9 @@ class M_CTC_ID_022(vlan_Creation):
         ###############################################################################
         ## Create_subscription
         ###############################################################################
-        cap=self.session.create_subscription()
-        STARTUP.STORE_DATA('> subscribe', Format=True, PDF=pdf)
+        filter = """<filter type="xpath" xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0" xmlns:notf_c="urn:ietf:params:xml:ns:yang:ietf-netconf-notifications" select="/notf_c:*"/>"""
+        cap=self.session.create_subscription(filter=filter)
+        STARTUP.STORE_DATA('> subscribe --filter-xpath /ietf-netconf-notifications:*', Format=True, PDF=pdf)
         dict_data = xmltodict.parse(str(cap))
         if dict_data['nc:rpc-reply']['nc:ok'] == None:
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
@@ -260,12 +261,18 @@ class M_CTC_ID_022(vlan_Creation):
         ## Test Procedure 1 : Connect to netopeer server with swm user
         ###############################################################################
         try:
-            with manager.connect(host=self.hostname, port=830, username=self.new_user, hostkey_verify=False, password=self.new_pswrd, allow_agent = False , look_for_keys = False) as new_session:
+            with manager.connect(host=self.hostname, port=830, username=self.new_user, hostkey_verify=False, password=self.new_pswrd, allow_agent = False , look_for_keys = False, timeout = 60) as new_session:
                 pdf.add_page()
                 Test_Step1 = 'STEP 1 TER NETCONF client establishes a connection using a user account with swm privileges.'
                 STARTUP.STORE_DATA('{}'.format(Test_Step1),Format='TEST_STEP', PDF=pdf)
                 STARTUP.STORE_DATA('\t\t********** Connect to the NETCONF Server ***********', Format='TEST_STEP', PDF=pdf)
-                STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)                
+                server_key_obj = new_session._session._transport.get_remote_server_key()
+                fingerprint = STARTUP.colonify(STARTUP.hexlify(server_key_obj.get_fingerprint()))
+                login_info = f'''> connect --ssh --host {self.hostname} --port 830 --login {self.new_user}
+                        ssh-rsa key fingerprint is {fingerprint}
+                        Interactive SSH Authentication done. 
+                                '''
+                STARTUP.STORE_DATA(login_info,Format=False,PDF = pdf)                
                 STATUS = STARTUP.STATUS(self.hostname,self.new_user,new_session.session_id,830)       
                 STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
                 notification("Netconf Session Established")
@@ -278,8 +285,9 @@ class M_CTC_ID_022(vlan_Creation):
                 ###############################################################################
                 ## Create_subscription
                 ###############################################################################
-                cap = new_session.create_subscription()
-                STARTUP.STORE_DATA('> subscribe', Format=True, PDF=pdf)
+                filter = """<filter type="xpath" xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0" xmlns:notf_c="urn:ietf:params:xml:ns:yang:ietf-netconf-notifications" select="/notf_c:*"/>"""
+                cap = new_session.create_subscription(filter=filter)
+                STARTUP.STORE_DATA('> subscribe --filter-xpath /ietf-netconf-notifications:*', Format=True, PDF=pdf)
                 dict_data = xmltodict.parse(str(cap))
                 if dict_data['nc:rpc-reply']['nc:ok'] == None:
                     STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
@@ -451,13 +459,13 @@ def test_m_ctc_id_022():
     try:
         if Check1 == True:
             Check2 = tc022_obj.test_procedure()
+            ###############################################################################
+            ## Expected/Actual Result
+            ###############################################################################
+            STARTUP.GET_SYSTEM_LOGS(tc022_obj.hostname,tc022_obj.USER_N,tc022_obj.PSWRD,pdf)
+            Exp_Result = 'Expected Result : The NETCONF server replies rejecting the protocol operation with an "access-denied" error.'
+            STARTUP.STORE_DATA(Exp_Result, Format='DESC', PDF=pdf)
             if Check2 == True:
-                STARTUP.GET_SYSTEM_LOGS(tc022_obj.hostname,tc022_obj.USER_N,tc022_obj.PSWRD,pdf)
-                ###############################################################################
-                ## Expected/Actual Result
-                ###############################################################################
-                Exp_Result = 'Expected Result : The NETCONF server replies rejecting the protocol operation with an "access-denied" error.'
-                STARTUP.STORE_DATA(Exp_Result, Format='DESC', PDF=pdf)
 
                 STARTUP.STORE_DATA('\t\t{}'.format('****************** Actual Result ******************'), Format=True, PDF=pdf)
                 STARTUP.ACT_RES(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=[0,255,0])
@@ -514,5 +522,8 @@ def test_m_ctc_id_022():
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     test_m_ctc_id_022()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(end_time-start_time))
     pass

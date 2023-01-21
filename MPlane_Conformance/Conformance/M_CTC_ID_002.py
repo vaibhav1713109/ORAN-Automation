@@ -114,7 +114,7 @@ class M_CTC_id_002(M_CTC_id_001):
         
             
         except SSHUnknownHostError as e:
-            LISTEN = f'''> listen --ssh --login {self.USER_N}\nWaiting 60s for an SSH Call Home connection on port 4334...'''
+            LISTEN = f'''> listen --ssh --login {user}\nWaiting 60s for an SSH Call Home connection on port 4334...'''
             STARTUP.STORE_DATA(LISTEN,Format=False,PDF = pdf)
 
             SSH_AUTH = f'''The authenticity of the host '::ffff:{self.ip_address}' cannot be established.
@@ -170,7 +170,6 @@ class M_CTC_id_002(M_CTC_id_001):
 
             pdf.add_page()
             ############################### DHCP Status #############################
-            STARTUP.STORE_DATA("\t DHCP Status",Format=True,PDF = pdf)
             st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
             STARTUP.DHCP_Status(data=st,PDF = pdf)
 
@@ -288,7 +287,10 @@ def test_M_ctc_id_002():
         notification("Test Case M_CTC_ID_002 is completed and Logs captured")
     
 if __name__ == "__main__":
+    start_time = time.time()
     test_M_ctc_id_002()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(end_time-start_time))
     pass
         
 

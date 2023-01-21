@@ -276,6 +276,9 @@ def test_m_ctc_id_009():
         STARTUP.CREATE_LOGS('M_CTC_ID_009',PDF=pdf)
         notification("Successfully completed Test Case M_CTC_ID_009. Logs captured !!")   
 if __name__ == "__main__":
+    start_time = time.time()
     test_m_ctc_id_009()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(end_time-start_time))
     pass
 

@@ -125,6 +125,7 @@ class M_CTC_id_003(M_CTC_id_001):
         ## Exception
         ###############################################################################
         except errors.AuthenticationError as e:
+            print(e)
             s = f'''nc ERROR: Unable to authenticate to the remote server (all attempts via supported authentication methods failed).
             cmd_listen: Receiving SSH Call Home on port 4334 as user "{user}" failed.'''
             STARTUP.STORE_DATA(s,Format=False,PDF = pdf)
@@ -172,7 +173,6 @@ class M_CTC_id_003(M_CTC_id_001):
 
             pdf.add_page()
             ############################### DHCP Status #############################
-            STARTUP.STORE_DATA("\t DHCP Status",Format=True,PDF = pdf)
             st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
             STARTUP.DHCP_Status(data=st,PDF = pdf)
 
@@ -202,7 +202,7 @@ class M_CTC_id_003(M_CTC_id_001):
                         print(e)
                     time.sleep(10)
                 STARTUP.STORE_DATA('{}\n'.format('-'*100),Format=False,PDF=pdf)
-                if "AuthenticationException('Authentication failed.',)" in str(res):
+                if "AuthenticationException" in str(res):
                     Flag = True
                     results.append(Flag)
                 else:
@@ -301,6 +301,9 @@ def test_M_ctc_id_003():
  
 
 if __name__ == "__main__":
+    start_time = time.time()
     test_M_ctc_id_003()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(end_time-start_time))
     pass
 

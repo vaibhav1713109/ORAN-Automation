@@ -290,5 +290,8 @@ def test_m_ctc_id_007():
         notification("Test Completed For M_CTC_ID_007 and Logs saved !")   
 
 if __name__ == "__main__":
+    start_time = time.time()
     test_m_ctc_id_007()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(end_time-start_time))
 
