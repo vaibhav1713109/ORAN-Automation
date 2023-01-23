@@ -117,8 +117,9 @@ class M_CTC_ID_026(vlan_Creation):
             ###############################################################################
             ## Create_subscription
             ###############################################################################
-            cap=self.session.create_subscription()
-            STARTUP.STORE_DATA('> subscribe', Format=True, PDF=pdf)
+            filter = """<filter type="xpath" xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0" xmlns:notf_c="urn:ietf:params:xml:ns:yang:ietf-netconf-notifications" select="/notf_c:*"/>"""
+            cap=self.session.create_subscription(filter=filter)
+            STARTUP.STORE_DATA('> subscribe --filter-xpath /ietf-netconf-notifications:*', Format=True, PDF=pdf)
             dict_data = xmltodict.parse(str(cap))
             if dict_data['nc:rpc-reply']['nc:ok'] == None:
                 STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
@@ -410,5 +411,8 @@ def test_m_ctc_id_026():
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     test_m_ctc_id_026()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(end_time-start_time))
     pass

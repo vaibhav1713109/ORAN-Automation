@@ -65,7 +65,7 @@ class M_CTC_ID_013(vlan_Creation):
         STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
         STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,830)
         STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
-        notification("Netconf Session Established")
+        notification('Netconf Session Established!!')
 
 
         ###############################################################################
@@ -73,15 +73,18 @@ class M_CTC_ID_013(vlan_Creation):
         ###############################################################################
         for cap in self.session.server_capabilities:
             STARTUP.STORE_DATA("\t{}".format(cap),Format=False,PDF = pdf)
+        notification('Hello Capabilities Exchanged!!')
             
         ###############################################################################
         ## Create_subscription
         ###############################################################################
-        cap=self.session.create_subscription()
-        STARTUP.STORE_DATA('> subscribe', Format=True, PDF=pdf)
+        filter = """<filter type="xpath" xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0" xmlns:notf_c="urn:ietf:params:xml:ns:yang:ietf-netconf-notifications" select="/notf_c:*"/>"""
+        cap=self.session.create_subscription(filter=filter)
+        STARTUP.STORE_DATA('> subscribe --filter-xpath /ietf-netconf-notifications:*', Format=True, PDF=pdf)
         dict_data = xmltodict.parse(str(cap))
         if dict_data['nc:rpc-reply']['nc:ok'] == None:
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
+        notification('Subscription with netconf-config filter Performed!!')
         
         
         ###############################################################################
@@ -105,17 +108,20 @@ class M_CTC_ID_013(vlan_Creation):
         STARTUP.STORE_DATA("\n> get --filter-xpath /o-ran-fm:active-alarm-list/active-alarms\n",Format=True,PDF=pdf)
         s = xml.dom.minidom.parseString(alrm)
         xml_pretty_str = s.toprettyxml()
-        alrm_name = dict_alarm['data']['active-alarm-list']['active-alarms']
-        list_alrm = []
+        alrm_name = list(dict_alarm['data']['active-alarm-list']['active-alarms'])
+        list_alrm = {}
+        fault_id = []
+        fault_text = []
         for i in alrm_name:
             if "fault-id" in i.keys() and "fault-text" in i.keys():
-                list_alrm.append(i["fault-id"])
-                list_alrm.append(i["fault-text"])
-        if 'No external sync source' in list_alrm:
+                fault_id.append(i["fault-id"])
+                fault_text.append(i["fault-text"])
+        if 'No external sync source' in list_alrm['fault-text']:
             STARTUP.STORE_DATA(xml_pretty_str,Format='XML',PDF=pdf)
         else:
             STARTUP.STORE_DATA(xml_pretty_str,Format='XML',PDF=pdf)
-            return '{}'.format(xml_pretty_str)
+            return '{}'.format(list_alrm)
+        notification('"No external sync source" detected Active-alarm-list!!')
         return True
 
 
@@ -123,7 +129,7 @@ class M_CTC_ID_013(vlan_Creation):
     ## Main Function
     ###############################################################################
     def test_Main_013(self):
-        notification("Starting Test Case M_CTC_ID_013 !!! ")
+        notification("Test Case M_CTC_ID_013 is under process...")
         Check1 = self.linked_detected()
         
         
@@ -207,6 +213,8 @@ def test_m_ctc_id_013():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'Retrieval of Active Alarm List' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+        notification('FAIL_REASON :SFP link not detected...')
+        notification(f"{'Retrieval of Active Alarm List' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
     
     ###############################################################################
@@ -220,7 +228,7 @@ def test_m_ctc_id_013():
     try:
         if Check == True:
             STARTUP.ACT_RES(f"{'Retrieval of Active Alarm List' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=(0,255,0))
-            notification("Test Case is PASS")
+            notification(f"{'Retrieval of Active Alarm List' : <50}{'=' : ^20}{'PASS' : ^20}")
             return True
 
         elif type(Check) == list:
@@ -228,13 +236,15 @@ def test_m_ctc_id_013():
             Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check))
             STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Retrieval of Active Alarm List' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
-            notification("Error Info : {}".format(Error_Info))
+            notification("FAIL_REASON : {}".format(Error_Info))
+            notification(f"{'Retrieval of Active Alarm List' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
         else:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
             STARTUP.STORE_DATA('{}'.format(Check),Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Retrieval of Active Alarm List' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
-            notification("Test Case is FAIL")
+            notification("FAIL_REASON : {}".format(Check))
+            notification(f"{'Retrieval of Active Alarm List' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
 
@@ -243,6 +253,8 @@ def test_m_ctc_id_013():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
+            notification("FAIL_REASON : {}".format(e))
+            notification(f"{'Retrieval of Active Alarm List' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
     
     ###############################################################################
@@ -250,11 +262,14 @@ def test_m_ctc_id_013():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_013',PDF=pdf)
-        notification("Successfully completed Test Case M_CTC_ID_013. Logs captured !!")    
+        notification("Successfully completed Test Case M_CTC_ID_013. Logs captured !!")   
 
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     test_m_ctc_id_013()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
 

@@ -114,7 +114,7 @@ class M_CTC_id_002(M_CTC_id_001):
         
             
         except SSHUnknownHostError as e:
-            LISTEN = f'''> listen --ssh --login {self.USER_N}\nWaiting 60s for an SSH Call Home connection on port 4334...'''
+            LISTEN = f'''> listen --ssh --login {user}\nWaiting 60s for an SSH Call Home connection on port 4334...'''
             STARTUP.STORE_DATA(LISTEN,Format=False,PDF = pdf)
 
             SSH_AUTH = f'''The authenticity of the host '::ffff:{self.ip_address}' cannot be established.
@@ -136,7 +136,7 @@ class M_CTC_id_002(M_CTC_id_001):
     ###############################################################################
     def test_call_home(self):
         
-        notification("Test Case M_CTC_ID_002 is Started !!! ")
+        notification("Test Case M_CTC_ID_002 is under process...")
         Check1 = self.linked_detected()
         pkt = sniff(iface = self.interface, stop_filter = self.check_vlan_tag, timeout = 100)
         Check3 = self.ping_status()
@@ -170,7 +170,6 @@ class M_CTC_id_002(M_CTC_id_001):
 
             pdf.add_page()
             ############################### DHCP Status #############################
-            STARTUP.STORE_DATA("\t DHCP Status",Format=True,PDF = pdf)
             st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
             STARTUP.DHCP_Status(data=st,PDF = pdf)
 
@@ -241,7 +240,8 @@ def test_M_ctc_id_002():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected/DHCP IP not pinging...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-        notification("Test Case is FAIL")
+        notification('FAIL_REASON :SFP link not detected/DHCP IP not pinging...')
+        notification(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
 
     ###############################################################################
@@ -254,7 +254,7 @@ def test_M_ctc_id_002():
     try:
         if Check == True:
             STARTUP.ACT_RES(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=(105, 224, 113))
-            notification("Test Case is PASS")
+            notification(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'SUCCESS' : ^20}")
             return True
 
         elif type(Check) == list:
@@ -262,14 +262,16 @@ def test_M_ctc_id_002():
             Error_Info = '''\terror-tag \t: \t{}\n\terror-type \t: \t{}\n\terror-severity \t: \t{}\n\tDescription' \t: \t{}'''.format(*map(str,Check))
             STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            notification("Error Info : {}".format(Error_Info))
+            notification("FAIL_REASON : {}".format(Error_Info))
+            notification(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
         else:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
             STARTUP.STORE_DATA('{}'.format(Check),Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            notification("Test Case is FAIL")
+            notification("FAIL_REASON : {}".format(Check))
+            notification(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
             
     except Exception as e:
@@ -277,6 +279,8 @@ def test_M_ctc_id_002():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
+            notification("FAIL_REASON : {}".format(e))
+            notification(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
 
@@ -285,10 +289,13 @@ def test_M_ctc_id_002():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_002',PDF=pdf)
-        notification("Test Case M_CTC_ID_002 is completed and Logs captured")
+        notification("Successfully completed Test Case M_CTC_ID_002. Logs captured !!")
     
 if __name__ == "__main__":
+    start_time = time.time()
     test_M_ctc_id_002()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
         
 

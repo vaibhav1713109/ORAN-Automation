@@ -57,7 +57,7 @@ class M_CTC_ID_015(vlan_Creation):
         self.PSWRD = ''
         self.session = ''
         self.rmt = ''
-        self.du_pswrd = ''
+        self.sftp_pswrd = ''
         self.RU_Details = ''
 
     ###############################################################################
@@ -79,7 +79,8 @@ class M_CTC_ID_015(vlan_Creation):
         ###############################################################################
         ## Create_subscription
         ###############################################################################
-        cap=self.session.create_subscription()
+        filter = """<filter type="xpath" xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0" xmlns:swm="urn:o-ran:software-management:1.0" select="/swm:*"/>"""
+        cap=self.session.create_subscription(filter=filter)
         STARTUP.STORE_DATA('> subscribe', Format=True, PDF=pdf)
         dict_data = xmltodict.parse(str(cap))
         if dict_data['nc:rpc-reply']['nc:ok'] == None:
@@ -131,7 +132,7 @@ class M_CTC_ID_015(vlan_Creation):
         ###############################################################################
         xml_data = open("{}/require/Yang_xml/sw_download.xml".format(parent)).read()
         xml_data = xml_data.format(
-            rmt_path=self.rmt, password=self.du_pswrd, public_key=pub_key)
+            rmt_path=self.rmt, password=self.sftp_pswrd, public_key=pub_key)
 
         ###############################################################################
         ## Test Procedure 1
@@ -273,8 +274,9 @@ class M_CTC_ID_015(vlan_Creation):
         ###############################################################################
         ## Read User Name and password from Config.INI of Config.py
         ###############################################################################
-        self.rmt = configur.get('INFO','currupt_path')
-        self.du_pswrd = configur.get('INFO','du_pass')
+        self.sw_path = configur.get('INFO','currupt_path')
+        self.sftp_pswrd = configur.get('INFO','sftp_pass')
+        self.sftp_user = configur.get('INFO','sftp_user')
         self.USER_N = configur.get('INFO','sudo_user')
         self.PSWRD = configur.get('INFO','sudo_pass')
         if Check1 == False or Check1 == None:
@@ -292,7 +294,7 @@ class M_CTC_ID_015(vlan_Creation):
 
             if self.session:
                 self.RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
-                
+                self.rmt = 'sftp://{0}@{1}:22{2}'.format(self.sftp_user,self.du_hostname,self.sw_path)
                 for key, val in self.RU_Details[1].items():
                     if val[1] == 'true':
                         ###############################################################################
@@ -402,5 +404,8 @@ def test_m_ctc_id_015():
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     test_m_ctc_id_015()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(end_time-start_time))
     pass
