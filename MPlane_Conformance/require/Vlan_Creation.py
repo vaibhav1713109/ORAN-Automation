@@ -174,6 +174,7 @@ class vlan_Creation():
                 if  pkt['TCP'].flags == 'RA' or pkt['TCP'].sport == 4334 or pkt['TCP'].sport == 830:
                     print('Got ip to the Fronthaul Interface...')
                     print('Fronthaul Interface IP is : {}'.format(pkt['IP'].dst))
+                    self.du_hostname = pkt['IP'].src
                     self.hostname = pkt['IP'].dst
                     # print(self.hostname)
                     time.sleep(5)

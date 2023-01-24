@@ -47,6 +47,7 @@ from require.Vlan_Creation import *
 ## Initiate PDF
 ###############################################################################
 pdf = STARTUP.PDF_CAP()
+summary = []
 
 class M_CTC_ID_008(vlan_Creation):
     def __init__(self) -> None:
@@ -89,7 +90,7 @@ class M_CTC_ID_008(vlan_Creation):
         STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,830)
         STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
         STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
-        notification("Netconf Session Established")
+        summary.append('Netconf Session Established!!')
 
 
         ###############################################################################
@@ -97,7 +98,7 @@ class M_CTC_ID_008(vlan_Creation):
         ###############################################################################
         for cap in self.session.server_capabilities:
             STARTUP.STORE_DATA("\t{}".format(cap),Format=False,PDF = pdf)
-            
+        summary.append('Hello Capabilities Exchanged!!')
 
         pdf.add_page()
         ###############################################################################
@@ -122,11 +123,13 @@ class M_CTC_ID_008(vlan_Creation):
         dict_data = xmltodict.parse(str(cap))
         if dict_data['nc:rpc-reply']['nc:ok'] == None:
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
+        summary.append('Subscription with supervision filter Performed!!')
         
         
         ###############################################################################
         ## Append Changes in XML
         ###############################################################################
+        summary.append('Configure Supervision RPC!!')
         xml_data = open("{}/require/Yang_xml/supervision.xml".format(parent)).read()
         xml_data = xml_data.format(super_n_i= self.s_n_i, guard_t_o= self.g_t)
         Test_Step1 = '\t\t TER NETCONF Client responds with <rpc supervision-watchdog-reset></rpc> to the O-RU NETCONF Server'
@@ -156,13 +159,14 @@ class M_CTC_ID_008(vlan_Creation):
             # next_up_time = dict_data['nc:rpc-reply']['next-update-at']['#text']
             # STARTUP.STORE_DATA(next_up_time,OUTPUT_LIST=OUTPUT_LIST)
             time.sleep(t)
+        summary.append('All 30 iteration completed!!')
         return True
 
     ###############################################################################
     ## Main Function
     ###############################################################################
     def test_Main(self):
-        notification("Starting Test Case M_CTC_ID_008 !!! ")
+        summary.append("Test Case M_CTC_ID_008 is under process...")
         Check1 = self.linked_detected()
         
         if Check1 == False or Check1 == None:
@@ -248,6 +252,8 @@ def test_M_ctc_id_008():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'M-Plane Connection Supervision (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))           
+        summary.append('FAIL_REASON :SFP link not detected...')
+        summary.append(f"{'M-Plane Connection Supervision (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
 
     STARTUP.STORE_DATA('\t\t{}'.format('****************** Actual Result ******************'),Format=True,PDF= pdf)
@@ -272,7 +278,7 @@ def test_M_ctc_id_008():
             Exp_Result = 'Expected Result : TER NETCONF Client can change the value of the supervision timer in the supervision watchdog reset message. The O-RU NETCONF server must adjust the timer accordingly if this optional test is performed.'
             STARTUP.STORE_DATA(Exp_Result,Format='DESC',PDF= pdf)
             STARTUP.ACT_RES(f"{'M-Plane Connection Supervision (positive case)' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=(105, 224, 113))
-            notification("Test Case is PASS")
+            summary.append(f"{'M-Plane Connection Supervision (positive case)' : <50}{'=' : ^20}{'PASS' : ^20}")
             return True
 
         
@@ -288,20 +294,23 @@ def test_M_ctc_id_008():
                 Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check))
                 STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
                 STARTUP.ACT_RES(f"{'M-Plane Connection Supervision (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
+                summary.append("FAIL_REASON : {}".format(Error_Info))
+                summary.append(f"{'M-Plane Connection Supervision (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             else:
                 STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
                 STARTUP.STORE_DATA('{}'.format(Check),Format=False,PDF= pdf)
                 STARTUP.ACT_RES(f"{'M-Plane Connection Supervision (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))           
+                summary.append("FAIL_REASON : {}".format(Check))
+                summary.append(f"{'M-Plane Connection Supervision (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
                 return False
-            notification("Error Info : {}".format(Error_Info))
-            return False
 
     except Exception as e:
             STARTUP.STORE_DATA('{}'.format(e), Format=True,PDF=pdf)
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
-            notification("Test Case is FAIL")
+            summary.append("FAIL_REASON : {}".format(e))
+            summary.append(f"{'M-Plane Connection Supervision (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
     ###############################################################################
@@ -309,9 +318,13 @@ def test_M_ctc_id_008():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_008',PDF=pdf)
-        notification("Test Completed For M_CTC_ID_008 and Logs saved !")   
+        summary.append("Successfully completed Test Case M_CTC_ID_008. Logs captured !!")  
+        notification('\n'.join(summary)) 
 
 if __name__ == "__main__":
+    start_time = time.time()
     test_M_ctc_id_008()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
 

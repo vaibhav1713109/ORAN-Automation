@@ -44,6 +44,7 @@ from Conformance.M_CTC_ID_001 import *
 ## Initiate PDF
 ###############################################################################
 pdf = STARTUP.PDF_CAP()
+summary = []
 
 class M_CTC_id_003(M_CTC_id_001):
 
@@ -125,6 +126,7 @@ class M_CTC_id_003(M_CTC_id_001):
         ## Exception
         ###############################################################################
         except errors.AuthenticationError as e:
+            print(e)
             s = f'''nc ERROR: Unable to authenticate to the remote server (all attempts via supported authentication methods failed).
             cmd_listen: Receiving SSH Call Home on port 4334 as user "{user}" failed.'''
             STARTUP.STORE_DATA(s,Format=False,PDF = pdf)
@@ -140,7 +142,7 @@ class M_CTC_id_003(M_CTC_id_001):
     ########################### Main Function ############################
     def test_call_home(self):
         
-        notification("Starting Test Case M_CTC_ID_003 ........ ")
+        summary.append("Test Case M_CTC_ID_003 is under process...")
         Check1 = self.linked_detected()
         pkt = sniff(iface = self.interface, stop_filter = self.check_vlan_tag)
         Check3 = self.ping_status()
@@ -172,7 +174,6 @@ class M_CTC_id_003(M_CTC_id_001):
 
             pdf.add_page()
             ############################### DHCP Status #############################
-            STARTUP.STORE_DATA("\t DHCP Status",Format=True,PDF = pdf)
             st = subprocess.getoutput('sudo /etc/init.d/isc-dhcp-server status')
             STARTUP.DHCP_Status(data=st,PDF = pdf)
 
@@ -202,7 +203,7 @@ class M_CTC_id_003(M_CTC_id_001):
                         print(e)
                     time.sleep(10)
                 STARTUP.STORE_DATA('{}\n'.format('-'*100),Format=False,PDF=pdf)
-                if "AuthenticationException('Authentication failed.',)" in str(res):
+                if "AuthenticationException" in str(res):
                     Flag = True
                     results.append(Flag)
                 else:
@@ -256,7 +257,8 @@ def test_M_ctc_id_003():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected/DHCP IP not pinging...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-        notification("Test Case is FAIL")
+        summary.append('FAIL_REASON :SFP link not detected/DHCP IP not pinging...')
+        summary.append(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
 
     ###############################################################################
@@ -269,7 +271,7 @@ def test_M_ctc_id_003():
     try:
         if Check == True:
             STARTUP.ACT_RES(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=(105, 224, 113))
-            notification("Test Case is PASS")
+            summary.append(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'SUCCESS' : ^20}")
             return True
 
         elif type(Check) == list:
@@ -277,19 +279,22 @@ def test_M_ctc_id_003():
             Error_Info = '''\terror-tag \t: \t{}\n\terror-type \t: \t{}\n\terror-severity \t: \t{}\n\tDescription' \t: \t{}'''.format(*map(str,Check))
             STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            notification("Error Info : {}".format(Error_Info))
+            summary.append("FAIL_REASON : {}".format(Error_Info))
+            summary.append(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}")
         else:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
             STARTUP.STORE_DATA('{}'.format(Check),Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            notification("Test Case is FAIL")
+            summary.append("FAIL_REASON : {}".format(Check))
+            summary.append(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
     except Exception as e:
             STARTUP.STORE_DATA('{}'.format(e), Format=True,PDF=pdf)
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
-            notification("Test Case is FAIL")
+            summary.append("FAIL_REASON : {}".format(e))
+            summary.append(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
     ###############################################################################
@@ -297,10 +302,14 @@ def test_M_ctc_id_003():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_003',PDF=pdf)
-        notification("Successfully completed Test Case M_CTC_ID_003. Logs captured !!")
+        summary.append("Successfully completed Test Case M_CTC_ID_003. Logs captured !!")
+        notification('\n'.join(summary))
  
 
 if __name__ == "__main__":
+    start_time = time.time()
     test_M_ctc_id_003()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
 

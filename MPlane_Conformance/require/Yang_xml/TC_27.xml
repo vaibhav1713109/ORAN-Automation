@@ -59,7 +59,7 @@
    <cp-length-other>288</cp-length-other>
    <offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
    <number-of-prb-per-scs>
-     <scs>KHZ_30</scs>
+     <scs>{scs_val}</scs>
      <number-of-prb>273</number-of-prb>
    </number-of-prb-per-scs>
    <e-axcid>
@@ -80,7 +80,7 @@
    <cp-length-other>288</cp-length-other>
    <offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
    <number-of-prb-per-scs>
-     <scs>KHZ_30</scs>
+     <scs>{scs_val}</scs>
      <number-of-prb>273</number-of-prb>
    </number-of-prb-per-scs>
    <e-axcid>
@@ -101,7 +101,7 @@
    <cp-length-other>288</cp-length-other>
    <offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
    <number-of-prb-per-scs>
-     <scs>KHZ_30</scs>
+     <scs>{scs_val}</scs>
      <number-of-prb>273</number-of-prb>
    </number-of-prb-per-scs>
    <e-axcid>
@@ -122,7 +122,7 @@
    <cp-length-other>288</cp-length-other>
    <offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
    <number-of-prb-per-scs>
-     <scs>KHZ_30</scs>
+     <scs>{scs_val}</scs>
      <number-of-prb>273</number-of-prb>
    </number-of-prb-per-scs>
    <e-axcid>
@@ -144,11 +144,11 @@
    <cp-length-other>288</cp-length-other>
    <offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
    <number-of-prb-per-scs>
-     <scs>KHZ_30</scs>
+     <scs>{scs_val}</scs>
      <number-of-prb>273</number-of-prb>
    </number-of-prb-per-scs>
    <ul-fft-sampling-offsets>
-     <scs>KHZ_30</scs>
+     <scs>{scs_val}</scs>
    </ul-fft-sampling-offsets>
    <e-axcid>
      <o-du-port-bitmask>65024</o-du-port-bitmask>
@@ -169,11 +169,11 @@
    <cp-length-other>288</cp-length-other>
    <offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
    <number-of-prb-per-scs>
-     <scs>KHZ_30</scs>
+     <scs>{scs_val}</scs>
      <number-of-prb>273</number-of-prb>
    </number-of-prb-per-scs>
    <ul-fft-sampling-offsets>
-     <scs>KHZ_30</scs>
+     <scs>{scs_val}</scs>
    </ul-fft-sampling-offsets>
    <e-axcid>
      <o-du-port-bitmask>65024</o-du-port-bitmask>
@@ -194,11 +194,11 @@
    <cp-length-other>288</cp-length-other>
    <offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
    <number-of-prb-per-scs>
-     <scs>KHZ_30</scs>
+     <scs>{scs_val}</scs>
      <number-of-prb>273</number-of-prb>
    </number-of-prb-per-scs>
    <ul-fft-sampling-offsets>
-     <scs>KHZ_30</scs>
+     <scs>{scs_val}</scs>
    </ul-fft-sampling-offsets>
    <e-axcid>
      <o-du-port-bitmask>65024</o-du-port-bitmask>
@@ -219,11 +219,11 @@
    <cp-length-other>288</cp-length-other>
    <offset-to-absolute-frequency-center>0</offset-to-absolute-frequency-center>
    <number-of-prb-per-scs>
-     <scs>KHZ_30</scs>
+     <scs>{scs_val}</scs>
      <number-of-prb>273</number-of-prb>
    </number-of-prb-per-scs>
    <ul-fft-sampling-offsets>
-     <scs>KHZ_30</scs>
+     <scs>{scs_val}</scs>
    </ul-fft-sampling-offsets>
    <e-axcid>
      <o-du-port-bitmask>65024</o-du-port-bitmask>

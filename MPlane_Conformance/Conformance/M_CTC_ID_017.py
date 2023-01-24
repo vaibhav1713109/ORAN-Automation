@@ -46,6 +46,7 @@ from require import STARTUP, Config
 ## Initiate PDF
 ###############################################################################
 pdf = STARTUP.PDF_CAP()
+summary = []
 
 class M_CTC_ID_017(vlan_Creation):
     # init method or constructor 
@@ -55,8 +56,6 @@ class M_CTC_ID_017(vlan_Creation):
         self.USER_N = ''
         self.PSWRD = ''
         self.session, self.session2 = '', ''
-        self.rmt = ''
-        self.du_pswrd = ''
         self.RU_Details = ''
 
     ###############################################################################
@@ -67,22 +66,25 @@ class M_CTC_ID_017(vlan_Creation):
         STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,830)
         STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
         STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
-
+        summary.append('Netconf Session Established!!')
 
         ###############################################################################
         ## Server Capabilities
         ###############################################################################
         for cap in self.session.server_capabilities:
             STARTUP.STORE_DATA("\t{}".format(cap),Format=False,PDF = pdf)
-            
+        summary.append('Hello Capabilities Exchanged!!')
+
         ###############################################################################
         ## Create_subscription
         ###############################################################################
-        cap=self.session.create_subscription()
+        filter = """<filter type="xpath" xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0" xmlns:swm="urn:o-ran:software-management:1.0" select="/swm:*"/>"""
+        cap=self.session.create_subscription(filter=filter)
         STARTUP.STORE_DATA('> subscribe', Format=True, PDF=pdf)
         dict_data = xmltodict.parse(str(cap))
         if dict_data['nc:rpc-reply']['nc:ok'] == None:
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
+        summary.append('Subscription with software-summary.append filter Performed!!')
         
 
 
@@ -112,6 +114,7 @@ class M_CTC_ID_017(vlan_Creation):
         ###############################################################################
         ## Test Procedure 1 : Configure_Reset_RPC_in_RU
         ###############################################################################
+        summary.append('Configure reset RPC!!')
         Test_Step1 = '\t\tStep 1 : TER NETCONF Client sends <rpc><reset></rpc> to the O-RU NETCONF Server..'
         STARTUP.STORE_DATA('{}'.format(Test_Step1),Format='TEST_STEP', PDF=pdf)
         STARTUP.STORE_DATA('\n> user-rpc\n',Format=True, PDF=pdf)
@@ -129,6 +132,7 @@ class M_CTC_ID_017(vlan_Creation):
 
         Test_Step3 = '\t\tStep 3 : O-RU restarts with a new software version running matching the version activated.'
         STARTUP.STORE_DATA('{}'.format(Test_Step3),Format='TEST_STEP', PDF=pdf)
+        summary.append('RU Going for reboot!!')
         return True
 
 
@@ -168,6 +172,7 @@ class M_CTC_ID_017(vlan_Creation):
                             return f'{i["name"]} status is not correct....'
                     STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf)
                     # self.session2.close_session()
+                    summary.append('RU Boot Successfully with new software!!')
                     return True
                 
             ###############################################################################
@@ -202,6 +207,7 @@ class M_CTC_ID_017(vlan_Creation):
     ## Reboot The RU after activation
     ###############################################################################
     def reset_rpc(self):
+        summary.append("Test Case M_CTC_ID_014 is under process...")
         Check1 = self.linked_detected()
         
 
@@ -282,23 +288,25 @@ class M_CTC_ID_017(vlan_Creation):
                 print(e)
 
     def system_logs(self,hostname):
-        try:
-            host = hostname
-            port = 22
-            username = self.USER_N
-            password = self.PSWRD
-            command = "cat {};".format(configur.get('INFO','syslog_path'))
-            ssh = paramiko.SSHClient()
-            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            ssh.connect(host, port, username, password)
+        for _ in range(5):
+            try:
+                host = hostname
+                port = 22
+                username = self.USER_N
+                password = self.PSWRD
+                command = "cat {};".format(configur.get('INFO','syslog_path'))
+                ssh = paramiko.SSHClient()
+                ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                ssh.connect(host, port, username, password)
 
-            stdin, stdout, stderr = ssh.exec_command(command)
-            lines = stdout.readlines()
-            # print(lines)
-            return lines
-        except Exception as e:
-            print(e)
-            print('Can\'t connect to RU..')
+                stdin, stdout, stderr = ssh.exec_command(command)
+                lines = stdout.readlines()
+                # print(lines)
+                return lines
+            except Exception as e:
+                print(e)
+        else:
+            print('Can\'t connect to the RU.., Logs are not captured.')
 
 
 
@@ -312,6 +320,8 @@ def test_m_ctc_id_017():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+        summary.append('FAIL_REASON :SFP link not detected...')
+        summary.append(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
     if Check1 == True:
         logs1 = tc017_obj.system_logs(tc017_obj.hostname)
@@ -335,6 +345,7 @@ def test_m_ctc_id_017():
         try:
             if Check2 == True:
                 STARTUP.ACT_RES(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=(0,255,0))
+                summary.append(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'PASS' : ^20}")
                 return True
 
             else:
@@ -343,12 +354,16 @@ def test_m_ctc_id_017():
                     Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check2))
                     STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
                     STARTUP.ACT_RES(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+                    summary.append("FAIL_REASON : {}".format(Error_Info))
+                    summary.append(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}")
                     return False
 
                 else:
                     STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
                     STARTUP.STORE_DATA('{}'.format(Check2),Format=False,PDF= pdf)
                     STARTUP.ACT_RES(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+                    summary.append("FAIL_REASON : {}".format(Check2))
+                    summary.append(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}")
                     return False
 
         except Exception as e:
@@ -356,6 +371,8 @@ def test_m_ctc_id_017():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
+            summary.append("FAIL_REASON : {}".format(e))
+            summary.append(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
         
         ###############################################################################
@@ -363,6 +380,7 @@ def test_m_ctc_id_017():
         ###############################################################################
         finally:
             STARTUP.CREATE_LOGS('M_CTC_ID_017',PDF=pdf)
+            summary.append("Successfully completed Test Case M_CTC_ID_017. Logs captured !!") 
 
 
     else:
@@ -381,11 +399,15 @@ def test_m_ctc_id_017():
                 Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check1))
                 STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
                 STARTUP.ACT_RES(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+                summary.append("FAIL_REASON : {}".format(Error_Info))
+                summary.append(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}")
                 return False
             else:
                 STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
                 STARTUP.STORE_DATA('{}'.format(Check1),Format=False,PDF= pdf)
                 STARTUP.ACT_RES(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+                summary.append("FAIL_REASON : {}".format(Check1))
+                summary.append(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}")
                 return False
 
 
@@ -394,6 +416,8 @@ def test_m_ctc_id_017():
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 STARTUP.STORE_DATA(
                     f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
+                summary.append("FAIL_REASON : {}".format(e))
+                summary.append(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}")
                 return False
 
         ###############################################################################
@@ -401,8 +425,13 @@ def test_m_ctc_id_017():
         ###############################################################################
         finally:
             STARTUP.CREATE_LOGS('M_CTC_ID_017',PDF=pdf)
+            summary.append("Successfully completed Test Case M_CTC_ID_017. Logs captured !!") 
+            notification('\n'.join(summary))
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     test_m_ctc_id_017()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass

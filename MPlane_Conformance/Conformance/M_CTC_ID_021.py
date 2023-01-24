@@ -42,6 +42,7 @@ from require.Vlan_Creation import *
 
 #######################################################################
 pdf = STARTUP.PDF_CAP()
+summary = []
 
 class M_CTC_ID_021(vlan_Creation):
     # init method or constructor 
@@ -116,13 +117,12 @@ class M_CTC_ID_021(vlan_Creation):
         ###############################################################################
         ## Test Procedure 1 : Connect to netopeer server with fm-pm user
         ###############################################################################
-        STARTUP.STORE_DATA(
-            '\t\t********** Connect to the NETCONF Server ***********', Format='TEST_STEP', PDF=pdf)
         Test_Step1 = 'STEP 1 TER NETCONF client establishes a connection using a user account with fm-pm privileges.'
         STARTUP.STORE_DATA('\n\n\t\t********** Connect to the NETCONF Server ***********\n\n',Format='TEST_STEP',PDF = pdf)
         STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
         STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,830)
         STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
+        summary.append('Netconf Session Established!!')
 
 
         ###############################################################################
@@ -130,21 +130,25 @@ class M_CTC_ID_021(vlan_Creation):
         ###############################################################################
         for cap in self.session.server_capabilities:
             STARTUP.STORE_DATA("\t{}".format(cap),Format=False,PDF = pdf)
+        summary.append('Hello Capabilities Exchanged!!')
             
         ###############################################################################
         ## Create_subscription
         ###############################################################################
-        cap=self.session.create_subscription()
-        STARTUP.STORE_DATA('> subscribe', Format=True, PDF=pdf)
+        filter = """<filter type="xpath" xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0" xmlns:notf_c="urn:ietf:params:xml:ns:yang:ietf-netconf-notifications" select="/notf_c:*"/>"""
+        cap=self.session.create_subscription(filter=filter)
+        STARTUP.STORE_DATA('> subscribe --filter-xpath /ietf-netconf-notifications:*', Format=True, PDF=pdf)
         dict_data = xmltodict.parse(str(cap))
         if dict_data['nc:rpc-reply']['nc:ok'] == None:
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
+        summary.append('Subscription with netconf-config filter Performed!!')
         
 
         ###############################################################################
         ## Test Procedure 2 : Configure Processing Yang
         ###############################################################################
         pdf.add_page()
+        notification("Try to configure processing-element yang!!")
         Test_Step2 = 'Step 2 TER NETCONF client attempts to get the configuration of the o-ran-processing.yang model.'
 
         STARTUP.STORE_DATA('{}'.format(Test_Step2), Format='TEST_STEP', PDF=pdf)
@@ -190,6 +194,7 @@ class M_CTC_ID_021(vlan_Creation):
                     f"{'path' : ^20}{':' : ^10}{e.path: ^10}\n", Format=False, PDF=pdf)
                 STARTUP.STORE_DATA(
                     f"{'message' : ^20}{':' : ^10}{e.message: ^10}\n", Format=False, PDF=pdf)
+                summary.append('Access-denied error captured!!')
                 return True
             else:
                 exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -200,6 +205,7 @@ class M_CTC_ID_021(vlan_Creation):
     ## Main Function
     ###############################################################################
     def test_Main_021(self):
+        summary.append("Test Case M_CTC_ID_021 is under process...")
         Check1 = self.linked_detected()
 
         
@@ -311,6 +317,8 @@ def test_m_ctc_id_021():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'Access Control FM-PM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+        summary.append('FAIL_REASON : SFP link not detected...')
+        summary.append(f"{'Access Control FM-PM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
     
     ###############################################################################
@@ -324,6 +332,7 @@ def test_m_ctc_id_021():
     try:
         if Check == True:
             STARTUP.ACT_RES(f"{'Access Control FM-PM (negative case)' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=(0,255,0))
+            summary.append(f"{'Access Control FM-PM (negative case)' : <50}{'=' : ^20}{'PASS' : ^20}")
             return True
 
         elif type(Check) == list:
@@ -331,11 +340,15 @@ def test_m_ctc_id_021():
             Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check))
             STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Access Control FM-PM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+            summary.append("FAIL_REASON : {}".format(Error_Info))
+            summary.append(f"{'Access Control FM-PM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
         else:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
             STARTUP.STORE_DATA('{}'.format(Check),Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Access Control FM-PM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+            summary.append("FAIL_REASON : {}".format(Check))
+            summary.append(f"{'Access Control FM-PM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
     except Exception as e:
@@ -343,6 +356,8 @@ def test_m_ctc_id_021():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
+            summary.append("FAIL_REASON : {}".format(e))
+            summary.append(f"{'Access Control FM-PM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
     ###############################################################################
@@ -350,9 +365,13 @@ def test_m_ctc_id_021():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_021',PDF=pdf)
-        notification("M_CTC_ID_021 is finished!")   
+        summary.append("Successfully completed Test Case M_CTC_ID_021. Logs captured !!") 
+        notification('\n'.join(summary))  
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     test_m_ctc_id_021()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass

@@ -45,6 +45,7 @@ from require import STARTUP, Config
 ## Initiate PDF
 ###############################################################################
 pdf = STARTUP.PDF_CAP()
+summary = []
 
 class M_CTC_ID_014(vlan_Creation):
     # init method or constructor 
@@ -55,7 +56,7 @@ class M_CTC_ID_014(vlan_Creation):
         self.PSWRD = ''
         self.session = ''
         self.rmt = ''
-        self.du_pswrd = ''
+        self.sftp_pswrd = ''
         self.RU_Details = ''
 
     ###############################################################################
@@ -66,6 +67,7 @@ class M_CTC_ID_014(vlan_Creation):
         STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
         STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,830)
         STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
+        summary.append('Netconf Session Established!!')
 
 
         ###############################################################################
@@ -73,15 +75,18 @@ class M_CTC_ID_014(vlan_Creation):
         ###############################################################################
         for cap in self.session.server_capabilities:
             STARTUP.STORE_DATA("\t{}".format(cap),Format=False,PDF = pdf)
+        summary.append('Hello Capabilities Exchanged!!')
             
         ###############################################################################
         ## Create_subscription
         ###############################################################################
-        cap=self.session.create_subscription()
+        filter = """<filter type="xpath" xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0" xmlns:swm="urn:o-ran:software-management:1.0" select="/swm:*"/>"""
+        cap=self.session.create_subscription(filter=filter)
         STARTUP.STORE_DATA('> subscribe', Format=True, PDF=pdf)
         dict_data = xmltodict.parse(str(cap))
         if dict_data['nc:rpc-reply']['nc:ok'] == None:
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
+        summary.append('Subscription with software-notification filter Performed!!')
         
 
         ###############################################################################
@@ -128,9 +133,10 @@ class M_CTC_ID_014(vlan_Creation):
         ###############################################################################
         ## Configure SW Download RPC in RU
         ###############################################################################
+        summary.append('Configure Software Download RPC!!')
         xml_data = open("{}/require/Yang_xml/sw_download.xml".format(parent)).read()
         xml_data = xml_data.format(
-            rmt_path=self.rmt, password=self.du_pswrd, public_key=pub_key)
+            rmt_path=self.rmt, password=self.sftp_pswrd, public_key=pub_key)
 
         ###############################################################################
         ## Test Procedure 1
@@ -151,7 +157,7 @@ class M_CTC_ID_014(vlan_Creation):
 
                 
         ###############################################################################
-        ## Test Procedure 2 : Capture_The_Notifications
+        ## Test Procedure 2 : Capture_The_notification
         ###############################################################################
         pdf.add_page()
         Test_Step2 = '\t\tStep 2 :  O-RU NETCONF Server sends <notification><download-event> with status COMPLETED to TER NETCONF Client'
@@ -175,11 +181,13 @@ class M_CTC_ID_014(vlan_Creation):
                     break
             except:
                 pass
+        summary.append('Software Dwonload notification captured!!')
 
          
         ###############################################################################
         ## Test Procedure 2 : Configure_SW_Install_RPC
         ###############################################################################
+        summary.append('Configure Software Install RPC!!')
         Test_Step3 = '\t\tStep 3 : TER NETCONF Client triggers <rpc><software-install> Slot must have attributes active = FALSE, running = FALSE.'
         STARTUP.STORE_DATA(
             '{}'.format(Test_Step3), Format='TEST_STEP',PDF=pdf)
@@ -208,7 +216,7 @@ class M_CTC_ID_014(vlan_Creation):
 
 
         ###############################################################################
-        ## Test Procedure 4 and 5 : Capture_The_Notifications
+        ## Test Procedure 4 and 5 : Capture_The_notifications
         ###############################################################################
         Test_Step4 = '\t\tStep 4 and 5 :  O-RU NETCONF Server sends <notification><install-event> with status COMPLETED to TER NETCONF Client'
         STARTUP.STORE_DATA('{}'.format(Test_Step4), Format='TEST_STEP',PDF=pdf)
@@ -230,6 +238,7 @@ class M_CTC_ID_014(vlan_Creation):
                     break
             except:
                 pass
+        summary.append('Software Install notification captured!!')
 
 
         ###############################################################################
@@ -263,14 +272,16 @@ class M_CTC_ID_014(vlan_Creation):
     ## Main Function
     ###############################################################################
     def test_Main_014(self):
+        summary.append("Test Case M_CTC_ID_014 is under process...")
         Check1 = self.linked_detected()
         
         
         ###############################################################################
         ## Read User Name and password from Config.INI of Config.py
         ###############################################################################
-        self.rmt = configur.get('INFO','sw_path')
-        self.du_pswrd = configur.get('INFO','du_pass')
+        self.sw_path = configur.get('INFO','sw_path')
+        self.sftp_pswrd = configur.get('INFO','sftp_pass')
+        self.sftp_user = configur.get('INFO','sftp_user')
         self.USER_N = configur.get('INFO','sudo_user')
         self.PSWRD = configur.get('INFO','sudo_pass')
         if Check1 == False or Check1 == None:
@@ -285,10 +296,10 @@ class M_CTC_ID_014(vlan_Creation):
             ## Perform call home to get ip_details
             ###############################################################################
             self.session, self.login_info = STARTUP.session_login(host = self.hostname,USER_N = self.USER_N,PSWRD = self.PSWRD)
-
+            
             if self.session:
                 self.RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
-
+                self.rmt = 'sftp://{0}@{1}:22{2}'.format(self.sftp_user,self.du_hostname,self.sw_path)
                 for key, val in self.RU_Details[1].items():
                     if val[0] == 'true' and val[1] == 'true':
                         ###############################################################################
@@ -352,6 +363,8 @@ def test_m_ctc_id_014():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'O-RU Software Update and Install' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+        summary.append('FAIL_REASON : SFP link not detected...')
+        summary.append(f"{'O-RU Software Update and Install' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
     
     ###############################################################################
@@ -365,6 +378,7 @@ def test_m_ctc_id_014():
     try:
         if Check == True:
             STARTUP.ACT_RES(f"{'O-RU Software Update and Install' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=(0,255,0))
+            summary.append(f"{'O-RU Software Update and Install' : <50}{'=' : ^20}{'PASS' : ^20}")
             return True
 
         elif type(Check) == list:
@@ -372,11 +386,15 @@ def test_m_ctc_id_014():
             Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check))
             STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'O-RU Software Update and Install' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+            summary.append("FAIL_REASON : {}".format(Error_Info))
+            summary.append(f"{'O-RU Software Update and Install' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
         else:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
             STARTUP.STORE_DATA('{}'.format(Check),Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'O-RU Software Update and Install' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+            summary.append("FAIL_REASON : {}".format(Check))
+            summary.append(f"{'O-RU Software Update and Install' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
 
@@ -385,6 +403,8 @@ def test_m_ctc_id_014():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
+            summary.append("FAIL_REASON : {}".format(e))
+            summary.append(f"{'O-RU Software Update and Install' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
     ###############################################################################
@@ -392,8 +412,12 @@ def test_m_ctc_id_014():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_014',PDF=pdf)
-
+        summary.append("Successfully completed Test Case M_CTC_ID_014. Logs captured !!") 
+        notification('\n'.join(summary))
 
 if __name__ == "__main__":
+    start_time = time.time()
     test_m_ctc_id_014()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass

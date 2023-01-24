@@ -49,6 +49,7 @@ from require.Vlan_Creation import *
 ## Initiate PDF
 ###############################################################################
 pdf = STARTUP.PDF_CAP()
+summary = []
 
 class M_CTC_ID_009(vlan_Creation):
     def __init__(self) -> None:
@@ -73,6 +74,7 @@ class M_CTC_ID_009(vlan_Creation):
             STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,830)
             STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
             STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
+            summary.append('Netconf Session Established!!')
 
 
             ###############################################################################
@@ -80,6 +82,7 @@ class M_CTC_ID_009(vlan_Creation):
             ###############################################################################
             for cap in self.session.server_capabilities:
                 STARTUP.STORE_DATA("\t{}".format(cap),Format=False,PDF = pdf)
+            summary.append('Hello Capabilities Exchanged!!')
                 
 
             pdf.add_page()
@@ -88,7 +91,6 @@ class M_CTC_ID_009(vlan_Creation):
             ###############################################################################
             Test_Step1 = '\t\t***********step 1 and 2 Retrival of ru information with filter **********'
             STARTUP.STORE_DATA('{}'.format(Test_Step1),Format='TEST_STEP',PDF = pdf)
-            notification("Netconf Session Established")
             
             ###############################################################################
             ## Create_subscription
@@ -105,11 +107,13 @@ class M_CTC_ID_009(vlan_Creation):
             dict_data = xmltodict.parse(str(cap))
             if dict_data['nc:rpc-reply']['nc:ok'] == None:
                 STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
+            summary.append('Subscription with supervision filter Performed!!')
             
             
             ###############################################################################
             ## Append Changes in XML
             ###############################################################################
+            summary.append('Configure Supervision RPC!!')
             xml_data = open("{}/require/Yang_xml/supervision.xml".format(parent)).read()
             xml_data = xml_data.format(super_n_i= self.s_n_i, guard_t_o= self.g_t)
             Test_Step1 = '\t\t TER NETCONF Client responds with <rpc supervision-watchdog-reset></rpc> to the O-RU NETCONF Server'
@@ -147,7 +151,7 @@ class M_CTC_ID_009(vlan_Creation):
     ## Main Function
     ###############################################################################
     def test_Main(self):
-        notification("Starting Test Case M_CTC_ID_009 !!! ")
+        summary.append("Test Case M_CTC_ID_009 is under process...")
         Check1 = self.linked_detected()
         
         if Check1 == False or Check1 == None:
@@ -229,10 +233,12 @@ def test_m_ctc_id_009():
     tc009_obj = M_CTC_ID_009()
     Check = tc009_obj.test_Main()           
     if Check == False:
-            STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
-            STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= pdf)
-            STARTUP.ACT_RES(f"{'M-Plane Connection Supervision (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            return False
+        STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
+        STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= pdf)
+        STARTUP.ACT_RES(f"{'M-Plane Connection Supervision (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
+        summary.append('FAIL_REASON :SFP link not detected...')
+        summary.append(f"{'M-Plane Connection Supervision (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
+        return False
     ###############################################################################
     ## Expected/Actual Result
     ###############################################################################
@@ -243,7 +249,7 @@ def test_m_ctc_id_009():
     try:
         if Check == True:
             STARTUP.ACT_RES(f"{'M-Plane Connection Supervision (negative case)' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=(105, 224, 113))
-            notification("Test Case is PASS")
+            summary.append(f"{'M-Plane Connection Supervision (negative case)' : <50}{'=' : ^20}{'PASS' : ^20}")
             return True
 
         elif type(Check) == list:
@@ -251,13 +257,15 @@ def test_m_ctc_id_009():
             Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check))
             STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'M-Plane Connection Supervision (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            notification("Error Info : {}".format(Error_Info))
+            summary.append("FAIL_REASON : {}".format(Error_Info))
+            summary.append(f"{'M-Plane Connection Supervision (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
         else:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
             STARTUP.STORE_DATA('{}'.format(Check),Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'M-Plane Connection Supervision (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            notification("Test Case is FAIL")
+            summary.append("FAIL_REASON : {}".format(Check))
+            summary.append(f"{'M-Plane Connection Supervision (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
         
@@ -267,6 +275,8 @@ def test_m_ctc_id_009():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
+            summary.append("FAIL_REASON : {}".format(e))
+            summary.append(f"{'M-Plane Connection Supervision (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
     ###############################################################################
@@ -274,8 +284,14 @@ def test_m_ctc_id_009():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_009',PDF=pdf)
-        notification("Successfully completed Test Case M_CTC_ID_009. Logs captured !!")   
+        summary.append("Successfully completed Test Case M_CTC_ID_009. Logs captured !!") 
+        notification('\n'.join(summary))
+        
+            
 if __name__ == "__main__":
+    start_time = time.time()
     test_m_ctc_id_009()
+    end_time = time.time()
+    print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
 

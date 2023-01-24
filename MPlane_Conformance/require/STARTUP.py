@@ -18,7 +18,7 @@ logger = logging.getLogger('ncclient.manager')
 ###############################################################################
 dir_name = os.path.dirname(os.path.abspath(__file__))
 parent = os.path.dirname(dir_name)
-print(parent)
+# print(parent)
 # print(dir_name)
 sys.path.append(parent)
 
@@ -235,7 +235,7 @@ def delete_system_log(host):
             print(e)
             pass
     else:
-        print('Can\'t connect to the RU.., Logs are not captured.')
+        print('Can\'t connect to the RU.., Logs are not deleted.')
 
 ###############################################################################
 ## Collecting the system logs

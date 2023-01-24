@@ -45,7 +45,9 @@ from require.Genrate_User_Pass import *
 ###############################################################################
 ## Initiate PDF
 ###############################################################################
-pdf = STARTUP.PDF_CAP()       
+pdf = STARTUP.PDF_CAP() 
+summary = []
+
 class M_CTC_ID_022(vlan_Creation):
     # init method or constructor 
     def __init__(self):
@@ -66,6 +68,7 @@ class M_CTC_ID_022(vlan_Creation):
         STARTUP.STORE_DATA('\n\n\t\t********** Connect to the NETCONF Server ***********\n\n',Format='TEST_STEP',PDF = pdf)
         STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,830)
         STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
+        summary.append('Netconf Session Established!!')
 
 
         ###############################################################################
@@ -73,15 +76,18 @@ class M_CTC_ID_022(vlan_Creation):
         ###############################################################################
         for cap in self.session.server_capabilities:
             STARTUP.STORE_DATA("\t{}".format(cap),Format=False,PDF = pdf)
-            
+        summary.append('Hello Capabilities Exchanged!!')
+
         ###############################################################################
         ## Create_subscription
         ###############################################################################
-        cap=self.session.create_subscription()
-        STARTUP.STORE_DATA('> subscribe', Format=True, PDF=pdf)
+        filter = """<filter type="xpath" xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0" xmlns:notf_c="urn:ietf:params:xml:ns:yang:ietf-netconf-notifications" select="/notf_c:*"/>"""
+        cap=self.session.create_subscription(filter=filter)
+        STARTUP.STORE_DATA('> subscribe --filter-xpath /ietf-netconf-notifications:*', Format=True, PDF=pdf)
         dict_data = xmltodict.parse(str(cap))
         if dict_data['nc:rpc-reply']['nc:ok'] == None:
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
+        summary.append('Subscription with netconf-config filter Performed!!')
 
         ###############################################################################
         ## Initial get filter
@@ -106,6 +112,7 @@ class M_CTC_ID_022(vlan_Creation):
         ###############################################################################
         ## Merge New User
         ###############################################################################
+        summary.append("Merge new user!!")
         snippet = f"""
             <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
             <users xmlns="urn:o-ran:user-mgmt:1.0">
@@ -155,6 +162,7 @@ class M_CTC_ID_022(vlan_Creation):
         ###############################################################################
         ## Configure New User In NACM
         ###############################################################################
+        summary.append("Give SWM privilege!!")
         ad_us = f'<user-name>{self.new_user}</user-name>'
         nacm_file = open('{}/require/Yang_xml/nacm_swm.xml'.format(parent)).read()
         nacm_file = nacm_file.format(add_swm = ad_us)
@@ -249,6 +257,7 @@ class M_CTC_ID_022(vlan_Creation):
         else:
             STARTUP.STORE_DATA(xml_pretty_str,Format='XML', PDF=pdf)
         # self.session.close_session()
+        summary.append("User merge and give SWM privilage successfully!!")
         return True
 
 
@@ -260,34 +269,45 @@ class M_CTC_ID_022(vlan_Creation):
         ## Test Procedure 1 : Connect to netopeer server with swm user
         ###############################################################################
         try:
-            with manager.connect(host=self.hostname, port=830, username=self.new_user, hostkey_verify=False, password=self.new_pswrd, allow_agent = False , look_for_keys = False) as new_session:
+            with manager.connect(host=self.hostname, port=830, username=self.new_user, hostkey_verify=False, password=self.new_pswrd, allow_agent = False , look_for_keys = False, timeout = 60) as new_session:
                 pdf.add_page()
                 Test_Step1 = 'STEP 1 TER NETCONF client establishes a connection using a user account with swm privileges.'
                 STARTUP.STORE_DATA('{}'.format(Test_Step1),Format='TEST_STEP', PDF=pdf)
                 STARTUP.STORE_DATA('\t\t********** Connect to the NETCONF Server ***********', Format='TEST_STEP', PDF=pdf)
-                STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)                
+                server_key_obj = new_session._session._transport.get_remote_server_key()
+                fingerprint = STARTUP.colonify(STARTUP.hexlify(server_key_obj.get_fingerprint()))
+                login_info = f'''> connect --ssh --host {self.hostname} --port 830 --login {self.new_user}
+                        ssh-rsa key fingerprint is {fingerprint}
+                        Interactive SSH Authentication done. 
+                                '''
+                STARTUP.STORE_DATA(login_info,Format=False,PDF = pdf)                
                 STATUS = STARTUP.STATUS(self.hostname,self.new_user,new_session.session_id,830)       
                 STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
-                notification("Netconf Session Established")
+                summary.append("Netconf Session Established with new SWM privilage user!!")
+
+
                 ###############################################################################
                 ## Server Capabilities
                 ###############################################################################
                 for cap in new_session.server_capabilities:
                     STARTUP.STORE_DATA("\t{}".format(cap),Format=False,PDF = pdf)
-                    
+                summary.append('Hello Capabilities Exchanged!!')
+
                 ###############################################################################
                 ## Create_subscription
                 ###############################################################################
-                cap = new_session.create_subscription()
-                STARTUP.STORE_DATA('> subscribe', Format=True, PDF=pdf)
+                filter = """<filter type="xpath" xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0" xmlns:notf_c="urn:ietf:params:xml:ns:yang:ietf-netconf-notifications" select="/notf_c:*"/>"""
+                cap = new_session.create_subscription(filter=filter)
+                STARTUP.STORE_DATA('> subscribe --filter-xpath /ietf-netconf-notifications:*', Format=True, PDF=pdf)
                 dict_data = xmltodict.parse(str(cap))
                 if dict_data['nc:rpc-reply']['nc:ok'] == None:
                     STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
-        
+                summary.append('Subscription with netconf-config filter Performed!!')
                 
                 ###############################################################################
                 ## Test Procedure 2 : Configure a new o-ran-sync.yang
                 ############################################################################### 
+                summary.append('Try to configure o-ran-sync yang!!')
                 proc_xml = open('{}/require/Yang_xml/sync.xml'.format(parent)).read() 
                 Test_Step2 = 'Step 2 TER NETCONF client attempts to configure a new o-ran-sync.yang on the NETCONF server.'
                 STARTUP.STORE_DATA("{}".format(Test_Step2), Format='TEST_STEP', PDF=pdf)
@@ -321,6 +341,7 @@ class M_CTC_ID_022(vlan_Creation):
                         STARTUP.STORE_DATA(f"{'severity' : ^20}{':' : ^10}{e.severity: ^10}\n",Format=False, PDF=pdf)
                         STARTUP.STORE_DATA(f"{'path' : ^20}{':' : ^10}{e.path: ^10}\n",Format=False, PDF=pdf)
                         STARTUP.STORE_DATA(f"{'message' : ^20}{':' : ^10}{e.message: ^10}\n",Format=False, PDF=pdf)
+                        summary.append('Access-denied error captured!!')
                         return True
 
                     else:
@@ -350,7 +371,7 @@ class M_CTC_ID_022(vlan_Creation):
     ## Main Function
     ###############################################################################
     def test_Main_022(self):
-        notification("Test Case M_CTC_ID_022 is started")
+        summary.append("Test Case M_CTC_ID_022 is under process...")
         Check1 = self.linked_detected()
         
     
@@ -447,21 +468,23 @@ def test_m_ctc_id_022():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected..',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
+        summary.append('FAIL_REASON : SFP link not detected...')
+        summary.append(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
     try:
         if Check1 == True:
             Check2 = tc022_obj.test_procedure()
+            ###############################################################################
+            ## Expected/Actual Result
+            ###############################################################################
+            STARTUP.GET_SYSTEM_LOGS(tc022_obj.hostname,tc022_obj.USER_N,tc022_obj.PSWRD,pdf)
+            Exp_Result = 'Expected Result : The NETCONF server replies rejecting the protocol operation with an "access-denied" error.'
+            STARTUP.STORE_DATA(Exp_Result, Format='DESC', PDF=pdf)
             if Check2 == True:
-                STARTUP.GET_SYSTEM_LOGS(tc022_obj.hostname,tc022_obj.USER_N,tc022_obj.PSWRD,pdf)
-                ###############################################################################
-                ## Expected/Actual Result
-                ###############################################################################
-                Exp_Result = 'Expected Result : The NETCONF server replies rejecting the protocol operation with an "access-denied" error.'
-                STARTUP.STORE_DATA(Exp_Result, Format='DESC', PDF=pdf)
 
                 STARTUP.STORE_DATA('\t\t{}'.format('****************** Actual Result ******************'), Format=True, PDF=pdf)
                 STARTUP.ACT_RES(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=[0,255,0])
-                notification("Test Case is PASS")
+                summary.append(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'PASS' : ^20}")
                 return True
             
             else:
@@ -470,16 +493,16 @@ def test_m_ctc_id_022():
                     Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check2))
                     STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
                     STARTUP.ACT_RES(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
-                    notification("Error Information : {}".format(Error_Info))
-
-
+                    summary.append("FAIL_REASON : {}".format(Error_Info))
+                    summary.append(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
                     return False
 
                 else:
                     STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
                     STARTUP.STORE_DATA(Check2,Format=False,PDF= pdf)
                     STARTUP.ACT_RES(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
-                    notification("Test Case is FAIL")
+                    summary.append("FAIL_REASON : {}".format(Check2))
+                    summary.append(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
                     return False
         else:
             if type(Check1) == list:
@@ -487,14 +510,16 @@ def test_m_ctc_id_022():
                 Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check1))
                 STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
                 STARTUP.ACT_RES(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
-                notification("Test Case is FAIL")
+                summary.append("FAIL_REASON : {}".format(Error_Info))
+                summary.append(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
                 return False
 
             else:
                 STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
                 STARTUP.STORE_DATA('{}'.format(Check1),Format=False,PDF= pdf)
                 STARTUP.ACT_RES(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
-                notification("Test Case is FAIL")
+                summary.append("FAIL_REASON : {}".format(Check1))
+                summary.append(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
                 return False
 
 
@@ -503,6 +528,8 @@ def test_m_ctc_id_022():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
+            summary.append("FAIL_REASON : {}".format(e))
+            summary.append(f"{'Access Control SWM (negative case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
     ###############################################################################
@@ -510,9 +537,12 @@ def test_m_ctc_id_022():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_022',PDF=pdf)
-        notification("Test Completed For M_CTC_ID_022 and Logs saved !")   
+        summary.append("Successfully completed Test Case M_CTC_ID_022. Logs captured !!") 
+        notification('\n'.join(summary))
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     test_m_ctc_id_022()
-    pass
+    end_time = time.time()
+    print('Execution Time is : {}'.format(int(end_time-start_time)))
