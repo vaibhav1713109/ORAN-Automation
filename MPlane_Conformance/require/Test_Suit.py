@@ -12,7 +12,10 @@ import sys
 import os
 import time
 <<<<<<< HEAD
+<<<<<<< HEAD
 from math import *
+=======
+>>>>>>> 9e8b81822c4bb658f5e4ee26c2f65b07e1c64384
 =======
 >>>>>>> 9e8b81822c4bb658f5e4ee26c2f65b07e1c64384
 from configparser import ConfigParser
@@ -78,6 +81,7 @@ def select_testcase():
     # user_input = [int(x) for x in input(
     #     'Enter space sperated test case: ').split()]
 <<<<<<< HEAD
+<<<<<<< HEAD
     user_input = list(map(int,configur.get('INFO','selected_test_case').split()))
     print(f'Selected Test Cases are : {user_input}')
     
@@ -91,12 +95,20 @@ def select_testcase():
     
     verdict_table = []
 >>>>>>> 9e8b81822c4bb658f5e4ee26c2f65b07e1c64384
+=======
+    user_input = configur.get('INFO','selected_test_case').split()
+    print(user_input)
+    
+    
+    verdict_table = []
+>>>>>>> 9e8b81822c4bb658f5e4ee26c2f65b07e1c64384
     for selectCase in user_input:
         print('#'*100)
         print(f'\t\tExecuted test case is {selectCase}')
         print('#'*100)
         selectCase = int(selectCase)
         if selectCase == 1:
+<<<<<<< HEAD
 <<<<<<< HEAD
             start_time = time.time()
             result_001 = M_CTC_ID_001.test_M_ctc_id_001()
@@ -318,6 +330,8 @@ def select_testcase():
             else:
                 verdict_table.append(['O-RU configurability test (negative case)','Fail',str(total_time)])
 =======
+=======
+>>>>>>> 9e8b81822c4bb658f5e4ee26c2f65b07e1c64384
             result_001 = M_CTC_ID_001.test_M_ctc_id_001()
             if result_001:
                 verdict_table.append(['Transport and Handshake in IPv4 Environment (positive case)','Pass'])
@@ -471,6 +485,9 @@ def select_testcase():
                 verdict_table.append(['O-RU configurability test (negative case)','Pass'])
             else:
                 verdict_table.append(['O-RU configurability test (negative case)','Fail'])
+<<<<<<< HEAD
+>>>>>>> 9e8b81822c4bb658f5e4ee26c2f65b07e1c64384
+=======
 >>>>>>> 9e8b81822c4bb658f5e4ee26c2f65b07e1c64384
 
         else:
@@ -479,8 +496,11 @@ def select_testcase():
     print(tabulate(verdict_table, headers=Header, stralign='left',
           maxcolwidths=[50, 20], tablefmt='fancy_grid'))
 <<<<<<< HEAD
+<<<<<<< HEAD
     en = time.time()
     print('Total Excecution Time : {:.2f} sec.'.format(en-st) )
+=======
+>>>>>>> 9e8b81822c4bb658f5e4ee26c2f65b07e1c64384
 =======
 >>>>>>> 9e8b81822c4bb658f5e4ee26c2f65b07e1c64384
 
