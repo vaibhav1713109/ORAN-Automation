@@ -269,20 +269,24 @@ class M_CTC_ID_023(vlan_Creation):
                         STARTUP.STORE_DATA(i,Format=False, PDF=pdf)
                     summary.append('Hello Capabilities Exchanged!!')
                     return True
-            new_session.close_session()
+            
 
 
         ########################### Known Exceptions ############################
         except RPCError as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
-            new_session.close_session()
             return [e.type, e.tag, e.severity, e.message, exc_tb.tb_lineno]
 
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA("\t\tError : {}".format(e), Format=False, PDF=pdf)
-            new_session.close_session()
-            return f"{e} \nError occured in line number {exc_tb.tb_lineno}"
+            return f"Call Home not initiated due to {e} \nError occured in line number {exc_tb.tb_lineno}"
+
+        finally:
+            try:
+                new_session.close_session()
+            except Exception as e:
+                print(e)
 
 
             
@@ -463,3 +467,4 @@ if __name__ == "__main__":
     end_time = time.time()
     print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
+

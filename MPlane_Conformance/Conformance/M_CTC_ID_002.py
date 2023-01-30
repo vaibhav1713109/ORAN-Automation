@@ -57,13 +57,18 @@ class M_CTC_id_002(M_CTC_id_001):
         summary = pkt.summary()
         try:
             if 'TCP' in summary:
+                interfaces = ifcfg.interfaces()
+                mac_address = interfaces[self.interface]['ether']
+                if mac_address == pkt.src:
                 # pkt.show()
-                if  pkt['TCP'].flags == 'RA' or pkt['TCP'].sport == 4334 or pkt['TCP'].sport == 830:
                     print('Got ip to the VLAN...')
                     print('VLAN IP is : {}'.format(pkt['IP'].dst))
                     self.ip_address = pkt['IP'].dst
-                    print(self.ip_address)
-                    time.sleep(5)
+                    return True
+                else:
+                    print('Got ip to the VLAN...')
+                    print('VLAN IP is : {}'.format(pkt['IP'].src))
+                    self.ip_address = pkt['IP'].src
                     return True
         except Exception as e:
             # print(e)
@@ -94,10 +99,6 @@ class M_CTC_id_002(M_CTC_id_001):
 
         except:
             print("User doesn't have SUDO permission")
-
-
-        
-        print(s)
         return s
 
 
@@ -107,17 +108,16 @@ class M_CTC_id_002(M_CTC_id_001):
     ###############################################################################
     def Call_Home(self,user,pswrd):
         try:
-            self.session = STARTUP.call_home(host='', port=4334, username=user, password=pswrd, timeout = 10,allow_agent = False , look_for_keys = False)
+            LISTEN = f'''> listen --ssh --login {user}\nWaiting 60s for an SSH Call Home connection on port 4334...'''
+            STARTUP.STORE_DATA(LISTEN,Format=False,PDF = pdf)
+            self.session = STARTUP.call_home(host='', port=4334, username=user, password=pswrd, timeout = 60,allow_agent = False , look_for_keys = False)
             print(self.session.session_id)
             self.session.close_session()
-            return False
+            return 'Call Home Initiated!!'
             
         
             
         except SSHUnknownHostError as e:
-            LISTEN = f'''> listen --ssh --login {user}\nWaiting 60s for an SSH Call Home connection on port 4334...'''
-            STARTUP.STORE_DATA(LISTEN,Format=False,PDF = pdf)
-
             SSH_AUTH = f'''The authenticity of the host '::ffff:{self.ip_address}' cannot be established.
             ssh-rsa key fingerprint is {self.fingerprint}.
             Are you sure you want to continue connecting (yes/no)? no
@@ -128,8 +128,10 @@ class M_CTC_id_002(M_CTC_id_001):
             return True
         
         except Exception as e:
-            print(e)
-            self.session.close_session()
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            STARTUP.STORE_DATA(f"Error occured in line number {exc_tb.tb_lineno}",Format=False,PDF = pdf)
+            STARTUP.STORE_DATA('{}'.format(e),Format=False,PDF = pdf)
+            return e
 
 
     ###############################################################################
@@ -191,13 +193,12 @@ class M_CTC_id_002(M_CTC_id_001):
             results = []
             for key, val in users.items():
                 res = self.Call_Home(key,val)
-                results.append(res)
+                if res != True:
+                    return res
             for key, val in users1.items():
                 res = self.Call_Home(key,val)
-                results.append(res)
-            for i in results:
-                if i == False:
-                    return 'Call home initiated..'
+                if res != True:
+                    return res
             return True
 
                     
@@ -300,4 +301,5 @@ if __name__ == "__main__":
     print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
         
+
 

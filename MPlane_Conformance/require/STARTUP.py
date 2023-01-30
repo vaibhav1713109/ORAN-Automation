@@ -33,6 +33,7 @@ configur.read('{}/Conformance/inputs.ini'.format(parent))
 ###############################################################################
 from require.Vlan_Creation import *
 from require import Config
+from Conformance.Notification import *
 
 
 
@@ -206,6 +207,7 @@ def session_login(host = '0.0.0.0',USER_N = '',PSWRD = ''):
         
     except Exception as e:
         warn('Call Home is not initiated!!!!!! So it will try with connect command!!!!')
+        notification('Call Home is not initiated!!!!!! So it will try with connect command!!!!')
         session = manager.connect(host = host, port=830, hostkey_verify=False,username = USER_N, password = PSWRD,timeout = 60,allow_agent = False , look_for_keys = False)
         server_key_obj = session._session._transport.get_remote_server_key()
         fingerprint = colonify(hexlify(server_key_obj.get_fingerprint()))
@@ -491,4 +493,5 @@ def render_table_data(PDF,TABLE_DATA):  # repeat data rows
 
 if __name__ == "__main__":
     delete_system_log('192.168.149.37')
+
 

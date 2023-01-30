@@ -241,43 +241,6 @@ class M_CTC_ID_018(vlan_Creation):
                 pass
 
         ###############################################################################
-        ## Test Procedure 4 : Post Get Filter of USERS
-        ###############################################################################  
-        Test_Step5 = 'STEP 5. The TER NETCONF Client retrieves a list of users from O-RU NETCONF Server. The newly created user accounts and mappings are validated.'
-        STARTUP.STORE_DATA(
-            '{}'.format(Test_Step5), Format='TEST_STEP', PDF=pdf)
-        u_name = '''
-                <filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-                <users xmlns="urn:o-ran:user-mgmt:1.0">	
-                </users>
-                </filter>
-                '''
-        user_name = self.session.get_config('running', u_name).data_xml
-
-        STARTUP.STORE_DATA("> get --filter-xpath /o-ran-usermgmt:users/user", Format=True, PDF=pdf)
-        s = xml.dom.minidom.parseString(user_name)
-        xml_pretty_str = s.toprettyxml()
-
-
-        ###############################################################################
-        ## Test Procedure 4 : Check whether users are merge
-        ###############################################################################  
-        user_n = xmltodict.parse(str(user_name))
-        USERs_info = user_n['data']['users']['user']
-        ADDED_USERS_R = ADDED_USERS[::-1]  # Reeverse of added_users
-        LIST_User = []
-        for _ in range(3):
-            user1 = USERs_info.pop()
-            LIST_User.append(user1['name'])
-
-        if LIST_User != ADDED_USERS_R:
-            STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf)
-            return "Users didn't merge..."
-        else:
-            STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf)
-        summary.append('All 3 user merged successfully!!')
-
-        ###############################################################################
         ## Post Get Filter of NACM
         ###############################################################################
         STARTUP.STORE_DATA("> get --filter-xpath /ietf-netconf-acm:nacm/groups", Format=True, PDF=pdf)
@@ -316,9 +279,46 @@ class M_CTC_ID_018(vlan_Creation):
                 return "User didn't merge in except these privilege ['sudo', 'fm-pm', 'nms', 'swm'] privilege"
 
         STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf)
-        summary.append('All 3 users got privileges!!')
         
         
+
+        ###############################################################################
+        ## Test Procedure 4 : Post Get Filter of USERS
+        ###############################################################################  
+        Test_Step5 = 'STEP 5. The TER NETCONF Client retrieves a list of users from O-RU NETCONF Server. The newly created user accounts and mappings are validated.'
+        STARTUP.STORE_DATA(
+            '{}'.format(Test_Step5), Format='TEST_STEP', PDF=pdf)
+        u_name = '''
+                <filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+                <users xmlns="urn:o-ran:user-mgmt:1.0">	
+                </users>
+                </filter>
+                '''
+        user_name = self.session.get_config('running', u_name).data_xml
+
+        STARTUP.STORE_DATA("> get --filter-xpath /o-ran-usermgmt:users/user", Format=True, PDF=pdf)
+        s = xml.dom.minidom.parseString(user_name)
+        xml_pretty_str = s.toprettyxml()
+
+
+        ###############################################################################
+        ## Test Procedure 4 : Check whether users are merge
+        ###############################################################################  
+        user_n = xmltodict.parse(str(user_name))
+        USERs_info = user_n['data']['users']['user']
+        ADDED_USERS_R = ADDED_USERS[::-1]  # Reeverse of added_users
+        LIST_User = []
+        for _ in range(3):
+            user1 = USERs_info.pop()
+            LIST_User.append(user1['name'])
+
+        if LIST_User != ADDED_USERS_R:
+            STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf)
+            return "Users didn't merge..."
+        else:
+            STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf)
+        summary.append('All 3 user merged and got privileges successfully!!')
+
         return True
 
         
@@ -479,3 +479,4 @@ if __name__ == "__main__":
     end_time = time.time()
     print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
+

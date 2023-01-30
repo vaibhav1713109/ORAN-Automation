@@ -58,18 +58,24 @@ class M_CTC_id_003(M_CTC_id_001):
         summary = pkt.summary()
         try:
             if 'TCP' in summary:
+                interfaces = ifcfg.interfaces()
+                mac_address = interfaces[self.interface]['ether']
+                if mac_address == pkt.src:
                 # pkt.show()
-                if  pkt['TCP'].flags == 'RA' or pkt['TCP'].sport == 4334 or pkt['TCP'].sport == 830:
                     print('Got ip to the VLAN...')
                     print('VLAN IP is : {}'.format(pkt['IP'].dst))
                     self.ip_address = pkt['IP'].dst
-                    print(self.ip_address)
-                    time.sleep(5)
+                    return True
+                else:
+                    print('Got ip to the VLAN...')
+                    print('VLAN IP is : {}'.format(pkt['IP'].src))
+                    self.ip_address = pkt['IP'].src
                     return True
         except Exception as e:
             # print(e)
             return False
         pass
+
 
     def software_detail(self):
         
@@ -95,10 +101,6 @@ class M_CTC_id_003(M_CTC_id_001):
 
         except:
             print("User doesn't have SUDO permission")
-
-
-        
-        print(s)
         return s
 
 
@@ -118,7 +120,7 @@ class M_CTC_id_003(M_CTC_id_001):
             self.session_1 = STARTUP.call_home(host='', port=4334, username=user , hostkey_verify=False, password=pswrd, timeout = 60,allow_agent = False , look_for_keys = False)
             print(self.session_1.session_id)
             self.session_1.close_session()
-            return False
+            return 'Call Home initiated!!'
             
         
             
@@ -136,6 +138,7 @@ class M_CTC_id_003(M_CTC_id_001):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(f"Error occured in line number {exc_tb.tb_lineno}",Format=False,PDF = pdf)
             STARTUP.STORE_DATA('{}'.format(e),Format=False,PDF = pdf)
+            return e
 
 
 
@@ -207,11 +210,7 @@ class M_CTC_id_003(M_CTC_id_001):
                     Flag = True
                     results.append(Flag)
                 else:
-                    Flag = False
-                    results.append(Flag)
-            for i in results:
-                if i == False:
-                    return 'Call home initiated..'
+                    return res
             return True
 
                     
@@ -312,4 +311,5 @@ if __name__ == "__main__":
     end_time = time.time()
     print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
+
 
