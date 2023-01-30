@@ -196,11 +196,19 @@ QPlainTextEdit{
         self.M_CTC_ID_027.setObjectName("M_CTC_ID_027")
         self.M_CTC_ID_027.setText('M_CTC_ID_027')
         self.verticalLayout1.addWidget(self.M_CTC_ID_027)
+<<<<<<< HEAD
         self.checkboxes = [self.M_CTC_ID_001,self.M_CTC_ID_002, self.M_CTC_ID_003,self.M_CTC_ID_011, 
                     self.M_CTC_ID_012, self.M_CTC_ID_013, self.M_CTC_ID_015, self.M_CTC_ID_014, self.M_CTC_ID_016,
                     self.M_CTC_ID_017, self.M_CTC_ID_018, self.M_CTC_ID_019, self.M_CTC_ID_020, self.M_CTC_ID_021, self.M_CTC_ID_022,
                     self.M_CTC_ID_023,self.M_CTC_ID_026, self.M_CTC_ID_027, self.M_CTC_ID_010, self.M_CTC_ID_007, self.M_CTC_ID_008,
                     self.M_CTC_ID_009, ]
+=======
+
+        self.checkboxes = [self.M_CTC_ID_001,self.M_CTC_ID_002, self.M_CTC_ID_003, self.M_CTC_ID_007,self.M_CTC_ID_008,
+                    self.M_CTC_ID_009, self.M_CTC_ID_010, self.M_CTC_ID_011, self.M_CTC_ID_012, self.M_CTC_ID_013, self.M_CTC_ID_014,
+                    self.M_CTC_ID_015,self.M_CTC_ID_016, self.M_CTC_ID_017, self.M_CTC_ID_018, self.M_CTC_ID_019, self.M_CTC_ID_020,
+                    self.M_CTC_ID_021, self.M_CTC_ID_022, self.M_CTC_ID_023,self.M_CTC_ID_026, self.M_CTC_ID_027]
+>>>>>>> 9e8b81822c4bb658f5e4ee26c2f65b07e1c64384
 
         self.select_all = QtWidgets.QCheckBox(self.test_case_frame)
         self.select_all.setObjectName("select_all")
@@ -296,6 +304,7 @@ QPlainTextEdit{
         self.input_16.addItems(duplex_list)
         self.gridLayout_2.addWidget(self.input_16, 2, 0, 1, 1)
         self.input_19 = QtWidgets.QComboBox(self.input_frame)
+<<<<<<< HEAD
         scs_value = ['SCS Value..','KHZ_15', 'KHZ_30', 'KHZ_60', 'KHZ_120', 'KHZ_240']
         self.input_19.addItems(scs_value)
         self.gridLayout_2.addWidget(self.input_19, 2, 1, 1, 1)
@@ -306,12 +315,20 @@ QPlainTextEdit{
         self.input_15 = QtWidgets.QLineEdit(self.input_frame)
         self.input_15.setObjectName("input_15")
         self.gridLayout_2.addWidget(self.input_15, 2, 3, 1, 1)
+=======
+        scs_value = ['SCS Value..','15KHz', '30KHz', '60KHz', '120KHz', '240KHz']
+        self.input_19.addItems(scs_value)
+        self.gridLayout_2.addWidget(self.input_19, 2, 1, 1, 1)
+        self.input_15 = QtWidgets.QLineEdit(self.input_frame)
+        self.input_15.setObjectName("input_15")
+        self.gridLayout_2.addWidget(self.input_15, 2, 2, 1, 1)
+>>>>>>> 9e8b81822c4bb658f5e4ee26c2f65b07e1c64384
         self.input_17 = QtWidgets.QLineEdit(self.input_frame)
         self.input_17.setObjectName("input_17")
-        self.gridLayout_2.addWidget(self.input_17, 2, 4, 1, 1)
+        self.gridLayout_2.addWidget(self.input_17, 2, 3, 1, 1)
         self.input_18 = QtWidgets.QLineEdit(self.input_frame)
         self.input_18.setObjectName("input_17")
-        self.gridLayout_2.addWidget(self.input_18, 2, 5, 1, 1)
+        self.gridLayout_2.addWidget(self.input_18, 2, 4, 1, 1)
         self.verticalLayout_3.addWidget(self.input_frame)
         self.buttons = QtWidgets.QFrame(self.InputFrame)
         self.buttons.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -381,9 +398,15 @@ QPlainTextEdit{
         self.input_07.setPlaceholderText(_translate("run_all_tc", "Paragon IP"))
         self.input_08.setPlaceholderText(_translate("run_all_tc", "PTP & SYNCE Port"))
         # self.input_10.setPlaceholderText(_translate("run_all_tc", "Bandwidth"))
+<<<<<<< HEAD
         self.input_13.setPlaceholderText(_translate("run_all_tc", "{Eg:3.6[GHz]}TX Center Freq."))
         self.input_14.setPlaceholderText(_translate("run_all_tc", "{Eg:3.6[GHz]}RX Center Freq."))
         self.input_15.setPlaceholderText(_translate("run_all_tc", "SFTP Password"))
+=======
+        self.input_13.setPlaceholderText(_translate("run_all_tc", "TX Center Frequency"))
+        self.input_14.setPlaceholderText(_translate("run_all_tc", "RX Center Frequency"))
+        self.input_15.setPlaceholderText(_translate("run_all_tc", "DU Password"))
+>>>>>>> 9e8b81822c4bb658f5e4ee26c2f65b07e1c64384
         # self.input_16.setPlaceholderText(_translate("run_all_tc", "Duplex Scheme"))
         self.input_17.setPlaceholderText(_translate("run_all_tc", "Software FIle Path"))
         self.input_18.setPlaceholderText(_translate("run_all_tc", "Currupt FIle Path"))
