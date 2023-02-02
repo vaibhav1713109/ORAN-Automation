@@ -481,11 +481,11 @@ def render_header(PDF,TABLE_Header):
 
 def render_table_data(PDF,TABLE_DATA):  # repeat data rows
     line_height=10
-    col_width=45
+    col_width=PDF.epw/len(TABLE_DATA[0])
     for row in TABLE_DATA:
         for datum in row:
             PDF.multi_cell(col_width, line_height, datum, border=1,
-                new_x="RIGHT", new_y="TOP", max_line_height=PDF.font_size,align='C')
+                new_x="RIGHT", new_y="TOP", max_line_height=PDF.font_size,align='L')
         PDF.ln(line_height)
 
 

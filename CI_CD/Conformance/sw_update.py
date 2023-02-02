@@ -45,7 +45,7 @@ from require import STARTUP
 ## Initiate PDF
 ###############################################################################
 pdf = STARTUP.PDF_CAP()
-summary = []
+summary = {}
 
 class Firmware_Upgrade(vlan_Creation):
     # init method or constructor 
@@ -89,7 +89,7 @@ class Firmware_Upgrade(vlan_Creation):
             dict_data = xmltodict.parse(str(cap))
             if dict_data['nc:rpc-reply']['nc:ok'] == None:
                 STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
-            summary.append('Netopeer Connection, capability exchange and create-subscription completed!!')
+            summary['Netopeer Connection, capability exchange and create-subscription :'] = 'Successful!!'
             return True
 
         except Exception as e:
@@ -179,7 +179,7 @@ class Firmware_Upgrade(vlan_Creation):
                         break
                 except:
                     pass
-            summary.append('Software download process completed!!')
+            summary['Software File Download :'] = f'{self.sw_file_name[-1]} Successful!!'
             return True
 
         except Exception as e:
@@ -267,7 +267,7 @@ class Firmware_Upgrade(vlan_Creation):
                     pass
                 else:
                     return f'Slots Active and Running Status are diffrent for {SLOT["name"]}...'
-            summary.append('Software install process completed!!')
+            summary[f'Software {self.sw_file_name[-1]} Install :'] = f'Successfully install on {self.inactive_slot}!!'
             return True
         
         except Exception as e:
@@ -361,7 +361,7 @@ class Firmware_Upgrade(vlan_Creation):
                             xml_pretty_str, Format='XML', PDF=pdf)
                         return f"SW Inventory didn't update for {slot['name'] }..."
             STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf)
-            summary.append('Software activate process completed!!')
+            summary[f'Software {self.sw_file_name[-1]} Activate :'] = f'Successfully activate on {self.inactive_slot}!!'
             return True
 
         except Exception as e:
@@ -392,7 +392,7 @@ class Firmware_Upgrade(vlan_Creation):
 
         Test_Step3 = '\t\tStep 3 : O-RU restarts with a new software version running matching the version activated.'
         STARTUP.STORE_DATA('{}'.format(Test_Step3),Format='TEST_STEP', PDF=pdf)
-        summary.append('RU going for reboot!!')
+        summary['O-RU going for reboot:'] = 'Successful!!'
         return True
     
     ###############################################################################
@@ -404,7 +404,7 @@ class Firmware_Upgrade(vlan_Creation):
         ###############################################################################
         ## Perform Call Home to get IP after RU comes up
         ###############################################################################
-        t = time.time() +20
+        t = time.time() +30
         while time.time() < t:
             try:
                 self.session2, self.login_info = STARTUP.session_login(host = self.hostname,USER_N = self.USER_N,PSWRD = self.PSWRD)
@@ -413,12 +413,7 @@ class Firmware_Upgrade(vlan_Creation):
                     ###############################################################################
                     ## Check the get filter of SW
                     ###############################################################################
-                    sw_inv = '''<filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-                            <software-inventory xmlns="urn:o-ran:software-management:1.0">
-                            </software-inventory>
-                            </filter>'''
-
-                    slot_names = self.session2.get(sw_inv).data_xml
+                    slot_names = self.session2.get(self.sw_inv).data_xml
                     s = xml.dom.minidom.parseString(slot_names)
                     xml_pretty_str = s.toprettyxml()
                     dict_slots = xmltodict.parse(str(slot_names))
@@ -430,7 +425,7 @@ class Firmware_Upgrade(vlan_Creation):
                             STARTUP.STORE_DATA(xml_pretty_str,Format='XML', PDF=pdf)
                             return f'{i["name"]} status is not correct....'
                     STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf)
-                    summary.append('Software Successfully update!!')
+                    summary[f'Software {self.sw_file_name}:'] = 'Successfuly Update and Running!!'
                     return True
                 
             ###############################################################################
@@ -447,7 +442,7 @@ class Firmware_Upgrade(vlan_Creation):
 
             except RPCError as e:
                 exc_type, exc_obj, exc_tb = sys.exc_info()
-                print(
+                STARTUP.STORE_DATA(
                     f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
                 # self.session.close_session()
                 return [e.type, e.tag, e.severity, e.path, e.message, exc_tb.tb_lineno]
@@ -474,7 +469,7 @@ class Firmware_Upgrade(vlan_Creation):
                 syslog = configur.get('INFO','syslog_path').split()
                 command = "cat {0}; cat {1};".format(syslog[0],syslog[1])
                 ssh = paramiko.SSHClient()
-                ssh.load_system_host_keys()
+                # ssh.load_system_host_keys()
                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
                 ssh.connect(host, port, username, password)
 
@@ -492,7 +487,6 @@ class Firmware_Upgrade(vlan_Creation):
     ## Befor_Reset
     ###############################################################################
     def Befor_Reset(self):
-        summary.append('Firmware Upgrade process start!!')
         Check1 = self.linked_detected()
         
         ###############################################################################
@@ -505,6 +499,7 @@ class Firmware_Upgrade(vlan_Creation):
         self.sftp_pass = configur.get('INFO','sftp_pass')
         self.interface_ip = ifcfg.interfaces()[self.interface]['inet']
         self.rmt = 'sftp://{0}@{1}:22{2}'.format(self.sftp_user,self.interface_ip, self.sw_file)
+        self.sw_file_name = self.sw_file.split('/')
         if Check1 == False or Check1 == None:
             return Check1
         
@@ -545,12 +540,12 @@ class Firmware_Upgrade(vlan_Creation):
                 Res1 = self.netopeer_connection_and_capability()
                 if Res1 != True:
                     return Res1
-                Res2 = self.software_download()
-                if Res2 != True:
-                    return Res2
-                Res3 = self.software_install()
-                if Res3 != True:
-                    return Res3
+                # Res2 = self.software_download()
+                # if Res2 != True:
+                #     return Res2
+                # Res3 = self.software_install()
+                # if Res3 != True:
+                #     return Res3
                 Res4 = self.software_activate()
                 if Res4 != True:
                     return Res4
@@ -712,6 +707,9 @@ if __name__ == "__main__":
     print('#'*100)
     print('{0} Summary {0}'.format('*'*30))
     print('#'*100)
-    print('\n'.join(summary))
-    pass
+    sumry = tuple(zip(summary.keys(),summary.values()))
+    STARTUP.render_table_data(pdf,sumry)
+    STARTUP.CREATE_LOGS('test',PDF=pdf)
+    for i in sumry:
+        print(f"{f'{i[0]}' : <70}{'=' : ^20}{f'{i[1]}' : ^20}")
 
