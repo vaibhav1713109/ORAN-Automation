@@ -1,7 +1,0 @@
-<port-transceivers xmlns="urn:o-ran:transceiver:1.0">
-      <port-transceiver-data>
-        <interface-name>{int_name}</interface-name>
-        <port-number>{number}</port-number>
-        <name>ru_port{number}</name>
-      </port-transceiver-data>
-</port-transceivers>
