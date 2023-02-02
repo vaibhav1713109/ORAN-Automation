@@ -1,0 +1,18 @@
+<mplane-info xmlns="urn:o-ran:mplane-interfaces:1.0">
+ <m-plane-interfaces>
+   <m-plane-sub-interfaces>
+     <interface-name>eth1.100</interface-name>
+     <sub-interface>100</sub-interface>
+   </m-plane-sub-interfaces>
+   <m-plane-ssh-ports>
+     <call-home-ssh-port>4334</call-home-ssh-port>
+     <server-ssh-port>830</server-ssh-port>
+   </m-plane-ssh-ports>
+ </m-plane-interfaces>
+ <configured-client-info>
+ <mplane-ipv4-info>
+  <mplane-ipv4>192.168.4.87</mplane-ipv4>
+   <port>830</port>
+ </mplane-ipv4-info>
+ </configured-client-info>
+</mplane-info>
