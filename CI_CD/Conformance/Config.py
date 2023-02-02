@@ -25,6 +25,10 @@ def take_input():
     'ru_name_rev' : input('Enter RU Name and rev {eg. MCB1_revA}: '),
     'sudo_user' : input('Enter Sudo user: '),
     'sudo_pass' : input('Enter Sudo password: '),
+    'sftp_user' : input('Enter sftp username: '),
+    'sftp_pass' : input('Enter sftp Password: '),
+    'sw_path' : input('Enter SW file path {eg. sftp://{whoami}@{ip_address_sftpserver}:22/path/to/sw/file}: '),
+    # 'currupt_path' : input('Enter SW file path {eg. sftp://{whoami}@{ip_address_sftpserver}:22/path/to/corrupt_sw/file}: ')
     # 'fh_interface' : input('Enter Fronthaul interface of RU {eg. eth0/eth1}: '),
     # 'bandwidth' : input('Enter Bandwidths: '),
     # 'tx_arfcn' : input('Enter TX Arfcn: '),
@@ -32,9 +36,6 @@ def take_input():
     # 'tx_center_frequency' : input('Enter TX center frequency {eg. 490000}: '),
     # 'rx_center_frequency' : input('Enter RX center frequency {eg. 390000}: '),
     # 'duplex_scheme' : input('Enter Duplex scheme {eg. TDD/FDD}: '),
-    'du_pass' : input('Enter DU Password: '),
-    'sw_path' : input('Enter SW file path {eg. sftp://{whoami}@{ip_address_sftpserver}:22/path/to/sw/file}: '),
-    # 'currupt_path' : input('Enter SW file path {eg. sftp://{whoami}@{ip_address_sftpserver}:22/path/to/corrupt_sw/file}: ')
     }
     WriteData(data, '{}/Conformance/inputs.ini'.format(directory_path))
     try:

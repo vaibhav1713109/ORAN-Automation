@@ -2,6 +2,8 @@ import subprocess
 import random, ifcfg, os, time
 import ISC_DHCP_SERVER as ISC_DHCP_SERVER
 import LINK_DETECTED as LINK_DETECTED
+directory_path = os.path.dirname(__file__)
+print(directory_path)
 
 class test_DHCP_CONF():
     def __init__(self) -> None:
@@ -17,28 +19,25 @@ class test_DHCP_CONF():
 
     ############################################ Read dhcp configuration and add data in dhcp configurration file. ############################################
     def test_read(self): 
-        while True:   
+        t = time.time() + 100
+        while t > time.time():   
             self.INTERFACE_NAME, self.interfaces_name= LINK_DETECTED.Link_Detect().test_linked_detected()
             if self.INTERFACE_NAME:                                  # Call the linkdetected func
                 print('Link Detected')
                 break
-            else:
-                print('Link not Detected')
-                return False
-        # print(self.interfaces_name)
+        else:
+            print('Link not Detected')
+            return False
         self.STATIC_IP = self.interfaces_name[self.INTERFACE_NAME]['inet'].split('.')            # Store ip data in list (e.g. 192.168.4.25 >> ['192','168','4','20'])
         # print(self.STATIC_IP)
         self.SUBNET_M = '{}.{}.{}.0'.format(self.STATIC_IP[0],self.STATIC_IP[1],self.STATIC_IP[2])         # Make subnet of ip (e.g. 192.168.3.0)
         hex_ip = '{:02X}:{:02X}:{:02X}:{:02X}'.format(*map(int,self.STATIC_IP))                  # Convert ip into hex (e.g. 192.168.3.20 >> C0:A8:03:10)
-        # print(hex_ip)
-        directory_path = os.path.dirname(__file__)
-        # print(directory_path)
         file = open(os.path.join(directory_path,'../DATA','DHCPD_CONF.txt'), 'r')
         data = file.readlines()
         self.IPADDR = '{}.{}.{}.{}'.format(*map(int,self.STATIC_IP)) 
         ############################################ Chnage ip address for vlan scanning ############################################
         for i in data:
-            print(i)
+            # print(i)
             if 'domain-name-servers' in i:
                 index_of_domain = data.index(i)
                 new_domain = 'option domain-name-servers {}.{}.{}.{};\n'.format(*map(str,self.STATIC_IP))

@@ -56,7 +56,7 @@ class Firmware_Upgrade(vlan_Creation):
         self.PSWRD = ''
         self.session = ''
         self.rmt = ''
-        self.du_pswrd = ''
+        self.sftp_pass = ''
         self.RU_Details = ''
         self.sw_inv = '''<filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
             <software-inventory xmlns="urn:o-ran:software-management:1.0">
@@ -137,7 +137,7 @@ class Firmware_Upgrade(vlan_Creation):
             ## Configure SW Download RPC in RU
             ###############################################################################
             xml_data = open("{}/require/Yang_xml/sw_download.xml".format(parent)).read()
-            xml_data = xml_data.format(rmt_path=self.rmt, password=self.du_pswrd, public_key=pub_key)
+            xml_data = xml_data.format(rmt_path=self.rmt, password=self.sftp_pass, public_key=pub_key)
 
             ###############################################################################
             ## Test Procedure 1
@@ -262,7 +262,7 @@ class Firmware_Upgrade(vlan_Creation):
 
                 elif (SLOT['active'] == 'true' and SLOT['running'] == 'true') or (SLOT['active'] == 'false' and SLOT['running'] == 'false'):
                     if (SLOT['active'] == 'false' and SLOT['running'] == 'false') and (SLOT['name'] != 'swRecoverySlot'):
-                        self.slot_name = SLOT['name']
+                        self.inactive_slot = SLOT['name']
                         del SLOT_INFO[SLOT['name']]
                     pass
                 else:
@@ -285,7 +285,7 @@ class Firmware_Upgrade(vlan_Creation):
             Test_Step1 = '\t\tStep 5 : TER NETCONF Client triggers <rpc><software-activate> Slot must have attributes active = FALSE, running = FALSE.'
             STARTUP.STORE_DATA('{}'.format(Test_Step1), Format='TEST_STEP', PDF=pdf)
             xml_data2 = open("{}/require/Yang_xml/sw_activate.xml".format(parent)).read()
-            xml_data2 = xml_data2.format(slot_name=self.slot_name)
+            xml_data2 = xml_data2.format(slot_name=self.inactive_slot)
 
             STARTUP.STORE_DATA('\n> user-rpc\n', Format=True, PDF=pdf)
             STARTUP.STORE_DATA('******* Replace with below xml ********', Format=True, PDF=pdf)
@@ -332,30 +332,30 @@ class Firmware_Upgrade(vlan_Creation):
             pdf.add_page()
             STARTUP.STORE_DATA(
                 '\n> get --filter-xpath /o-ran-software-management:software-inventory', Format=True, PDF=pdf)
-            sw_inv = '''<filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-                        <software-inventory xmlns="urn:o-ran:software-management:1.0">
-                        </software-inventory>
-                        </filter>'''
-            slot_names1 = self.session.get(sw_inv).data_xml
+            slot_names1 = self.session.get(self.sw_inv).data_xml
             s = xml.dom.minidom.parseString(slot_names1)
             xml_pretty_str = s.toprettyxml()
-            self.RU_Details[1].pop(self.slot_name)
+            self.RU_Details[1].pop(self.inactive_slot)
             slot_n1 = xmltodict.parse(str(slot_names1))
             SLOTS1 = slot_n1['data']['software-inventory']['software-slot']
+            
             for slot in SLOTS1:
-                if slot['status'] == 'INVALID':
+                if slot['name'] == 'swRecoverySlot':
+                    SLOTS1.remove(slot)
+
+                elif slot['status'] == 'INVALID':
                     STARTUP.STORE_DATA(
                         xml_pretty_str, Format='XML', PDF=pdf)
                     return f'SW slot status is Invid for {slot["name"]}...'
-                if slot['name'] == self.slot_name:
+                elif slot['name'] == self.inactive_slot:
                     if (slot['active'] == 'true') and slot['running'] == 'false':
                         pass
                     else:
                         STARTUP.STORE_DATA(
                             xml_pretty_str, Format='XML', PDF=pdf)
-                        return f"SW Inventory didn't update for {self.slot_name}..."
+                        return f"SW Inventory didn't update for {self.inactive_slot}..."
 
-                if slot['name'] == self.inactive_slot:
+                elif slot['name'] != self.inactive_slot:
                     if (slot['active'] != 'false') and slot['running'] != 'true':
                         STARTUP.STORE_DATA(
                             xml_pretty_str, Format='XML', PDF=pdf)
@@ -363,12 +363,13 @@ class Firmware_Upgrade(vlan_Creation):
             STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=pdf)
             summary.append('Software activate process completed!!')
             return True
+
         except Exception as e:
             STARTUP.STORE_DATA('{}'.format(e), Format=True,PDF=pdf)
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
-            return "{e} Software Activate"
+            return f"{e} Software Activate"
 
     def reset_rpc(self):
         ###############################################################################
@@ -458,20 +459,22 @@ class Firmware_Upgrade(vlan_Creation):
                     print(e)
                 pass
         else:
-            return 'Call Home is not Initiated...'
+            return 'Cannection not Established...'
 
     ###############################################################################
     ## Gather system logs
     ###############################################################################
     def system_logs(self,hostname):
-        for _ in range(5):
+        for _ in range(10):
             try:
                 host = hostname
                 port = 22
                 username = self.USER_N
                 password = self.PSWRD
-                command = "cat {};".format(configur.get('INFO','syslog_path'))
+                syslog = configur.get('INFO','syslog_path').split()
+                command = "cat {0}; cat {1};".format(syslog[0],syslog[1])
                 ssh = paramiko.SSHClient()
+                ssh.load_system_host_keys()
                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
                 ssh.connect(host, port, username, password)
 
@@ -483,8 +486,7 @@ class Firmware_Upgrade(vlan_Creation):
                 print(e)
                 pass
         else:
-            print('Can\'t connect to the RU.., Logs are not captured.')
-            return False
+            return 'Can\'t connect to the RU.., Logs are not captured.'
 
     ###############################################################################
     ## Befor_Reset
@@ -496,10 +498,13 @@ class Firmware_Upgrade(vlan_Creation):
         ###############################################################################
         ## Read User Name and password from Config.INI of Config.py
         ###############################################################################
-        self.rmt = configur.get('INFO','sw_path')
-        self.du_pswrd = configur.get('INFO','du_pass')
+        self.sw_file = configur.get('INFO','sw_path')
         self.USER_N = configur.get('INFO','sudo_user')
         self.PSWRD = configur.get('INFO','sudo_pass')
+        self.sftp_user = configur.get('INFO','sftp_user')
+        self.sftp_pass = configur.get('INFO','sftp_pass')
+        self.interface_ip = ifcfg.interfaces()[self.interface]['inet']
+        self.rmt = 'sftp://{0}@{1}:22{2}'.format(self.sftp_user,self.interface_ip, self.sw_file)
         if Check1 == False or Check1 == None:
             return Check1
         
@@ -517,18 +522,26 @@ class Firmware_Upgrade(vlan_Creation):
                 self.RU_Details = STARTUP.demo(session = self.session,host= self.hostname, port= 830)
                 del self.RU_Details[1]['swRecoverySlot']
 
+                ###############################################################################
+                ## Test Description
+                ###############################################################################
                 for key, val in self.RU_Details[1].items():
-                    if val[0] == 'true' and val[1] == 'true':
-                        ###############################################################################
-                        ## Test Description
-                        ###############################################################################
+                    if (val[0] == 'true' and val[1] == 'true'):
                         Test_Desc = 'Test Description :  This test validates that the O-RU can successfully perform a software download and software install procedure.'
                         CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL('Firmware_Upgrade',SW_R = val[2]) 
                         STARTUP.STORE_DATA(CONFIDENTIAL,Format='CONF',PDF= pdf)
                         STARTUP.STORE_DATA(Test_Desc,Format='DESC',PDF= pdf)
                         pdf.add_page()
+                    elif (val[0] == 'true' and val[1] == 'false'):
+                        Test_Desc = 'Test Description :  This test validates that the O-RU can successfully perform a software download and software install procedure.'
+                        CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL('Firmware_Upgrade',SW_R = val[2]) 
+                        STARTUP.STORE_DATA(CONFIDENTIAL,Format='CONF',PDF= pdf)
+                        STARTUP.STORE_DATA(Test_Desc,Format='DESC',PDF= pdf)
+                        pdf.add_page()
+                        self.inactive_slot = key
                     else:
                         self.inactive_slot = key
+
                 Res1 = self.netopeer_connection_and_capability()
                 if Res1 != True:
                     return Res1
@@ -541,6 +554,10 @@ class Firmware_Upgrade(vlan_Creation):
                 Res4 = self.software_activate()
                 if Res4 != True:
                     return Res4
+                Res5 = self.reset_rpc()
+                if Res5 != True:
+                    return Res5
+                return True
             
                 
         ###############################################################################
@@ -582,17 +599,20 @@ class Firmware_Upgrade(vlan_Creation):
     ###############################################################################
     def after_reset(self):
         time.sleep(40)
-        Res5 = self.get_config_detail()
+        Res1 = self.get_config_detail()
+        time.sleep(5)
         self.logs2 = self.system_logs(self.hostname)
-        if Res5 != True:
-            return Res5
-        pass
+        # print(self.logs2)
+        if Res1 != True:
+            return Res1
+        return Res1
     
     ###############################################################################
     ## Main Function
     ###############################################################################
     def Main_fw_upgrade(self):
         Check1 = self.Befor_Reset()
+        # print(Check1)
         if Check1 == False:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
             STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= pdf)
@@ -645,6 +665,9 @@ class Firmware_Upgrade(vlan_Creation):
                 STARTUP.CREATE_LOGS('Firmware_Upgrade',PDF=pdf)
 
         else:
+            STARTUP.STORE_DATA('\t\t\t\t############ SYSTEM LOGS ##############',Format=True,PDF=pdf)
+            for i in self.logs1:
+                STARTUP.STORE_DATA("{}".format(i),Format=False,PDF=pdf)
             ###############################################################################
             ## Expected/Actual Result
             ###############################################################################
@@ -685,5 +708,10 @@ class Firmware_Upgrade(vlan_Creation):
 if __name__ == "__main__":
     fw_upgrade = Firmware_Upgrade()
     fw_upgrade.Main_fw_upgrade()
+    print('\n\n')
+    print('#'*100)
+    print('{0} Summary {0}'.format('*'*30))
+    print('#'*100)
+    print('\n'.join(summary))
     pass
 
