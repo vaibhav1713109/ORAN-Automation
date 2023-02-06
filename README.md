@@ -44,7 +44,7 @@ https://user-images.githubusercontent.com/69416241/210977478-f5ddd2da-b262-4356-
   - Run below command
     -sudo python login.py
 - **Run with terminal**
-  - Go to Conformance directory
+  - Go to M Plane Conformance directory
   - Run below command
     - python config.py 
       - Note:  fill all the credentials which will be asked.
