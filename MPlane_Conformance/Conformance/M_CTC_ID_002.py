@@ -44,6 +44,7 @@ from Conformance.M_CTC_ID_001 import *
 ## Initiate PDF
 ###############################################################################
 pdf = STARTUP.PDF_CAP()
+summary = []
 
 class M_CTC_id_002(M_CTC_id_001):
 
@@ -56,13 +57,18 @@ class M_CTC_id_002(M_CTC_id_001):
         summary = pkt.summary()
         try:
             if 'TCP' in summary:
+                interfaces = ifcfg.interfaces()
+                mac_address = interfaces[self.interface]['ether']
+                if mac_address == pkt.src:
                 # pkt.show()
-                if  pkt['TCP'].flags == 'RA' or pkt['TCP'].sport == 4334 or pkt['TCP'].sport == 830:
                     print('Got ip to the VLAN...')
                     print('VLAN IP is : {}'.format(pkt['IP'].dst))
                     self.ip_address = pkt['IP'].dst
-                    print(self.ip_address)
-                    time.sleep(5)
+                    return True
+                else:
+                    print('Got ip to the VLAN...')
+                    print('VLAN IP is : {}'.format(pkt['IP'].src))
+                    self.ip_address = pkt['IP'].src
                     return True
         except Exception as e:
             # print(e)
@@ -93,10 +99,6 @@ class M_CTC_id_002(M_CTC_id_001):
 
         except:
             print("User doesn't have SUDO permission")
-
-
-        
-        print(s)
         return s
 
 
@@ -106,17 +108,16 @@ class M_CTC_id_002(M_CTC_id_001):
     ###############################################################################
     def Call_Home(self,user,pswrd):
         try:
-            self.session = STARTUP.call_home(host='', port=4334, username=user, password=pswrd, timeout = 10,allow_agent = False , look_for_keys = False)
+            LISTEN = f'''> listen --ssh --login {user}\nWaiting 60s for an SSH Call Home connection on port 4334...'''
+            STARTUP.STORE_DATA(LISTEN,Format=False,PDF = pdf)
+            self.session = STARTUP.call_home(host='', port=4334, username=user, password=pswrd, timeout = 60,allow_agent = False , look_for_keys = False)
             print(self.session.session_id)
             self.session.close_session()
-            return False
+            return 'Call Home Initiated!!'
             
         
             
         except SSHUnknownHostError as e:
-            LISTEN = f'''> listen --ssh --login {user}\nWaiting 60s for an SSH Call Home connection on port 4334...'''
-            STARTUP.STORE_DATA(LISTEN,Format=False,PDF = pdf)
-
             SSH_AUTH = f'''The authenticity of the host '::ffff:{self.ip_address}' cannot be established.
             ssh-rsa key fingerprint is {self.fingerprint}.
             Are you sure you want to continue connecting (yes/no)? no
@@ -127,8 +128,10 @@ class M_CTC_id_002(M_CTC_id_001):
             return True
         
         except Exception as e:
-            print(e)
-            self.session.close_session()
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            STARTUP.STORE_DATA(f"Error occured in line number {exc_tb.tb_lineno}",Format=False,PDF = pdf)
+            STARTUP.STORE_DATA('{}'.format(e),Format=False,PDF = pdf)
+            return e
 
 
     ###############################################################################
@@ -136,7 +139,7 @@ class M_CTC_id_002(M_CTC_id_001):
     ###############################################################################
     def test_call_home(self):
         
-        notification("Test Case M_CTC_ID_002 is under process...")
+        summary.append("Test Case M_CTC_ID_002 is under process...")
         Check1 = self.linked_detected()
         pkt = sniff(iface = self.interface, stop_filter = self.check_vlan_tag, timeout = 100)
         Check3 = self.ping_status()
@@ -190,13 +193,12 @@ class M_CTC_id_002(M_CTC_id_001):
             results = []
             for key, val in users.items():
                 res = self.Call_Home(key,val)
-                results.append(res)
+                if res != True:
+                    return res
             for key, val in users1.items():
                 res = self.Call_Home(key,val)
-                results.append(res)
-            for i in results:
-                if i == False:
-                    return 'Call home initiated..'
+                if res != True:
+                    return res
             return True
 
                     
@@ -240,8 +242,8 @@ def test_M_ctc_id_002():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected/DHCP IP not pinging...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-        notification('FAIL_REASON :SFP link not detected/DHCP IP not pinging...')
-        notification(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}")
+        summary.append('FAIL_REASON :SFP link not detected/DHCP IP not pinging...')
+        summary.append(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
 
     ###############################################################################
@@ -254,7 +256,7 @@ def test_M_ctc_id_002():
     try:
         if Check == True:
             STARTUP.ACT_RES(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=(105, 224, 113))
-            notification(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'SUCCESS' : ^20}")
+            summary.append(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'SUCCESS' : ^20}")
             return True
 
         elif type(Check) == list:
@@ -262,16 +264,16 @@ def test_M_ctc_id_002():
             Error_Info = '''\terror-tag \t: \t{}\n\terror-type \t: \t{}\n\terror-severity \t: \t{}\n\tDescription' \t: \t{}'''.format(*map(str,Check))
             STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            notification("FAIL_REASON : {}".format(Error_Info))
-            notification(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}")
+            summary.append("FAIL_REASON : {}".format(Error_Info))
+            summary.append(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
         else:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
             STARTUP.STORE_DATA('{}'.format(Check),Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            notification("FAIL_REASON : {}".format(Check))
-            notification(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}")
+            summary.append("FAIL_REASON : {}".format(Check))
+            summary.append(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
             
     except Exception as e:
@@ -279,8 +281,8 @@ def test_M_ctc_id_002():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
-            notification("FAIL_REASON : {}".format(e))
-            notification(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}")
+            summary.append("FAIL_REASON : {}".format(e))
+            summary.append(f"{'Transport and Handshake in IPv4 Environment (negative case: refuse SSH Connection)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
 
@@ -289,7 +291,8 @@ def test_M_ctc_id_002():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_002',PDF=pdf)
-        notification("Successfully completed Test Case M_CTC_ID_002. Logs captured !!")
+        summary.append("Successfully completed Test Case M_CTC_ID_002. Logs captured !!")
+        notification('\n'.join(summary))
     
 if __name__ == "__main__":
     start_time = time.time()
@@ -298,4 +301,5 @@ if __name__ == "__main__":
     print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
         
+
 

@@ -171,18 +171,29 @@ class vlan_Creation():
         try:
             if 'TCP' in summary:
                 # pkt.show()
-                if  pkt['TCP'].flags == 'RA' or pkt['TCP'].sport == 4334 or pkt['TCP'].sport == 830:
+                # if  pkt['TCP'].flags == 'RA' or pkt['TCP'].sport == 4334 or pkt['TCP'].sport == 830:
+                interfaces = ifcfg.interfaces()
+                mac_address = interfaces[self.interface]['ether']
+                if mac_address == pkt.src:
                     print('Got ip to the Fronthaul Interface...')
                     print('Fronthaul Interface IP is : {}'.format(pkt['IP'].dst))
                     self.du_hostname = pkt['IP'].src
                     self.hostname = pkt['IP'].dst
                     # print(self.hostname)
-                    time.sleep(5)
                     return True
+                else:
+                    print('Got ip to the Fronthaul Interface...')
+                    print('Fronthaul Interface IP is : {}'.format(pkt['IP'].src))
+                    self.du_hostname = pkt['IP'].dst
+                    self.hostname = pkt['IP'].src
+                    # print(self.hostname)
+                    return True
+
         except Exception as e:
             # print(e)
             return False
         pass
+
 
 
 if __name__ == "__main__":

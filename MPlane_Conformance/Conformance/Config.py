@@ -47,6 +47,7 @@ def take_input():
     try:
         os.mkdir('{}/LOGS/{}'.format(directory_path,data['ru_name_rev']))
     except Exception as e:
+        print(e)
 
 
 if __name__ == '__main__':

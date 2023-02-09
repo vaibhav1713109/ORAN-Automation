@@ -80,6 +80,9 @@ def select_testcase():
     Header = ['Test Case', 'Test Case ID', 'Execution Time']
     verdict_table = []
     st = time.time()
+
+    
+    verdict_table = []
     for selectCase in user_input:
         print('#'*100)
         print(f'\t\tExecuted test case is {selectCase}')
@@ -305,16 +308,14 @@ def select_testcase():
                 verdict_table.append(['O-RU configurability test (negative case)','Pass',str(total_time)])
             else:
                 verdict_table.append(['O-RU configurability test (negative case)','Fail',str(total_time)])
-
         else:
             print(f'{selectCase} is not executable/ not present in table..')
-    Header = ['Test Case', 'Verdict']
+
+            
     print(tabulate(verdict_table, headers=Header, stralign='left',
           maxcolwidths=[50, 20], tablefmt='fancy_grid'))
     en = time.time()
     print('Total Excecution Time : {:.2f} sec.'.format(en-st) )
-
-
+    
 if __name__ == '__main__':
     select_testcase()
-    

@@ -46,6 +46,7 @@ from require.Vlan_Creation import *
 ## Initiate PDF
 ###############################################################################
 pdf = STARTUP.PDF_CAP()
+summary = []
 
 class M_CTC_ID_026(vlan_Creation):
     # init method or constructor 
@@ -106,14 +107,15 @@ class M_CTC_ID_026(vlan_Creation):
             STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,830)
             STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
             STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
-
+            summary.append('Netconf Session Established!!')
 
             ###############################################################################
             ## Server Capabilities
             ###############################################################################
             for cap in self.session.server_capabilities:
                 STARTUP.STORE_DATA("\t{}".format(cap),Format=False,PDF = pdf)
-                
+            summary.append('Hello Capabilities Exchanged!!')
+
             ###############################################################################
             ## Create_subscription
             ###############################################################################
@@ -123,7 +125,8 @@ class M_CTC_ID_026(vlan_Creation):
             dict_data = xmltodict.parse(str(cap))
             if dict_data['nc:rpc-reply']['nc:ok'] == None:
                 STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
-            
+            summary.append('Subscription with netconf-config filter Performed!!')
+
             ###############################################################################
             ## Configure Interface Yang
             ###############################################################################
@@ -178,7 +181,8 @@ class M_CTC_ID_026(vlan_Creation):
             
             
             xml_1 = open('{}/require/Yang_xml/uplane.xml'.format(parent)).read()
-            xml_1 = xml_1.format(tx_arfcn = self.tx_arfcn, rx_arfcn = self.rx_arfcn, bandwidth = int(float(self.bandwidth)*(10**6)), tx_center_freq = int(float(self.tx_center_freq)*(10**9)), rx_center_freq = int(float(self.rx_center_freq)*(10**9)), duplex_scheme = self.duplex_scheme,element_name= self.element_name)
+            xml_1 = xml_1.format(tx_arfcn = self.tx_arfcn, rx_arfcn = self.rx_arfcn, bandwidth = int(float(self.bandwidth)*(10**6)), tx_center_freq = int(float(self.tx_center_freq)*(10**9)), 
+                    rx_center_freq = int(float(self.rx_center_freq)*(10**9)), duplex_scheme = self.duplex_scheme,element_name= self.element_name, scs_val = self.scs_val)
             XML_DATA = xmltodict.parse(str(xml_1))
             snippet = f"""
                         <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
@@ -187,6 +191,7 @@ class M_CTC_ID_026(vlan_Creation):
                         
             STARTUP.STORE_DATA(snippet,Format='XML', PDF=pdf)
             data1 = self.session.edit_config(target="running", config=snippet, default_operation = 'replace')
+            summary.append("Configuring o-ran-user-plane yang!!")
 
             ###############################################################################
             ## Test Procedure 2 : Get RPC Reply
@@ -246,6 +251,7 @@ class M_CTC_ID_026(vlan_Creation):
             ################# Check the ARFCN #################
             if (ARFCN_RX1 == self.rx_arfcn) and (ARFCN_TX1 == self.tx_arfcn):
                 STARTUP.STORE_DATA(xml_pretty_str,Format='XML', PDF=pdf)
+                summary.append("o-ran-user-plane yang configured successfully!!")
                 return True
             else:
                 return "o-ran-uplane configuration didn't configure in O-RU"
@@ -274,6 +280,7 @@ class M_CTC_ID_026(vlan_Creation):
     ## Main Function
     ###############################################################################
     def test_Main_026(self):
+        summary.append("Test Case M_CTC_ID_026 is under process...")
         Check1 = self.linked_detected()
         
         
@@ -289,6 +296,7 @@ class M_CTC_ID_026(vlan_Creation):
         self.rx_center_freq = configur.get('INFO','rx_center_frequency')
         self.duplex_scheme = configur.get('INFO','duplex_scheme')
         self.interface_ru = configur.get('INFO','fh_interface')
+        self.scs_val = configur.get('INFO','scs_value')
         if Check1 == False or Check1 == None:
             return Check1
         sniff(iface = self.interface, stop_filter = self.check_tcp_ip, timeout = 100)
@@ -367,6 +375,8 @@ def test_m_ctc_id_026():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'O-RU configurability test (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
+        summary.append('FAIL_REASON : SFP link not detected...')
+        summary.append(f"{'O-RU configurability test (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
 
     ###############################################################################
@@ -380,6 +390,7 @@ def test_m_ctc_id_026():
     try:
         if Check == True:
             STARTUP.ACT_RES(f"{'O-RU configurability test (positive case)' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=[0,255,0])
+            summary.append(f"{'O-RU configurability test (positive case)' : <50}{'=' : ^20}{'PASS' : ^20}")
             return True
 
         elif type(Check) == list:
@@ -387,12 +398,15 @@ def test_m_ctc_id_026():
             Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tpath \t: \t{}\n\tDescription' \t: \t{}'''.format(*map(str,Check))
             STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'O-RU configurability test (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
-            STARTUP.ACT_RES(f"{'O-RU configurability test (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
+            summary.append("FAIL_REASON : {}".format(Error_Info))
+            summary.append(f"{'O-RU configurability test (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
         else:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
             STARTUP.STORE_DATA('{}'.format(Check),Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'O-RU configurability test (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
+            summary.append("FAIL_REASON : {}".format(Check))
+            summary.append(f"{'O-RU configurability test (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
 
@@ -401,6 +415,8 @@ def test_m_ctc_id_026():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
+            summary.append("FAIL_REASON : {}".format(e))
+            summary.append(f"{'O-RU configurability test (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
     ###############################################################################
@@ -408,11 +424,13 @@ def test_m_ctc_id_026():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_026',PDF=pdf)
+        summary.append("Successfully completed Test Case M_CTC_ID_026. Logs captured !!") 
+        notification('\n'.join(summary))
 
 
 if __name__ == "__main__":
     start_time = time.time()
     test_m_ctc_id_026()
     end_time = time.time()
-    print('Execution Time is : {}'.format(end_time-start_time))
+    print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
