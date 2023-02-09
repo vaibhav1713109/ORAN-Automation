@@ -1,0 +1,14 @@
+<file-upload xmlns="urn:o-ran:file-management:1.0">
+<local-logical-file-path>/home/root/O-RAN-WG4.MP.0-v04.00.pdf</local-logical-file-path>
+<remote-file-path>{rmt_path}</remote-file-path>
+<password>
+  <password>{password}</password>
+</password>
+<server>
+  <keys>
+    <algorithm>rsa2048</algorithm>
+    <public-key>{pub_key}</public-key>
+  </keys>
+</server>
+</file-upload>
+

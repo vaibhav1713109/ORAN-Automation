@@ -1,0 +1,9 @@
+{
+    "Username": "operator",
+    "password": "admin123",
+    "Paragon_IP": "172.17.80.4",
+    "root_Username": "root",
+    "root_password": "root",
+    "Log_file_name": "mcel.log",
+    "File_path": "/home/vvdn"
+}

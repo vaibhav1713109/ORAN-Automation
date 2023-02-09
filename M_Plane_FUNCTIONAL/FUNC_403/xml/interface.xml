@@ -1,0 +1,14 @@
+<interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+ <interface>
+   <name>{interface_name}.100</name>
+   <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:l2vlan</type>
+   <enabled>true</enabled>
+   <base-interface xmlns="urn:o-ran:interfaces:1.0">{interface_name}</base-interface>
+   <vlan-id xmlns="urn:o-ran:interfaces:1.0">100</vlan-id>
+   <mac-address xmlns="urn:o-ran:interfaces:1.0">{mac}</mac-address>
+   <port-reference xmlns="urn:o-ran:interfaces:1.0">
+     <port-name>ru-port{number}</port-name>
+     <port-number>{number}</port-number>
+   </port-reference>
+   </interface>
+</interfaces>

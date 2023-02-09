@@ -1,0 +1,4 @@
+<supervision-watchdog-reset xmlns="urn:o-ran:supervision:1.0">               
+    <supervision-notification-interval>{super_n_i}</supervision-notification-interval>
+    <guard-timer-overhead>{guard_t_o}</guard-timer-overhead>                         
+</supervision-watchdog-reset>

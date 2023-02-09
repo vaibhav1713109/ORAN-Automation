@@ -1,0 +1,32 @@
+option domain-name "vvdntech.com";
+option domain-name-servers 192.168.4.15;
+max-lease-time 7200;
+default-lease-time 7200;
+
+class "o-ran-ru"  {
+	match if substring (option vendor-class-identifier, 0, 9) = "o-ran-ru/" ;
+	option vendor-encapsulated-options 01:04:C0:A8:04:0F;
+}
+
+class "o-ran-ru2"  {
+	match if substring (option vendor-class-identifier, 0, 10) = "o-ran-ru2/" ;
+	option vendor-encapsulated-options 81:04:C0:A8:04:0F;
+}
+
+subnet 192.168.4.0 netmask 255.255.255.0 {
+	pool {
+		allow members of "o-ran-ru";
+		allow members of "o-ran-ru2";
+		range 192.168.4.37 192.168.4.67 ;
+	}
+	pool {
+		deny members of "o-ran-ru";
+		deny members of "o-ran-ru2";
+		range 192.168.4.6 192.168.4.36 ;
+	}
+	option routers 192.168.4.15;
+	option broadcast-address 192.168.4.255;
+	option subnet-mask 255.255.255.0;
+	option interface-mtu 1500;
+}
+

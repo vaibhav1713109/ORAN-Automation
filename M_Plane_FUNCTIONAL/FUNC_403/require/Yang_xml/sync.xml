@@ -1,0 +1,23 @@
+<sync xmlns="urn:o-ran:sync:1.0">
+<ptp-config>
+<domain-number>24</domain-number>
+<accepted-clock-classes>
+<clock-classes>255</clock-classes>
+</accepted-clock-classes>
+<ptp-profile>G_8275_1</ptp-profile>
+<g-8275-1-config>
+<multicast-mac-address>FORWARDABLE</multicast-mac-address>
+<delay-asymmetry>0</delay-asymmetry>
+</g-8275-1-config>
+</ptp-config>
+<ptp-status>
+<reporting-period>10</reporting-period>
+</ptp-status>
+<synce-config>
+<acceptance-list-of-ssm>EEC1</acceptance-list-of-ssm>
+<ssm-timeout>10</ssm-timeout>
+</synce-config>
+<synce-status>
+<reporting-period>10</reporting-period>
+</synce-status>
+</sync>

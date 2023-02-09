@@ -1,0 +1,8 @@
+<users xmlns="urn:o-ran:user-mgmt:1.0">
+ <user>                                                     
+   <name>OPERATOR</name>
+   <account-type>PASSWORD</account-type>                                       
+   <password>admin123</password>                            
+   <enabled>true</enabled>                                  
+ </user>
+</users>

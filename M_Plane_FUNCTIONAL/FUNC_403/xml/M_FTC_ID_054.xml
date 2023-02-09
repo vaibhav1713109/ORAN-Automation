@@ -1,0 +1,8 @@
+<users xmlns="urn:o-ran:user-mgmt:1.0">
+ <user>                                                     
+   <name>stligirun48stligirun48stligirun48stligirun48</name>
+   <account-type>PASSWORD</account-type>                                       
+   <password>giru12345</password>                            
+   <enabled>true</enabled>                                  
+ </user>
+</users>
