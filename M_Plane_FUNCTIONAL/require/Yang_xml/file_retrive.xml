@@ -1,4 +1,0 @@
-<retrieve-file-list xmlns="urn:o-ran:file-management:1.0">
-  <logical-path>{log_path}</logical-path>
-  <file-name-filter>{fl_name}}</file-name-filter>
-</retrieve-file-list>

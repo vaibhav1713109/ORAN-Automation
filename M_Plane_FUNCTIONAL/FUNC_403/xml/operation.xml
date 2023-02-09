@@ -1,7 +1,0 @@
-<operational-info xmlns="urn:o-ran:operations:1.0">
-  <clock>
-    <timezone-utc-offset>530</timezone-utc-offset>
-    <timezone-name>Asia/Kolkata</timezone-name>
-  </clock>
-  <re-call-home-no-ssh-timer>60</re-call-home-no-ssh-timer>
-</operational-info>
