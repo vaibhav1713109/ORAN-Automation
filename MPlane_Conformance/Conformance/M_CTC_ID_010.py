@@ -46,6 +46,7 @@ from Conformance.Notification import *
 ## Initiate PDF
 ###############################################################################
 pdf = STARTUP.PDF_CAP()
+summary = []
 
 
 class M_CTC_ID_010(vlan_Creation):
@@ -80,14 +81,14 @@ class M_CTC_ID_010(vlan_Creation):
         STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
         STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,830)
         STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
-        notification('Netconf Session Established!!')
+        summary.append('Netconf Session Established!!')
 
         ###############################################################################
         ## Server Capabilities
         ###############################################################################
         for cap in self.session.server_capabilities:
             STARTUP.STORE_DATA("\t{}".format(cap),Format=False,PDF = pdf)
-        notification('Hello Capabilities Exchanged!!')
+        summary.append('Hello Capabilities Exchanged!!')
             
         ###############################################################################
         ## Create_subscription
@@ -98,7 +99,7 @@ class M_CTC_ID_010(vlan_Creation):
         dict_data = xmltodict.parse(str(cap))
         if dict_data['nc:rpc-reply']['nc:ok'] == None:
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
-        notification('Subscription with netconf-config filter Performed!!')
+        summary.append('Subscription with netconf-config filter Performed!!')
            
 
         pdf.add_page()
@@ -124,7 +125,7 @@ class M_CTC_ID_010(vlan_Creation):
         x = xml.dom.minidom.parseString(Data)
         xml_pretty_str = x.toprettyxml()
         STARTUP.STORE_DATA(xml_pretty_str, Format = 'XML',PDF=pdf)
-        notification('Performed Get Operation without filter!!')
+        summary.append('Performed Get Operation without filter!!')
         return True
 
 
@@ -133,7 +134,7 @@ class M_CTC_ID_010(vlan_Creation):
     ## Main Function
     ###############################################################################
     def test_Main_010(self):
-        notification("Test Case M_CTC_ID_010 is under process...")
+        summary.append("Test Case M_CTC_ID_010 is under process...")
         Check1 = self.sfp_Linked()
         
         print(self.hostname)
@@ -223,8 +224,8 @@ def test_m_ctc_id_010():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('{}'.format('SFP Link not detected..'),Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-        notification('FAIL_REASON :SFP link not detected...')
-        notification(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'FAIL' : ^20}")
+        summary.append('FAIL_REASON :SFP link not detected...')
+        summary.append(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
 
     ###############################################################################
@@ -238,7 +239,7 @@ def test_m_ctc_id_010():
     try:
         if Check == True:
             STARTUP.ACT_RES(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=(105, 224, 113))
-            notification(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'PASS' : ^20}")
+            summary.append(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'PASS' : ^20}")
             return True
             
         elif type(Check) == list:
@@ -246,15 +247,15 @@ def test_m_ctc_id_010():
             Error_Info = '''\terror-tag \t: \t{}\n\terror-type \t: \t{}\n\terror-severity \t: \t{}\n\tDescription' \t: \t{}'''.format(*map(str,Check))
             STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            notification("FAIL_REASON : {}".format(Error_Info))
-            notification(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'FAIL' : ^20}")
+            summary.append("FAIL_REASON : {}".format(Error_Info))
+            summary.append(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
         else:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
             STARTUP.STORE_DATA('{}'.format(Check),Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            notification("FAIL_REASON : {}".format(Check))
-            notification(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'FAIL' : ^20}")
+            summary.append("FAIL_REASON : {}".format(Check))
+            summary.append(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
 
@@ -263,8 +264,8 @@ def test_m_ctc_id_010():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
-            notification("FAIL_REASON : {}".format(e))
-            notification(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'FAIL' : ^20}")
+            summary.append("FAIL_REASON : {}".format(e))
+            summary.append(f"{'Retrieval without Filter Applied' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
 
@@ -273,7 +274,8 @@ def test_m_ctc_id_010():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_010',PDF=pdf)
-        notification("Successfully completed Test Case M_CTC_ID_010. Logs captured !!")    
+        summary.append("Successfully completed Test Case M_CTC_ID_010. Logs captured !!") 
+        notification('\n'.join(summary))   
 
 if __name__ == "__main__":
     start_time = time.time()

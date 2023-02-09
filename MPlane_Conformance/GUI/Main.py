@@ -40,7 +40,7 @@ except Exception as e:
 ########################################################################
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self,dir_name='None'):
+    def __init__(self,dir_name=dir_path):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)

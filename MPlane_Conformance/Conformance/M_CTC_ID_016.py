@@ -47,6 +47,7 @@ from require import STARTUP, Config
 ## Initiate PDF
 ###############################################################################
 pdf = STARTUP.PDF_CAP()
+summary = []
 
 class M_CTC_ID_016(vlan_Creation):
     # init method or constructor 
@@ -66,14 +67,15 @@ class M_CTC_ID_016(vlan_Creation):
         STATUS = STARTUP.STATUS(self.hostname,self.USER_N,self.session.session_id,830)
         STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
         STARTUP.STORE_DATA(STATUS,Format=False,PDF = pdf)
-
+        summary.append('Netconf Session Established!!')
 
         ###############################################################################
         ## Server Capabilities
         ###############################################################################
         for cap in self.session.server_capabilities:
             STARTUP.STORE_DATA("\t{}".format(cap),Format=False,PDF = pdf)
-            
+        summary.append('Hello Capabilities Exchanged!!')
+
         ###############################################################################
         ## Create_subscription
         ###############################################################################
@@ -83,7 +85,7 @@ class M_CTC_ID_016(vlan_Creation):
         dict_data = xmltodict.parse(str(cap))
         if dict_data['nc:rpc-reply']['nc:ok'] == None:
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
-        
+        summary.append('Subscription with software-notification filter Performed!!')
                 
         ###############################################################################
         ## Initial Get Filter
@@ -127,6 +129,7 @@ class M_CTC_ID_016(vlan_Creation):
         ###############################################################################
         ## Test Procedure 1 : Configure SW Activate RPC in RU
         ###############################################################################
+        summary.append('Configure Software Activate RPC!!')
         Test_Step1 = '\t\tStep 1 : TER NETCONF Client triggers <rpc><software-activate> Slot must have attributes active = FALSE, running = FALSE.'
         STARTUP.STORE_DATA('{}'.format(Test_Step1), Format='TEST_STEP', PDF=pdf)
         xml_data2 = open("{}/require/Yang_xml/sw_activate.xml".format(parent)).read()
@@ -169,6 +172,7 @@ class M_CTC_ID_016(vlan_Creation):
                     break
             except:
                 pass
+        summary.append('Software Activate notification captured!!')
 
         ###############################################################################
         ## POST_GET_FILTER
@@ -213,6 +217,7 @@ class M_CTC_ID_016(vlan_Creation):
     ## Main Function
     ###############################################################################
     def test_Main_016(self):
+        summary.append("Test Case M_CTC_ID_016 is under process...")
         Check1 = self.linked_detected()
         
 
@@ -299,6 +304,8 @@ def test_m_ctc_id_016():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'O-RU Software Activate without reset' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+        summary.append('FAIL_REASON :SFP link not detected...')
+        summary.append(f"{'O-RU Software Activate without reset' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
     ###############################################################################
     ## Expected/Actual Result
@@ -311,6 +318,7 @@ def test_m_ctc_id_016():
     try:
         if Check == True:
             STARTUP.ACT_RES(f"{'O-RU Software Activate without reset' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=(0,255,0))
+            summary.append(f"{'O-RU Software Activate without reset' : <50}{'=' : ^20}{'PASS' : ^20}")
             return True
 
         elif type(Check) == list:
@@ -318,11 +326,15 @@ def test_m_ctc_id_016():
             Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check))
             STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'O-RU Software Activate without reset' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+            summary.append("FAIL_REASON : {}".format(Error_Info))
+            summary.append(f"{'O-RU Software Activate without reset' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
         else:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
             STARTUP.STORE_DATA('{}'.format(Check),Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'O-RU Software Activate without reset' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(255,0,0))
+            summary.append("FAIL_REASON : {}".format(Check))
+            summary.append(f"{'O-RU Software Activate without reset' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
 
@@ -331,6 +343,8 @@ def test_m_ctc_id_016():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
+            summary.append("FAIL_REASON : {}".format(e))
+            summary.append(f"{'O-RU Software Activate without reset' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
     ###############################################################################
@@ -338,11 +352,12 @@ def test_m_ctc_id_016():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_016',PDF=pdf)
-
+        summary.append("Successfully completed Test Case M_CTC_ID_016. Logs captured !!") 
+        notification('\n'.join(summary))
 
 if __name__ == "__main__":
     start_time = time.time()
     test_m_ctc_id_016()
     end_time = time.time()
-    print('Execution Time is : {}'.format(end_time-start_time))
+    print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass

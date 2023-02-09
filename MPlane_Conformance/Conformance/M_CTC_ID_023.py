@@ -48,6 +48,7 @@ from require.Genrate_User_Pass import *
 ## Initiate PDF
 ###############################################################################
 pdf = STARTUP.PDF_CAP()
+summary = []
 
 class M_CTC_ID_023(vlan_Creation):
     # init method or constructor 
@@ -75,13 +76,15 @@ class M_CTC_ID_023(vlan_Creation):
         STARTUP.STORE_DATA(self.login_info,Format=False,PDF = pdf)
         STATUS = STARTUP.STATUS(self.hostname, self.USER_N, self.session.session_id, 830)
         STARTUP.STORE_DATA(STATUS, Format=False, PDF=pdf)
+        summary.append('Netconf Session Established!!')
 
         ###############################################################################
         ## Server Capabilities
         ###############################################################################
         for cap in self.session.server_capabilities:
             STARTUP.STORE_DATA("\t{}".format(cap),Format=False,PDF = pdf)
-            
+        summary.append('Hello Capabilities Exchanged!!')
+
         ###############################################################################
         ## Create_subscription
         ###############################################################################
@@ -91,6 +94,7 @@ class M_CTC_ID_023(vlan_Creation):
         dict_data = xmltodict.parse(str(cap))
         if dict_data['nc:rpc-reply']['nc:ok'] == None:
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
+        summary.append('Subscription with netconf-config filter Performed!!')
         
         ###############################################################################
         ## Merge New User
@@ -174,7 +178,7 @@ class M_CTC_ID_023(vlan_Creation):
             return "Users didn't merge..."
         else:
             STARTUP.STORE_DATA(xml_pretty_str,Format='XML', PDF=pdf)
-
+        summary.append('User merged successfully!!')
                 
 
         ###############################################################################
@@ -192,10 +196,12 @@ class M_CTC_ID_023(vlan_Creation):
         dict_data2 = xmltodict.parse(str(data2))
         if dict_data2['nc:rpc-reply']['nc:ok']== None:
             STARTUP.STORE_DATA('\nOk\n',Format=True, PDF=pdf)
+        summary.append('Privilege given to new user!!')
 
         ###############################################################################
         ## Notifications
         ###############################################################################
+        
         while True:
             n = self.session.take_notification(timeout=10)
             if n == None:
@@ -212,6 +218,7 @@ class M_CTC_ID_023(vlan_Creation):
                     break
             except:
                 pass
+        summary.append('Captured the required notification!!')
         return True
                     
                 
@@ -236,6 +243,7 @@ class M_CTC_ID_023(vlan_Creation):
             LISTEN = f'''> listen --ssh --login {self.new_user}
             Waiting 60s for an SSH Call Home connection on port 4334...'''
             STARTUP.STORE_DATA(LISTEN,Format=False, PDF=pdf)
+            summary.append('Netconf Session Established with new user!!')
 
             if new_session:
                 query = 'yes'
@@ -259,21 +267,26 @@ class M_CTC_ID_023(vlan_Creation):
                     STARTUP.STORE_DATA(STATUS,Format=False, PDF=pdf)
                     for i in new_session.server_capabilities:
                         STARTUP.STORE_DATA(i,Format=False, PDF=pdf)
+                    summary.append('Hello Capabilities Exchanged!!')
                     return True
-            new_session.close_session()
+            
 
 
         ########################### Known Exceptions ############################
         except RPCError as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
-            new_session.close_session()
             return [e.type, e.tag, e.severity, e.message, exc_tb.tb_lineno]
 
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA("\t\tError : {}".format(e), Format=False, PDF=pdf)
-            new_session.close_session()
-            return f"{e} \nError occured in line number {exc_tb.tb_lineno}"
+            return f"Call Home not initiated due to {e} \nError occured in line number {exc_tb.tb_lineno}"
+
+        finally:
+            try:
+                new_session.close_session()
+            except Exception as e:
+                print(e)
 
 
             
@@ -283,6 +296,7 @@ class M_CTC_ID_023(vlan_Creation):
     ## Main Function
     ###############################################################################
     def test_Main_023(self):
+        summary.append("Test Case M_CTC_ID_023 is under process...")
         Check1 = self.linked_detected()
 
         
@@ -375,20 +389,21 @@ def test_m_ctc_id_023():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'Sudo on Hierarchical M-plane architecture (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
+        summary.append('FAIL_REASON : SFP link not detected...')
+        summary.append(f"{'Sudo on Hierarchical M-plane architecture (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
     try:
         if Check1 == True:
             Check2 = tc023_obj.Call_Home()
+            STARTUP.GET_SYSTEM_LOGS(tc023_obj.hostname,tc023_obj.USER_N,tc023_obj.PSWRD,pdf)
+            ###############################################################################
+            ## Expected/Actual Result
+            ###############################################################################
+            Exp_Result = 'Expected Result : The TER NETCONF Client establishes a Call Home & SSH session towards the NETCONF Server with new user created above.'
+            STARTUP.STORE_DATA(Exp_Result, Format='DESC', PDF=pdf)
             if Check2 == True:
-                STARTUP.GET_SYSTEM_LOGS(tc023_obj.hostname,tc023_obj.USER_N,tc023_obj.PSWRD,pdf)
-                ###############################################################################
-                ## Expected/Actual Result
-                ###############################################################################
-                Exp_Result = 'Expected Result : The TER NETCONF Client establishes a Call Home & SSH session towards the NETCONF Server with new user created above.'
-                STARTUP.STORE_DATA(Exp_Result, Format='DESC', PDF=pdf)
-
                 STARTUP.STORE_DATA('\t\t{}'.format('****************** Actual Result ******************'), Format=True, PDF=pdf)
-                STARTUP.ACT_RES(f"{'Sudo on Hierarchical M-plane architecture (positive case)' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=[0,255,0])
+                summary.append(f"{'Sudo on Hierarchical M-plane architecture (positive case)' : <50}{'=' : ^20}{'PASS' : ^20}")
                 return True
             
             else:
@@ -397,12 +412,16 @@ def test_m_ctc_id_023():
                     Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check2))
                     STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
                     STARTUP.ACT_RES(f"{'Sudo on Hierarchical M-plane architecture (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
+                    summary.append("FAIL_REASON : {}".format(Error_Info))
+                    summary.append(f"{'Sudo on Hierarchical M-plane architecture (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
                     return False
 
                 else:
                     STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
                     STARTUP.STORE_DATA(Check2,Format=False,PDF= pdf)
                     STARTUP.ACT_RES(f"{'Sudo on Hierarchical M-plane architecture (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
+                    summary.append("FAIL_REASON : {}".format(Check2))
+                    summary.append(f"{'Sudo on Hierarchical M-plane architecture (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
                     return False
         else:
             Exp_Result = 'Expected Result : The TER NETCONF Client establishes a Call Home & SSH session towards the NETCONF Server with new user created above.'
@@ -414,6 +433,15 @@ def test_m_ctc_id_023():
                 Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check1))
                 STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
                 STARTUP.ACT_RES(f"{'Sudo on Hierarchical M-plane architecture (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
+                summary.append("FAIL_REASON : {}".format(Error_Info))
+                summary.append(f"{'Sudo on Hierarchical M-plane architecture (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
+                return False
+            else:
+                STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
+                STARTUP.STORE_DATA('{}'.format(Check1),Format=False,PDF= pdf)
+                STARTUP.ACT_RES(f"{'Sudo on Hierarchical M-plane architecture (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=[255,0,0])
+                summary.append("FAIL_REASON : {}".format(Check1))
+                summary.append(f"{'Sudo on Hierarchical M-plane architecture (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
                 return False
 
     except Exception as e:
@@ -421,6 +449,8 @@ def test_m_ctc_id_023():
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
+            summary.append("FAIL_REASON : {}".format(e))
+            summary.append(f"{'Sudo on Hierarchical M-plane architecture (positive case)' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
     ###############################################################################
@@ -428,11 +458,13 @@ def test_m_ctc_id_023():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_023',PDF=pdf)
-
+        summary.append("Successfully completed Test Case M_CTC_ID_023. Logs captured !!") 
+        notification('\n'.join(summary))
 
 if __name__ == "__main__":
     start_time = time.time()
     test_m_ctc_id_023()
     end_time = time.time()
-    print('Execution Time is : {}'.format(end_time-start_time))
+    print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
+

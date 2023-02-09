@@ -44,6 +44,7 @@ from Conformance.M_CTC_ID_001 import *
 ## Initiate PDF
 ###############################################################################
 pdf = STARTUP.PDF_CAP()
+summary = []
 
 class M_CTC_id_003(M_CTC_id_001):
 
@@ -57,18 +58,24 @@ class M_CTC_id_003(M_CTC_id_001):
         summary = pkt.summary()
         try:
             if 'TCP' in summary:
+                interfaces = ifcfg.interfaces()
+                mac_address = interfaces[self.interface]['ether']
+                if mac_address == pkt.src:
                 # pkt.show()
-                if  pkt['TCP'].flags == 'RA' or pkt['TCP'].sport == 4334 or pkt['TCP'].sport == 830:
                     print('Got ip to the VLAN...')
                     print('VLAN IP is : {}'.format(pkt['IP'].dst))
                     self.ip_address = pkt['IP'].dst
-                    print(self.ip_address)
-                    time.sleep(5)
+                    return True
+                else:
+                    print('Got ip to the VLAN...')
+                    print('VLAN IP is : {}'.format(pkt['IP'].src))
+                    self.ip_address = pkt['IP'].src
                     return True
         except Exception as e:
             # print(e)
             return False
         pass
+
 
     def software_detail(self):
         
@@ -94,10 +101,6 @@ class M_CTC_id_003(M_CTC_id_001):
 
         except:
             print("User doesn't have SUDO permission")
-
-
-        
-        print(s)
         return s
 
 
@@ -117,7 +120,7 @@ class M_CTC_id_003(M_CTC_id_001):
             self.session_1 = STARTUP.call_home(host='', port=4334, username=user , hostkey_verify=False, password=pswrd, timeout = 60,allow_agent = False , look_for_keys = False)
             print(self.session_1.session_id)
             self.session_1.close_session()
-            return False
+            return 'Call Home initiated!!'
             
         
             
@@ -135,13 +138,14 @@ class M_CTC_id_003(M_CTC_id_001):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(f"Error occured in line number {exc_tb.tb_lineno}",Format=False,PDF = pdf)
             STARTUP.STORE_DATA('{}'.format(e),Format=False,PDF = pdf)
+            return e
 
 
 
     ########################### Main Function ############################
     def test_call_home(self):
         
-        notification("Test Case M_CTC_ID_003 is under process...")
+        summary.append("Test Case M_CTC_ID_003 is under process...")
         Check1 = self.linked_detected()
         pkt = sniff(iface = self.interface, stop_filter = self.check_vlan_tag)
         Check3 = self.ping_status()
@@ -206,11 +210,7 @@ class M_CTC_id_003(M_CTC_id_001):
                     Flag = True
                     results.append(Flag)
                 else:
-                    Flag = False
-                    results.append(Flag)
-            for i in results:
-                if i == False:
-                    return 'Call home initiated..'
+                    return res
             return True
 
                     
@@ -256,8 +256,8 @@ def test_M_ctc_id_003():
         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
         STARTUP.STORE_DATA('SFP link not detected/DHCP IP not pinging...',Format=False,PDF= pdf)
         STARTUP.ACT_RES(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-        notification('FAIL_REASON :SFP link not detected/DHCP IP not pinging...')
-        notification(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}")
+        summary.append('FAIL_REASON :SFP link not detected/DHCP IP not pinging...')
+        summary.append(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}")
         return False
 
     ###############################################################################
@@ -270,7 +270,7 @@ def test_M_ctc_id_003():
     try:
         if Check == True:
             STARTUP.ACT_RES(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= pdf,COL=(105, 224, 113))
-            notification(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'SUCCESS' : ^20}")
+            summary.append(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'SUCCESS' : ^20}")
             return True
 
         elif type(Check) == list:
@@ -278,22 +278,22 @@ def test_M_ctc_id_003():
             Error_Info = '''\terror-tag \t: \t{}\n\terror-type \t: \t{}\n\terror-severity \t: \t{}\n\tDescription' \t: \t{}'''.format(*map(str,Check))
             STARTUP.STORE_DATA(Error_Info,Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            notification("FAIL_REASON : {}".format(Error_Info))
-            notification(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}")
+            summary.append("FAIL_REASON : {}".format(Error_Info))
+            summary.append(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}")
         else:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= pdf)
             STARTUP.STORE_DATA('{}'.format(Check),Format=False,PDF= pdf)
             STARTUP.ACT_RES(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= pdf,COL=(235, 52, 52))
-            notification("FAIL_REASON : {}".format(Check))
-            notification(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}")
+            summary.append("FAIL_REASON : {}".format(Check))
+            summary.append(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
     except Exception as e:
             STARTUP.STORE_DATA('{}'.format(e), Format=True,PDF=pdf)
             exc_type, exc_obj, exc_tb = sys.exc_info()
             STARTUP.STORE_DATA(
                 f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=pdf)
-            notification("FAIL_REASON : {}".format(e))
-            notification(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}")
+            summary.append("FAIL_REASON : {}".format(e))
+            summary.append(f"{'Reject_SSH_Authentication_due_to_Incorrect_Credential' : <50}{'=' : ^20}{'FAIL' : ^20}")
             return False
 
     ###############################################################################
@@ -301,7 +301,8 @@ def test_M_ctc_id_003():
     ###############################################################################
     finally:
         STARTUP.CREATE_LOGS('M_CTC_ID_003',PDF=pdf)
-        notification("Successfully completed Test Case M_CTC_ID_003. Logs captured !!")
+        summary.append("Successfully completed Test Case M_CTC_ID_003. Logs captured !!")
+        notification('\n'.join(summary))
  
 
 if __name__ == "__main__":
@@ -310,4 +311,5 @@ if __name__ == "__main__":
     end_time = time.time()
     print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
+
 
