@@ -5,9 +5,6 @@ class test_DHCP_CONF():
         self.IPADDR = ''
         self.SUBNET_M = ''
         self.FLAG = False
-        self.INTERFACE_NAME = ''
-        self.interfaces_name = ''
-        self.STATIC_IP = ''
         pass
 
 

@@ -26,7 +26,7 @@ sys.path.append(parent)
 ## For reading data from .ini file
 ########################################################################
 configur = ConfigParser()
-configur.read('{}/Scripts/inputs.ini'.format(parent))
+configur.read('{}/require/inputs.ini'.format(parent))
 
 ###############################################################################
 ## Related Imports
@@ -81,9 +81,12 @@ def call_home(*args, **kwds):
 ## Check Ping
 ###############################################################################
 def ping_status(ip_address):
-    response = os.system("ping -c 5 " + ip_address)
-    # self.ping = subprocess.getoutput(f'ping {ip_address} -c 5')
-    if response == 0:
+    response = subprocess.Popen(f"ping -c 5 {ip_address}", shell=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = response.communicate()
+    Response = stdout.decode()
+    pattern = '[1-5] received'
+    ans  = re.search(pattern,Response)
+    if ans:
         return True
     else:
         return False
@@ -191,7 +194,6 @@ def delete_system_log(host):
 
             stdin, stdout, stderr = ssh.exec_command(command)
             lines = stdout.readlines()
-            print(lines)
             return True
         except Exception as e:
             print(e)
@@ -243,35 +245,35 @@ def GET_LOGS_NAME(TC_Name):
 def STORE_DATA(*datas,Format,PDF):
     for data in datas:
         if Format == True:
-            print('='*100)
-            print(data)
-            print('='*100)
+            # print('='*100)
+            # print(data)
+            # print('='*100)
             HEADING(PDF,data)
 
         elif Format == 'XML':
-            print(data)
+            # print(data)
             XML_FORMAT(PDF,data)
 
         elif Format == 'CONF':
-            print('='*100)
-            print(data)
-            print('='*100)
+            # print('='*100)
+            # print(data)
+            # print('='*100)
             CONFDENTIAL(PDF,data)
         
         elif Format == 'DESC':
-            print('='*100)
-            print(data)
-            print('='*100)
+            # print('='*100)
+            # print(data)
+            # print('='*100)
             Test_desc(PDF,data)
 
         elif Format == 'TEST_STEP':
-            print('='*100)
-            print(data)
-            print('='*100)
+            # print('='*100)
+            # print(data)
+            # print('='*100)
             Test_Step(PDF,data)
 
         else:
-            print(data)
+            # print(data)
             PDF.write(h=5,txt=data)
 
 
@@ -410,9 +412,9 @@ def DHCP_Status(PDF,data):
 ## Stylesheet for actual result
 ###############################################################################
 def ACT_RES(data,PDF,COL):
-    print('='*100)
-    print(data)
-    print('='*100)
+    # print('='*100)
+    # print(data)
+    # print('='*100)
     PDF.set_font("Times",style = 'B', size=12)
     PDF.set_fill_color(COL[0],COL[1],COL[2])
     PDF.write(5, '\n{}\n'.format('='*75))
@@ -449,10 +451,178 @@ def render_table_data(PDF,TABLE_DATA):  # repeat data rows
                 new_x="RIGHT", new_y="TOP", max_line_height=PDF.font_size,align='L')
         PDF.ln(line_height)
 
+###############################################################################
+## Check wether dhcp is running
+###############################################################################
+def is_DHCP_server_running():
+    cmd = "sudo systemctl status isc-dhcp-server.service"
+    p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = p.communicate()
+    if "Active: active (running)" in out.decode():
+        return True
+    else:
+        Res = restart_dhcp_server()
+        if Res == True:
+            pass
+        else:
+            return Res
+        return is_DHCP_server_running()
+    
+###############################################################################
+## Restart DHCP Server
+###############################################################################
+def restart_dhcp_server():
+    cmd = "sudo systemctl restart isc-dhcp-server.service"
+    p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = p.communicate()
+    if stderr:
+        return f"Failed to restart DHCP server: {stderr.decode()}"
+    time.sleep(1)
+    if not is_DHCP_server_running():
+        return "Failed to start DHCP server."
+    return True
+
+def reboot_RU(hostname):
+    for _ in range(5):
+        try:
+            host = hostname
+            port = 22
+            username = configur.get('INFO','super_user')
+            password = configur.get('INFO','super_pass')
+            command = "reboot"
+            ssh = paramiko.SSHClient()
+            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            ssh.connect(host, port, username, password)
+
+            stdin, stdout, stderr = ssh.exec_command(command)
+            lines = stdout.readlines()
+            print(lines)
+            return True
+        except Exception as e:
+            print(e)
+            time.sleep(2)
+            pass
+    else:
+        print('Can\'t connect to the RU.., Reboot not happened.')
+        return False
+
+    pass
+
+
+def basic_check_for_vlan_scan(link_status,pdf,interface_name,summary):
+    '''Description:  Check the link detection and the ping of dhcp ip if dhcp ip not ping return False with error string.
+                    else it will reboot the RU so that vlan scan should start.'''
+    cmd = "ethtool " + interface_name
+    ethtool_out = subprocess.getoutput(cmd)
+    if link_status == False or link_status == None:
+        STORE_DATA('{}'.format(cmd).center(100),Format=True,PDF=pdf)
+        STORE_DATA(ethtool_out,Format=False,PDF=pdf)
+        return link_status, False
+
+    append_data_and_print('SFP Link Detection || Successful',summary)
+    Res = is_DHCP_server_running()
+    if Res  == True:
+        pass
+    else:
+        return Res, False
+    dhcp_ip = check_dhcp_status()
+    print(f'{"-"*100}\nCheck the status of DHCP ip {dhcp_ip} ping\n{"-"*100}')
+    for _ in range(3):
+        if ping_status(dhcp_ip):
+            append_data_and_print(f'DHCP IP {dhcp_ip} Ping || Successful',summary)
+            ping_out = subprocess.getoutput("ping -c 5 {}".format(dhcp_ip))
+            print(ping_out)
+            reboot_RU(dhcp_ip)
+            return dhcp_ip,[cmd,ethtool_out,ping_out], True
+    else:
+        ping_out = subprocess.getoutput("ping -c 5 {}".format(dhcp_ip))
+        print(ping_out)
+        append_data_and_print(f'DHCP IP {dhcp_ip} Ping || Fail',summary)
+        hostname = configur.get('INFO','static_ip')
+        timeout = time.time()+60
+        print(f'{"-"*100}\nCheck the status of Static ip {hostname} ping\n{"-"*100}')
+        while time.time()<timeout:
+            if ping_status(hostname):
+                append_data_and_print(f'Static IP {hostname} Ping || Successful',summary)
+                ping_out = subprocess.getoutput("ping -c 5 {}".format(hostname))
+                print(ping_out)
+                reboot_RU(hostname)
+                return hostname,[cmd,ethtool_out,ping_out], True
+        else:
+            ping_out = subprocess.getoutput("ping -c 5 {}".format(hostname))
+            print(ping_out)
+            STORE_DATA('{}'.format(cmd).center(100),Format=True,PDF=pdf)
+            STORE_DATA(ethtool_out,Format=False,PDF=pdf)
+            STORE_DATA('{}'.format("ping -c 5 {}".format(hostname)).center(100),Format=True,PDF=pdf)
+            STORE_DATA(ping_out,Format=False,PDF=pdf)
+            return f'Static IP {hostname} not Pinging', False
+
+
+def check_link_and_ping_dhcp_either_static(link_status,pdf,interface_name,summary):
+    cmd = "ethtool " + interface_name
+    ethtool_out = subprocess.getoutput(cmd)
+    if link_status == False or link_status == None:
+        STORE_DATA('{}'.format(cmd).center(100),Format=True,PDF=pdf)
+        STORE_DATA(ethtool_out,Format=False,PDF=pdf)
+        return link_status, False
+
+    append_data_and_print('SFP Link Detection || Successful',summary)
+    Res = is_DHCP_server_running()
+    if Res  == True:
+        pass
+    else:
+        return Res, False
+    dhcp_ip = check_dhcp_status()
+    print(f'{"-"*100}\nCheck the status of DHCP ip {dhcp_ip} ping\n{"-"*100}')
+    for _ in range(3):
+        if ping_status(dhcp_ip):
+            append_data_and_print(f'DHCP IP {dhcp_ip} Ping || Successful',summary)
+            ping_out = subprocess.getoutput("ping -c 5 {}".format(dhcp_ip))
+            print(ping_out)
+            return dhcp_ip,[cmd,ethtool_out,ping_out], True
+    else:
+        ping_out = subprocess.getoutput("ping -c 5 {}".format(dhcp_ip))
+        print(ping_out)
+        append_data_and_print(f'DHCP IP {dhcp_ip} Ping || Fail',summary)
+        hostname = configur.get('INFO','static_ip')
+        timeout = time.time()+60
+        print(f'{"-"*100}\nCheck the status of Static ip {hostname} ping\n{"-"*100}')
+        while time.time()<timeout:
+            if ping_status(hostname):
+                append_data_and_print(f'Static IP {hostname} Ping || Successful',summary)
+                ping_out = subprocess.getoutput("ping -c 5 {}".format(hostname))
+                print(ping_out)
+                return hostname,[cmd,ethtool_out,ping_out], True
+        else:
+            ping_out = subprocess.getoutput("ping -c 5 {}".format(hostname))
+            print(ping_out)
+            STORE_DATA('{}'.format(cmd).center(100),Format=True,PDF=pdf)
+            STORE_DATA(ethtool_out,Format=False,PDF=pdf)
+            STORE_DATA('{}'.format("ping -c 5 {}".format(hostname)).center(100),Format=True,PDF=pdf)
+            STORE_DATA(ping_out,Format=False,PDF=pdf)
+            return f'Static IP {hostname} not Pinging', False
+
+
+def test_server_10_interface_ip(ip_format):
+    interfaces = ifcfg.interfaces()
+    for key, val in interfaces.items():
+        if val.get('inet') and ip_format in val['inet']:
+            return val['inet']
+
+def append_data_and_print(data,summary):
+    summary.append(data)
+    print('-'*100)
+    print(summary[-1])
+
+def append_data(datas):
+    table_data = []
+    for data in datas:
+        d = data.split('||')
+        table_data.append([d[0],d[1]])
+    return table_data
+
 
 
 
 if __name__ == "__main__":
     delete_system_log('192.168.149.37')
-
-

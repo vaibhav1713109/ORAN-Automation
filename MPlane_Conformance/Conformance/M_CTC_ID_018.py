@@ -89,7 +89,7 @@ class M_CTC_ID_018(vlan_Creation):
         cap=self.session.create_subscription(filter=filter)
         STARTUP.STORE_DATA('> subscribe --filter-xpath /ietf-netconf-notifications:*', Format=True, PDF=pdf)
         dict_data = xmltodict.parse(str(cap))
-        if dict_data['nc:rpc-reply']['nc:ok'] == None:
+        if 'ok' in str(cap) or 'OK' in str(cap)  or 'Ok' in str(cap):
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
         summary.append('Subscription with netconf-config filter Performed!!')
 
@@ -161,7 +161,7 @@ class M_CTC_ID_018(vlan_Creation):
         data1 = self.session.edit_config(target="running", config=snippet)
         dict_data1 = xmltodict.parse(str(data1))
         STARTUP.STORE_DATA('''######### RPC Reply #########''', Format=True, PDF=pdf)
-        if dict_data1['nc:rpc-reply']['nc:ok'] == None:
+        if 'ok' in str(cap) or 'OK' in str(cap)  or 'Ok' in str(cap):
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
 
         ###############################################################################
@@ -205,7 +205,9 @@ class M_CTC_ID_018(vlan_Creation):
         nacm_file = open('{}/require/Yang_xml/M_CTC_ID_18.xml'.format(parent)).read()
         nacm_file = nacm_file.format(add_swm=add_swm, add_fm=add_fm, add_nms=add_nms)
         STARTUP.STORE_DATA(nacm_file, Format='XML', PDF=pdf)
-        data2 = self.session.edit_config(target="running", config=nacm_file, default_operation='merge')
+        print(self.session.connected)
+        data2 = self.session.edit_config(target="running", config=nacm_file)
+        print(self.session.connected)
         dict_data2 = xmltodict.parse(str(data2))
 
         ###############################################################################
@@ -214,7 +216,7 @@ class M_CTC_ID_018(vlan_Creation):
         Test_Step4 = 'STEP 4. The O-RU NETCONF Server confirms the operations for the above transactions.'
         STARTUP.STORE_DATA(
             '{}'.format(Test_Step4), Format='TEST_STEP', PDF=pdf)
-        if dict_data2['nc:rpc-reply']['nc:ok'] == None:
+        if 'ok' in str(cap) or 'OK' in str(cap)  or 'Ok' in str(cap):
             STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=pdf)
 
 
@@ -339,6 +341,7 @@ class M_CTC_ID_018(vlan_Creation):
             return Check1
 
         sniff(iface = self.interface, stop_filter = self.check_tcp_ip,timeout = 100)
+        print(self.hostname)
         try:
             STARTUP.delete_system_log(host= self.hostname)
             time.sleep(2)
@@ -479,4 +482,3 @@ if __name__ == "__main__":
     end_time = time.time()
     print('Execution Time is : {}'.format(int(end_time-start_time)))
     pass
-

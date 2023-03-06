@@ -1,12 +1,11 @@
 import random, ifcfg, subprocess, os
 
-class test_DHCP_CONF():
+class test_isc_server_conf():
     def __init__(self) -> None:
         self.IPADDR = ''
         self.SUBNET_M = ''
         self.FLAG = False
         self.INTERFACE_NAME = ''
-        self.interfaces_name = ''
         self.STATIC_IP = ''
         pass
 
@@ -60,7 +59,7 @@ class test_DHCP_CONF():
         file1.close()
 
 if __name__ == "__main__":
-    obj = test_DHCP_CONF()
+    obj = test_isc_server_conf()
     v_id = random.randint(10,30)
     obj.test_read('eth0',v_id)
     

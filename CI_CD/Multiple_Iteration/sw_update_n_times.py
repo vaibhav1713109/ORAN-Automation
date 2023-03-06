@@ -32,12 +32,13 @@ sys.path.append(parent)
 ## For reading data from .ini file
 ########################################################################
 configur = ConfigParser()
-configur.read('{}/inputs.ini'.format(dir_name))
+configur.read('{}/require/inputs.ini'.format(parent))
 
 ###############################################################################
 ## Related Imports
 ###############################################################################
-from Scripts.Notification import *
+from Single_iteration.slot_switch import *
+from require.Notification import *
 # from require.Vlan_Creation import *
 from require.LINK_DETECTED import *
 from require import STARTUP
@@ -50,7 +51,7 @@ class Firmware_Upgrade(Link_Detect):
     # init method or constructor 
     def __init__(self):
         super().__init__()
-        self.summary = {}
+        self.summary = []
         self.pdf = STARTUP.PDF_CAP()
         self.hostname, self.call_home_port = '',''
         self.USER_N = ''
@@ -80,17 +81,22 @@ class Firmware_Upgrade(Link_Detect):
             ###############################################################################
             for cap in self.session.server_capabilities:
                 STARTUP.STORE_DATA("\t{}".format(cap),Format=False,PDF = self.pdf)
+            self.summary.append(['Capability exchange','Successful'])
+            print('-'*100)
+            print(f' '.join(self.summary[-1]))
                 
             ###############################################################################
             ## Create_subscription
             ###############################################################################
             filter = """<filter type="xpath" xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0" xmlns:swm="urn:o-ran:software-management:1.0" select="/swm:*"/>"""
             cap=self.session.create_subscription(filter=filter)
-            STARTUP.STORE_DATA('> subscribe', Format=True, PDF=self.pdf)
+            STARTUP.STORE_DATA('> subscribe --filter-xpath /o-ran-software-management:*', Format=True, PDF=self.pdf)
             dict_data = xmltodict.parse(str(cap))
             if dict_data['nc:rpc-reply']['nc:ok'] == None:
                 STARTUP.STORE_DATA('\nOk\n', Format=False, PDF=self.pdf)
-            self.summary['Capability exchange and create-subscription :'] = 'Successful!!'
+            self.summary.append(['Create-subscription','Successful'])
+            print('-'*100)
+            print(f' '.join(self.summary[-1]))
             return True
 
         except Exception as e:
@@ -102,6 +108,7 @@ class Firmware_Upgrade(Link_Detect):
         
     def software_download(self):
         try:
+            print(f'{"-"*100}\nConfiguring SW Download RPC')
             ###############################################################################
             ## Fetch Public Key of Linux PC
             ###############################################################################
@@ -180,7 +187,9 @@ class Firmware_Upgrade(Link_Detect):
                         break
                 except:
                     pass
-            self.summary['Software File Download :'] = f'{self.sw_file_name[-1]} Successful!!'
+            self.summary.append(['Software File Download',f'{self.sw_file_name[-1]} Successful'])
+            print('-'*100)
+            print(f' '.join(self.summary[-1]))
             return True
 
         except Exception as e:
@@ -192,11 +201,12 @@ class Firmware_Upgrade(Link_Detect):
 
     def software_install(self):
         try:
+            print(f'{"-"*100}\nConfiguring SW Install RPC')
             ###############################################################################
             ## Test Procedure 2 : Configure_SW_Install_RPC
             ###############################################################################
             Test_Step3 = '\t\tStep 3 : TER NETCONF Client triggers <rpc><software-install> Slot must have attributes active = FALSE, running = FALSE.'
-                    
+            STARTUP.STORE_DATA('{}'.format(Test_Step3), Format='TEST_STEP',PDF=self.pdf)
             ###############################################################################
             ## Install_at_the_slot_Which_Have_False_Status
             ###############################################################################
@@ -269,7 +279,9 @@ class Firmware_Upgrade(Link_Detect):
                 else:
                     return f'Slots Active and Running Status are diffrent for {SLOT["name"]}...'
             STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=self.pdf)
-            self.summary[f'Software {self.sw_file_name[-1]} Install :'] = f'Successfully install on {self.inactive_slot}!!'
+            self.summary.append([f'Software {self.sw_file_name[-1]} Install',f'Successfully install on {self.inactive_slot}'])
+            print('-'*100)
+            print(f' '.join(self.summary[-1]))
             return True
         
         except Exception as e:
@@ -281,6 +293,10 @@ class Firmware_Upgrade(Link_Detect):
         
     def software_activate(self):
         try:
+            self.summary.append([f'Curent Running Software',f'{self.running_sw}'])
+            print('-'*100)
+            print(f' '.join(self.summary[-1]))
+            print(f'{"-"*100}\nConfiguring SW Activate RPC')
             ###############################################################################
             ## Test Procedure 3 : Configure SW Activate RPC in RU
             ###############################################################################
@@ -363,7 +379,9 @@ class Firmware_Upgrade(Link_Detect):
                             xml_pretty_str, Format='XML', PDF=self.pdf)
                         return f"SW Inventory didn't update for {slot['name'] }..."
             STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=self.pdf)
-            self.summary[f'Software {self.sw_file_name[-1]} Activate :'] = f'Successfully activate on {self.inactive_slot}!!'
+            self.summary.append([f'Software {self.sw_file_name[-1]} Activate ',f'Successfully activate on {self.inactive_slot}'])
+            print('-'*100)
+            print(f' '.join(self.summary[-1]))
             return True
 
         except Exception as e:
@@ -374,6 +392,7 @@ class Firmware_Upgrade(Link_Detect):
             return f"{e} Software Activate"
 
     def reset_rpc(self):
+        print(f'{"-"*100}\nConfiguring SW Reset RPC')
         ###############################################################################
         ## Test Procedure 1 : Configure_Reset_RPC_in_RU
         ###############################################################################
@@ -394,28 +413,54 @@ class Firmware_Upgrade(Link_Detect):
 
         Test_Step3 = '\t\tStep 3 : O-RU restarts with a new software version running matching the version activated.'
         STARTUP.STORE_DATA('{}'.format(Test_Step3),Format='TEST_STEP', PDF=self.pdf)
-        self.summary['O-RU going for reboot:'] = 'Successful!!'
+        self.summary.append(['O-RU going for reboot:','Successful'])
+        print('-'*100)
+        print(f' '.join(self.summary[-1]))
         return True
     
+    ###############################################################################
+    ## Check Image to flash
+    ###############################################################################
+    def check_image(self,v1,v2):
+        list_image = os.popen('ls -lrt {}'.format('/home/sebu.mathew/QA_CICD/QA_Testing/LPRU_images/'))
+        images = list_image.readlines()[-2:]
+        pattern = r'\d\_\d\_[0-9][0-9]?'
+        image1_name = images[0].split()[-1]
+        image2_name = images[1].split()[-1]
+        self.image1 = re.search(pattern,image1_name).group()
+        self.image2 = re.search(pattern,image2_name).group()
+        ru_image = set(('_'.join(v1.split('.')),'_'.join(v2.split('.'))))
+        folder_image = set((self.image1,self.image2))
+        print(folder_image,ru_image)
+        flashing_sw = list(folder_image.difference(ru_image))
+        if len(flashing_sw):
+            return flashing_sw[0], image1_name if flashing_sw[0] in image1_name else image2_name
+        else:
+            return False
+        pass
+
     ###############################################################################
     ## Befor_Reset
     ###############################################################################
     def Befor_Reset(self):
+        print(f'{"-"*100}\nCheck the Link Detection')
         Check1 = self.link_detected()
         if Check1 == False or Check1 == None:
+            self.summary.append(['SFP Link Detection','Fail'])
             return Check1
         
+        cmd = "ethtool " + self.INTERFACE_NAME
+        ethtool_out = subprocess.getoutput(cmd)
+        self.summary.append(['SFP Link Detection','Successful'])
         ###############################################################################
         ## Read User Name and password from Config.INI of Config.py
         ###############################################################################
-        self.sw_file = configur.get('INFO','sw_path')
         self.USER_N = configur.get('INFO','sudo_user')
         self.PSWRD = configur.get('INFO','sudo_pass')
         self.sftp_user = configur.get('INFO','sftp_user')
         self.sftp_pass = configur.get('INFO','sftp_pass')
-        self.interface_ip = ifcfg.interfaces()[self.interface]['inet']
-        self.rmt = 'sftp://{0}@{1}:22{2}'.format(self.sftp_user,self.interface_ip, self.sw_file)
-        self.sw_file_name = self.sw_file.split('/')
+        self.interface_ip = ifcfg.interfaces()[self.INTERFACE_NAME]['inet']
+        
 
         ###############################################################################
         ## Sniff the live packet and filter the dhcp ip
@@ -430,10 +475,13 @@ class Firmware_Upgrade(Link_Detect):
         ## Check Static IP Ping
         ###############################################################################
         timeout = time.time()+60
+        print(f'{"-"*100}\nCheck the status of Static ip ping\n{"-"*100}')
         while time.time()<timeout:
             if STARTUP.ping_status(self.hostname):
-                self.summary['Static IP Ping '] = 'Successful!!'
-                print('Static IP Pinging')
+                self.summary.append(['Static IP Ping ','Successful'])
+                print('-'*100)
+                print(f' '.join(self.summary[-1]))
+                ping_out = subprocess.getoutput("ping -c 5 {}".format(self.hostname))
                 break
         else:
             return f'Static IP {self.hostname} not Pinging'
@@ -442,13 +490,16 @@ class Firmware_Upgrade(Link_Detect):
         try:
             STARTUP.delete_system_log(host= self.hostname)
             time.sleep(2)
+            print(f'{"-"*100}\nEstablishing Netopeer Connection')
             ###############################################################################
             ## Perform call home to get ip_details
             ###############################################################################
             self.session, self.login_info = STARTUP.session_login(host = self.hostname,USER_N = self.USER_N,PSWRD = self.PSWRD)
 
             if self.session:
-                self.summary['Netopeer Connection '] = 'Successful!!'
+                self.summary.append(['Netopeer Connection ','Successful'])
+                print('-'*100)
+                print(f' '.join(self.summary[-1]))
                 self.RU_Details = STARTUP.Software_detail(session = self.session)
                 del self.RU_Details['swRecoverySlot']
 
@@ -457,20 +508,40 @@ class Firmware_Upgrade(Link_Detect):
                 ###############################################################################
                 for key, val in self.RU_Details.items():
                     if (val[0] == 'true' and val[1] == 'true'):
-                        Test_Desc = 'Test Description :  This test validates that the O-RU can successfully perform a software download and software install procedure.'
-                        CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL('Firmware_Upgrade',SW_R = val[2]) 
+                        Test_Desc = 'Test Description :  This test validates that the O-RU can successfully perform a software update procedure.'
+                        CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL('Slot_Switch',SW_R = val[2]) 
                         STARTUP.STORE_DATA(CONFIDENTIAL,Format='CONF',PDF= self.pdf)
                         STARTUP.STORE_DATA(Test_Desc,Format='DESC',PDF= self.pdf)
                         self.pdf.add_page()
+                        self.running_sw = val[2]
                     elif (val[0] == 'true' and val[1] == 'false'):
-                        Test_Desc = 'Test Description :  This test validates that the O-RU can successfully perform a software download and software install procedure.'
-                        CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL('Firmware_Upgrade',SW_R = val[2]) 
+                        Test_Desc = 'Test Description :  This test validates that the O-RU can successfully perform a software update procedure.'
+                        CONFIDENTIAL = STARTUP.ADD_CONFIDENTIAL('Slot_Switch',SW_R = val[2]) 
                         STARTUP.STORE_DATA(CONFIDENTIAL,Format='CONF',PDF= self.pdf)
                         STARTUP.STORE_DATA(Test_Desc,Format='DESC',PDF= self.pdf)
                         self.pdf.add_page()
                         self.inactive_slot = key
                     else:
+                        self.running_false = val[2]
                         self.inactive_slot = key
+
+                Image = self.check_image(self.running_sw,self.running_false)
+                if len(Image)>1:
+                    self.summary.append(['Image Going to flash', '{0} to {1}'.format(self.running_false,Image[0])])
+                    print('-'*100)
+                    print(f' '.join(self.summary[-1]))
+                    self.sw_file = '/'.join((configur.get('INFO','sw_path'),Image[1]))
+                    self.rmt = 'sftp://{0}@{1}:22{2}'.format(self.sftp_user,self.interface_ip, self.sw_file)
+                    self.sw_file_name = self.sw_file.split('/')
+                else:
+                    return 'Both image {0}, {1} already present in RU.'.format(self.image1,self.image2)
+
+                
+                STARTUP.STORE_DATA('{}'.format(cmd).center(100),Format=True,PDF=self.pdf)
+                STARTUP.STORE_DATA(ethtool_out,Format=False,PDF=self.pdf)
+                STARTUP.STORE_DATA('{}'.format("ping -c 5 {}".format(self.hostname)).center(100),Format=True,PDF=self.pdf)
+                STARTUP.STORE_DATA(ping_out,Format=False,PDF=self.pdf)
+
 
                 Res1 = self.netopeer_connection_and_capability()
                 if Res1 != True:
@@ -528,8 +599,15 @@ class Firmware_Upgrade(Link_Detect):
     ## Get_Filter_after_Reboot_the_RU
     ###############################################################################
     def get_config_detail(self):
-        self.link_detected()
-        timeout = time.time() +60
+        print(f'{"-"*100}\nCheck the Link Detection')
+        Check1 = self.link_detected()
+        if Check1 == False or Check1 == None:
+            self.summary.append(['SFP Link Detection','Fail'])
+            return Check1
+        
+        cmd = "ethtool " + self.INTERFACE_NAME
+        ethtool_out = subprocess.getoutput(cmd)
+        self.summary.append(['SFP Link Detection','Successful'])
         # sniff(iface = self.interface, stop_filter = self.check_tcp_ip, timeout = 100)
 
         # if self.hostname:
@@ -541,13 +619,25 @@ class Firmware_Upgrade(Link_Detect):
         ## Check Static IP Ping
         ###############################################################################
         timeout = time.time()+60
+        print(f'{"-"*100}\nCheck the status of Static ip ping\n{"-"*100}')
         while time.time()<timeout:
             if STARTUP.ping_status(self.hostname):
-                self.summary['Static IP Ping after boot'] = 'Successful!!'
-                print('Static IP Pinging')
+                self.summary.append(['Static IP Ping ','Successful'])
+                print('-'*100)
+                print(f' '.join(self.summary[-1]))
+                ping_out = subprocess.getoutput("ping -c 5 {}".format(self.hostname))
                 break
         else:
+            STARTUP.STORE_DATA('{}'.format(cmd).center(100),Format=True,PDF=self.pdf)
+            STARTUP.STORE_DATA(ethtool_out,Format=False,PDF=self.pdf)
+            STARTUP.STORE_DATA('{}'.format("ping -c 5 {}".format(self.hostname)).center(100),Format=True,PDF=self.pdf)
+            STARTUP.STORE_DATA(ping_out,Format=False,PDF=self.pdf)
             return f'Static IP {self.hostname} not Pinging'
+
+        STARTUP.STORE_DATA('{}'.format(cmd).center(100),Format=True,PDF=self.pdf)
+        STARTUP.STORE_DATA(ethtool_out,Format=False,PDF=self.pdf)
+        STARTUP.STORE_DATA('{}'.format("ping -c 5 {}".format(self.hostname)).center(100),Format=True,PDF=self.pdf)
+        STARTUP.STORE_DATA(ping_out,Format=False,PDF=self.pdf)
 
         ###############################################################################
         ## Perform Call Home to get IP after RU comes up
@@ -569,11 +659,22 @@ class Firmware_Upgrade(Link_Detect):
                     li = ['INVALID', 'EMPTY']
                     SLOTS_INFO = dict_slots['data']['software-inventory']['software-slot']
                     for i in SLOTS_INFO:
-                        if i['name'] in li:
+                        if i['status'] in li:
                             STARTUP.STORE_DATA(xml_pretty_str,Format='XML', PDF=self.pdf)
                             return f'{i["name"]} status is not correct....'
+                        elif i['name'] == self.inactive_slot and i['active'] != 'true' and i['status'] != 'true':
+                            STARTUP.STORE_DATA(xml_pretty_str,Format='XML', PDF=self.pdf)
+                            self.summary[f'Running Software After Boot'] = f'{self.running_sw}'
+                            return f'{i["name"]} is not going to running state....'
+                        if i['name'] == self.inactive_slot:
+                            self.running_false = i['build-version']
                     STARTUP.STORE_DATA(xml_pretty_str, Format='XML', PDF=self.pdf)
-                    self.summary[f'Software {self.sw_file_name}:'] = 'Successfuly Update and Running!!'
+                    self.summary.append([f'Running Software After Boot',f'{self.running_false}'])
+                    print('-'*100)
+                    print(f' '.join(self.summary[-1]))
+                    self.summary.append([f'Software {self.sw_file_name[-1]}','Successfuly Update and Running'])
+                    print('-'*100)
+                    print(f' '.join(self.summary[-1]))
                     return True
                 
             ###############################################################################
@@ -627,8 +728,8 @@ class Firmware_Upgrade(Link_Detect):
                 port = 22
                 username = self.USER_N
                 password = self.PSWRD
-                syslog = configur.get('INFO','syslog_path').split()
-                command = "cat {0}; cat {1};".format(syslog[0],syslog[1])
+                syslog = configur.get('INFO','syslog_path')
+                command = "cat {0};".format(syslog)
                 ssh = paramiko.SSHClient()
                 # ssh.load_system_host_keys()
                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -652,10 +753,11 @@ class Firmware_Upgrade(Link_Detect):
         if Check1 == False:
             STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= self.pdf)
             STARTUP.STORE_DATA('SFP link not detected...',Format=False,PDF= self.pdf)
-            STARTUP.ACT_RES(f"{'O-RU Software Update and Install' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= self.pdf,COL=(255,0,0))
-            self.summary[f'FAIL_REASON'] = 'SFP link not detected!!'
-            self.summary = list(zip(self.summary.keys(),self.summary.values()))
-            return True
+            STARTUP.ACT_RES(f"{'Software Update' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= self.pdf,COL=(255,0,0))
+            self.summary.append([f'FAIL_REASON','SFP link not detected'])
+            print('-'*100)
+            print(f' '.join(self.summary[-1]))
+            return False
 
         elif Check1 == True:
             Check2 = self.after_reset()
@@ -667,13 +769,16 @@ class Firmware_Upgrade(Link_Detect):
             ###############################################################################
             ## Expected/Actual Result
             ###############################################################################
-            Exp_Result = 'Expected Result : The O-RU NETCONF Server sends <notification><install-event><status> to the TER NETCONF Client. Field <status> contains the value COMPLETED to indicate the successful installation of software to the desired slot.'
+            self.pdf.add_page()
+            Exp_Result = '''Expected Result : 1. The O-RU NETCONF Server sends <notification><install-event><status> to the TER NETCONF Client. Field <status> contains the value COMPLETED to indicate the successful installation of software to the desired slot.
+            2. The status of the software slot used for software activation remains VALID (it is unchanged) and the parameter "active" remains "True". The parameter "running" is set to True.
+            3. Status of the software slot containing the previous version of software used by device remains VALID, the parameter "active" remains False. The parameter "running" is set to False.'''
             STARTUP.STORE_DATA(Exp_Result,Format='DESC',PDF= self.pdf)
 
             STARTUP.STORE_DATA('\t\t{}'.format('****************** Actual Result ******************'),Format=True,PDF= self.pdf)
             try:
                 if Check2 == True:
-                    STARTUP.ACT_RES(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= self.pdf,COL=(0,255,0))
+                    STARTUP.ACT_RES(f"{'Software Update' : <50}{'=' : ^20}{'SUCCESS' : ^20}",PDF= self.pdf,COL=(0,255,0))
                     return True
 
                 else:
@@ -681,15 +786,19 @@ class Firmware_Upgrade(Link_Detect):
                         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= self.pdf)
                         Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check2))
                         STARTUP.STORE_DATA(Error_Info,Format=False,PDF= self.pdf)
-                        STARTUP.ACT_RES(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= self.pdf,COL=(255,0,0))
-                        self.summary[f'FAIL_REASON'] = Error_Info
+                        STARTUP.ACT_RES(f"{'Software Update' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= self.pdf,COL=(255,0,0))
+                        self.summary.append([f'FAIL_REASON',Error_Info])
+                        print('-'*100)
+                        print(f' '.join(self.summary[-1]))
                         return False
 
                     else:
                         STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= self.pdf)
                         STARTUP.STORE_DATA('{}'.format(Check2),Format=False,PDF= self.pdf)
-                        STARTUP.ACT_RES(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= self.pdf,COL=(255,0,0))
-                        self.summary[f'FAIL_REASON'] = '{}'.format(Check2)
+                        STARTUP.ACT_RES(f"{'Software Update' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= self.pdf,COL=(255,0,0))
+                        self.summary.append([f'FAIL_REASON','{}'.format(Check2)])
+                        print('-'*100)
+                        print(f' '.join(self.summary[-1]))
                         return False
 
             except Exception as e:
@@ -697,14 +806,15 @@ class Firmware_Upgrade(Link_Detect):
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 STARTUP.STORE_DATA(
                     f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=self.pdf)
-                self.summary[f'Exception'] = '{}'.format(e)
+                self.summary.append([f'Exception','{}'.format(e)])
+                print('-'*100)
+                print(' '.join(self.summary[-1]))
                 return False
             ###############################################################################
             ## For Capturing the logs
             ###############################################################################
             finally:
                 STARTUP.HEADING(PDF=self.pdf,data='{0} Summary {0}'.format('*'*30))
-                self.summary = list(zip(self.summary.keys(),self.summary.values()))
                 STARTUP.render_table_data(self.pdf,self.summary)
                 STARTUP.CREATE_LOGS('Firmware_Upgrade',PDF=self.pdf)
 
@@ -715,8 +825,10 @@ class Firmware_Upgrade(Link_Detect):
             ###############################################################################
             ## Expected/Actual Result
             ###############################################################################
-            Exp_Result = '''Expected Result : 1. The status of the software slot used for software activation remains VALID (it is unchanged) and the parameter "active" remains "True". The parameter "running" is set to True.
-            2. Status of the software slot containing the previous version of software used by device remains VALID, the parameter "active" remains False. The parameter "running" is set to False.'''
+            self.pdf.add_page()
+            Exp_Result = '''Expected Result : 1. The O-RU NETCONF Server sends <notification><install-event><status> to the TER NETCONF Client. Field <status> contains the value COMPLETED to indicate the successful installation of software to the desired slot.
+            2. The status of the software slot used for software activation remains VALID (it is unchanged) and the parameter "active" remains "True". The parameter "running" is set to True.
+            3. Status of the software slot containing the previous version of software used by device remains VALID, the parameter "active" remains False. The parameter "running" is set to False.'''
             STARTUP.STORE_DATA(Exp_Result, Format='DESC', PDF=self.pdf)
 
             STARTUP.STORE_DATA('\t\t{}'.format('****************** Actual Result ******************'), Format=True, PDF=self.pdf)
@@ -726,14 +838,18 @@ class Firmware_Upgrade(Link_Detect):
                     STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= self.pdf)
                     Error_Info = '''ERROR\n\terror-type \t: \t{}\n\terror-tag \t: \t{}\n\terror-severity \t: \t{}\n\tmessage' \t: \t{}'''.format(*map(str,Check1))
                     STARTUP.STORE_DATA(Error_Info,Format=False,PDF= self.pdf)
-                    STARTUP.ACT_RES(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= self.pdf,COL=(255,0,0))
-                    self.summary[f'FAIL_REASON'] = Error_Info
+                    STARTUP.ACT_RES(f"{'Software Update' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= self.pdf,COL=(255,0,0))
+                    self.summary.append([f'FAIL_REASON',Error_Info])
+                    print('-'*100)
+                    print(f' '.join(self.summary[-1]))
                     return False
                 else:
                     STARTUP.STORE_DATA('{0} FAIL_REASON {0}'.format('*'*20),Format=True,PDF= self.pdf)
                     STARTUP.STORE_DATA('{}'.format(Check1),Format=False,PDF= self.pdf)
-                    STARTUP.ACT_RES(f"{'Supplemental Reset after Software Activation' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= self.pdf,COL=(255,0,0))
-                    self.summary[f'FAIL_REASON'] = '{}'.format(Check1)
+                    STARTUP.ACT_RES(f"{'Software Update' : <50}{'=' : ^20}{'FAIL' : ^20}",PDF= self.pdf,COL=(255,0,0))
+                    self.summary.append([f'FAIL_REASON','{}'.format(Check1)])
+                    print('-'*100)
+                    print(f' '.join(self.summary[-1]))
                     return False
 
 
@@ -742,7 +858,9 @@ class Firmware_Upgrade(Link_Detect):
                     exc_type, exc_obj, exc_tb = sys.exc_info()
                     STARTUP.STORE_DATA(
                         f"Error occured in line number {exc_tb.tb_lineno}", Format=False,PDF=self.pdf)
-                    self.summary[f'Exception'] = '{}'.format(e)
+                    self.summary.appedn([f'Exception','{}'.format(e)])
+                    print('-'*100)
+                    print(f' '.join(self.summary[-1]))
                     return False
 
             ###############################################################################
@@ -750,25 +868,56 @@ class Firmware_Upgrade(Link_Detect):
             ###############################################################################
             finally:
                 STARTUP.HEADING(PDF=self.pdf,data='{0} Summary {0}'.format('*'*30))
-                self.summary = list(zip(self.summary.keys(),self.summary.values()))
                 STARTUP.render_table_data(self.pdf,self.summary)
                 STARTUP.CREATE_LOGS('Firmware_Upgrade',PDF=self.pdf)
 
 
 
 ### api name of software update testcase
-def sw_update():
+def sw_update(nums = 1):
+    Test_procedure = [f"{'='*100}\nTest case *SW Update* Started!! Status: Running\n{'='*100}",'** Test Coverage **'.center(50),'Static IP Ping',
+                'Netopeer Connection','Capability exchange' 'create-subscription','Configure SW Download',
+                'Configure SW Install','Configure SW Activate','Configure reset RPC']
+    notification('\n'.join(Test_procedure))
     start_time = time.time()
-    fw_upgrade = Firmware_Upgrade()
-    Result = fw_upgrade.Main_Function()
+    fail=0
+    for num in range(nums):
+        slot_switch = Slot_Switch()
+        fw_upgrade = Firmware_Upgrade()
+        Result = fw_upgrade.Main_Function()
+        if Result:
+            pass
+        else:
+            fail+=1
+        notification(f"{'='*100}\nIteration {num+1}\n{'='*100}")
+        smry = ['\n','**Result**'.center(50)]
+        for i in fw_upgrade.summary:
+            smry.append('{0} || {1}'.format(i[0],i[1]))
+        notification('\n'.join(smry))
+        notification(f'{"="*100}\nStatus \t\t=\t {"Pass" if Result else "Fail"}\n{"="*100}')
+        for i in fw_upgrade.summary:
+            if 'O-RU going for reboot' in i[0]:
+                print(f'{"-"*100}\nGoing back to previous slot for next iteration.')
+                notification('** Going back to previous slot for next iteration **'.center(100))
+                slot_change_status = slot_switch.Main_Function()
+        if slot_change_status:
+            print('Successfully goes to previous slot')
+        else:
+            notification("** SW Slot doesn't change not next iteration **".center(70))
+            break
     end_time = time.time()
     print('Execution Time is : {}'.format(int(end_time-start_time)))
-    # print(f'{Result}\t{fw_upgrade.summary}\t{int(end_time-start_time)}')
+    notification(f'Total Iteration: {nums}, Pass: {nums-fail}, Fail: {fail}')
     print(Result)
     return Result, fw_upgrade.summary, int(end_time-start_time)
 
 if __name__ == "__main__":
-    Result = sw_update()
-    # print(Result[0])
-    # print(Result[1])
+    try:
+        if len(sys.argv)>1:
+            Result = sw_update(int(sys.argv[1]))
+        else:
+            Result = sw_update(1)
+    except Exception as e:
+        print(e)
+        print('Please run with following command: python sw_update_n_times.py 1/2/3')
 

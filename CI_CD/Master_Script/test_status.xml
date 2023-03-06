@@ -1,0 +1,54 @@
+<testsuites>
+	<testsuite name="cd_testings" tests="20" skipped="15" failures="0" time="850.4084959030151">
+		<testcase name="sw_update.py" classname="M_Plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="vlan_scan.py" classname="M_Plane" time="292.4302222728729" />
+		<testcase name="slot_switch.py" classname="M_Plane" time="189.5856032371521" />
+		<testcase name="subcription_notifications.py" classname="M_Plane" time="148.6912031173706" />
+		<testcase name="uplane_config.py" classname="M_Plane" time="112.93942475318909" />
+		<testcase name="get_without_filter.py" classname="M_Plane" time="106.76204252243042" />
+		<testcase name="mplane_tc7.py" classname="M_Plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="mplane_tc8.py" classname="M_Plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="mplane_tc9.py" classname="M_Plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="splane_tc1.py" classname="S_Plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="splane_tc2.py" classname="S_Plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="splane_tc3.py" classname="S_Plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="splane_tc4.py" classname="S_Plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="splane_tc5.py" classname="S_Plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="cuplane_tc1.py" classname="CU_plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="cuplane_tc2.py" classname="CU_plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="cuplane_tc3.py" classname="CU_plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="cuplane_tc4.py" classname="CU_plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="cuplane_tc5.py" classname="CU_plane" time="0">
+			<Skipped />
+		</testcase>
+		<testcase name="cuplane_tc6.py" classname="CU_plane" time="0">
+			<Skipped />
+		</testcase>
+	</testsuite>
+</testsuites>

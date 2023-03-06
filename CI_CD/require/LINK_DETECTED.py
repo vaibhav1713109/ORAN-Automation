@@ -14,7 +14,7 @@ class Link_Detect():
 
     ############################################ Return the interface which is detected ############################################
     def test_ethtool_linked(self,interface):
-        cmd = "sudo ethtool " + interface
+        cmd = "ethtool " + interface
         Output = subprocess.getoutput(cmd).split('\n')
         for line in Output:
             # print(line)
@@ -34,6 +34,7 @@ class Link_Detect():
                 if '.' not in i:
                     self.INTERFACE_NAME = self.test_ethtool_linked(i)
                     if self.INTERFACE_NAME:
+                        print('SFP Link detected!!')
                         return self.INTERFACE_NAME,self.interfaces_name
         else:
             print('\n ********** SFP is not Connected!!! ********** \n')
