@@ -1,0 +1,2490 @@
+<?xml version="1.0"?>
+<adh version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.agilent.com/bebop/adh adh-control.xsd" xmlns="http://www.agilent.com/bebop/adh">
+  <sequence id="bebopLog" enabled="true">
+    <description>Auto-generated test case template for nr evm measurement</description>
+    <setup mediator="nr" facade="evm" init="true">
+      <parameter>
+        <int id="minSettlingLengthInSample">0</int>
+        <real_vec_arr id="nrPdschNID0VV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <bool id="bebopLogOverwrite">true</bool>
+        <real_vec_arr id="nrPuschMimoTypeVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchBitVecSelVV">
+          <real_vec>
+            <float> 5</float>
+            <float> 5</float>
+          </real_vec>
+        </real_vec_arr>
+        <bool id="bebopLogOn">false</bool>
+        <real_vec id="nrSpectrumFlatnessTestToleranceDbV">
+          <float>1.39999997615814208984375</float>
+        </real_vec>
+        <real_vec_arr id="nrPuschRankIndicatorVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchSeqCyclicShiftmcsVV">
+          <real_vec>
+            <float>-999</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsPeriodicityVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <string id="bebopLogPathVariable">C:\Temp</string>
+        <float id="bebopLogTriggerThreshold">999</float>
+        <real_vec id="nrCompensateClockErrV">
+          <float> 1</float>
+        </real_vec>
+        <real_vec_arr id="nrLteNumCRSAntennaPortsVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsRbStartVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrNumResLenInSubframesV">
+          <float>10</float>
+        </real_vec>
+        <real_vec_arr id="nrPdcchUserIDVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrExtendFreqLockRangeInNumScsV">
+          <float>16</float>
+        </real_vec>
+        <real_vec_arr id="nrPuschDmrsLenVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDecoderMaxIterationsVV">
+          <real_vec>
+            <float> 8</float>
+          </real_vec>
+        </real_vec_arr>
+        <dreal_vec id="nrSmpFreqV">
+          <double>157286400</double>
+        </dreal_vec>
+        <real_vec id="nrSyncTypeV">
+          <float> 0</float>
+        </real_vec>
+        <int id="nrFirstInputSubframe">-1</int>
+        <real_vec_arr id="nrBwpMuVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+            <float> 1</float>
+            <float> 1</float>
+            <float> 1</float>
+            <float> 1</float>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <int id="nrNumCarriers">1</int>
+        <bool id="nrFrameTriggerOn">false</bool>
+        <real_vec_arr id="nrPrachConfigIndexVV">
+          <real_vec>
+            <float>87</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrEqTimeAverageLengthV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrPuschRbStartVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <dreal_vec id="nrCarrierFreqCenterV">
+          <double>1000000000</double>
+        </dreal_vec>
+        <real_vec_arr id="nrPuschVersionVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrBwpCpModeVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+            <float> 1</float>
+            <float> 1</float>
+            <float> 1</float>
+            <float> 1</float>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockLVV">
+          <real_vec>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <bool id="nrExcludeChanTypeEnabled">false</bool>
+        <dreal_vec id="nrCarrierFreqOffsetV">
+          <double> 0</double>
+        </dreal_vec>
+        <dreal_vec id="nrCarrierBwV">
+          <double>100000000</double>
+        </dreal_vec>
+        <real_vec_arr id="nrPucchUserIdVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschPtrsLVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrNumResLenInSlotsV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrCcEnabledV">
+          <float> 1</float>
+        </real_vec>
+        <real_vec_arr id="nrSsBlockPbchBoostingVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrMaxRb15kHzV">
+          <float>270</float>
+        </real_vec>
+        <real_vec id="nrMirrorFreqV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrCcNumOfInputsV">
+          <float> 1</float>
+        </real_vec>
+        <real_vec_arr id="nrPucchNIDScramblingVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrChannelBandwidthV">
+          <float>12</float>
+        </real_vec>
+        <real_vec_arr id="nrSsBlockScOffsetInSpecVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchRBSetIndexVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCoresetRbStartVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrDcPunctureV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrPdschPtrsEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrBwpRbLengthVV">
+          <real_vec>
+            <float>273</float>
+            <float>273</float>
+            <float>273</float>
+            <float>273</float>
+            <float>273</float>
+            <float>273</float>
+            <float>273</float>
+            <float>273</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrPdschRefDetectModeV">
+          <float> 0</float>
+        </real_vec>
+        <dreal_vec id="nrInputImpedanceV">
+          <double>50</double>
+        </dreal_vec>
+        <real_vec_arr id="nrPucchDmrsEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchRbStartVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrPhasePreCompV">
+          <float> 1</float>
+        </real_vec>
+        <real_vec id="nrIqImbalanceModeV">
+          <float> 0</float>
+        </real_vec>
+        <dreal_vec_arr id="nrCarrierPerChannelFreqOffsetVV">
+          <dreal_vec>
+            <double> 0</double>
+          </dreal_vec>
+        </dreal_vec_arr>
+        <real_vec_arr id="nrPdcchDmrsBoostingVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <dreal_vec id="nrTxCenterFreqV">
+          <double>1000000000</double>
+        </dreal_vec>
+        <dreal_vec id="nrPhaseCompensationFreqV">
+          <double>1000000000</double>
+        </dreal_vec>
+        <real_vec id="nrTransientPeriodPowerChangeInDbV">
+          <float>10</float>
+        </real_vec>
+        <real_vec id="nrIqImbalanceEstimationEnabledV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrFirstInputSlotV">
+          <float>-1</float>
+        </real_vec>
+        <real_vec id="nrAnalysisStartBoundaryV">
+          <float> 1</float>
+        </real_vec>
+        <real_vec id="nrRefInputChannelV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrSsBlockEnableVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsUserIDVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrIndependentSsbBwpV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrPhaseTrackingV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrTrackingModeV">
+          <float> 4</float>
+        </real_vec>
+        <real_vec_arr id="nrPrachLogicalRootSequenceIndexVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrAutoDetectTypeV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrPuschRateMatchPatternPeriodicityBitMapV">
+          <float> 0</float>
+          <float> 1</float>
+          <float> 1</float>
+        </real_vec>
+        <real_vec_arr id="nrPuschDmrsCinitValueVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchInterlaceEnableVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrEqFreqMovingAvgWindowSizeV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrCoresetBwpIDVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrIqImbalanceCompensationEnabledV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrExtendFreqLockRangeV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrMeasIntInSubframesV">
+          <float>10</float>
+        </real_vec>
+        <real_vec_arr id="nrPdcchNumCandidatesL8VV">
+          <real_vec>
+            <float> 4</float>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrIqOffsetCompensationEnabledV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrPucchEnableVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrEnableTransientPeriodExclusionV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrCoresetIDVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrTransientPeriodLengthInUsecV">
+          <float> 2</float>
+        </real_vec>
+        <real_vec_arr id="nrCarrierInputChannelIndicesVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachCyclicShiftIndex_vVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <dreal_vec_arr id="nrCarrierPerChannelRxCenterFreqVV">
+          <dreal_vec>
+            <double>1000000000</double>
+          </dreal_vec>
+        </dreal_vec_arr>
+        <real_vec id="nrUseMcFilterV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrPuschDecoderMaxIterationsVV">
+          <real_vec>
+            <float> 8</float>
+            <float> 8</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrMeasOffsetInSubframesV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrSsbAutoDetectionV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrPdcchAutoDetectTypeV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrCsirsUserIDVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrMeasIntInSymbolsV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrMeasOffsetInSymbolsV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrMultiFramePeriodV">
+          <float> 1</float>
+        </real_vec>
+        <real_vec_arr id="nrPdcchCandidateIndexVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrComputeMagPhaseErrV">
+          <float> 1</float>
+        </real_vec>
+        <real_vec id="nrAmpTrackingV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrSrsFreqBHopVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschEnableVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCoresetIndexVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchVersionVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachLRAVV">
+          <real_vec>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrTimingTrackingV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrEqTrainingV">
+          <float> 3</float>
+        </real_vec>
+        <real_vec id="nrEvmWindowLengthModeV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec id="nrCustomEvmWindowLengthV">
+          <float>172</float>
+        </real_vec>
+        <real_vec id="nrSymTimeAdjModeV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrPuschNIDVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <dreal_vec id="nrSymTimeAdjV">
+          <double>-3.125</double>
+        </dreal_vec>
+        <real_vec id="nrConformanceTestEnabledV">
+          <float> 1</float>
+        </real_vec>
+        <real_vec_arr id="nrPdcchDmrsEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachZeroCorrectionZoneConfigVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrCellIdV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrSsBlockVersionVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrCellIdModeV">
+          <float> 1</float>
+        </real_vec>
+        <real_vec_arr id="nrResourceGridStartVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchCceOffsetVV">
+          <real_vec>
+            <float> 4</float>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrNumBwpV">
+          <float> 8</float>
+        </real_vec>
+        <real_vec_arr id="nrPuschSlotLengthVV">
+          <real_vec>
+            <float> 2</float>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrSyncTypeSourceIndexV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrSrsNumSymbolVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsBwpIDVV">
+          <real_vec>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrUseMibInSsbSyncV">
+          <float> 1</float>
+        </real_vec>
+        <real_vec_arr id="nrPuschUserIDVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPtrsKVV">
+          <real_vec>
+            <float> 2</float>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrSyncModeV">
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrSsBlockAutoDetectThresholdVV">
+          <real_vec>
+            <float>0.001000000047497451305389404296875</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrChannelConditionV">
+          <float> 0</float>
+        </real_vec>
+        <dreal_vec id="nrFreqULLowV">
+          <double>950000000</double>
+        </dreal_vec>
+        <real_vec_arr id="nrPdschVrbToPrbMappingVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <dreal_vec id="nrFreqULHighV">
+          <double>1050000000</double>
+        </dreal_vec>
+        <real_vec_arr id="nrPuschUsedFlexibleSymbolsInSlotVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockRbStartInSpecVV">
+          <real_vec>
+            <float>253</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschDmrsConfigTypeVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchDmrsCinitModeVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrEnableSpectrumFlatnessV">
+          <float> 1</float>
+        </real_vec>
+        <real_vec id="nrEnablePhaseNormalizewithRefPathV">
+          <float> 1</float>
+        </real_vec>
+        <real_vec_arr id="nrPuschPtrsBoostingVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrMaxRb120kHzV">
+          <float>-2</float>
+        </real_vec>
+        <real_vec_arr id="nrSsBlockPbchDataEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchFormatVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschRATypeVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsCombOffsetVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschMcsVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachOccasionIndex_nRAVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrPuschRateMatchPatternInfoContextV">
+          <float> 0</float>
+          <float> 8</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 1</float>
+          <float> 0</float>
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrNumerologiesVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachEnableVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrResourceGridSizeVV">
+          <real_vec>
+            <float>273</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrMaxRb30kHzV">
+          <float>273</float>
+        </real_vec>
+        <real_vec_arr id="nrPdschDmrsEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrMaxRb60kHzV">
+          <float>135</float>
+        </real_vec>
+        <real_vec id="nrMaxRb240kHzV">
+          <float>-2</float>
+        </real_vec>
+        <real_vec_arr id="nrSsBlockMuVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockSetIndexForSCS30VV">
+          <real_vec>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockIndicesIndicatorVV">
+          <real_vec>
+            <float>15</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrPdschUserDefinedConstV">
+          <float> 0</float>
+          <float> 1</float>
+          <float> 0</float>
+          <float>25</float>
+          <float> 1</float>
+          <float> 0</float>
+          <float> 6</float>
+          <float> 1</float>
+          <float> 0</float>
+          <float>28</float>
+          <float> 2</float>
+          <float> 1</float>
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrPuschRBGSizeVV">
+          <real_vec>
+            <float>16</float>
+            <float>16</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockIndicesIndicatorHigh24bitsVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschNIDVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockIndicesIndicatorMiddle24bitsVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschBwpIDVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockPeriodVV">
+          <real_vec>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockHalfFrameIndexVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPrgRBNumberCheckVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockRbStartVV">
+          <real_vec>
+            <float>126</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockScOffsetVV">
+          <real_vec>
+            <float> 6</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockPssBoostingVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrTransSsBlocktAutoDetectVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschDmrsMappingTypeVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockBitVecSelVV">
+          <real_vec>
+            <float> 5</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschDmrsMappingTypeAPosVV">
+          <real_vec>
+            <float> 2</float>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschDmrsBoostingVV">
+          <real_vec>
+            <float>1.41253757476806640625</float>
+            <float>1.41253757476806640625</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchMcsVV">
+          <real_vec>
+            <float>-1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchFirstSymbolInSlotVV">
+          <real_vec>
+            <float>13</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrScsCommonVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockPssEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDmrsScramblingIDVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockSssEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPtrsReOffsetVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockPbchDmrsEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSsBlockBeamSweepEnableVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrBwpEnableVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+            <float> 0</float>
+            <float> 0</float>
+            <float> 1</float>
+            <float> 0</float>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschDmrsAddPosVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrBwpIDVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 1</float>
+            <float> 2</float>
+            <float> 3</float>
+            <float> 0</float>
+            <float> 1</float>
+            <float> 2</float>
+            <float> 3</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrBwpRbStartVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+            <float> 0</float>
+            <float> 0</float>
+            <float> 0</float>
+            <float> 0</float>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDmrsAddPosVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrDciFormatVV">
+          <real_vec>
+            <float>999</float>
+            <float>999</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchBwpIDVV">
+          <real_vec>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschVersionVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchSearchSpaceVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsBWCIndexVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschBitVecSelVV">
+          <real_vec>
+            <float> 5</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschUserIDVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsSecondSymbolVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschNRNTIVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschPrgClientDefinedRbVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschNSCIDVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschMimoTypeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschEnableCSI1VV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschAntPortVV">
+          <real_vec>
+            <float>1000</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschAntPortGroupVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschRBGBitmapVV">
+          <real_vec>
+            <float>29</float>
+            <float>29</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachRootSequenceIndexVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschNumberOfDmrsCdmGroupWithoutDataVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschDmrsCinitModeVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <bool id="nrCalculateProcessedVectors">true</bool>
+        <real_vec_arr id="nrPdschAntAntPortsBitsToIntegerValueVV">
+          <real_vec>
+            <float>-1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschModTypeVV">
+          <real_vec>
+            <float> 3</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchBitVecSelVV">
+          <real_vec>
+            <float> 5</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsZeroPowerEnableVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschModType2VV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrPuschUserDefinedConstV">
+          <float> 0</float>
+          <float> 1</float>
+          <float> 0</float>
+          <float>25</float>
+          <float> 1</float>
+          <float> 0</float>
+          <float> 6</float>
+          <float> 1</float>
+          <float> 0</float>
+          <float>28</float>
+          <float> 2</float>
+          <float> 1</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 1</float>
+          <float> 0</float>
+          <float>25</float>
+          <float> 1</float>
+          <float> 1</float>
+          <float> 6</float>
+          <float> 1</float>
+          <float> 0</float>
+          <float>28</float>
+          <float> 2</float>
+          <float> 1</float>
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrPdcchNumCandidatesVV">
+          <real_vec>
+            <float> 4</float>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschMcs2VV">
+          <real_vec>
+            <float>-1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschMcsTableVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschNumCodewordsVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschBoostingVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschRbStartVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschRbLengthVV">
+          <real_vec>
+            <float>273</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschSlotStartVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschEnableVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschSlotLengthVV">
+          <real_vec>
+            <float>20</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchAntPortVV">
+          <real_vec>
+            <float>2000</float>
+            <float>2000</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachUserIdVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschFirstSymbolInSlotVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschLastSymbolInSlotVV">
+          <real_vec>
+            <float>13</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachSubcarrierSpacingVV">
+          <real_vec>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschUsedFlexibleSymbolsInSlotVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschRATypeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschRBGSizeVV">
+          <real_vec>
+            <float>16</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschRBGBitmapVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDmrsBoostingVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDmrsConfigTypeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDmrsMappingTypeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDmrsMappingTypeAPosVV">
+          <real_vec>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDmrsMappingReferenceVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchAntPortVV">
+          <real_vec>
+            <float>2000</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDmrsLenVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschTBSVV">
+          <real_vec>
+            <float>9984</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDmrsMaxLenVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsSymbolOffsetVV">
+          <real_vec>
+            <float> 8</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschPtrsEnableVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschPtrsBoostingVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsFreqHoppingModeVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschPtrsKVV">
+          <real_vec>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschPtrsReOffsetVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschAllocSlotFormatsVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsFreDomainShiftVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDmrsCinitModeVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDmrsCinitValueVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschTBS2VV">
+          <real_vec>
+            <float>24</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschRVIndexVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschRVIndex2VV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschRateMatchAroundCoresetIDVV">
+          <real_vec>
+            <float>-1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschNID1VV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDataEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschConditionNumberConfigVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschCondNumClientDefinedRbVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschPrecoderBlockGroupCfgVV">
+          <real_vec>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschPrgRBNumberCheckVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachSlotStartVV">
+          <real_vec>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschNonInterleavedVrbToPrbMappingCoresetIDVV">
+          <real_vec>
+            <float>-1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCoresetRbLengthVV">
+          <real_vec>
+            <float>270</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschAdditionalDmrsDlAltVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschDmrsDLR16VV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschEnableHARQACKVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschThresholdPortDetectVV">
+          <real_vec>
+            <float>-36</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschIdentityVV">
+          <real_vec>
+            <float>-1</float>
+            <float>-1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdschVrbToPrbInterleaverVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrPuschRateMatchPatternSymbolBitMapV">
+          <float> 0</float>
+          <float>14</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+          <float> 0</float>
+        </real_vec>
+        <real_vec_arr id="nrPuschRbLengthVV">
+          <real_vec>
+            <float>51</float>
+            <float>51</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsBoostingVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschBitVecSelVV">
+          <real_vec>
+            <float> 4</float>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschBwpIDVV">
+          <real_vec>
+            <float> 4</float>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsSlotOffsetVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschNRNTIVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschNSCIDVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschDmrsScramblingIDVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPayloadSizeCSI1VV">
+          <real_vec>
+            <float>10</float>
+            <float>10</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschAntPortVV">
+          <real_vec>
+            <float>1000</float>
+            <float>1000</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschAntPortGroupVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschNumberOfDmrsCdmGroupWithoutDataVV">
+          <real_vec>
+            <float> 2</float>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschAntAntPortsBitsToIntegerValueVV">
+          <real_vec>
+            <float>-1</float>
+            <float>-1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschModTypeVV">
+          <real_vec>
+            <float> 3</float>
+            <float> 3</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschMcsVV">
+          <real_vec>
+            <float> 4</float>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschMcsTableVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschTpVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPtrsNumSamplesPerGroupVV">
+          <real_vec>
+            <float> 2</float>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschBoostingVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchNumCandidatesL2VV">
+          <real_vec>
+            <float> 4</float>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschSlotStartVV">
+          <real_vec>
+            <float> 8</float>
+            <float>18</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschFirstSymbolInSlotVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschLastSymbolInSlotVV">
+          <real_vec>
+            <float>13</float>
+            <float>13</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschDmrsMaxLenVV">
+          <real_vec>
+            <float> 2</float>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschDmrsSeqHoppingModeVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschTBSVV">
+          <real_vec>
+            <float>4352</float>
+            <float>4352</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachBwpIDVV">
+          <real_vec>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPtrsEnableVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPtrsLVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPtrsPortsVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPtrsNumGroupsVV">
+          <real_vec>
+            <float> 2</float>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPtrsNIDVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsEnableVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschAllocSlotFormatsVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschRVIndexVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchSlotLengthVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschDataEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschDmrsEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPtrsEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrLteMbsfnSubframeVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschConditionNumberConfigVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschBetaOffsetIndexHARQACKVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschCondNumClientDefinedRbVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPrecoderBlockGroupCfgVV">
+          <real_vec>
+            <float> 2</float>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPrgClientDefinedRbVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchAggregationLevelVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschNID0VV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschNID1VV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschDmrsULR16VV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschDmrsULTpR16VV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachBoostingVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschRAPIDVV">
+          <real_vec>
+            <float>-1</float>
+            <float>-1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschThresholdPortDetectVV">
+          <real_vec>
+            <float>-36</float>
+            <float>-36</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsFirstSymbolVV">
+          <real_vec>
+            <float>12</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsFreqDomainAllocBitmapVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschUCIScalingVV">
+          <real_vec>
+            <float>0.5</float>
+            <float>0.5</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschEnableULSCHVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsAllocSlotFormatsVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschEnableCSI2VV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschEnableCGUCIVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschBetaOffsetIndexCSI1VV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschBetaOffsetIndexCSI2VV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschBetaOffsetIndexCGUCIVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPayloadSizeHARQACKVV">
+          <real_vec>
+            <float>10</float>
+            <float>10</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPayloadSizeCSI2VV">
+          <real_vec>
+            <float>10</float>
+            <float>10</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPuschPayloadSizeCGUCIVV">
+          <real_vec>
+            <float>10</float>
+            <float>10</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec id="nrPuschRateMatchPatternRbIndexV">
+          <float> 0</float>
+          <float>273</float>
+          <float> 0</float>
+          <float> 1</float>
+          <float> 2</float>
+          <float> 3</float>
+          <float> 4</float>
+          <float> 5</float>
+          <float> 6</float>
+          <float> 7</float>
+          <float> 8</float>
+          <float> 9</float>
+          <float>10</float>
+          <float>11</float>
+          <float>12</float>
+          <float>13</float>
+          <float>14</float>
+          <float>15</float>
+          <float>16</float>
+          <float>17</float>
+          <float>18</float>
+          <float>19</float>
+          <float>20</float>
+          <float>21</float>
+          <float>22</float>
+          <float>23</float>
+          <float>24</float>
+          <float>25</float>
+          <float>26</float>
+          <float>27</float>
+          <float>28</float>
+          <float>29</float>
+          <float>30</float>
+          <float>31</float>
+          <float>32</float>
+          <float>33</float>
+          <float>34</float>
+          <float>35</float>
+          <float>36</float>
+          <float>37</float>
+          <float>38</float>
+          <float>39</float>
+          <float>40</float>
+          <float>41</float>
+          <float>42</float>
+          <float>43</float>
+          <float>44</float>
+          <float>45</float>
+          <float>46</float>
+          <float>47</float>
+          <float>48</float>
+          <float>49</float>
+          <float>50</float>
+          <float>51</float>
+          <float>52</float>
+          <float>53</float>
+          <float>54</float>
+          <float>55</float>
+          <float>56</float>
+          <float>57</float>
+          <float>58</float>
+          <float>59</float>
+          <float>60</float>
+          <float>61</float>
+          <float>62</float>
+          <float>63</float>
+          <float>64</float>
+          <float>65</float>
+          <float>66</float>
+          <float>67</float>
+          <float>68</float>
+          <float>69</float>
+          <float>70</float>
+          <float>71</float>
+          <float>72</float>
+          <float>73</float>
+          <float>74</float>
+          <float>75</float>
+          <float>76</float>
+          <float>77</float>
+          <float>78</float>
+          <float>79</float>
+          <float>80</float>
+          <float>81</float>
+          <float>82</float>
+          <float>83</float>
+          <float>84</float>
+          <float>85</float>
+          <float>86</float>
+          <float>87</float>
+          <float>88</float>
+          <float>89</float>
+          <float>90</float>
+          <float>91</float>
+          <float>92</float>
+          <float>93</float>
+          <float>94</float>
+          <float>95</float>
+          <float>96</float>
+          <float>97</float>
+          <float>98</float>
+          <float>99</float>
+          <float>100</float>
+          <float>101</float>
+          <float>102</float>
+          <float>103</float>
+          <float>104</float>
+          <float>105</float>
+          <float>106</float>
+          <float>107</float>
+          <float>108</float>
+          <float>109</float>
+          <float>110</float>
+          <float>111</float>
+          <float>112</float>
+          <float>113</float>
+          <float>114</float>
+          <float>115</float>
+          <float>116</float>
+          <float>117</float>
+          <float>118</float>
+          <float>119</float>
+          <float>120</float>
+          <float>121</float>
+          <float>122</float>
+          <float>123</float>
+          <float>124</float>
+          <float>125</float>
+          <float>126</float>
+          <float>127</float>
+          <float>128</float>
+          <float>129</float>
+          <float>130</float>
+          <float>131</float>
+          <float>132</float>
+          <float>133</float>
+          <float>134</float>
+          <float>135</float>
+          <float>136</float>
+          <float>137</float>
+          <float>138</float>
+          <float>139</float>
+          <float>140</float>
+          <float>141</float>
+          <float>142</float>
+          <float>143</float>
+          <float>144</float>
+          <float>145</float>
+          <float>146</float>
+          <float>147</float>
+          <float>148</float>
+          <float>149</float>
+          <float>150</float>
+          <float>151</float>
+          <float>152</float>
+          <float>153</float>
+          <float>154</float>
+          <float>155</float>
+          <float>156</float>
+          <float>157</float>
+          <float>158</float>
+          <float>159</float>
+          <float>160</float>
+          <float>161</float>
+          <float>162</float>
+          <float>163</float>
+          <float>164</float>
+          <float>165</float>
+          <float>166</float>
+          <float>167</float>
+          <float>168</float>
+          <float>169</float>
+          <float>170</float>
+          <float>171</float>
+          <float>172</float>
+          <float>173</float>
+          <float>174</float>
+          <float>175</float>
+          <float>176</float>
+          <float>177</float>
+          <float>178</float>
+          <float>179</float>
+          <float>180</float>
+          <float>181</float>
+          <float>182</float>
+          <float>183</float>
+          <float>184</float>
+          <float>185</float>
+          <float>186</float>
+          <float>187</float>
+          <float>188</float>
+          <float>189</float>
+          <float>190</float>
+          <float>191</float>
+          <float>192</float>
+          <float>193</float>
+          <float>194</float>
+          <float>195</float>
+          <float>196</float>
+          <float>197</float>
+          <float>198</float>
+          <float>199</float>
+          <float>200</float>
+          <float>201</float>
+          <float>202</float>
+          <float>203</float>
+          <float>204</float>
+          <float>205</float>
+          <float>206</float>
+          <float>207</float>
+          <float>208</float>
+          <float>209</float>
+          <float>210</float>
+          <float>211</float>
+          <float>212</float>
+          <float>213</float>
+          <float>214</float>
+          <float>215</float>
+          <float>216</float>
+          <float>217</float>
+          <float>218</float>
+          <float>219</float>
+          <float>220</float>
+          <float>221</float>
+          <float>222</float>
+          <float>223</float>
+          <float>224</float>
+          <float>225</float>
+          <float>226</float>
+          <float>227</float>
+          <float>228</float>
+          <float>229</float>
+          <float>230</float>
+          <float>231</float>
+          <float>232</float>
+          <float>233</float>
+          <float>234</float>
+          <float>235</float>
+          <float>236</float>
+          <float>237</float>
+          <float>238</float>
+          <float>239</float>
+          <float>240</float>
+          <float>241</float>
+          <float>242</float>
+          <float>243</float>
+          <float>244</float>
+          <float>245</float>
+          <float>246</float>
+          <float>247</float>
+          <float>248</float>
+          <float>249</float>
+          <float>250</float>
+          <float>251</float>
+          <float>252</float>
+          <float>253</float>
+          <float>254</float>
+          <float>255</float>
+          <float>256</float>
+          <float>257</float>
+          <float>258</float>
+          <float>259</float>
+          <float>260</float>
+          <float>261</float>
+          <float>262</float>
+          <float>263</float>
+          <float>264</float>
+          <float>265</float>
+          <float>266</float>
+          <float>267</float>
+          <float>268</float>
+          <float>269</float>
+          <float>270</float>
+          <float>271</float>
+          <float>272</float>
+        </real_vec>
+        <real_vec_arr id="nrCoresetRegsBitMapLow24bitsVV">
+          <real_vec>
+            <float>16777215</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCoresetRegsBitMapHigh24bitsVV">
+          <real_vec>
+            <float>2097151</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCoresetSymbolLengthVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCoresetCceToRegMappingTypeVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCoresetRegBundleSizeVV">
+          <real_vec>
+            <float> 6</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCoresetInterleaverSizeVV">
+          <real_vec>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCoresetShiftIndexVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCoresetPrecoderGranularityVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCoresetRbOffsetVV">
+          <real_vec>
+            <float>-1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchEnableVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchVersionVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchBwpIDVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchCoresetIDVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchBoostingVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchSlotStartVV">
+          <real_vec>
+            <float> 2</float>
+            <float>12</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchSlotLengthVV">
+          <real_vec>
+            <float> 8</float>
+            <float> 8</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchFirstSymbolInSlotVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsBoostingVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchNRNTIVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchDmrsScramblingIDVV">
+          <real_vec>
+            <float>-1</float>
+            <float>-1</float>
+          </real_vec>
+        </real_vec_arr>
+        <bool id="nrPdcchSlotConfigFlexFlag">true</bool>
+        <real_vec_arr id="nrPdcchNumCandidatesL1VV">
+          <real_vec>
+            <float> 4</float>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchPayloadSizeVV">
+          <real_vec>
+            <float>20</float>
+            <float>20</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchNumCandidatesL4VV">
+          <real_vec>
+            <float> 4</float>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchNumCandidatesL16VV">
+          <real_vec>
+            <float> 4</float>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsNIDVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrRntiTypeVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchAllocSlotFormatsVV">
+          <real_vec>
+            <float> 0</float>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachFormatVV">
+          <real_vec>
+            <float>11</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsBWBIndexVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPdcchDataEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchNID0DmrsVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsAntPortVV">
+          <real_vec>
+            <float>1000</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchMultiUserMultiplexVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchDmrsCinitValueVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrLteVShiftVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchModTypeVV">
+          <real_vec>
+            <float>51</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchBoostingVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucch2ndHopRbStartVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchRbLengthVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchSlotStartVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchLastSymbolInSlotVV">
+          <real_vec>
+            <float>13</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchDmrsLenVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachFramePeriodVV">
+          <real_vec>
+            <float>16</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchDmrsBoostingVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchNRNTIVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchUCISizeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchDataEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchGroupHoppingModeVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchHoppingIDVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchInitialCyclicShiftm0VV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchIntraSlotFreqHoppingVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchOCCIndexVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchOCCLengthVV">
+          <real_vec>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchAdditionalDMRSVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchInterlace0VV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchInterlace1VV">
+          <real_vec>
+            <float>-1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPucchDmrsTpR16VV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsCombNumberVV">
+          <real_vec>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachConfigTableVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachOccasionIndexVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachRbStartVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachRbLengthVV">
+          <real_vec>
+            <float> 6</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachFirstSymbolInSlotVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachRestrictedSetConfigVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachFreqOffset_nRAStartVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachMsg1FdmVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrPrachFullAutoModeVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsEnableVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsAntPortVV">
+          <real_vec>
+            <float>3000</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsNIDVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsSlotStartVV">
+          <real_vec>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsSlotLengthVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsBwpIDVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsRbLengthVV">
+          <real_vec>
+            <float>272</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsLocTableIndexVV">
+          <real_vec>
+            <float> 4</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsDensityVV">
+          <real_vec>
+            <float> 2</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrLteCrsEnableVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsUsedFlexibleSymbolsInSlotVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsResourceElementsUsedForPdschVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrCsirsAntPortGroupVV">
+          <real_vec>
+            <float>15</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsCyclicShiftConfigVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsNumPortsVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsSlotLengthVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsRepetitionFactorVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsFreDomainPositionVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsAllocSlotFormatsVV">
+          <real_vec>
+            <float>-1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsEvmIncludeVV">
+          <real_vec>
+            <float> 1</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrSrsPositioningEnableVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrLteCarrierBandwidthVV">
+          <real_vec>
+            <float>50</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrLteCarrierFreqVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+        <real_vec_arr id="nrLteConfigIdVV">
+          <real_vec>
+            <float> 0</float>
+          </real_vec>
+        </real_vec_arr>
+      </parameter>
+    </setup>
+  </sequence>
+</adh>

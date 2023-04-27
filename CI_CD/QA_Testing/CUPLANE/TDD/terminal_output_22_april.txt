@@ -1,0 +1,1405 @@
+C:\ORAN_AUTOMATION\CUPLANE\TDD>python TDD_Config.py No_Comp_DL_UL TDD
+C:\ORAN_AUTOMATION\CUPLANE
+['TDD_Config.py', 'No_Comp_DL_UL', 'TDD']
+Check wether RU is sync or not Y/N..Y
+****************************************************************************************************
+#                                            scp_gen.py                                            #
+****************************************************************************************************
+Executing API: api.SignalGenerator.Frequency = (float(3.700005)*1000000000)
+Executing API: api.SignalGenerator.Amplitude = int(-60)
+Executing API: api.SignalGenerator.TriggerType = TriggerType.Continuous
+Executing API: api.SignalGenerator.TriggerSource = TriggerSource.External
+Executing API: api.SignalGenerator.ExternalPolarity = Polarity.Positive
+Executing API: api.SignalGenerator.ExternalDelayEnabled = True
+Executing API: api.SignalGenerator.ExternalDelayTime = 0.000000005
+Executing API: api.SignalGenerator.Continuous = Continuous.TriggerAndRun
+Executing API: api.SignalGenerator.SingleTrigger = SingleTrigger.BufferedTrigger
+Executing API: api.SignalGenerator.SegmentAdvance = SegmentAdvance.Continuous
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).CarrierType = CarrierType.DL
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).PresetDLTestModel(Bandwidth.FR1_100M, DuplexType.TDD, Numerology.SCS30k, TestModel.NR_FR1_TM3_1a, 1, PhaseCompensationMode.Auto)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).AutoDCI = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).Enabled = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCS = 27
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCS = 27
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCS = 27
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCS = 27
+Executing API: api.NR5GWaveformSettings.AddNRCarrier(CarrierType.UL)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).CarrierType = CarrierType.UL
+Executing API: tdd = TDDConfig(SlotConfigurationPeriod.MS5, 7, 6, 2, 4)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).ULFRCConfig(Bandwidth.FR1_100M, FRC.G_FR1_A1_5, 0, PUSCHMappingType.A, PhaseCompensationMode.Auto, tdd,True)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).NumberOfDMRSCDMGroup = 1
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).MCS = 28
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).MCS = 28
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).DMRSPowerBoosting = 0
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).DMRSPowerBoosting = 0
+Executing API:
+
+Saving the scp file
+
+Generating the scp file
+Executing API: api.NR5GWaveformSettings.RemoveNRCarrier(0)
+The scp file exist
+The scp file is successfully generated
+Connecting the instrumet
+Generating the configurations
+- Connected to the Instrument at TCPIP0::172.17.95.97::hislip0::INSTR.
+Api connection closed
+****************************************************************************************************
+#                                           pcap_gen.py                                            #
+****************************************************************************************************
+- Import Waveform Project (.scp)
+- Carriers Read = 2
+- Set ORS Configuration
+ashjbvbdvshbchjdbjcsbjhbn
+- Export Configuration file
+- Carriers Read = 2
+DONE SFN[0] Mu[1] Ant[0]: ResourceGridMessenger (0 lines left in IQ data file)
+The pcap file exist
+The pcap file is successfully generated
+****************************************************************************************************
+#                                    pcap_load_play_recorde.py                                     #
+****************************************************************************************************
+============================================================================================
+============================PLAYER AND RECORDER FUNCTION====================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\No_Comp_DL_UL\EAXCID1\CTC_5GNR.pcap
+Load Pcap Status:''      Response Code:200
+Start Recorder Response:'{"state":"on","radioframes":1}'
+ Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Start Player Response:'{"state":"on","radioframes":0,"starttime":0.0}'   Response Code:200
+Player State:{"state":"on","radioframes":0,"starttime":0.0}
+ Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Stop Recorder Response:'{"state":"off","radioframes":1}'
+ Response Code:200
+Copied the Pcap
+The Packets are Transmiting ....
+============================================================================================
+============================================================================================
+****************************************************************************************************
+#                               VXT_configuration_result_capture.py                                #
+****************************************************************************************************
+TCPIP0::172.17.95.97::hislip0::INSTR 100 3.700005 -23.8
+:INST:SEL NR5G 1
+:OUTP:STAT OFF 1
+:FEED:RF:PORT:INP RFIN 1
+:CONF:EVM 1
+:DISP:EVM:VIEW NORM 1
+:INIT:CONT ON 1
+:CCAR:REF 3.700005GHZ 1
+:RAD:STAN:PRES:CARR B100M 1
+:RAD:STAN:PRES:FREQ:RANG FR1 1
+:RAD:STAN:PRES:DMOD TDD 1
+:RAD:STAN:PRES:SCS SCS30K 1
+:RAD:STAN:PRES:RBAL DLTM3DOT1A 1
+:RAD:STAN:PRES:DLIN:BS:CAT ALAR 1
+:RAD:STAN:PRES:IMM 1
+:EVM:CCAR0:DC:PUNC ON 1
+:EVM:CCAR0:DEC:PDSC DESCrambled 1
+:EVM:CCAR0:PDSC1:MCS:TABL TABL2 1
+:DISP:EVM:WIND2:DATA DINF 1
+:EVM:CCAR0:PDSC1:MCS 27 1
+:EVM:CCAR0:PDSC2:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC2:MCS 27 1
+:EVM:CCAR0:PDSC3:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC3:MCS 27 1
+:EVM:CCAR0:PDSC4:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC4:MCS 27 1
+:CORR:BTS:GAIN -23.8 1
+:MMEM:STOR:SCR 'lat.png' 1
+Scpi_write Error :SENS:POW:RANG:OPT IMM : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :SENS:POW:RANG:OPT IMM : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:SENS:POW:RANG:OPT IMM 1
+2.23 22.51
+print taken
+Constellation Saved
+****************************************************************************************************
+Channel Power : 22.51
+EVM : 2.23
+****************************************************************************************************
+True
+****************************************************************************************************
+#                                            orb_gen.py                                            #
+****************************************************************************************************
+============================================================================================
+============================Generate ORB from captured PCAP=================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\No_Comp_DL_UL\EAXCID1\CTC_5GNR_captured.pcap
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\No_Comp_DL_UL\EAXCID1\CTC_5GNR.orstx
+- Import PCAP in Explorer
+- Inspecting eAxID value of the packets
+eAxID:  1
+- Filter Uplink Packets
+- Extract Uplink U plane IQ Data
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+ORB_Created Successfully
+True
+****************************************************************************************************
+#                             vsa_constellation_and_result_capture.py                              #
+****************************************************************************************************
+============================================================================================
+=========================== 89600 VSA CONFIGURATION ========================================
+============================================================================================
+89600 VSA Application is already running.
+- Recall .setx file to VSA
+- Recall Recording .ORB file to VSA
+====================================================================================================
+#                                        Decoded Info Data                                         #
+====================================================================================================
+PUCCH Decoder : Off
+PUSCH Decoder : On
+PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0
+PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0
+PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.9325, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.9325, CRC=Pass , Number Of Code Blocks: 2
+====================================================================================================
+#                                           Summary Info                                           #
+====================================================================================================
+System.String[]
+ChannelPower : 67.22169494628906
+EVM : 1.8853938579559326
+FrequencyError : 6.039283752441406
+EVMPk : 6.28351354598999
+====================================================================================================
+#                                        Result Declaration                                        #
+====================================================================================================
+CRC : Pass
+EVM : Pass
+True
+****************************************************************************************************
+#                                          stop_player.py                                          #
+****************************************************************************************************
+============================================================================================
+=========================================STOP FUNCTION======================================
+============================================================================================
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Stop Player Response:'{"state":"off","radioframes":1,"starttime":0.0}'   Response Code:200
+============================================================================================
+============================================================================================
+The Player stopped the transmission
+True
+None
+
+C:\ORAN_AUTOMATION\CUPLANE\TDD>python TDD_Config.py Extended_DL_UL TDD
+C:\ORAN_AUTOMATION\CUPLANE
+['TDD_Config.py', 'Extended_DL_UL', 'TDD']
+Check wether RU is sync or not Y/N..Y
+****************************************************************************************************
+#                                            scp_gen.py                                            #
+****************************************************************************************************
+Executing API: api.SignalGenerator.Frequency = (float(3.700005)*1000000000)
+Executing API: api.SignalGenerator.Amplitude = int(-60)
+Executing API: api.SignalGenerator.TriggerType = TriggerType.Continuous
+Executing API: api.SignalGenerator.TriggerSource = TriggerSource.External
+Executing API: api.SignalGenerator.ExternalPolarity = Polarity.Positive
+Executing API: api.SignalGenerator.ExternalDelayEnabled = True
+Executing API: api.SignalGenerator.ExternalDelayTime = 0.000000005
+Executing API: api.SignalGenerator.Continuous = Continuous.TriggerAndRun
+Executing API: api.SignalGenerator.SingleTrigger = SingleTrigger.BufferedTrigger
+Executing API: api.SignalGenerator.SegmentAdvance = SegmentAdvance.Continuous
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).CarrierType = CarrierType.DL
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).PresetDLTestModel(Bandwidth.FR1_100M, DuplexType.TDD, Numerology.SCS30k, TestModel.NR_FR1_TM1_1, 1, PhaseCompensationMode.Auto)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).AutoDCI = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).Enabled = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCS = 4
+Executing API: api.NR5GWaveformSettings.AddNRCarrier(CarrierType.UL)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).CarrierType = CarrierType.UL
+Executing API: tdd = TDDConfig(SlotConfigurationPeriod.MS5, 7, 6, 2, 4)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).ULFRCConfig(Bandwidth.FR1_100M, FRC.G_FR1_A1_5, 0, PUSCHMappingType.A, PhaseCompensationMode.Auto, tdd,True)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).NumberOfDMRSCDMGroup = 1
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).DMRSPowerBoosting = 0
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).DMRSPowerBoosting = 0
+
+Saving the scp file
+
+Generating the scp file
+Executing API: api.NR5GWaveformSettings.RemoveNRCarrier(0)
+The scp file exist
+The scp file is successfully generated
+Connecting the instrumet
+Generating the configurations
+- Connected to the Instrument at TCPIP0::172.17.95.97::hislip0::INSTR.
+Api connection closed
+****************************************************************************************************
+#                                           pcap_gen.py                                            #
+****************************************************************************************************
+- Import Waveform Project (.scp)
+- Carriers Read = 2
+- Set ORS Configuration
+ashjbvbdvshbchjdbjcsbjhbn
+- Export Configuration file
+- Carriers Read = 2
+DONE SFN[0] Mu[1] Ant[0]: ResourceGridMessenger (0 lines left in IQ data file)
+The pcap file exist
+The pcap file is successfully generated
+****************************************************************************************************
+#                                    pcap_load_play_recorde.py                                     #
+****************************************************************************************************
+============================================================================================
+============================PLAYER AND RECORDER FUNCTION====================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Extended_DL_UL\EAXCID1\CTC_5GNR.pcap
+Load Pcap Status:''      Response Code:200
+Start Recorder Response:'{"state":"on","radioframes":1}'         Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Start Player Response:'{"state":"on","radioframes":0,"starttime":0.0}'   Response Code:200
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Stop Recorder Response:'{"state":"off","radioframes":1}'         Response Code:200
+Copied the Pcap
+The Packets are Transmiting ....
+============================================================================================
+============================================================================================
+****************************************************************************************************
+#                               VXT_configuration_result_capture.py                                #
+****************************************************************************************************
+TCPIP0::172.17.95.97::hislip0::INSTR 100 3.700005 -23.8
+Scpi_write Error :INST:SEL NR5G : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:INST:SEL NR5G 1
+:OUTP:STAT OFF 1
+:FEED:RF:PORT:INP RFIN 1
+:CONF:EVM 1
+:DISP:EVM:VIEW NORM 1
+:INIT:CONT ON 1
+:CCAR:REF 3.700005GHZ 1
+:RAD:STAN:PRES:CARR B100M 1
+:RAD:STAN:PRES:FREQ:RANG FR1 1
+:RAD:STAN:PRES:DMOD TDD 1
+:RAD:STAN:PRES:SCS SCS30K 1
+:RAD:STAN:PRES:RBAL DLTM1DOT1 1
+:RAD:STAN:PRES:DLIN:BS:CAT ALAR 1
+:RAD:STAN:PRES:IMM 1
+:EVM:CCAR0:DC:PUNC ON 1
+:EVM:CCAR0:PHAS:COMP:AUTO ON 1
+:EVM:CCAR0:DEC:PDSC DESCrambled 1
+:DISP:EVM:WIND2:DATA DINF 1
+:EVM:CCAR0:PDSC1:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC1:MCS 4 1
+:EVM:CCAR0:PDSC2:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC2:MCS 4 1
+:EVM:CCAR0:PDSC3:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC3:MCS 4 1
+:EVM:CCAR0:PDSC4:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC4:MCS 4 1
+:CORR:BTS:GAIN -23.8 1
+Scpi_write Error :SENS:POW:RANG:OPT IMM : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:SENS:POW:RANG:OPT IMM 1
+2.13 22.45
+print taken
+Constellation Saved
+****************************************************************************************************
+Channel Power : 22.45
+EVM : 2.13
+****************************************************************************************************
+True
+****************************************************************************************************
+#                                            orb_gen.py                                            #
+****************************************************************************************************
+============================================================================================
+============================Generate ORB from captured PCAP=================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Extended_DL_UL\EAXCID1\CTC_5GNR_captured.pcap
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Extended_DL_UL\EAXCID1\CTC_5GNR.orstx
+- Import PCAP in Explorer
+- Inspecting eAxID value of the packets
+eAxID:  1
+- Filter Uplink Packets
+- Extract Uplink U plane IQ Data
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+ORB_Created Successfully
+True
+****************************************************************************************************
+#                             vsa_constellation_and_result_capture.py                              #
+****************************************************************************************************
+============================================================================================
+=========================== 89600 VSA CONFIGURATION ========================================
+============================================================================================
+89600 VSA Application is already running.
+- Recall .setx file to VSA
+- Recall Recording .ORB file to VSA
+====================================================================================================
+#                                        Decoded Info Data                                         #
+====================================================================================================
+PUCCH Decoder : Off
+PUSCH Decoder : On
+PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0
+PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0
+PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+====================================================================================================
+#                                           Summary Info                                           #
+====================================================================================================
+System.String[]
+ChannelPower : 67.2258071899414
+EVM : 1.8916244506835938
+FrequencyError : -1.417193055152893
+EVMPk : 6.920542240142822
+====================================================================================================
+#                                        Result Declaration                                        #
+====================================================================================================
+CRC : Pass
+EVM : Pass
+True
+****************************************************************************************************
+#                                          stop_player.py                                          #
+****************************************************************************************************
+============================================================================================
+=========================================STOP FUNCTION======================================
+============================================================================================
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Stop Player Response:'{"state":"off","radioframes":1,"starttime":0.0}'   Response Code:200
+============================================================================================
+============================================================================================
+The Player stopped the transmission
+True
+None
+
+C:\ORAN_AUTOMATION\CUPLANE\TDD>python TDD_Config.py Base_DL_UL TDD
+C:\ORAN_AUTOMATION\CUPLANE
+['TDD_Config.py', 'Base_DL_UL', 'TDD']
+Check wether RU is sync or not Y/N..Y
+****************************************************************************************************
+#                                            scp_gen.py                                            #
+****************************************************************************************************
+Executing API: api.SignalGenerator.Frequency = (float(3.700005)*1000000000)
+Executing API: api.SignalGenerator.Amplitude = int(-60)
+Executing API: api.SignalGenerator.TriggerType = TriggerType.Continuous
+Executing API: api.SignalGenerator.TriggerSource = TriggerSource.External
+Executing API: api.SignalGenerator.ExternalPolarity = Polarity.Positive
+Executing API: api.SignalGenerator.ExternalDelayEnabled = True
+Executing API: api.SignalGenerator.ExternalDelayTime = 0.000000005
+Executing API: api.SignalGenerator.Continuous = Continuous.TriggerAndRun
+Executing API: api.SignalGenerator.SingleTrigger = SingleTrigger.BufferedTrigger
+Executing API: api.SignalGenerator.SegmentAdvance = SegmentAdvance.Continuous
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).CarrierType = CarrierType.DL
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).PresetDLTestModel(Bandwidth.FR1_100M, DuplexType.TDD, Numerology.SCS30k, TestModel.NR_FR1_TM1_1, 1, PhaseCompensationMode.Auto)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).AutoDCI = False
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).Enabled = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCS = 4
+Executing API: api.NR5GWaveformSettings.AddNRCarrier(CarrierType.UL)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).CarrierType = CarrierType.UL
+Executing API: tdd = TDDConfig(SlotConfigurationPeriod.MS5, 7, 6, 2, 4)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).ULFRCConfig(Bandwidth.FR1_100M, FRC.G_FR1_A1_5, 0, PUSCHMappingType.A, PhaseCompensationMode.Auto, tdd,True)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).NumberOfDMRSCDMGroup = 1
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).DMRSPowerBoosting = 0
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).DMRSPowerBoosting = 0
+Saving the scp file
+
+Generating the scp file
+Executing API: api.NR5GWaveformSettings.RemoveNRCarrier(0)
+The scp file exist
+The scp file is successfully generated
+Connecting the instrumet
+Generating the configurations
+- Connected to the Instrument at TCPIP0::172.17.95.97::hislip0::INSTR.
+Api connection closed
+****************************************************************************************************
+#                                           pcap_gen.py                                            #
+****************************************************************************************************
+- Import Waveform Project (.scp)
+- Carriers Read = 2
+- Set ORS Configuration
+ashjbvbdvshbchjdbjcsbjhbn
+- Export Configuration file
+- Carriers Read = 2
+DONE SFN[0] Mu[1] Ant[0]: ResourceGridMessenger (0 lines left in IQ data file)
+The pcap file exist
+The pcap file is successfully generated
+****************************************************************************************************
+#                                    pcap_load_play_recorde.py                                     #
+****************************************************************************************************
+============================================================================================
+============================PLAYER AND RECORDER FUNCTION====================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID1\CTC_5GNR.pcap
+Load Pcap Status:''      Response Code:200
+Start Recorder Response:'{"state":"on","radioframes":1}'         Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Start Player Response:'{"state":"on","radioframes":0,"starttime":0.0}'   Response Code:200
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Stop Recorder Response:'{"state":"off","radioframes":1}'         Response Code:200
+Copied the Pcap
+The Packets are Transmiting ....
+============================================================================================
+============================================================================================
+****************************************************************************************************
+#                               VXT_configuration_result_capture.py                                #
+****************************************************************************************************
+TCPIP0::172.17.95.97::hislip0::INSTR 100 3.700005 -23.8
+:INST:SEL NR5G 1
+:OUTP:STAT OFF 1
+:FEED:RF:PORT:INP RFIN 1
+:CONF:EVM 1
+:DISP:EVM:VIEW NORM 1
+:INIT:CONT ON 1
+:CCAR:REF 3.700005GHZ 1
+:RAD:STAN:PRES:CARR B100M 1
+:RAD:STAN:PRES:FREQ:RANG FR1 1
+:RAD:STAN:PRES:DMOD TDD 1
+:RAD:STAN:PRES:SCS SCS30K 1
+:RAD:STAN:PRES:RBAL DLTM1DOT1 1
+:RAD:STAN:PRES:DLIN:BS:CAT ALAR 1
+:RAD:STAN:PRES:IMM 1
+:EVM:CCAR0:DC:PUNC ON 1
+:EVM:CCAR0:PHAS:COMP:AUTO ON 1
+:EVM:CCAR0:DEC:PDSC DESCrambled 1
+:DISP:EVM:WIND2:DATA DINF 1
+:EVM:CCAR0:PDSC1:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC1:MCS 4 1
+:EVM:CCAR0:PDSC2:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC2:MCS 4 1
+:EVM:CCAR0:PDSC3:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC3:MCS 4 1
+:EVM:CCAR0:PDSC4:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC4:MCS 4 1
+:CORR:BTS:GAIN -23.8 1
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:MMEM:STOR:RES "MeasR_1" 1
+Scpi_write Error :SENS:POW:RANG:OPT IMM : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:SENS:POW:RANG:OPT IMM 1
+2.14 22.45
+print taken
+Constellation Saved
+****************************************************************************************************
+Channel Power : 22.45
+EVM : 2.14
+****************************************************************************************************
+True
+****************************************************************************************************
+#                                            orb_gen.py                                            #
+****************************************************************************************************
+============================================================================================
+============================Generate ORB from captured PCAP=================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID1\CTC_5GNR_captured.pcap
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID1\CTC_5GNR.orstx
+- Import PCAP in Explorer
+- Inspecting eAxID value of the packets
+eAxID:  1
+- Filter Uplink Packets
+- Extract Uplink U plane IQ Data
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+ORB_Created Successfully
+True
+****************************************************************************************************
+#                             vsa_constellation_and_result_capture.py                              #
+****************************************************************************************************
+============================================================================================
+=========================== 89600 VSA CONFIGURATION ========================================
+============================================================================================
+89600 VSA Application is already running.
+- Recall .setx file to VSA
+- Recall Recording .ORB file to VSA
+====================================================================================================
+#                                        Decoded Info Data                                         #
+====================================================================================================
+PUCCH Decoder : Off
+PUSCH Decoder : On
+PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0
+PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0
+PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+====================================================================================================
+#                                           Summary Info                                           #
+====================================================================================================
+System.String[]
+ChannelPower : 67.22996520996094
+EVM : 1.8819307088851929
+FrequencyError : 2.6361029148101807
+EVMPk : 6.004180431365967
+====================================================================================================
+#                                        Result Declaration                                        #
+====================================================================================================
+CRC : Pass
+EVM : Pass
+True
+****************************************************************************************************
+#                                          stop_player.py                                          #
+****************************************************************************************************
+============================================================================================
+=========================================STOP FUNCTION======================================
+============================================================================================
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Stop Player Response:'{"state":"off","radioframes":1,"starttime":0.0}'   Response Code:200
+============================================================================================
+============================================================================================
+The Player stopped the transmission
+True
+None
+
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>python TDD_Config.py Comp_14_bit_DL_UL TDD
+C:\ORAN_AUTOMATION\CUPLANE
+['TDD_Config.py', 'Comp_14_bit_DL_UL', 'TDD']
+Check wether RU is sync or not Y/N..Y
+****************************************************************************************************
+#                                            scp_gen.py                                            #
+****************************************************************************************************
+Executing API: api.SignalGenerator.Frequency = (float(3.700005)*1000000000)
+Executing API: api.SignalGenerator.Amplitude = int(-60)
+Executing API: api.SignalGenerator.TriggerType = TriggerType.Continuous
+Executing API: api.SignalGenerator.TriggerSource = TriggerSource.External
+Executing API: api.SignalGenerator.ExternalPolarity = Polarity.Positive
+Executing API: api.SignalGenerator.ExternalDelayEnabled = True
+Executing API: api.SignalGenerator.ExternalDelayTime = 0.000000005
+Executing API: api.SignalGenerator.Continuous = Continuous.TriggerAndRun
+Executing API: api.SignalGenerator.SingleTrigger = SingleTrigger.BufferedTrigger
+Executing API: api.SignalGenerator.SegmentAdvance = SegmentAdvance.Continuous
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).CarrierType = CarrierType.DL
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).PresetDLTestModel(Bandwidth.FR1_100M, DuplexType.TDD, Numerology.SCS30k, TestModel.NR_FR1_TM3_1a, 1, PhaseCompensationMode.Auto)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).AutoDCI = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).Enabled = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCS = 27
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCS = 27
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCS = 27
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCS = 27
+Executing API: api.NR5GWaveformSettings.AddNRCarrier(CarrierType.UL)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).CarrierType = CarrierType.UL
+Executing API: tdd = TDDConfig(SlotConfigurationPeriod.MS5, 7, 6, 2, 4)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).ULFRCConfig(Bandwidth.FR1_100M, FRC.G_FR1_A1_5, 0, PUSCHMappingType.A, PhaseCompensationMode.Auto, tdd,True)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).NumberOfDMRSCDMGroup = 1
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).MCS = 28
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).MCS = 28
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).DMRSPowerBoosting = 0
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).DMRSPowerBoosting = 0
+Saving the scp file
+
+Generating the scp file
+Executing API: api.NR5GWaveformSettings.RemoveNRCarrier(0)
+The scp file exist
+The scp file is successfully generated
+Connecting the instrumet
+Generating the configurations
+- Connected to the Instrument at TCPIP0::172.17.95.97::hislip0::INSTR.
+Api connection closed
+****************************************************************************************************
+#                                           pcap_gen.py                                            #
+****************************************************************************************************
+- Import Waveform Project (.scp)
+- Carriers Read = 2
+- Set ORS Configuration
+ashjbvbdvshbchjdbjcsbjhbn
+- Export Configuration file
+- Carriers Read = 2
+DONE SFN[0] Mu[1] Ant[0]: ResourceGridMessenger (0 lines left in IQ data file)
+The pcap file exist
+The pcap file is successfully generated
+****************************************************************************************************
+#                                    pcap_load_play_recorde.py                                     #
+****************************************************************************************************
+============================================================================================
+============================PLAYER AND RECORDER FUNCTION====================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Comp_14_bit_DL_UL\EAXCID1\CTC_5GNR.pcap
+Load Pcap Status:''      Response Code:200
+Start Recorder Response:'{"state":"on","radioframes":1}'         Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Start Player Response:'{"state":"on","radioframes":0,"starttime":0.0}'   Response Code:200
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Recorder State:{"state":"off","radioframes":0}   Response Code:200
+Stop Recorder Response:'{"state":"off","radioframes":1}'         Response Code:200
+Copied the Pcap
+The Packets are Transmiting ....
+============================================================================================
+============================================================================================
+****************************************************************************************************
+#                               VXT_configuration_result_capture.py                                #
+****************************************************************************************************
+TCPIP0::172.17.95.97::hislip0::INSTR 100 3.700005 -23.8
+:INST:SEL NR5G 1
+:OUTP:STAT OFF 1
+:FEED:RF:PORT:INP RFIN 1
+:CONF:EVM 1
+:DISP:EVM:VIEW NORM 1
+:INIT:CONT ON 1
+:CCAR:REF 3.700005GHZ 1
+:RAD:STAN:PRES:CARR B100M 1
+:RAD:STAN:PRES:FREQ:RANG FR1 1
+:RAD:STAN:PRES:DMOD TDD 1
+:RAD:STAN:PRES:SCS SCS30K 1
+:RAD:STAN:PRES:RBAL DLTM3DOT1A 1
+:RAD:STAN:PRES:DLIN:BS:CAT ALAR 1
+:RAD:STAN:PRES:IMM 1
+:EVM:CCAR0:DC:PUNC ON 1
+:EVM:CCAR0:DEC:PDSC DESCrambled 1
+:EVM:CCAR0:PDSC1:MCS:TABL TABL2 1
+:DISP:EVM:WIND2:DATA DINF 1
+:EVM:CCAR0:PDSC1:MCS 27 1
+:EVM:CCAR0:PDSC2:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC2:MCS 27 1
+:EVM:CCAR0:PDSC3:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC3:MCS 27 1
+:EVM:CCAR0:PDSC4:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC4:MCS 27 1
+:CORR:BTS:GAIN -23.8 1
+:MMEM:STOR:SCR 'lat.png' 1
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:MMEM:STOR:RES "MeasR_1" 1
+Scpi_write Error :SENS:POW:RANG:OPT IMM : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:SENS:POW:RANG:OPT IMM 1
+2.08 22.46
+print taken
+Constellation Saved
+****************************************************************************************************
+Channel Power : 22.46
+EVM : 2.08
+****************************************************************************************************
+True
+****************************************************************************************************
+#                                            orb_gen.py                                            #
+****************************************************************************************************
+============================================================================================
+============================Generate ORB from captured PCAP=================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Comp_14_bit_DL_UL\EAXCID1\CTC_5GNR_captured.pcap
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Comp_14_bit_DL_UL\EAXCID1\CTC_5GNR.orstx
+- Import PCAP in Explorer
+- Inspecting eAxID value of the packets
+eAxID:  1
+- Filter Uplink Packets
+- Extract Uplink U plane IQ Data
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+ORB_Created Successfully
+True
+****************************************************************************************************
+#                             vsa_constellation_and_result_capture.py                              #
+****************************************************************************************************
+============================================================================================
+=========================== 89600 VSA CONFIGURATION ========================================
+============================================================================================
+89600 VSA Application is already running.
+- Recall .setx file to VSA
+- Recall Recording .ORB file to VSA
+====================================================================================================
+#                                        Decoded Info Data                                         #
+====================================================================================================
+PUCCH Decoder : Off
+PUSCH Decoder : On
+PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0
+PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0
+PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.9325, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.9325, CRC=Pass , Number Of Code Blocks: 2
+====================================================================================================
+#                                           Summary Info                                           #
+====================================================================================================
+System.String[]
+ChannelPower : 67.24801635742188
+EVM : 1.8661689758300781
+FrequencyError : -3.1919288635253906
+EVMPk : 5.938692092895508
+====================================================================================================
+#                                        Result Declaration                                        #
+====================================================================================================
+CRC : Pass
+EVM : Pass
+True
+****************************************************************************************************
+#                                          stop_player.py                                          #
+****************************************************************************************************
+============================================================================================
+=========================================STOP FUNCTION======================================
+============================================================================================
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Stop Player Response:'{"state":"off","radioframes":1,"starttime":0.0}'   Response Code:200
+============================================================================================
+============================================================================================
+The Player stopped the transmission
+True
+None
+
+C:\ORAN_AUTOMATION\CUPLANE\TDD>python TDD_Config.py Comp_12_bit_DL_UL TDD
+C:\ORAN_AUTOMATION\CUPLANE
+['TDD_Config.py', 'Comp_12_bit_DL_UL', 'TDD']
+Check wether RU is sync or not Y/N..Y
+****************************************************************************************************
+#                                            scp_gen.py                                            #
+****************************************************************************************************
+Executing API: api.SignalGenerator.Frequency = (float(3.700005)*1000000000)
+Executing API: api.SignalGenerator.Amplitude = int(-60)
+Executing API: api.SignalGenerator.TriggerType = TriggerType.Continuous
+Executing API: api.SignalGenerator.TriggerSource = TriggerSource.External
+Executing API: api.SignalGenerator.ExternalPolarity = Polarity.Positive
+Executing API: api.SignalGenerator.ExternalDelayEnabled = True
+Executing API: api.SignalGenerator.ExternalDelayTime = 0.000000005
+Executing API: api.SignalGenerator.Continuous = Continuous.TriggerAndRun
+Executing API: api.SignalGenerator.SingleTrigger = SingleTrigger.BufferedTrigger
+Executing API: api.SignalGenerator.SegmentAdvance = SegmentAdvance.Continuous
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).CarrierType = CarrierType.DL
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).PresetDLTestModel(Bandwidth.FR1_100M, DuplexType.TDD, Numerology.SCS30k, TestModel.NR_FR1_TM3_1a, 1, PhaseCompensationMode.Auto)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).AutoDCI = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).Enabled = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCS = 27
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCS = 27
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCS = 27
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCS = 27
+Executing API: api.NR5GWaveformSettings.AddNRCarrier(CarrierType.UL)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).CarrierType = CarrierType.UL
+Executing API: tdd = TDDConfig(SlotConfigurationPeriod.MS5, 7, 6, 2, 4)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).ULFRCConfig(Bandwidth.FR1_100M, FRC.G_FR1_A1_5, 0, PUSCHMappingType.A, PhaseCompensationMode.Auto, tdd,True)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).NumberOfDMRSCDMGroup = 1
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).MCS = 28
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).MCS = 28
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).DMRSPowerBoosting = 0
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).DMRSPowerBoosting = 0
+
+Saving the scp file
+
+Generating the scp file
+Executing API: api.NR5GWaveformSettings.RemoveNRCarrier(0)
+The scp file exist
+The scp file is successfully generated
+Connecting the instrumet
+Generating the configurations
+- Connected to the Instrument at TCPIP0::172.17.95.97::hislip0::INSTR.
+Api connection closed
+****************************************************************************************************
+#                                           pcap_gen.py                                            #
+****************************************************************************************************
+- Import Waveform Project (.scp)
+- Carriers Read = 2
+- Set ORS Configuration
+ashjbvbdvshbchjdbjcsbjhbn
+- Export Configuration file
+- Carriers Read = 2
+DONE SFN[0] Mu[1] Ant[0]: ResourceGridMessenger (0 lines left in IQ data file)
+The pcap file exist
+The pcap file is successfully generated
+****************************************************************************************************
+#                                    pcap_load_play_recorde.py                                     #
+****************************************************************************************************
+============================================================================================
+============================PLAYER AND RECORDER FUNCTION====================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Comp_12_bit_DL_UL\EAXCID1\CTC_5GNR.pcap
+Load Pcap Status:''      Response Code:200
+Start Recorder Response:'{"state":"on","radioframes":1}'         Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Start Player Response:'{"state":"on","radioframes":0,"starttime":0.0}'   Response Code:200
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Stop Recorder Response:'{"state":"off","radioframes":1}'         Response Code:200
+Copied the Pcap
+The Packets are Transmiting ....
+============================================================================================
+============================================================================================
+****************************************************************************************************
+#                               VXT_configuration_result_capture.py                                #
+****************************************************************************************************
+TCPIP0::172.17.95.97::hislip0::INSTR 100 3.700005 -23.8
+:INST:SEL NR5G 1
+:OUTP:STAT OFF 1
+:FEED:RF:PORT:INP RFIN 1
+:CONF:EVM 1
+:DISP:EVM:VIEW NORM 1
+:INIT:CONT ON 1
+:CCAR:REF 3.700005GHZ 1
+:RAD:STAN:PRES:CARR B100M 1
+:RAD:STAN:PRES:FREQ:RANG FR1 1
+:RAD:STAN:PRES:DMOD TDD 1
+:RAD:STAN:PRES:SCS SCS30K 1
+:RAD:STAN:PRES:RBAL DLTM3DOT1A 1
+:RAD:STAN:PRES:DLIN:BS:CAT ALAR 1
+:RAD:STAN:PRES:IMM 1
+:EVM:CCAR0:DC:PUNC ON 1
+:EVM:CCAR0:DEC:PDSC DESCrambled 1
+:EVM:CCAR0:PDSC1:MCS:TABL TABL2 1
+:DISP:EVM:WIND2:DATA DINF 1
+:EVM:CCAR0:PDSC1:MCS 27 1
+:EVM:CCAR0:PDSC2:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC2:MCS 27 1
+:EVM:CCAR0:PDSC3:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC3:MCS 27 1
+:EVM:CCAR0:PDSC4:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC4:MCS 27 1
+:CORR:BTS:GAIN -23.8 1
+:MMEM:STOR:SCR 'lat.png' 1
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:MMEM:STOR:RES "MeasR_1" 1
+Scpi_write Error :SENS:POW:RANG:OPT IMM : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :SENS:POW:RANG:OPT IMM : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :SENS:POW:RANG:OPT IMM : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:SENS:POW:RANG:OPT IMM 1
+2.05 22.46
+print taken
+Constellation Saved
+****************************************************************************************************
+Channel Power : 22.46
+EVM : 2.05
+****************************************************************************************************
+True
+****************************************************************************************************
+#                                            orb_gen.py                                            #
+****************************************************************************************************
+============================================================================================
+============================Generate ORB from captured PCAP=================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Comp_12_bit_DL_UL\EAXCID1\CTC_5GNR_captured.pcap
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Comp_12_bit_DL_UL\EAXCID1\CTC_5GNR.orstx
+- Import PCAP in Explorer
+- Inspecting eAxID value of the packets
+eAxID:  1
+- Filter Uplink Packets
+- Extract Uplink U plane IQ Data
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+ORB_Created Successfully
+True
+****************************************************************************************************
+#                             vsa_constellation_and_result_capture.py                              #
+****************************************************************************************************
+============================================================================================
+=========================== 89600 VSA CONFIGURATION ========================================
+============================================================================================
+89600 VSA Application is already running.
+- Recall .setx file to VSA
+- Recall Recording .ORB file to VSA
+====================================================================================================
+#                                        Decoded Info Data                                         #
+====================================================================================================
+PUCCH Decoder : Off
+PUSCH Decoder : On
+PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0
+PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0
+PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.9325, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.9325, CRC=Pass , Number Of Code Blocks: 2
+====================================================================================================
+#                                           Summary Info                                           #
+====================================================================================================
+System.String[]
+ChannelPower : 67.24935913085938
+EVM : 1.8911750316619873
+FrequencyError : 1.3131041526794434
+EVMPk : 5.908470153808594
+====================================================================================================
+#                                        Result Declaration                                        #
+====================================================================================================
+CRC : Pass
+EVM : Pass
+True
+****************************************************************************************************
+#                                          stop_player.py                                          #
+****************************************************************************************************
+============================================================================================
+=========================================STOP FUNCTION======================================
+============================================================================================
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Stop Player Response:'{"state":"off","radioframes":1,"starttime":0.0}'   Response Code:200
+============================================================================================
+============================================================================================
+The Player stopped the transmission
+True
+None
+
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>python TDD_Config.py Comp_9_bit_DL_UL TDD
+C:\ORAN_AUTOMATION\CUPLANE
+['TDD_Config.py', 'Comp_9_bit_DL_UL', 'TDD']
+Check wether RU is sync or not Y/N..Y
+****************************************************************************************************
+#                                            scp_gen.py                                            #
+****************************************************************************************************
+Executing API: api.SignalGenerator.Frequency = (float(3.700005)*1000000000)
+Executing API: api.SignalGenerator.Amplitude = int(-60)
+Executing API: api.SignalGenerator.TriggerType = TriggerType.Continuous
+Executing API: api.SignalGenerator.TriggerSource = TriggerSource.External
+Executing API: api.SignalGenerator.ExternalPolarity = Polarity.Positive
+Executing API: api.SignalGenerator.ExternalDelayEnabled = True
+Executing API: api.SignalGenerator.ExternalDelayTime = 0.000000005
+Executing API: api.SignalGenerator.Continuous = Continuous.TriggerAndRun
+Executing API: api.SignalGenerator.SingleTrigger = SingleTrigger.BufferedTrigger
+Executing API: api.SignalGenerator.SegmentAdvance = SegmentAdvance.Continuous
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).CarrierType = CarrierType.DL
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).PresetDLTestModel(Bandwidth.FR1_100M, DuplexType.TDD, Numerology.SCS30k, TestModel.NR_FR1_TM3_1a, 1, PhaseCompensationMode.Auto)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).AutoDCI = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).Enabled = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCS = 27
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCS = 27
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCS = 27
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCS = 27
+Executing API: api.NR5GWaveformSettings.AddNRCarrier(CarrierType.UL)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).CarrierType = CarrierType.UL
+Executing API: tdd = TDDConfig(SlotConfigurationPeriod.MS5, 7, 6, 2, 4)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).ULFRCConfig(Bandwidth.FR1_100M, FRC.G_FR1_A1_5, 0, PUSCHMappingType.A, PhaseCompensationMode.Auto, tdd,True)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).NumberOfDMRSCDMGroup = 1
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN23
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).MCS = 28
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).MCS = 28
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).DMRSPowerBoosting = 0
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).DMRSPowerBoosting = 0
+
+Saving the scp file
+
+Generating the scp file
+Executing API: api.NR5GWaveformSettings.RemoveNRCarrier(0)
+The scp file exist
+The scp file is successfully generated
+Connecting the instrumet
+Generating the configurations
+- Connected to the Instrument at TCPIP0::172.17.95.97::hislip0::INSTR.
+Api connection closed
+****************************************************************************************************
+#                                           pcap_gen.py                                            #
+****************************************************************************************************
+- Import Waveform Project (.scp)
+- Carriers Read = 2
+- Set ORS Configuration
+ashjbvbdvshbchjdbjcsbjhbn
+- Export Configuration file
+- Carriers Read = 2
+DONE SFN[0] Mu[1] Ant[0]: ResourceGridMessenger (0 lines left in IQ data file)
+The pcap file exist
+The pcap file is successfully generated
+****************************************************************************************************
+#                                    pcap_load_play_recorde.py                                     #
+****************************************************************************************************
+============================================================================================
+============================PLAYER AND RECORDER FUNCTION====================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Comp_9_bit_DL_UL\EAXCID1\CTC_5GNR.pcap
+Load Pcap Status:''      Response Code:200
+Start Recorder Response:'{"state":"on","radioframes":1}'         Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Start Player Response:'{"state":"on","radioframes":0,"starttime":0.0}'   Response Code:200
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Recorder State:{"state":"off","radioframes":0}   Response Code:200
+Stop Recorder Response:'{"state":"off","radioframes":1}'         Response Code:200
+Copied the Pcap
+The Packets are Transmiting ....
+============================================================================================
+============================================================================================
+****************************************************************************************************
+#                               VXT_configuration_result_capture.py                                #
+****************************************************************************************************
+TCPIP0::172.17.95.97::hislip0::INSTR 100 3.700005 -23.8
+Scpi_write Error :INST:SEL NR5G : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:INST:SEL NR5G 1
+:OUTP:STAT OFF 1
+:FEED:RF:PORT:INP RFIN 1
+:CONF:EVM 1
+:DISP:EVM:VIEW NORM 1
+:INIT:CONT ON 1
+:CCAR:REF 3.700005GHZ 1
+:RAD:STAN:PRES:CARR B100M 1
+:RAD:STAN:PRES:FREQ:RANG FR1 1
+:RAD:STAN:PRES:DMOD TDD 1
+:RAD:STAN:PRES:SCS SCS30K 1
+:RAD:STAN:PRES:RBAL DLTM3DOT1A 1
+:RAD:STAN:PRES:DLIN:BS:CAT ALAR 1
+:RAD:STAN:PRES:IMM 1
+:EVM:CCAR0:DC:PUNC ON 1
+:EVM:CCAR0:DEC:PDSC DESCrambled 1
+:EVM:CCAR0:PDSC1:MCS:TABL TABL2 1
+:DISP:EVM:WIND2:DATA DINF 1
+:EVM:CCAR0:PDSC1:MCS 27 1
+:EVM:CCAR0:PDSC2:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC2:MCS 27 1
+:EVM:CCAR0:PDSC3:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC3:MCS 27 1
+:EVM:CCAR0:PDSC4:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC4:MCS 27 1
+:CORR:BTS:GAIN -23.8 1
+:MMEM:STOR:SCR 'lat.png' 1
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_1" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:MMEM:STOR:RES "MeasR_1" 1
+Scpi_write Error :SENS:POW:RANG:OPT IMM : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :SENS:POW:RANG:OPT IMM : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:SENS:POW:RANG:OPT IMM 1
+2.00 22.42
+print taken
+Constellation Saved
+****************************************************************************************************
+Channel Power : 22.42
+EVM : 2.00
+****************************************************************************************************
+True
+****************************************************************************************************
+#                                            orb_gen.py                                            #
+****************************************************************************************************
+============================================================================================
+============================Generate ORB from captured PCAP=================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Comp_9_bit_DL_UL\EAXCID1\CTC_5GNR_captured.pcap
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Comp_9_bit_DL_UL\EAXCID1\CTC_5GNR.orstx
+- Import PCAP in Explorer
+- Inspecting eAxID value of the packets
+eAxID:  1
+- Filter Uplink Packets
+- Extract Uplink U plane IQ Data
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+ORB_Created Successfully
+True
+****************************************************************************************************
+#                             vsa_constellation_and_result_capture.py                              #
+****************************************************************************************************
+============================================================================================
+=========================== 89600 VSA CONFIGURATION ========================================
+============================================================================================
+89600 VSA Application is already running.
+- Recall .setx file to VSA
+- Recall Recording .ORB file to VSA
+====================================================================================================
+#                                        Decoded Info Data                                         #
+====================================================================================================
+PUCCH Decoder : Off
+PUSCH Decoder : On
+PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0
+PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.9231, CRC=Pass , Number Of Code Blocks: 6
+PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0
+PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.9325, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.9325, CRC=Pass , Number Of Code Blocks: 2
+====================================================================================================
+#                                           Summary Info                                           #
+====================================================================================================
+System.String[]
+ChannelPower : 67.26692199707031
+EVM : 1.8959788084030151
+FrequencyError : 3.3337113857269287
+EVMPk : 6.125154495239258
+====================================================================================================
+#                                        Result Declaration                                        #
+====================================================================================================
+CRC : Pass
+EVM : Pass
+True
+****************************************************************************************************
+#                                          stop_player.py                                          #
+****************************************************************************************************
+============================================================================================
+=========================================STOP FUNCTION======================================
+============================================================================================
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Stop Player Response:'{"state":"off","radioframes":1,"starttime":0.0}'   Response Code:200
+============================================================================================
+============================================================================================
+The Player stopped the transmission
+True
+None

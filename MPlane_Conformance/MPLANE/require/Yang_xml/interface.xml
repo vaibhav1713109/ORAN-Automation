@@ -1,0 +1,60 @@
+<interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+ <interface>
+   <name>{interface_name}</name>
+   <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:ethernetCsmacd</type>
+   <enabled>true</enabled>
+   <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+     <enabled>true</enabled>
+     <forwarding>false</forwarding>
+     <m-plane-marking xmlns="urn:o-ran:interfaces:1.0">18</m-plane-marking>
+   </ipv4>
+   <l2-mtu xmlns="urn:o-ran:interfaces:1.0">1500</l2-mtu>
+   <vlan-tagging xmlns="urn:o-ran:interfaces:1.0">true</vlan-tagging>
+   <class-of-service xmlns="urn:o-ran:interfaces:1.0">
+     <u-plane-marking>7</u-plane-marking>
+     <c-plane-marking>7</c-plane-marking>
+     <m-plane-marking>2</m-plane-marking>
+     <s-plane-marking>7</s-plane-marking>
+     <other-marking>1</other-marking>
+   </class-of-service>
+   <mac-address xmlns="urn:o-ran:interfaces:1.0">{mac}</mac-address>
+   <port-reference xmlns="urn:o-ran:interfaces:1.0">
+     <port-name>ru-port{number}</port-name>
+     <port-number>{number}</port-number>
+   </port-reference>
+  
+ </interface>
+ <interface>
+   <name>{interface_name}.100</name>
+   <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:l2vlan</type>
+   <enabled>true</enabled>
+   <base-interface xmlns="urn:o-ran:interfaces:1.0">{interface_name}</base-interface>
+   <vlan-id xmlns="urn:o-ran:interfaces:1.0">100</vlan-id>
+   <mac-address xmlns="urn:o-ran:interfaces:1.0">{mac}</mac-address>
+   <port-reference xmlns="urn:o-ran:interfaces:1.0">
+     <port-name>ru-port{number}</port-name>
+     <port-number>{number}</port-number>
+   </port-reference>
+   </interface>
+ <!-- <interface>
+   <name>{interface_name}.120</name>
+   <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">ianaift:l2vlan</type>
+   <enabled>true</enabled>
+   <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+     <enabled>true</enabled>
+     <forwarding>false</forwarding>
+     <address>
+       <ip>192.168.3.56</ip>
+       <netmask>255.255.255.0</netmask>
+     </address>
+     <m-plane-marking xmlns="urn:o-ran:interfaces:1.0">18</m-plane-marking>
+   </ipv4>
+   <base-interface xmlns="urn:o-ran:interfaces:1.0">{interface_name}</base-interface>
+   <vlan-id xmlns="urn:o-ran:interfaces:1.0">120</vlan-id>
+   <mac-address xmlns="urn:o-ran:interfaces:1.0">{mac}</mac-address>
+   <port-reference xmlns="urn:o-ran:interfaces:1.0">
+     <port-name>ru-port{number}</port-name>
+     <port-number>{number}</port-number>
+   </port-reference>
+   </interface> -->
+</interfaces>

@@ -1,0 +1,14 @@
+<processing-elements xmlns="urn:o-ran:processing-element:1.0">
+<transport-session-type>ETH-INTERFACE</transport-session-type>
+<ru-elements>
+  <name>{element_name}</name>
+  <transport-flow>
+    <interface-name>{int_name}.100</interface-name>
+    <eth-flow>
+      <ru-mac-address>{ru_mac}</ru-mac-address>
+      <vlan-id>100</vlan-id>
+      <o-du-mac-address>{du_mac}</o-du-mac-address>
+    </eth-flow>
+  </transport-flow>
+</ru-elements>
+</processing-elements>

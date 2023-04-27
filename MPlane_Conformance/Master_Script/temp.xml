@@ -1,0 +1,1 @@
+<testsuites><testsuite name="cd_testings" tests="6" skipped="6" failures="0" time="0.0"><testcase name="get_without_filter.py" classname="M_Plane" time="0"><skipped /></testcase></testsuite></testsuites>

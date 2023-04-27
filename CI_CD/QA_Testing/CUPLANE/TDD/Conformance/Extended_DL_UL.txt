@@ -1,0 +1,45 @@
+api.SignalGenerator.Frequency = (float(3.700005)*1000000000)
+api.SignalGenerator.Amplitude = int(-60)
+api.SignalGenerator.TriggerType = TriggerType.Continuous
+api.SignalGenerator.TriggerSource = TriggerSource.External
+api.SignalGenerator.ExternalPolarity = Polarity.Positive
+api.SignalGenerator.ExternalDelayEnabled = True
+api.SignalGenerator.ExternalDelayTime = 0.000000005
+api.SignalGenerator.Continuous = Continuous.TriggerAndRun
+api.SignalGenerator.SingleTrigger = SingleTrigger.BufferedTrigger
+api.SignalGenerator.SegmentAdvance = SegmentAdvance.Continuous
+api.NR5GWaveformSettings.GetNRCarriersItem(0).CarrierType = CarrierType.DL
+api.NR5GWaveformSettings.GetNRCarriersItem(0).PresetDLTestModel(Bandwidth.FR1_100M, DuplexType.TDD, Numerology.SCS30k, TestModel.NR_FR1_TM1_1, 1, PhaseCompensationMode.Auto)
+api.NR5GWaveformSettings.GetNRCarriersItem(0).DCPunctured = True
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).ChannelCoding = True
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).ChannelCoding = True
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).ChannelCoding = True
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).ChannelCoding = True
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).ChannelCoding = True
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).AutoDCI = True
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).Enabled = True
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCSTable = DLSCHMCSTable.Table51312
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCS = 4
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN23
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCSTable = DLSCHMCSTable.Table51312
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCS = 4
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).PayloadData.PayLoadDataType = PayloadDataType.PN23
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCSTable = DLSCHMCSTable.Table51312
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCS = 4
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).PayloadData.PayLoadDataType = PayloadDataType.PN23
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCSTable = DLSCHMCSTable.Table51312
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCS = 4
+api.NR5GWaveformSettings.AddNRCarrier(CarrierType.UL)
+api.NR5GWaveformSettings.GetNRCarriersItem(1).CarrierType = CarrierType.UL
+tdd = TDDConfig(SlotConfigurationPeriod.MS5, 7, 6, 2, 4)
+api.NR5GWaveformSettings.GetNRCarriersItem(1).ULFRCConfig(Bandwidth.FR1_100M, FRC.G_FR1_A1_5, 0, PUSCHMappingType.A, PhaseCompensationMode.Auto, tdd,True)
+api.NR5GWaveformSettings.GetNRCarriersItem(1).DCPunctured = True
+api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).NumberOfDMRSCDMGroup = 1
+api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN23
+api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN23
+api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).MCS = 9
+api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).MCS = 9
+api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).DMRSPowerBoosting = 0
+api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).DMRSPowerBoosting = 0

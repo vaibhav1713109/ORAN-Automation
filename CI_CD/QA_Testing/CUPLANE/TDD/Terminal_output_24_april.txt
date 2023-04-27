@@ -1,0 +1,1290 @@
+C:\ORAN_AUTOMATION\CUPLANE\TDD>python TDD_Config.py Base_DL_UL TDD
+C:\ORAN_AUTOMATION\CUPLANE
+C:\ORAN_AUTOMATION\CUPLANE\Scripts
+['TDD_Config.py', 'Base_DL_UL', 'TDD']
+Check wether RU is sync or not Y/N..Y
+****************************************************************************************************
+#                                            scp_gen.py                                            #
+****************************************************************************************************
+Executing API: api.SignalGenerator.Frequency = (float(3.700005)*1000000000)
+Executing API: api.SignalGenerator.Amplitude = int(-60)
+Executing API: api.SignalGenerator.TriggerType = TriggerType.Continuous
+Executing API: api.SignalGenerator.TriggerSource = TriggerSource.External
+Executing API: api.SignalGenerator.ExternalPolarity = Polarity.Positive
+Executing API: api.SignalGenerator.ExternalDelayEnabled = True
+Executing API: api.SignalGenerator.ExternalDelayTime = 0.000000005
+Executing API: api.SignalGenerator.Continuous = Continuous.TriggerAndRun
+Executing API: api.SignalGenerator.SingleTrigger = SingleTrigger.BufferedTrigger
+Executing API: api.SignalGenerator.SegmentAdvance = SegmentAdvance.Continuous
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).CarrierType = CarrierType.DL
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).PresetDLTestModel(Bandwidth.FR1_100M, DuplexType.TDD, Numerology.SCS30k, TestModel.NR_FR1_TM1_1, 1, PhaseCompensationMode.Auto)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).AutoDCI = False
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).Enabled = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCS = 4
+Executing API: api.NR5GWaveformSettings.AddNRCarrier(CarrierType.UL)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).CarrierType = CarrierType.UL
+Executing API: tdd = TDDConfig(SlotConfigurationPeriod.MS5, 7, 6, 2, 4)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).ULFRCConfig(Bandwidth.FR1_100M, FRC.G_FR1_A1_5, 0, PUSCHMappingType.A, PhaseCompensationMode.Auto, tdd,True)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).NumberOfDMRSCDMGroup = 1
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).DMRSPowerBoosting = 0
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).DMRSPowerBoosting = 0
+Saving the scp file
+
+Generating the scp file
+Executing API: api.NR5GWaveformSettings.RemoveNRCarrier(0)
+The scp file exist
+The scp file is successfully generated
+Connecting the instrumet
+Generating the configurations
+- Connected to the Instrument at TCPIP0::172.17.95.97::hislip0::INSTR.
+Api connection closed
+****************************************************************************************************
+#                                           pcap_gen.py                                            #
+****************************************************************************************************
+- Import Waveform Project (.scp)
+- Carriers Read = 2
+- Set ORS Configuration
+ashjbvbdvshbchjdbjcsbjhbn
+- Export Configuration file
+- Carriers Read = 2
+DONE SFN[0] Mu[1] Ant[0]: ResourceGridMessenger (0 lines left in IQ data file)
+The pcap file exist
+The pcap file is successfully generated
+****************************************************************************************************
+#                                    pcap_load_play_recorde.py                                     #
+****************************************************************************************************
+============================================================================================
+============================PLAYER AND RECORDER FUNCTION====================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID1\CTC_5GNR.pcap
+Load Pcap Status:''      Response Code:200
+Start Recorder Response:'{"state":"on","radioframes":1}'         Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Start Player Response:'{"state":"on","radioframes":0,"starttime":0.0}'   Response Code:200
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Recorder State:{"state":"off","radioframes":0}   Response Code:200
+Stop Recorder Response:'{"state":"off","radioframes":1}'         Response Code:200
+Copied the Pcap
+The Packets are Transmiting ....
+============================================================================================
+============================================================================================
+****************************************************************************************************
+#                               VXT_configuration_result_capture.py                                #
+****************************************************************************************************
+TCPIP0::172.17.95.97::hislip0::INSTR 100 3.700005 -23.8
+:INST:SEL NR5G 1
+:OUTP:STAT OFF 1
+:FEED:RF:PORT:INP RFIN 1
+:CONF:EVM 1
+:DISP:EVM:VIEW NORM 1
+:INIT:CONT ON 1
+:CCAR:REF 3.700005GHZ 1
+:RAD:STAN:PRES:CARR B100M 1
+:RAD:STAN:PRES:FREQ:RANG FR1 1
+:RAD:STAN:PRES:DMOD TDD 1
+:RAD:STAN:PRES:SCS SCS30K 1
+:RAD:STAN:PRES:RBAL DLTM1DOT1 1
+:RAD:STAN:PRES:DLIN:BS:CAT ALAR 1
+:RAD:STAN:PRES:IMM 1
+:EVM:CCAR0:DC:PUNC ON 1
+:EVM:CCAR0:PHAS:COMP:AUTO ON 1
+:EVM:CCAR0:PDCC1:INCL ON 1
+:EVM:CCAR0:DEC:PDSC DESCrambled 1
+:EVM:CCAR0:DEC:PDCC DESCrambled 1
+:EVM:CCAR0:DEC:PBCH DESCrambled 1
+:DISP:EVM:WIND2:DATA DINF 1
+:EVM:CCAR0:PDSC1:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC1:MCS 4 1
+:EVM:CCAR0:PDSC2:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC2:MCS 4 1
+:EVM:CCAR0:PDSC3:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC3:MCS 4 1
+:EVM:CCAR0:PDSC4:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC4:MCS 4 1
+:CORR:BTS:GAIN -23.8 1
+Scpi_write Error :MMEM:STOR:RES "MeasR_001.csv" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+Scpi_write Error :MMEM:STOR:RES "MeasR_001.csv" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:MMEM:STOR:RES "MeasR_001.csv" 1
+Scpi_write Error :SENS:POW:RANG:OPT IMM : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:SENS:POW:RANG:OPT IMM 1
+2.01 22.42
+CRC Captured
+print taken
+Constellation Saved
+****************************************************************************************************
+Channel Power : 22.42
+EVM : 2.01
+****************************************************************************************************
+('2.01', '22.42', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1\\VXT_capture.png', [['#6317395Channel', 'Slot', 'CRC Passed', 'Bit Length'], ['PDSCH 1', '0', 'True', '84240'], ['PDSCH 1', '1', 'True', '84240'], ['PDSCH 1', '2', 'True', '84240'], ['PDSCH 1', '3', 'True', '84240'], ['PDSCH 1', '4', 'True', '84240'], ['PDSCH 1', '5', 'True', '84240'], ['PDSCH 1', '6', 'True', '84240'], ['PDSCH 1', '10', 'True', '84240'], ['PDSCH 1', '11', 'True', '84240'], ['PDSCH 1', '12', 'True', '84240'], ['PDSCH 1', '13', 'True', '84240'], ['PDSCH 1', '14', 'True', '84240'], ['PDSCH 1', '15', 'True', '84240'], ['PDSCH 1', '16', 'True', '84240'], ['PDSCH 2', '0', 'True', '792'], ['PDSCH 2', '1', 'True', '792'], ['PDSCH 2', '2', 'True', '792'], ['PDSCH 2', '3', 'True', '792'], ['PDSCH 2', '4', 'True', '792'], ['PDSCH 2', '5', 'True', '792'], ['PDSCH 2', '6', 'True', '792'], ['PDSCH 2', '10', 'True', '792'], ['PDSCH 2', '11', 'True', '792'], ['PDSCH 2', '12', 'True', '792'], ['PDSCH 2', '13', 'True', '792'], ['PDSCH 2', '14', 'True', '792'], ['PDSCH 2', '15', 'True', '792'], ['PDSCH 2', '16', 'True', '792'], ['PDSCH 3', '7', 'True', '35640'], ['PDSCH 3', '17', 'True', '35640'], ['PDSCH 4', '7', 'True', '252'], ['PDSCH 4', '17', 'True', '252'], ['PDCCH 1', '0', 'True', '108'], ['PDCCH 1', '1', 'True', '108'], ['PDCCH 1', '2', 'True', '108'], ['PDCCH 1', '3', 'True', '108'], ['PDCCH 1', '4', 'True', '108'], ['PDCCH 1', '5', 'True', '108'], ['PDCCH 1', '6', 'True', '108'], ['PDCCH 1', '7', 'True', '108'], ['PDCCH 1', '10', 'True', '108'], ['PDCCH 1', '11', 'True', '108'], ['PDCCH 1', '12', 'True', '108'], ['PDCCH 1', '13', 'True', '108'], ['PDCCH 1', '14', 'True', '108'], ['PDCCH 1', '15', 'True', '108'], ['PDCCH 1', '16', 'True', '108'], ['PDCCH 1', '17', 'True', '108']])
+****************************************************************************************************
+#                                            orb_gen.py                                            #
+****************************************************************************************************
+============================================================================================
+============================Generate ORB from captured PCAP=================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID1\CTC_5GNR_captured.pcap
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID1\CTC_5GNR.orstx
+- Import PCAP in Explorer
+- Inspecting eAxID value of the packets
+eAxID:  1
+- Filter Uplink Packets
+- Extract Uplink U plane IQ Data
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+ORB_Created Successfully
+True
+****************************************************************************************************
+#                             vsa_constellation_and_result_capture.py                              #
+****************************************************************************************************
+============================================================================================
+=========================== 89600 VSA CONFIGURATION ========================================
+============================================================================================
+89600 VSA Application is already running.
+- Recall .setx file to VSA
+- Recall Recording .ORB file to VSA
+====================================================================================================
+#                                        Decoded Info Data                                         #
+====================================================================================================
+PUCCH Decoder : Off
+PUSCH Decoder : On
+PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0
+PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0
+PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+====================================================================================================
+#                                           Summary Info                                           #
+====================================================================================================
+System.String[]
+ChannelPower : 66.40906524658203
+EVM : 1.9514238834381104
+FrequencyError : -1.8378208875656128
+EVMPk : 6.731117248535156
+====================================================================================================
+#                                        Result Declaration                                        #
+====================================================================================================
+CRC : Pass
+EVM : Pass
+('1.9514238834381104', {'1': 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1'})
+****************************************************************************************************
+#                                          stop_player.py                                          #
+****************************************************************************************************
+============================================================================================
+=========================================STOP FUNCTION======================================
+============================================================================================
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Stop Player Response:'{"state":"off","radioframes":1,"starttime":0.0}'   Response Code:200
+============================================================================================
+============================================================================================
+The Player stopped the transmission
+True
+({'1': ['1', '3.700005', '100', '2.01', '2.5', '22.42', '21.5', '25', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1\\VXT_capture.png']}, {'1': ['1', '3.700005', '100', '1.9514238834381104', '2.5']}, {'1': [['#6317395Channel', 'Slot', 'CRC Passed', 'Bit Length'], ['PDSCH 1', '0', 'True', '84240'], ['PDSCH 1', '1', 'True', '84240'], ['PDSCH 1', '2', 'True', '84240'], ['PDSCH 1', '3', 'True', '84240'], ['PDSCH 1', '4', 'True', '84240'], ['PDSCH 1', '5', 'True', '84240'], ['PDSCH 1', '6', 'True', '84240'], ['PDSCH 1', '10', 'True', '84240'], ['PDSCH 1', '11', 'True', '84240'], ['PDSCH 1', '12', 'True', '84240'], ['PDSCH 1', '13', 'True', '84240'], ['PDSCH 1', '14', 'True', '84240'], ['PDSCH 1', '15', 'True', '84240'], ['PDSCH 1', '16', 'True', '84240'], ['PDSCH 2', '0', 'True', '792'], ['PDSCH 2', '1', 'True', '792'], ['PDSCH 2', '2', 'True', '792'], ['PDSCH 2', '3', 'True', '792'], ['PDSCH 2', '4', 'True', '792'], ['PDSCH 2', '5', 'True', '792'], ['PDSCH 2', '6', 'True', '792'], ['PDSCH 2', '10', 'True', '792'], ['PDSCH 2', '11', 'True', '792'], ['PDSCH 2', '12', 'True', '792'], ['PDSCH 2', '13', 'True', '792'], ['PDSCH 2', '14', 'True', '792'], ['PDSCH 2', '15', 'True', '792'], ['PDSCH 2', '16', 'True', '792'], ['PDSCH 3', '7', 'True', '35640'], ['PDSCH 3', '17', 'True', '35640'], ['PDSCH 4', '7', 'True', '252'], ['PDSCH 4', '17', 'True', '252'], ['PDCCH 1', '0', 'True', '108'], ['PDCCH 1', '1', 'True', '108'], ['PDCCH 1', '2', 'True', '108'], ['PDCCH 1', '3', 'True', '108'], ['PDCCH 1', '4', 'True', '108'], ['PDCCH 1', '5', 'True', '108'], ['PDCCH 1', '6', 'True', '108'], ['PDCCH 1', '7', 'True', '108'], ['PDCCH 1', '10', 'True', '108'], ['PDCCH 1', '11', 'True', '108'], ['PDCCH 1', '12', 'True', '108'], ['PDCCH 1', '13', 'True', '108'], ['PDCCH 1', '14', 'True', '108'], ['PDCCH 1', '15', 'True', '108'], ['PDCCH 1', '16', 'True', '108'], ['PDCCH 1', '17', 'True', '108']]}, {'1': 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1'})
+C:\Users\Administrator\AppData\Local\Programs\Python\Python310\lib\site-packages\fpdf\fpdf.py:1918: UserWarning: Substituting font arial by core font helvetica
+  warnings.warn(
+Traceback (most recent call last):
+  File "C:\ORAN_AUTOMATION\CUPLANE\TDD\TDD_Config.py", line 167, in <module>
+    genrate_report(Result[0],report_path,Result[1])
+  File "C:\ORAN_AUTOMATION\CUPLANE\Scripts\genrate_report.py", line 182, in genrate_report
+    data.pop()
+AttributeError: 'str' object has no attribute 'pop'
+
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+
+
+
+
+
+
+
+C:\ORAN_AUTOMATION\CUPLANE\TDD>python TDD_Config.py Base_DL_UL TDD
+C:\ORAN_AUTOMATION\CUPLANE
+['1', '2']
+C:\ORAN_AUTOMATION\CUPLANE\Scripts
+['TDD_Config.py', 'Base_DL_UL', 'TDD']
+Check wether RU is sync or not Y/N..Y
+['1', '2']
+****************************************************************************************************
+#                                            scp_gen.py                                            #
+****************************************************************************************************
+Executing API: api.SignalGenerator.Frequency = (float(3.700005)*1000000000)
+Executing API: api.SignalGenerator.Amplitude = int(-60)
+Executing API: api.SignalGenerator.TriggerType = TriggerType.Continuous
+Executing API: api.SignalGenerator.TriggerSource = TriggerSource.External
+Executing API: api.SignalGenerator.ExternalPolarity = Polarity.Positive
+Executing API: api.SignalGenerator.ExternalDelayEnabled = True
+Executing API: api.SignalGenerator.ExternalDelayTime = 0.000000005
+Executing API: api.SignalGenerator.Continuous = Continuous.TriggerAndRun
+Executing API: api.SignalGenerator.SingleTrigger = SingleTrigger.BufferedTrigger
+Executing API: api.SignalGenerator.SegmentAdvance = SegmentAdvance.Continuous
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).CarrierType = CarrierType.DL
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).PresetDLTestModel(Bandwidth.FR1_100M, DuplexType.TDD, Numerology.SCS30k, TestModel.NR_FR1_TM1_1, 1, PhaseCompensationMode.Auto)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).AutoDCI = False
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).Enabled = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCS = 4
+Executing API: api.NR5GWaveformSettings.AddNRCarrier(CarrierType.UL)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).CarrierType = CarrierType.UL
+Executing API: tdd = TDDConfig(SlotConfigurationPeriod.MS5, 7, 6, 2, 4)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).ULFRCConfig(Bandwidth.FR1_100M, FRC.G_FR1_A1_5, 0, PUSCHMappingType.A, PhaseCompensationMode.Auto, tdd,True)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).NumberOfDMRSCDMGroup = 1
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).DMRSPowerBoosting = 0
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).DMRSPowerBoosting = 0
+Saving the scp file
+
+Generating the scp file
+Executing API: api.NR5GWaveformSettings.RemoveNRCarrier(0)
+The scp file exist
+The scp file is successfully generated
+Connecting the instrumet
+Generating the configurations
+- Connected to the Instrument at TCPIP0::172.17.95.97::hislip0::INSTR.
+Api connection closed
+****************************************************************************************************
+#                                           pcap_gen.py                                            #
+****************************************************************************************************
+- Import Waveform Project (.scp)
+- Carriers Read = 2
+- Set ORS Configuration
+ashjbvbdvshbchjdbjcsbjhbn
+- Export Configuration file
+- Carriers Read = 2
+DONE SFN[0] Mu[1] Ant[0]: ResourceGridMessenger (0 lines left in IQ data file)
+The pcap file exist
+The pcap file is successfully generated
+****************************************************************************************************
+#                                    pcap_load_play_recorde.py                                     #
+****************************************************************************************************
+============================================================================================
+============================PLAYER AND RECORDER FUNCTION====================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID1\CTC_5GNR.pcap
+Load Pcap Status:''      Response Code:200
+Start Recorder Response:'{"state":"on","radioframes":1}'         Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Start Player Response:'{"state":"on","radioframes":0,"starttime":0.0}'   Response Code:200
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Stop Recorder Response:'{"state":"off","radioframes":1}'         Response Code:200
+Copied the Pcap
+The Packets are Transmiting ....
+============================================================================================
+============================================================================================
+****************************************************************************************************
+#                               VXT_configuration_result_capture.py                                #
+****************************************************************************************************
+TCPIP0::172.17.95.97::hislip0::INSTR 100 3.700005 -23.8
+:INST:SEL NR5G 1
+:OUTP:STAT OFF 1
+:FEED:RF:PORT:INP RFIN 1
+:CONF:EVM 1
+:DISP:EVM:VIEW NORM 1
+:INIT:CONT ON 1
+:CCAR:REF 3.700005GHZ 1
+:RAD:STAN:PRES:CARR B100M 1
+:RAD:STAN:PRES:FREQ:RANG FR1 1
+:RAD:STAN:PRES:DMOD TDD 1
+:RAD:STAN:PRES:SCS SCS30K 1
+:RAD:STAN:PRES:RBAL DLTM1DOT1 1
+:RAD:STAN:PRES:DLIN:BS:CAT ALAR 1
+:RAD:STAN:PRES:IMM 1
+:EVM:CCAR0:DC:PUNC ON 1
+:EVM:CCAR0:PHAS:COMP:AUTO ON 1
+:EVM:CCAR0:PDCC1:INCL ON 1
+:EVM:CCAR0:DEC:PDSC DESCrambled 1
+:EVM:CCAR0:DEC:PDCC DESCrambled 1
+:EVM:CCAR0:DEC:PBCH DESCrambled 1
+:DISP:EVM:WIND2:DATA DINF 1
+:EVM:CCAR0:PDSC1:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC1:MCS 4 1
+:EVM:CCAR0:PDSC2:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC2:MCS 4 1
+:EVM:CCAR0:PDSC3:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC3:MCS 4 1
+:EVM:CCAR0:PDSC4:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC4:MCS 4 1
+:CORR:BTS:GAIN -23.8 1
+Scpi_write Error :SENS:POW:RANG:OPT IMM : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:SENS:POW:RANG:OPT IMM 1
+31.84 -48.74
+32.10 -48.83
+31.88 -48.76
+Scpi_write Error :MMEM:STOR:RES "MeasR_001.csv" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:MMEM:STOR:RES "MeasR_001.csv" 1
+CRC Captured
+print taken
+Constellation Saved
+****************************************************************************************************
+Fail due to unexpected Power or EVM
+Channel Power : -48.76
+EVM : 31.88
+****************************************************************************************************
+('31.88', '-48.76', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1\\VXT_capture.png', [['#6317395Channel', 'Slot', 'CRC Passed', 'Bit Length'], ['PDSCH 1', '0', 'True', '84240'], ['PDSCH 1', '1', 'True', '84240'], ['PDSCH 1', '2', 'True', '84240'], ['PDSCH 1', '3', 'True', '84240'], ['PDSCH 1', '4', 'True', '84240'], ['PDSCH 1', '5', 'True', '84240'], ['PDSCH 1', '6', 'True', '84240'], ['PDSCH 1', '10', 'True', '84240'], ['PDSCH 1', '11', 'True', '84240'], ['PDSCH 1', '12', 'True', '84240'], ['PDSCH 1', '13', 'True', '84240'], ['PDSCH 1', '14', 'True', '84240'], ['PDSCH 1', '15', 'True', '84240'], ['PDSCH 1', '16', 'True', '84240'], ['PDSCH 2', '0', 'True', '792'], ['PDSCH 2', '1', 'True', '792'], ['PDSCH 2', '2', 'True', '792'], ['PDSCH 2', '3', 'True', '792'], ['PDSCH 2', '4', 'True', '792'], ['PDSCH 2', '5', 'True', '792'], ['PDSCH 2', '6', 'True', '792'], ['PDSCH 2', '10', 'True', '792'], ['PDSCH 2', '11', 'True', '792'], ['PDSCH 2', '12', 'True', '792'], ['PDSCH 2', '13', 'True', '792'], ['PDSCH 2', '14', 'True', '792'], ['PDSCH 2', '15', 'True', '792'], ['PDSCH 2', '16', 'True', '792'], ['PDSCH 3', '7', 'True', '35640'], ['PDSCH 3', '17', 'True', '35640'], ['PDSCH 4', '7', 'True', '252'], ['PDSCH 4', '17', 'True', '252'], ['PDCCH 1', '0', 'True', '108'], ['PDCCH 1', '1', 'True', '108'], ['PDCCH 1', '2', 'True', '108'], ['PDCCH 1', '3', 'True', '108'], ['PDCCH 1', '4', 'True', '108'], ['PDCCH 1', '5', 'True', '108'], ['PDCCH 1', '6', 'True', '108'], ['PDCCH 1', '7', 'True', '108'], ['PDCCH 1', '10', 'True', '108'], ['PDCCH 1', '11', 'True', '108'], ['PDCCH 1', '12', 'True', '108'], ['PDCCH 1', '13', 'True', '108'], ['PDCCH 1', '14', 'True', '108'], ['PDCCH 1', '15', 'True', '108'], ['PDCCH 1', '16', 'True', '108'], ['PDCCH 1', '17', 'True', '108']])
+****************************************************************************************************
+#                                            orb_gen.py                                            #
+****************************************************************************************************
+============================================================================================
+============================Generate ORB from captured PCAP=================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID1\CTC_5GNR_captured.pcap
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID1\CTC_5GNR.orstx
+- Import PCAP in Explorer
+- Inspecting eAxID value of the packets
+eAxID:  1
+- Filter Uplink Packets
+- Extract Uplink U plane IQ Data
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+ORB_Created Successfully
+True
+****************************************************************************************************
+#                             vsa_constellation_and_result_capture.py                              #
+****************************************************************************************************
+============================================================================================
+=========================== 89600 VSA CONFIGURATION ========================================
+============================================================================================
+89600 VSA Application is already running.
+- Recall .setx file to VSA
+====================================================================================================
+#                                        Decoded Info Data                                         #
+====================================================================================================
+PUCCH Decoder : Off
+PUSCH Decoder : On
+PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0
+PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0
+PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+{'1': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']}
+====================================================================================================
+#                                           Summary Info                                           #
+====================================================================================================
+System.String[]
+ChannelPower : 66.79625701904297
+EVM : 1.9527125358581543
+FrequencyError : 3.064039468765259
+EVMPk : 6.320685863494873
+====================================================================================================
+#                                        Result Declaration                                        #
+====================================================================================================
+CRC : Pass
+EVM : Pass
+('1.9527125358581543', {'1': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']}, 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1')
+****************************************************************************************************
+#                                          stop_player.py                                          #
+****************************************************************************************************
+============================================================================================
+=========================================STOP FUNCTION======================================
+============================================================================================
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Stop Player Response:'{"state":"off","radioframes":1,"starttime":0.0}'   Response Code:200
+============================================================================================
+============================================================================================
+The Player stopped the transmission
+True
+****************************************************************************************************
+#                                            scp_gen.py                                            #
+****************************************************************************************************
+Executing API: api.SignalGenerator.Frequency = (float(3.700005)*1000000000)
+Executing API: api.SignalGenerator.Amplitude = int(-60)
+Executing API: api.SignalGenerator.TriggerType = TriggerType.Continuous
+Executing API: api.SignalGenerator.TriggerSource = TriggerSource.External
+Executing API: api.SignalGenerator.ExternalPolarity = Polarity.Positive
+Executing API: api.SignalGenerator.ExternalDelayEnabled = True
+Executing API: api.SignalGenerator.ExternalDelayTime = 0.000000005
+Executing API: api.SignalGenerator.Continuous = Continuous.TriggerAndRun
+Executing API: api.SignalGenerator.SingleTrigger = SingleTrigger.BufferedTrigger
+Executing API: api.SignalGenerator.SegmentAdvance = SegmentAdvance.Continuous
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).CarrierType = CarrierType.DL
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).PresetDLTestModel(Bandwidth.FR1_100M, DuplexType.TDD, Numerology.SCS30k, TestModel.NR_FR1_TM1_1, 1, PhaseCompensationMode.Auto)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).AutoDCI = False
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).Enabled = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCS = 4
+Executing API: api.NR5GWaveformSettings.AddNRCarrier(CarrierType.UL)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).CarrierType = CarrierType.UL
+Executing API: tdd = TDDConfig(SlotConfigurationPeriod.MS5, 7, 6, 2, 4)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).ULFRCConfig(Bandwidth.FR1_100M, FRC.G_FR1_A1_5, 0, PUSCHMappingType.A, PhaseCompensationMode.Auto, tdd,True)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).NumberOfDMRSCDMGroup = 1
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).DMRSPowerBoosting = 0
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).DMRSPowerBoosting = 0
+Saving the scp file
+
+Generating the scp file
+Executing API: api.NR5GWaveformSettings.RemoveNRCarrier(0)
+The scp file exist
+The scp file is successfully generated
+Connecting the instrumet
+Generating the configurations
+- Connected to the Instrument at TCPIP0::172.17.95.97::hislip0::INSTR.
+Api connection closed
+****************************************************************************************************
+#                                           pcap_gen.py                                            #
+****************************************************************************************************
+- Import Waveform Project (.scp)
+- Carriers Read = 2
+- Set ORS Configuration
+ashjbvbdvshbchjdbjcsbjhbn
+- Export Configuration file
+- Carriers Read = 2
+DONE SFN[0] Mu[1] Ant[0]: ResourceGridMessenger (0 lines left in IQ data file)
+The pcap file exist
+The pcap file is successfully generated
+****************************************************************************************************
+#                                    pcap_load_play_recorde.py                                     #
+****************************************************************************************************
+============================================================================================
+============================PLAYER AND RECORDER FUNCTION====================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID2\CTC_5GNR.pcap
+Load Pcap Status:''      Response Code:200
+Start Recorder Response:'{"state":"on","radioframes":1}'         Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Start Player Response:'{"state":"on","radioframes":0,"starttime":0.0}'   Response Code:200
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Recorder State:{"state":"off","radioframes":0}   Response Code:200
+Stop Recorder Response:'{"state":"off","radioframes":1}'         Response Code:200
+Copied the Pcap
+The Packets are Transmiting ....
+============================================================================================
+============================================================================================
+****************************************************************************************************
+#                               VXT_configuration_result_capture.py                                #
+****************************************************************************************************
+TCPIP0::172.17.95.97::hislip0::INSTR 100 3.700005 -23.8
+:INST:SEL NR5G 1
+:OUTP:STAT OFF 1
+:FEED:RF:PORT:INP RFIN 1
+:CONF:EVM 1
+:DISP:EVM:VIEW NORM 1
+:INIT:CONT ON 1
+:CCAR:REF 3.700005GHZ 1
+:RAD:STAN:PRES:CARR B100M 1
+:RAD:STAN:PRES:FREQ:RANG FR1 1
+:RAD:STAN:PRES:DMOD TDD 1
+:RAD:STAN:PRES:SCS SCS30K 1
+:RAD:STAN:PRES:RBAL DLTM1DOT1 1
+:RAD:STAN:PRES:DLIN:BS:CAT ALAR 1
+:RAD:STAN:PRES:IMM 1
+:EVM:CCAR0:DC:PUNC ON 1
+:EVM:CCAR0:PHAS:COMP:AUTO ON 1
+:EVM:CCAR0:PDCC1:INCL ON 1
+:EVM:CCAR0:DEC:PDSC DESCrambled 1
+:EVM:CCAR0:DEC:PDCC DESCrambled 1
+:EVM:CCAR0:DEC:PBCH DESCrambled 1
+:DISP:EVM:WIND2:DATA DINF 1
+:EVM:CCAR0:PDSC1:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC1:MCS 4 1
+:EVM:CCAR0:PDSC2:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC2:MCS 4 1
+:EVM:CCAR0:PDSC3:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC3:MCS 4 1
+:EVM:CCAR0:PDSC4:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC4:MCS 4 1
+:CORR:BTS:GAIN -23.8 1
+Scpi_write Error :SENS:POW:RANG:OPT IMM : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:SENS:POW:RANG:OPT IMM 1
+2.04 8.01
+2.11 8.12
+2.05 8.04
+Scpi_write Error :MMEM:STOR:RES "MeasR_002.csv" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:MMEM:STOR:RES "MeasR_002.csv" 1
+CRC Captured
+print taken
+Constellation Saved
+****************************************************************************************************
+Fail due to unexpected Power or EVM
+Channel Power : 8.04
+EVM : 2.05
+****************************************************************************************************
+('2.05', '8.04', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2\\VXT_capture.png', [['#6317395Channel', 'Slot', 'CRC Passed', 'Bit Length'], ['PDSCH 1', '0', 'True', '84240'], ['PDSCH 1', '1', 'True', '84240'], ['PDSCH 1', '2', 'True', '84240'], ['PDSCH 1', '3', 'True', '84240'], ['PDSCH 1', '4', 'True', '84240'], ['PDSCH 1', '5', 'True', '84240'], ['PDSCH 1', '6', 'True', '84240'], ['PDSCH 1', '10', 'True', '84240'], ['PDSCH 1', '11', 'True', '84240'], ['PDSCH 1', '12', 'True', '84240'], ['PDSCH 1', '13', 'True', '84240'], ['PDSCH 1', '14', 'True', '84240'], ['PDSCH 1', '15', 'True', '84240'], ['PDSCH 1', '16', 'True', '84240'], ['PDSCH 2', '0', 'True', '792'], ['PDSCH 2', '1', 'True', '792'], ['PDSCH 2', '2', 'True', '792'], ['PDSCH 2', '3', 'True', '792'], ['PDSCH 2', '4', 'True', '792'], ['PDSCH 2', '5', 'True', '792'], ['PDSCH 2', '6', 'True', '792'], ['PDSCH 2', '10', 'True', '792'], ['PDSCH 2', '11', 'True', '792'], ['PDSCH 2', '12', 'True', '792'], ['PDSCH 2', '13', 'True', '792'], ['PDSCH 2', '14', 'True', '792'], ['PDSCH 2', '15', 'True', '792'], ['PDSCH 2', '16', 'True', '792'], ['PDSCH 3', '7', 'True', '35640'], ['PDSCH 3', '17', 'True', '35640'], ['PDSCH 4', '7', 'True', '252'], ['PDSCH 4', '17', 'True', '252'], ['PDCCH 1', '0', 'True', '108'], ['PDCCH 1', '1', 'True', '108'], ['PDCCH 1', '2', 'True', '108'], ['PDCCH 1', '3', 'True', '108'], ['PDCCH 1', '4', 'True', '108'], ['PDCCH 1', '5', 'True', '108'], ['PDCCH 1', '6', 'True', '108'], ['PDCCH 1', '7', 'True', '108'], ['PDCCH 1', '10', 'True', '108'], ['PDCCH 1', '11', 'True', '108'], ['PDCCH 1', '12', 'True', '108'], ['PDCCH 1', '13', 'True', '108'], ['PDCCH 1', '14', 'True', '108'], ['PDCCH 1', '15', 'True', '108'], ['PDCCH 1', '16', 'True', '108'], ['PDCCH 1', '17', 'True', '108']])
+****************************************************************************************************
+#                                            orb_gen.py                                            #
+****************************************************************************************************
+============================================================================================
+============================Generate ORB from captured PCAP=================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID2\CTC_5GNR_captured.pcap
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID2\CTC_5GNR.orstx
+- Import PCAP in Explorer
+- Inspecting eAxID value of the packets
+eAxID:  2
+- Filter Uplink Packets
+- Extract Uplink U plane IQ Data
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+ORB_Created Successfully
+True
+****************************************************************************************************
+#                             vsa_constellation_and_result_capture.py                              #
+****************************************************************************************************
+============================================================================================
+=========================== 89600 VSA CONFIGURATION ========================================
+============================================================================================
+89600 VSA Application is already running.
+- Recall .setx file to VSA
+====================================================================================================
+#                                        Decoded Info Data                                         #
+====================================================================================================
+PUCCH Decoder : Off
+PUSCH Decoder : On
+PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0
+PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0
+PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+{'2': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']}
+====================================================================================================
+#                                           Summary Info                                           #
+====================================================================================================
+System.String[]
+ChannelPower : 66.79625701904297
+EVM : 1.9527125358581543
+FrequencyError : 3.064039468765259
+EVMPk : 6.320685863494873
+====================================================================================================
+#                                        Result Declaration                                        #
+====================================================================================================
+CRC : Pass
+EVM : Pass
+('1.9527125358581543', {'2': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']}, 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2')
+****************************************************************************************************
+#                                          stop_player.py                                          #
+****************************************************************************************************
+============================================================================================
+=========================================STOP FUNCTION======================================
+============================================================================================
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Stop Player Response:'{"state":"off","radioframes":1,"starttime":0.0}'   Response Code:200
+============================================================================================
+============================================================================================
+The Player stopped the transmission
+True
+({'1': ['1', '3.700005', '100', '31.88', '2.5', '-48.76', '21.5', '25', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1\\VXT_capture.png'], '2': ['2', '3.700005', '100', '2.05', '2.5', '8.04', '21.5', '25', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2\\VXT_capture.png']}, {'1': ['1', '3.700005', '100', '1.9527125358581543', '2.5', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1'], '2': ['2', '3.700005', '100', '1.9527125358581543', '2.5', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2']}, {'1': [['#6317395Channel', 'Slot', 'CRC Passed', 'Bit Length'], ['PDSCH 1', '0', 'True', '84240'], ['PDSCH 1', '1', 'True', '84240'], ['PDSCH 1', '2', 'True', '84240'], ['PDSCH 1', '3', 'True', '84240'], ['PDSCH 1', '4', 'True', '84240'], ['PDSCH 1', '5', 'True', '84240'], ['PDSCH 1', '6', 'True', '84240'], ['PDSCH 1', '10', 'True', '84240'], ['PDSCH 1', '11', 'True', '84240'], ['PDSCH 1', '12', 'True', '84240'], ['PDSCH 1', '13', 'True', '84240'], ['PDSCH 1', '14', 'True', '84240'], ['PDSCH 1', '15', 'True', '84240'], ['PDSCH 1', '16', 'True', '84240'], ['PDSCH 2', '0', 'True', '792'], ['PDSCH 2', '1', 'True', '792'], ['PDSCH 2', '2', 'True', '792'], ['PDSCH 2', '3', 'True', '792'], ['PDSCH 2', '4', 'True', '792'], ['PDSCH 2', '5', 'True', '792'], ['PDSCH 2', '6', 'True', '792'], ['PDSCH 2', '10', 'True', '792'], ['PDSCH 2', '11', 'True', '792'], ['PDSCH 2', '12', 'True', '792'], ['PDSCH 2', '13', 'True', '792'], ['PDSCH 2', '14', 'True', '792'], ['PDSCH 2', '15', 'True', '792'], ['PDSCH 2', '16', 'True', '792'], ['PDSCH 3', '7', 'True', '35640'], ['PDSCH 3', '17', 'True', '35640'], ['PDSCH 4', '7', 'True', '252'], ['PDSCH 4', '17', 'True', '252'], ['PDCCH 1', '0', 'True', '108'], ['PDCCH 1', '1', 'True', '108'], ['PDCCH 1', '2', 'True', '108'], ['PDCCH 1', '3', 'True', '108'], ['PDCCH 1', '4', 'True', '108'], ['PDCCH 1', '5', 'True', '108'], ['PDCCH 1', '6', 'True', '108'], ['PDCCH 1', '7', 'True', '108'], ['PDCCH 1', '10', 'True', '108'], ['PDCCH 1', '11', 'True', '108'], ['PDCCH 1', '12', 'True', '108'], ['PDCCH 1', '13', 'True', '108'], ['PDCCH 1', '14', 'True', '108'], ['PDCCH 1', '15', 'True', '108'], ['PDCCH 1', '16', 'True', '108'], ['PDCCH 1', '17', 'True', '108']], '2': [['#6317395Channel', 'Slot', 'CRC Passed', 'Bit Length'], ['PDSCH 1', '0', 'True', '84240'], ['PDSCH 1', '1', 'True', '84240'], ['PDSCH 1', '2', 'True', '84240'], ['PDSCH 1', '3', 'True', '84240'], ['PDSCH 1', '4', 'True', '84240'], ['PDSCH 1', '5', 'True', '84240'], ['PDSCH 1', '6', 'True', '84240'], ['PDSCH 1', '10', 'True', '84240'], ['PDSCH 1', '11', 'True', '84240'], ['PDSCH 1', '12', 'True', '84240'], ['PDSCH 1', '13', 'True', '84240'], ['PDSCH 1', '14', 'True', '84240'], ['PDSCH 1', '15', 'True', '84240'], ['PDSCH 1', '16', 'True', '84240'], ['PDSCH 2', '0', 'True', '792'], ['PDSCH 2', '1', 'True', '792'], ['PDSCH 2', '2', 'True', '792'], ['PDSCH 2', '3', 'True', '792'], ['PDSCH 2', '4', 'True', '792'], ['PDSCH 2', '5', 'True', '792'], ['PDSCH 2', '6', 'True', '792'], ['PDSCH 2', '10', 'True', '792'], ['PDSCH 2', '11', 'True', '792'], ['PDSCH 2', '12', 'True', '792'], ['PDSCH 2', '13', 'True', '792'], ['PDSCH 2', '14', 'True', '792'], ['PDSCH 2', '15', 'True', '792'], ['PDSCH 2', '16', 'True', '792'], ['PDSCH 3', '7', 'True', '35640'], ['PDSCH 3', '17', 'True', '35640'], ['PDSCH 4', '7', 'True', '252'], ['PDSCH 4', '17', 'True', '252'], ['PDCCH 1', '0', 'True', '108'], ['PDCCH 1', '1', 'True', '108'], ['PDCCH 1', '2', 'True', '108'], ['PDCCH 1', '3', 'True', '108'], ['PDCCH 1', '4', 'True', '108'], ['PDCCH 1', '5', 'True', '108'], ['PDCCH 1', '6', 'True', '108'], ['PDCCH 1', '7', 'True', '108'], ['PDCCH 1', '10', 'True', '108'], ['PDCCH 1', '11', 'True', '108'], ['PDCCH 1', '12', 'True', '108'], ['PDCCH 1', '13', 'True', '108'], ['PDCCH 1', '14', 'True', '108'], ['PDCCH 1', '15', 'True', '108'], ['PDCCH 1', '16', 'True', '108'], ['PDCCH 1', '17', 'True', '108']]}, {'2': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']})
+12.34722222222222
+
+
+
+
+====================================================================================================
+
+ Downlink Report - Test results:
+
+====================================================================================================
+----------------------------------------------------------------------------------------------------
+Test purpose :
+The test purpose is to verify the DL Test
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Test environment :
+Normal test conditions.
+----------------------------------------------------------------------------------------------------
+[['1', '3.700005', '100', '31.88', '2.5', '-48.76', '21.5', '25'], ['2', '3.700005', '100', '2.05', '2.5', '8.04', '21.5', '25']]
+{'1': 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1\\VXT_capture.png', '2': 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2\\VXT_capture.png'}
+====================================================================================================
+
+ Uplink - Test results:
+
+====================================================================================================
+----------------------------------------------------------------------------------------------------
+Test purpose :
+The test purpose is to verify the UL Test
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Test environment :
+Normal test conditions.
+----------------------------------------------------------------------------------------------------
+[['1', '3.700005', '100', '31.88', '2.5', '-48.76', '21.5', '25'], ['2', '3.700005', '100', '2.05', '2.5', '8.04', '21.5', '25']]
+{'1': ['C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1/VSA_Screenshot_1', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1/VSA_Screenshot_2'], '2': ['C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2/VSA_Screenshot_1', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2/VSA_Screenshot_2']}
+
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>python TDD_Config.py Base_DL_UL TDD
+C:\ORAN_AUTOMATION\CUPLANE
+['1', '2']
+C:\ORAN_AUTOMATION\CUPLANE\Scripts
+['TDD_Config.py', 'Base_DL_UL', 'TDD']
+Check wether RU is sync or not Y/N..Y
+['1', '2']
+****************************************************************************************************
+#                                            scp_gen.py                                            #
+****************************************************************************************************
+Executing API: api.SignalGenerator.Frequency = (float(3.700005)*1000000000)
+Executing API: api.SignalGenerator.Amplitude = int(-60)
+Executing API: api.SignalGenerator.TriggerType = TriggerType.Continuous
+Executing API: api.SignalGenerator.TriggerSource = TriggerSource.External
+Executing API: api.SignalGenerator.ExternalPolarity = Polarity.Positive
+Executing API: api.SignalGenerator.ExternalDelayEnabled = True
+Executing API: api.SignalGenerator.ExternalDelayTime = 0.000000005
+Executing API: api.SignalGenerator.Continuous = Continuous.TriggerAndRun
+Executing API: api.SignalGenerator.SingleTrigger = SingleTrigger.BufferedTrigger
+Executing API: api.SignalGenerator.SegmentAdvance = SegmentAdvance.Continuous
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).CarrierType = CarrierType.DL
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).PresetDLTestModel(Bandwidth.FR1_100M, DuplexType.TDD, Numerology.SCS30k, TestModel.NR_FR1_TM1_1, 1, PhaseCompensationMode.Auto)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).AutoDCI = False
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).Enabled = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCS = 4
+Executing API: api.NR5GWaveformSettings.AddNRCarrier(CarrierType.UL)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).CarrierType = CarrierType.UL
+Executing API: tdd = TDDConfig(SlotConfigurationPeriod.MS5, 7, 6, 2, 4)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).ULFRCConfig(Bandwidth.FR1_100M, FRC.G_FR1_A1_5, 0, PUSCHMappingType.A, PhaseCompensationMode.Auto, tdd,True)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).NumberOfDMRSCDMGroup = 1
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).DMRSPowerBoosting = 0
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).DMRSPowerBoosting = 0
+Saving the scp file
+
+Generating the scp file
+Executing API: api.NR5GWaveformSettings.RemoveNRCarrier(0)
+The scp file exist
+The scp file is successfully generated
+Connecting the instrumet
+Generating the configurations
+- Connected to the Instrument at TCPIP0::172.17.95.97::hislip0::INSTR.
+Api connection closed
+****************************************************************************************************
+#                                           pcap_gen.py                                            #
+****************************************************************************************************
+- Import Waveform Project (.scp)
+- Carriers Read = 2
+- Set ORS Configuration
+ashjbvbdvshbchjdbjcsbjhbn
+- Export Configuration file
+- Carriers Read = 2
+DONE SFN[0] Mu[1] Ant[0]: ResourceGridMessenger (0 lines left in IQ data file)
+The pcap file exist
+The pcap file is successfully generated
+****************************************************************************************************
+#                                    pcap_load_play_recorde.py                                     #
+****************************************************************************************************
+============================================================================================
+============================PLAYER AND RECORDER FUNCTION====================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID1\CTC_5GNR.pcap
+Load Pcap Status:''      Response Code:200
+Start Recorder Response:'{"state":"on","radioframes":1}'         Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Start Player Response:'{"state":"on","radioframes":0,"starttime":0.0}'   Response Code:200
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Stop Recorder Response:'{"state":"off","radioframes":1}'         Response Code:200
+Copied the Pcap
+The Packets are Transmiting ....
+============================================================================================
+============================================================================================
+****************************************************************************************************
+#                               VXT_configuration_result_capture.py                                #
+****************************************************************************************************
+TCPIP0::172.17.95.97::hislip0::INSTR 100 3.700005 -23.8
+:INST:SEL NR5G 1
+:OUTP:STAT OFF 1
+:FEED:RF:PORT:INP RFIN 1
+:CONF:EVM 1
+:DISP:EVM:VIEW NORM 1
+:INIT:CONT ON 1
+:CCAR:REF 3.700005GHZ 1
+:RAD:STAN:PRES:CARR B100M 1
+:RAD:STAN:PRES:FREQ:RANG FR1 1
+:RAD:STAN:PRES:DMOD TDD 1
+:RAD:STAN:PRES:SCS SCS30K 1
+:RAD:STAN:PRES:RBAL DLTM1DOT1 1
+:RAD:STAN:PRES:DLIN:BS:CAT ALAR 1
+:RAD:STAN:PRES:IMM 1
+:EVM:CCAR0:DC:PUNC ON 1
+:EVM:CCAR0:PHAS:COMP:AUTO ON 1
+:EVM:CCAR0:PDCC1:INCL ON 1
+:EVM:CCAR0:DEC:PDSC DESCrambled 1
+:EVM:CCAR0:DEC:PDCC DESCrambled 1
+:EVM:CCAR0:DEC:PBCH DESCrambled 1
+:DISP:EVM:WIND2:DATA DINF 1
+:EVM:CCAR0:PDSC1:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC1:MCS 4 1
+:EVM:CCAR0:PDSC2:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC2:MCS 4 1
+:EVM:CCAR0:PDSC3:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC3:MCS 4 1
+:EVM:CCAR0:PDSC4:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC4:MCS 4 1
+:CORR:BTS:GAIN -23.8 1
+:SENS:POW:RANG:OPT IMM 1
+2.31 7.80
+2.30 7.89
+2.20 7.79
+Scpi_write Error :MMEM:STOR:RES "MeasR_001.csv" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:MMEM:STOR:RES "MeasR_001.csv" 1
+CRC Captured
+print taken
+Constellation Saved
+****************************************************************************************************
+Fail due to unexpected Power or EVM
+Channel Power : 7.79
+EVM : 2.20
+****************************************************************************************************
+('2.20', '7.79', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1\\VXT_capture.png', [['#6317395Channel', 'Slot', 'CRC Passed', 'Bit Length'], ['PDSCH 1', '0', 'True', '84240'], ['PDSCH 1', '1', 'True', '84240'], ['PDSCH 1', '2', 'True', '84240'], ['PDSCH 1', '3', 'True', '84240'], ['PDSCH 1', '4', 'True', '84240'], ['PDSCH 1', '5', 'True', '84240'], ['PDSCH 1', '6', 'True', '84240'], ['PDSCH 1', '10', 'True', '84240'], ['PDSCH 1', '11', 'True', '84240'], ['PDSCH 1', '12', 'True', '84240'], ['PDSCH 1', '13', 'True', '84240'], ['PDSCH 1', '14', 'True', '84240'], ['PDSCH 1', '15', 'True', '84240'], ['PDSCH 1', '16', 'True', '84240'], ['PDSCH 2', '0', 'True', '792'], ['PDSCH 2', '1', 'True', '792'], ['PDSCH 2', '2', 'True', '792'], ['PDSCH 2', '3', 'True', '792'], ['PDSCH 2', '4', 'True', '792'], ['PDSCH 2', '5', 'True', '792'], ['PDSCH 2', '6', 'True', '792'], ['PDSCH 2', '10', 'True', '792'], ['PDSCH 2', '11', 'True', '792'], ['PDSCH 2', '12', 'True', '792'], ['PDSCH 2', '13', 'True', '792'], ['PDSCH 2', '14', 'True', '792'], ['PDSCH 2', '15', 'True', '792'], ['PDSCH 2', '16', 'True', '792'], ['PDSCH 3', '7', 'True', '35640'], ['PDSCH 3', '17', 'True', '35640'], ['PDSCH 4', '7', 'True', '252'], ['PDSCH 4', '17', 'True', '252'], ['PDCCH 1', '0', 'True', '108'], ['PDCCH 1', '1', 'True', '108'], ['PDCCH 1', '2', 'True', '108'], ['PDCCH 1', '3', 'True', '108'], ['PDCCH 1', '4', 'True', '108'], ['PDCCH 1', '5', 'True', '108'], ['PDCCH 1', '6', 'True', '108'], ['PDCCH 1', '7', 'True', '108'], ['PDCCH 1', '10', 'True', '108'], ['PDCCH 1', '11', 'True', '108'], ['PDCCH 1', '12', 'True', '108'], ['PDCCH 1', '13', 'True', '108'], ['PDCCH 1', '14', 'True', '108'], ['PDCCH 1', '15', 'True', '108'], ['PDCCH 1', '16', 'True', '108'], ['PDCCH 1', '17', 'True', '108']])
+****************************************************************************************************
+#                                            orb_gen.py                                            #
+****************************************************************************************************
+============================================================================================
+============================Generate ORB from captured PCAP=================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID1\CTC_5GNR_captured.pcap
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID1\CTC_5GNR.orstx
+- Import PCAP in Explorer
+- Inspecting eAxID value of the packets
+eAxID:  1
+- Filter Uplink Packets
+- Extract Uplink U plane IQ Data
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+ORB_Created Successfully
+True
+****************************************************************************************************
+#                             vsa_constellation_and_result_capture.py                              #
+****************************************************************************************************
+============================================================================================
+=========================== 89600 VSA CONFIGURATION ========================================
+============================================================================================
+89600 VSA Application is already running.
+- Recall .setx file to VSA
+====================================================================================================
+#                                        Decoded Info Data                                         #
+====================================================================================================
+PUCCH Decoder : Off
+PUSCH Decoder : On
+PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0
+PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0
+PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+{'1': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']}
+====================================================================================================
+#                                           Summary Info                                           #
+====================================================================================================
+System.String[]
+ChannelPower : 66.79625701904297
+EVM : 1.9527125358581543
+FrequencyError : 3.0640323162078857
+EVMPk : 6.3206868171691895
+====================================================================================================
+#                                        Result Declaration                                        #
+====================================================================================================
+CRC : Pass
+EVM : Pass
+('1.9527125358581543', {'1': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']}, 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1')
+{'1': ['1', '3.700005', '100', '2.20', '2.5', '7.79', '21.5', '25', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1\\VXT_capture.png']} {'1': ['1', '3.700005', '100', '1.9527125358581543', '2.5', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1']} {'1': [['#6317395Channel', 'Slot', 'CRC Passed', 'Bit Length'], ['PDSCH 1', '0', 'True', '84240'], ['PDSCH 1', '1', 'True', '84240'], ['PDSCH 1', '2', 'True', '84240'], ['PDSCH 1', '3', 'True', '84240'], ['PDSCH 1', '4', 'True', '84240'], ['PDSCH 1', '5', 'True', '84240'], ['PDSCH 1', '6', 'True', '84240'], ['PDSCH 1', '10', 'True', '84240'], ['PDSCH 1', '11', 'True', '84240'], ['PDSCH 1', '12', 'True', '84240'], ['PDSCH 1', '13', 'True', '84240'], ['PDSCH 1', '14', 'True', '84240'], ['PDSCH 1', '15', 'True', '84240'], ['PDSCH 1', '16', 'True', '84240'], ['PDSCH 2', '0', 'True', '792'], ['PDSCH 2', '1', 'True', '792'], ['PDSCH 2', '2', 'True', '792'], ['PDSCH 2', '3', 'True', '792'], ['PDSCH 2', '4', 'True', '792'], ['PDSCH 2', '5', 'True', '792'], ['PDSCH 2', '6', 'True', '792'], ['PDSCH 2', '10', 'True', '792'], ['PDSCH 2', '11', 'True', '792'], ['PDSCH 2', '12', 'True', '792'], ['PDSCH 2', '13', 'True', '792'], ['PDSCH 2', '14', 'True', '792'], ['PDSCH 2', '15', 'True', '792'], ['PDSCH 2', '16', 'True', '792'], ['PDSCH 3', '7', 'True', '35640'], ['PDSCH 3', '17', 'True', '35640'], ['PDSCH 4', '7', 'True', '252'], ['PDSCH 4', '17', 'True', '252'], ['PDCCH 1', '0', 'True', '108'], ['PDCCH 1', '1', 'True', '108'], ['PDCCH 1', '2', 'True', '108'], ['PDCCH 1', '3', 'True', '108'], ['PDCCH 1', '4', 'True', '108'], ['PDCCH 1', '5', 'True', '108'], ['PDCCH 1', '6', 'True', '108'], ['PDCCH 1', '7', 'True', '108'], ['PDCCH 1', '10', 'True', '108'], ['PDCCH 1', '11', 'True', '108'], ['PDCCH 1', '12', 'True', '108'], ['PDCCH 1', '13', 'True', '108'], ['PDCCH 1', '14', 'True', '108'], ['PDCCH 1', '15', 'True', '108'], ['PDCCH 1', '16', 'True', '108'], ['PDCCH 1', '17', 'True', '108']]} {'1': {'1': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']}}
+****************************************************************************************************
+#                                          stop_player.py                                          #
+****************************************************************************************************
+============================================================================================
+=========================================STOP FUNCTION======================================
+============================================================================================
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Stop Player Response:'{"state":"off","radioframes":1,"starttime":0.0}'   Response Code:200
+============================================================================================
+============================================================================================
+The Player stopped the transmission
+True
+Press Enter after changing channel...
+****************************************************************************************************
+#                                            scp_gen.py                                            #
+****************************************************************************************************
+Executing API: api.SignalGenerator.Frequency = (float(3.700005)*1000000000)
+Executing API: api.SignalGenerator.Amplitude = int(-60)
+Executing API: api.SignalGenerator.TriggerType = TriggerType.Continuous
+Executing API: api.SignalGenerator.TriggerSource = TriggerSource.External
+Executing API: api.SignalGenerator.ExternalPolarity = Polarity.Positive
+Executing API: api.SignalGenerator.ExternalDelayEnabled = True
+Executing API: api.SignalGenerator.ExternalDelayTime = 0.000000005
+Executing API: api.SignalGenerator.Continuous = Continuous.TriggerAndRun
+Executing API: api.SignalGenerator.SingleTrigger = SingleTrigger.BufferedTrigger
+Executing API: api.SignalGenerator.SegmentAdvance = SegmentAdvance.Continuous
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).CarrierType = CarrierType.DL
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).PresetDLTestModel(Bandwidth.FR1_100M, DuplexType.TDD, Numerology.SCS30k, TestModel.NR_FR1_TM1_1, 1, PhaseCompensationMode.Auto)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).ChannelCoding = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).AutoDCI = False
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).Enabled = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDCIItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(0).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(1).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(2).MCS = 4
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCSTable = DLSCHMCSTable.Table51312
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(0).Downlink.GetDLSCHItem(3).MCS = 4
+Executing API: api.NR5GWaveformSettings.AddNRCarrier(CarrierType.UL)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).CarrierType = CarrierType.UL
+Executing API: tdd = TDDConfig(SlotConfigurationPeriod.MS5, 7, 6, 2, 4)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).ULFRCConfig(Bandwidth.FR1_100M, FRC.G_FR1_A1_5, 0, PUSCHMappingType.A, PhaseCompensationMode.Auto, tdd,True)
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).DCPunctured = True
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).NumberOfDMRSCDMGroup = 1
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).PayloadData.PayLoadDataType = PayloadDataType.PN9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).MCS = 9
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(0).DMRSPowerBoosting = 0
+Executing API: api.NR5GWaveformSettings.GetNRCarriersItem(1).Uplink.GetULSCHItem(1).DMRSPowerBoosting = 0
+Saving the scp file
+
+Generating the scp file
+Executing API: api.NR5GWaveformSettings.RemoveNRCarrier(0)
+The scp file exist
+The scp file is successfully generated
+Connecting the instrumet
+Generating the configurations
+- Connected to the Instrument at TCPIP0::172.17.95.97::hislip0::INSTR.
+Api connection closed
+****************************************************************************************************
+#                                           pcap_gen.py                                            #
+****************************************************************************************************
+- Import Waveform Project (.scp)
+- Carriers Read = 2
+- Set ORS Configuration
+ashjbvbdvshbchjdbjcsbjhbn
+- Export Configuration file
+- Carriers Read = 2
+DONE SFN[0] Mu[1] Ant[0]: ResourceGridMessenger (0 lines left in IQ data file)
+The pcap file exist
+The pcap file is successfully generated
+****************************************************************************************************
+#                                    pcap_load_play_recorde.py                                     #
+****************************************************************************************************
+============================================================================================
+============================PLAYER AND RECORDER FUNCTION====================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID2\CTC_5GNR.pcap
+Load Pcap Status:''      Response Code:200
+Start Recorder Response:'{"state":"on","radioframes":1}'         Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Start Player Response:'{"state":"on","radioframes":0,"starttime":0.0}'   Response Code:200
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Recorder State:{"state":"on","radioframes":0}    Response Code:200
+Stop Recorder Response:'{"state":"off","radioframes":1}'         Response Code:200
+Copied the Pcap
+The Packets are Transmiting ....
+============================================================================================
+============================================================================================
+****************************************************************************************************
+#                               VXT_configuration_result_capture.py                                #
+****************************************************************************************************
+TCPIP0::172.17.95.97::hislip0::INSTR 100 3.700005 -23.8
+:INST:SEL NR5G 1
+:OUTP:STAT OFF 1
+:FEED:RF:PORT:INP RFIN 1
+:CONF:EVM 1
+:DISP:EVM:VIEW NORM 1
+:INIT:CONT ON 1
+:CCAR:REF 3.700005GHZ 1
+:RAD:STAN:PRES:CARR B100M 1
+:RAD:STAN:PRES:FREQ:RANG FR1 1
+:RAD:STAN:PRES:DMOD TDD 1
+:RAD:STAN:PRES:SCS SCS30K 1
+:RAD:STAN:PRES:RBAL DLTM1DOT1 1
+:RAD:STAN:PRES:DLIN:BS:CAT ALAR 1
+:RAD:STAN:PRES:IMM 1
+:EVM:CCAR0:DC:PUNC ON 1
+:EVM:CCAR0:PHAS:COMP:AUTO ON 1
+:EVM:CCAR0:PDCC1:INCL ON 1
+:EVM:CCAR0:DEC:PDSC DESCrambled 1
+:EVM:CCAR0:DEC:PDCC DESCrambled 1
+:EVM:CCAR0:DEC:PBCH DESCrambled 1
+:DISP:EVM:WIND2:DATA DINF 1
+:EVM:CCAR0:PDSC1:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC1:MCS 4 1
+:EVM:CCAR0:PDSC2:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC2:MCS 4 1
+:EVM:CCAR0:PDSC3:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC3:MCS 4 1
+:EVM:CCAR0:PDSC4:MCS:TABL TABL2 1
+:EVM:CCAR0:PDSC4:MCS 4 1
+:CORR:BTS:GAIN -23.8 1
+:SENS:POW:RANG:OPT IMM 1
+2.02 7.97
+2.02 7.98
+2.05 8.02
+Scpi_write Error :MMEM:STOR:RES "MeasR_002.csv" : VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+:MMEM:STOR:RES "MeasR_002.csv" 1
+CRC Captured
+print taken
+Constellation Saved
+****************************************************************************************************
+Fail due to unexpected Power or EVM
+Channel Power : 8.02
+EVM : 2.05
+****************************************************************************************************
+('2.05', '8.02', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2\\VXT_capture.png', [['#6317395Channel', 'Slot', 'CRC Passed', 'Bit Length'], ['PDSCH 1', '0', 'True', '84240'], ['PDSCH 1', '1', 'True', '84240'], ['PDSCH 1', '2', 'True', '84240'], ['PDSCH 1', '3', 'True', '84240'], ['PDSCH 1', '4', 'True', '84240'], ['PDSCH 1', '5', 'True', '84240'], ['PDSCH 1', '6', 'True', '84240'], ['PDSCH 1', '10', 'True', '84240'], ['PDSCH 1', '11', 'True', '84240'], ['PDSCH 1', '12', 'True', '84240'], ['PDSCH 1', '13', 'True', '84240'], ['PDSCH 1', '14', 'True', '84240'], ['PDSCH 1', '15', 'True', '84240'], ['PDSCH 1', '16', 'True', '84240'], ['PDSCH 2', '0', 'True', '792'], ['PDSCH 2', '1', 'True', '792'], ['PDSCH 2', '2', 'True', '792'], ['PDSCH 2', '3', 'True', '792'], ['PDSCH 2', '4', 'True', '792'], ['PDSCH 2', '5', 'True', '792'], ['PDSCH 2', '6', 'True', '792'], ['PDSCH 2', '10', 'True', '792'], ['PDSCH 2', '11', 'True', '792'], ['PDSCH 2', '12', 'True', '792'], ['PDSCH 2', '13', 'True', '792'], ['PDSCH 2', '14', 'True', '792'], ['PDSCH 2', '15', 'True', '792'], ['PDSCH 2', '16', 'True', '792'], ['PDSCH 3', '7', 'True', '35640'], ['PDSCH 3', '17', 'True', '35640'], ['PDSCH 4', '7', 'True', '252'], ['PDSCH 4', '17', 'True', '252'], ['PDCCH 1', '0', 'True', '108'], ['PDCCH 1', '1', 'True', '108'], ['PDCCH 1', '2', 'True', '108'], ['PDCCH 1', '3', 'True', '108'], ['PDCCH 1', '4', 'True', '108'], ['PDCCH 1', '5', 'True', '108'], ['PDCCH 1', '6', 'True', '108'], ['PDCCH 1', '7', 'True', '108'], ['PDCCH 1', '10', 'True', '108'], ['PDCCH 1', '11', 'True', '108'], ['PDCCH 1', '12', 'True', '108'], ['PDCCH 1', '13', 'True', '108'], ['PDCCH 1', '14', 'True', '108'], ['PDCCH 1', '15', 'True', '108'], ['PDCCH 1', '16', 'True', '108'], ['PDCCH 1', '17', 'True', '108']])
+****************************************************************************************************
+#                                            orb_gen.py                                            #
+****************************************************************************************************
+============================================================================================
+============================Generate ORB from captured PCAP=================================
+============================================================================================
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID2\CTC_5GNR_captured.pcap
+C:\ORAN_AUTOMATION\CUPLANE\TDD\Results\Base_DL_UL\EAXCID2\CTC_5GNR.orstx
+- Import PCAP in Explorer
+- Inspecting eAxID value of the packets
+eAxID:  2
+- Filter Uplink Packets
+- Extract Uplink U plane IQ Data
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+IQRecoveryWriter: Flush frame!
+ORB_Created Successfully
+True
+****************************************************************************************************
+#                             vsa_constellation_and_result_capture.py                              #
+****************************************************************************************************
+============================================================================================
+=========================== 89600 VSA CONFIGURATION ========================================
+============================================================================================
+89600 VSA Application is already running.
+- Recall .setx file to VSA
+====================================================================================================
+#                                        Decoded Info Data                                         #
+====================================================================================================
+PUCCH Decoder : Off
+PUSCH Decoder : On
+PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0
+PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2
+PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0
+PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1
+{'2': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']}
+====================================================================================================
+#                                           Summary Info                                           #
+====================================================================================================
+System.String[]
+ChannelPower : 66.79625701904297
+EVM : 1.9527125358581543
+FrequencyError : 3.0640323162078857
+EVMPk : 6.3206868171691895
+====================================================================================================
+#                                        Result Declaration                                        #
+====================================================================================================
+CRC : Pass
+EVM : Pass
+('1.9527125358581543', {'2': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']}, 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2')
+{'1': ['1', '3.700005', '100', '2.20', '2.5', '7.79', '21.5', '25', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1\\VXT_capture.png'], '2': ['2', '3.700005', '100', '2.05', '2.5', '8.02', '21.5', '25', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2\\VXT_capture.png']} {'1': ['1', '3.700005', '100', '1.9527125358581543', '2.5', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1'], '2': ['2', '3.700005', '100', '1.9527125358581543', '2.5', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2']} {'1': [['#6317395Channel', 'Slot', 'CRC Passed', 'Bit Length'], ['PDSCH 1', '0', 'True', '84240'], ['PDSCH 1', '1', 'True', '84240'], ['PDSCH 1', '2', 'True', '84240'], ['PDSCH 1', '3', 'True', '84240'], ['PDSCH 1', '4', 'True', '84240'], ['PDSCH 1', '5', 'True', '84240'], ['PDSCH 1', '6', 'True', '84240'], ['PDSCH 1', '10', 'True', '84240'], ['PDSCH 1', '11', 'True', '84240'], ['PDSCH 1', '12', 'True', '84240'], ['PDSCH 1', '13', 'True', '84240'], ['PDSCH 1', '14', 'True', '84240'], ['PDSCH 1', '15', 'True', '84240'], ['PDSCH 1', '16', 'True', '84240'], ['PDSCH 2', '0', 'True', '792'], ['PDSCH 2', '1', 'True', '792'], ['PDSCH 2', '2', 'True', '792'], ['PDSCH 2', '3', 'True', '792'], ['PDSCH 2', '4', 'True', '792'], ['PDSCH 2', '5', 'True', '792'], ['PDSCH 2', '6', 'True', '792'], ['PDSCH 2', '10', 'True', '792'], ['PDSCH 2', '11', 'True', '792'], ['PDSCH 2', '12', 'True', '792'], ['PDSCH 2', '13', 'True', '792'], ['PDSCH 2', '14', 'True', '792'], ['PDSCH 2', '15', 'True', '792'], ['PDSCH 2', '16', 'True', '792'], ['PDSCH 3', '7', 'True', '35640'], ['PDSCH 3', '17', 'True', '35640'], ['PDSCH 4', '7', 'True', '252'], ['PDSCH 4', '17', 'True', '252'], ['PDCCH 1', '0', 'True', '108'], ['PDCCH 1', '1', 'True', '108'], ['PDCCH 1', '2', 'True', '108'], ['PDCCH 1', '3', 'True', '108'], ['PDCCH 1', '4', 'True', '108'], ['PDCCH 1', '5', 'True', '108'], ['PDCCH 1', '6', 'True', '108'], ['PDCCH 1', '7', 'True', '108'], ['PDCCH 1', '10', 'True', '108'], ['PDCCH 1', '11', 'True', '108'], ['PDCCH 1', '12', 'True', '108'], ['PDCCH 1', '13', 'True', '108'], ['PDCCH 1', '14', 'True', '108'], ['PDCCH 1', '15', 'True', '108'], ['PDCCH 1', '16', 'True', '108'], ['PDCCH 1', '17', 'True', '108']], '2': [['#6317395Channel', 'Slot', 'CRC Passed', 'Bit Length'], ['PDSCH 1', '0', 'True', '84240'], ['PDSCH 1', '1', 'True', '84240'], ['PDSCH 1', '2', 'True', '84240'], ['PDSCH 1', '3', 'True', '84240'], ['PDSCH 1', '4', 'True', '84240'], ['PDSCH 1', '5', 'True', '84240'], ['PDSCH 1', '6', 'True', '84240'], ['PDSCH 1', '10', 'True', '84240'], ['PDSCH 1', '11', 'True', '84240'], ['PDSCH 1', '12', 'True', '84240'], ['PDSCH 1', '13', 'True', '84240'], ['PDSCH 1', '14', 'True', '84240'], ['PDSCH 1', '15', 'True', '84240'], ['PDSCH 1', '16', 'True', '84240'], ['PDSCH 2', '0', 'True', '792'], ['PDSCH 2', '1', 'True', '792'], ['PDSCH 2', '2', 'True', '792'], ['PDSCH 2', '3', 'True', '792'], ['PDSCH 2', '4', 'True', '792'], ['PDSCH 2', '5', 'True', '792'], ['PDSCH 2', '6', 'True', '792'], ['PDSCH 2', '10', 'True', '792'], ['PDSCH 2', '11', 'True', '792'], ['PDSCH 2', '12', 'True', '792'], ['PDSCH 2', '13', 'True', '792'], ['PDSCH 2', '14', 'True', '792'], ['PDSCH 2', '15', 'True', '792'], ['PDSCH 2', '16', 'True', '792'], ['PDSCH 3', '7', 'True', '35640'], ['PDSCH 3', '17', 'True', '35640'], ['PDSCH 4', '7', 'True', '252'], ['PDSCH 4', '17', 'True', '252'], ['PDCCH 1', '0', 'True', '108'], ['PDCCH 1', '1', 'True', '108'], ['PDCCH 1', '2', 'True', '108'], ['PDCCH 1', '3', 'True', '108'], ['PDCCH 1', '4', 'True', '108'], ['PDCCH 1', '5', 'True', '108'], ['PDCCH 1', '6', 'True', '108'], ['PDCCH 1', '7', 'True', '108'], ['PDCCH 1', '10', 'True', '108'], ['PDCCH 1', '11', 'True', '108'], ['PDCCH 1', '12', 'True', '108'], ['PDCCH 1', '13', 'True', '108'], ['PDCCH 1', '14', 'True', '108'], ['PDCCH 1', '15', 'True', '108'], ['PDCCH 1', '16', 'True', '108'], ['PDCCH 1', '17', 'True', '108']]} {'1': {'1': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']}, '2': {'2': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']}}
+****************************************************************************************************
+#                                          stop_player.py                                          #
+****************************************************************************************************
+============================================================================================
+=========================================STOP FUNCTION======================================
+============================================================================================
+Player State:{"state":"on","radioframes":0,"starttime":0.0}      Response Code:200
+Stop Player Response:'{"state":"off","radioframes":1,"starttime":0.0}'   Response Code:200
+============================================================================================
+============================================================================================
+The Player stopped the transmission
+True
+Press Enter after changing channel...
+({'1': ['1', '3.700005', '100', '2.20', '2.5', '7.79', '21.5', '25', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1\\VXT_capture.png'], '2': ['2', '3.700005', '100', '2.05', '2.5', '8.02', '21.5', '25', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2\\VXT_capture.png']}, {'1': ['1', '3.700005', '100', '1.9527125358581543', '2.5', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1'], '2': ['2', '3.700005', '100', '1.9527125358581543', '2.5', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2']}, {'1': [['#6317395Channel', 'Slot', 'CRC Passed', 'Bit Length'], ['PDSCH 1', '0', 'True', '84240'], ['PDSCH 1', '1', 'True', '84240'], ['PDSCH 1', '2', 'True', '84240'], ['PDSCH 1', '3', 'True', '84240'], ['PDSCH 1', '4', 'True', '84240'], ['PDSCH 1', '5', 'True', '84240'], ['PDSCH 1', '6', 'True', '84240'], ['PDSCH 1', '10', 'True', '84240'], ['PDSCH 1', '11', 'True', '84240'], ['PDSCH 1', '12', 'True', '84240'], ['PDSCH 1', '13', 'True', '84240'], ['PDSCH 1', '14', 'True', '84240'], ['PDSCH 1', '15', 'True', '84240'], ['PDSCH 1', '16', 'True', '84240'], ['PDSCH 2', '0', 'True', '792'], ['PDSCH 2', '1', 'True', '792'], ['PDSCH 2', '2', 'True', '792'], ['PDSCH 2', '3', 'True', '792'], ['PDSCH 2', '4', 'True', '792'], ['PDSCH 2', '5', 'True', '792'], ['PDSCH 2', '6', 'True', '792'], ['PDSCH 2', '10', 'True', '792'], ['PDSCH 2', '11', 'True', '792'], ['PDSCH 2', '12', 'True', '792'], ['PDSCH 2', '13', 'True', '792'], ['PDSCH 2', '14', 'True', '792'], ['PDSCH 2', '15', 'True', '792'], ['PDSCH 2', '16', 'True', '792'], ['PDSCH 3', '7', 'True', '35640'], ['PDSCH 3', '17', 'True', '35640'], ['PDSCH 4', '7', 'True', '252'], ['PDSCH 4', '17', 'True', '252'], ['PDCCH 1', '0', 'True', '108'], ['PDCCH 1', '1', 'True', '108'], ['PDCCH 1', '2', 'True', '108'], ['PDCCH 1', '3', 'True', '108'], ['PDCCH 1', '4', 'True', '108'], ['PDCCH 1', '5', 'True', '108'], ['PDCCH 1', '6', 'True', '108'], ['PDCCH 1', '7', 'True', '108'], ['PDCCH 1', '10', 'True', '108'], ['PDCCH 1', '11', 'True', '108'], ['PDCCH 1', '12', 'True', '108'], ['PDCCH 1', '13', 'True', '108'], ['PDCCH 1', '14', 'True', '108'], ['PDCCH 1', '15', 'True', '108'], ['PDCCH 1', '16', 'True', '108'], ['PDCCH 1', '17', 'True', '108']], '2': [['#6317395Channel', 'Slot', 'CRC Passed', 'Bit Length'], ['PDSCH 1', '0', 'True', '84240'], ['PDSCH 1', '1', 'True', '84240'], ['PDSCH 1', '2', 'True', '84240'], ['PDSCH 1', '3', 'True', '84240'], ['PDSCH 1', '4', 'True', '84240'], ['PDSCH 1', '5', 'True', '84240'], ['PDSCH 1', '6', 'True', '84240'], ['PDSCH 1', '10', 'True', '84240'], ['PDSCH 1', '11', 'True', '84240'], ['PDSCH 1', '12', 'True', '84240'], ['PDSCH 1', '13', 'True', '84240'], ['PDSCH 1', '14', 'True', '84240'], ['PDSCH 1', '15', 'True', '84240'], ['PDSCH 1', '16', 'True', '84240'], ['PDSCH 2', '0', 'True', '792'], ['PDSCH 2', '1', 'True', '792'], ['PDSCH 2', '2', 'True', '792'], ['PDSCH 2', '3', 'True', '792'], ['PDSCH 2', '4', 'True', '792'], ['PDSCH 2', '5', 'True', '792'], ['PDSCH 2', '6', 'True', '792'], ['PDSCH 2', '10', 'True', '792'], ['PDSCH 2', '11', 'True', '792'], ['PDSCH 2', '12', 'True', '792'], ['PDSCH 2', '13', 'True', '792'], ['PDSCH 2', '14', 'True', '792'], ['PDSCH 2', '15', 'True', '792'], ['PDSCH 2', '16', 'True', '792'], ['PDSCH 3', '7', 'True', '35640'], ['PDSCH 3', '17', 'True', '35640'], ['PDSCH 4', '7', 'True', '252'], ['PDSCH 4', '17', 'True', '252'], ['PDCCH 1', '0', 'True', '108'], ['PDCCH 1', '1', 'True', '108'], ['PDCCH 1', '2', 'True', '108'], ['PDCCH 1', '3', 'True', '108'], ['PDCCH 1', '4', 'True', '108'], ['PDCCH 1', '5', 'True', '108'], ['PDCCH 1', '6', 'True', '108'], ['PDCCH 1', '7', 'True', '108'], ['PDCCH 1', '10', 'True', '108'], ['PDCCH 1', '11', 'True', '108'], ['PDCCH 1', '12', 'True', '108'], ['PDCCH 1', '13', 'True', '108'], ['PDCCH 1', '14', 'True', '108'], ['PDCCH 1', '15', 'True', '108'], ['PDCCH 1', '16', 'True', '108'], ['PDCCH 1', '17', 'True', '108']]}, {'1': {'1': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']}, '2': {'2': ['PUCCH Decoder : Off', 'PUSCH Decoder : On', 'PUSCH_0_IE : PUSCH Index=0, CarrierIndex=0, BWPIndex=0', 'PUSCH_F0_IE : Codeword=0, SlotIndex=08, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F1_IE : Codeword=0, SlotIndex=09, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F2_IE : Codeword=0, SlotIndex=18, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_F3_IE : Codeword=0, SlotIndex=19, RV Index=0, EffectiveCodeRate=0.6616, CRC=Pass , Number Of Code Blocks: 2', 'PUSCH_1_IE : PUSCH Index=1, CarrierIndex=0, BWPIndex=0', 'PUSCH_F4_IE : Codeword=0, SlotIndex=07, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1', 'PUSCH_F5_IE : Codeword=0, SlotIndex=17, RV Index=0, EffectiveCodeRate=0.6776, CRC=Pass , Number Of Code Blocks: 1']}})
+12.34722222222222
+
+
+
+
+====================================================================================================
+
+ Downlink Report - Test results:
+
+====================================================================================================
+----------------------------------------------------------------------------------------------------
+Test purpose :
+The test purpose is to verify the DL Test
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Test environment :
+Normal test conditions.
+----------------------------------------------------------------------------------------------------
+[['1', '3.700005', '100', '2.20', '2.5', '7.79', '21.5', '25'], ['2', '3.700005', '100', '2.05', '2.5', '8.02', '21.5', '25']]
+{'1': 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1\\VXT_capture.png', '2': 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2\\VXT_capture.png'}
+====================================================================================================
+
+ Uplink - Test results:
+
+====================================================================================================
+----------------------------------------------------------------------------------------------------
+Test purpose :
+The test purpose is to verify the UL Test
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Test environment :
+Normal test conditions.
+----------------------------------------------------------------------------------------------------
+[['1', '3.700005', '100', '2.20', '2.5', '7.79', '21.5', '25'], ['2', '3.700005', '100', '2.05', '2.5', '8.02', '21.5', '25']]
+{'1': ['C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1/VSA_Screenshot_1', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID1/VSA_Screenshot_2'], '2': ['C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2/VSA_Screenshot_1', 'C:\\ORAN_AUTOMATION\\CUPLANE\\TDD\\Results\\Base_DL_UL\\EAXCID2/VSA_Screenshot_2']}
+
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>
+C:\ORAN_AUTOMATION\CUPLANE\TDD>

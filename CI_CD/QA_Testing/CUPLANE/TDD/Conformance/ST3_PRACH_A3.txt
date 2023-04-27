@@ -1,0 +1,15 @@
+api.SignalGenerator.Frequency = (float(3.700005)*1000000000)
+api.SignalGenerator.Amplitude = int(-60)
+api.SignalGenerator.TriggerType = TriggerType.Continuous
+api.SignalGenerator.TriggerSource = TriggerSource.External
+api.SignalGenerator.ExternalPolarity = Polarity.Positive
+api.SignalGenerator.ExternalDelayEnabled = True
+api.SignalGenerator.ExternalDelayTime = 0.000000005
+api.SignalGenerator.Continuous = Continuous.TriggerAndRun
+api.SignalGenerator.SingleTrigger = SingleTrigger.BufferedTrigger
+api.SignalGenerator.SegmentAdvance = SegmentAdvance.Continuous
+api.NR5GWaveformSettings.GetNRCarriersItem(0).CarrierType = CarrierType.PRACH
+api.NR5GWaveformSettings.GetNRCarriersItem(0).PrachTestPreamblesConfig(Bandwidth.FR1_100M, Numerology.SCS30k, PRACHFormat.FormatA3, PRACHSubcarrierSpacing.SCS30k, False)
+api.NR5GWaveformSettings.NumberOfFrames = int(1)
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Prach.ConfigurationTable = PRACHConfigurationTable.FR1_UnpairedSpectrum
+api.NR5GWaveformSettings.GetNRCarriersItem(0).Prach.ConfigurationIndex = int(132)
